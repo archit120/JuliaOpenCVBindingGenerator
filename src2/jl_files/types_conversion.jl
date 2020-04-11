@@ -1,27 +1,27 @@
 function cpp_to_julia(var::Point{T}) where {T}
-    return (get_x(var), get_y(var.y))
+    return (jlopencv_core_get_x(var), jlopencv_core_get_y(var.y))
 end
 function cpp_to_julia(var::Rect{T}) where {T}
-    return (get_x(var), get_y(var), get_width(var), get_height(var))
+    return (jlopencv_core_get_x(var), jlopencv_core_get_y(var), jlopencv_core_get_width(var), jlopencv_core_get_height(var))
 end
 
 function cpp_to_julia(var::Size{T}) where {T}
-    return (get_width(var), get_height(var))
+    return (jlopencv_core_get_width(var), jlopencv_core_get_height(var))
 end
 
 function cpp_to_julia(var::Range) 
-    return (get_start(var), get_end(var))
+    return (jlopencv_core_get_start(var), jlopencv_core_get_end(var))
 end
 function cpp_to_julia(var::TermCriteria) 
-    return (get_type(var), get_maxcount(var), get_epsilon(var))
+    return (jlopencv_core_get_type(var), jlopencv_core_get_maxcount(var), jlopencv_core_get_epsilon(var))
 end
 
 function cpp_to_julia(var::RotatedRect) 
-    return (cpp_to_julia(get_center(var)), cpp_to_julia(get_size(var)), get_angle(var))
+    return (cpp_to_julia(jlopencv_core_get_center(var)), cpp_to_julia(jlopencv_core_get_size(var)), jlopencv_core_get_angle(var))
 end
 
 function cpp_to_julia(var::cvScalar)
-    return (get_zero(var), get_one(var), get_two(var), get_three(var))    
+    return (jlopencv_core_get_zero(var), jlopencv_core_get_one(var), jlopencv_core_get_two(var), jlopencv_core_get_three(var))    
 end
 
 function julia_to_cpp(var, expected_type::Type{Point{T}}) where {T}

@@ -11,9 +11,9 @@ JLCXX_MODULE flann_wrap(jlcxx::Module &mod) {
 using namespace cv::flann;
 mod.add_type<cv::flann::Index>("flann_Index");
 
-    mod.add_bits<cv::flann::FlannIndexType>("FlannIndexType", jlcxx::julia_type("CppEnum"));   mod.add_type<cvflann_flann_distance_t>("cvflann_flann_distance_t");
-   mod.add_type<cvflann::flann_algorithm_t>("cvflann::flann_algorithm_t");
+    mod.add_bits<cv::flann::FlannIndexType>("FlannIndexType", jlcxx::julia_type("CppEnum"));   mod.add_type<cvflann::flann_algorithm_t>("cvflann::flann_algorithm_t");
    mod.add_type<cvflann::flann_distance_t>("cvflann::flann_distance_t");
+   mod.add_type<cvflann_flann_distance_t>("cvflann_flann_distance_t");
 mod.method("flann_Index", []() {return jlcxx::create<cv::flann::Index>();});mod.method("flann_Index", [](Mat& features, IndexParams& params, cvflann_flann_distance_t& distType) {return jlcxx::create<cv::flann::Index>(features ,params ,distType);});mod.method("flann_Index", [](UMat& features, IndexParams& params, cvflann_flann_distance_t& distType) {return jlcxx::create<cv::flann::Index>(features ,params ,distType);});
 
 ;

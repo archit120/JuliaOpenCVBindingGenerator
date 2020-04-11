@@ -320,9 +320,9 @@ mod.add_type<cv::VideoWriter>("VideoWriter");
     mod.add_bits<cv::MouseEventFlags>("MouseEventFlags", jlcxx::julia_type("CppEnum"));
     mod.add_bits<cv::QtFontWeights>("QtFontWeights", jlcxx::julia_type("CppEnum"));
     mod.add_bits<cv::QtFontStyles>("QtFontStyles", jlcxx::julia_type("CppEnum"));
-    mod.add_bits<cv::QtButtonTypes>("QtButtonTypes", jlcxx::julia_type("CppEnum"));   mod.add_type<DescriptorExtractor>("DescriptorExtractor");
-   mod.add_type<TermCriteria>("TermCriteria");
+    mod.add_bits<cv::QtButtonTypes>("QtButtonTypes", jlcxx::julia_type("CppEnum"));   mod.add_type<TermCriteria>("TermCriteria");
    mod.add_type<FileNode>("FileNode");
+   mod.add_type<DescriptorExtractor>("DescriptorExtractor");
    mod.add_type<FeatureDetector>("FeatureDetector");
    mod.add_type<FileStorage>("FileStorage");
 

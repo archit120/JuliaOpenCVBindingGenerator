@@ -10,7 +10,7 @@ size_t = UInt64
 function __init__()
     @initcxx
 
-    if get_sizet()==4
+    if jlopencv_core_get_sizet()==4
         size_t = UInt32
     end
 end
