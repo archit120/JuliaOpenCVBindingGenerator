@@ -3,8 +3,8 @@
 namespace jlcxx
 {
 
-${inherit_code}
+${include_code}
 
 } // namespace jlcxx
 
-${module_code}
+${cpp_code}

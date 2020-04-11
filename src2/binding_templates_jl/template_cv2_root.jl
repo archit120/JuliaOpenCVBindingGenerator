@@ -1,4 +1,4 @@
-module cv2
+module OpenCV
 
 using CxxWrap
 @wrapmodule(joinpath("${libpath}","libcv2_jlcxx"), :cv2_core)
@@ -32,6 +32,7 @@ function julia_to_cpp(var, expected_type)
 end
 
 ${code}
+
 
 ${submodule_imports}
 

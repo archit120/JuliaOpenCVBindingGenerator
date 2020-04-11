@@ -6,6 +6,8 @@ from string import Template
 from pprint import pprint
 from collections import namedtuple
 
+import os, shutil
+
 from io import StringIO
 
 
@@ -15,49 +17,9 @@ ignored_arg_types = ["RNG*"]
 
 pass_by_val_types = ["Point*", "Point2f*", "Rect*", "String*", "double*", "float*", "int*"]
 
-ns_template = """
-#include <vector>
-
-#include "jlcxx/jlcxx.hpp"
-#include "jlcxx/functions.hpp"
-#include "jlcxx/stl.hpp"
-#include "jlcxx/array.hpp"
-#include "jlcxx/tuple.hpp"
-
-#include <opencv4/opencv2/opencv.hpp>
-#include <opencv4/opencv2/opencv_modules.hpp>
-
-#include <opencv4/opencv2/core/ocl.hpp>
-using namespace cv;
-using namespace std;
-using namespace jlcxx;
-
-#ifdef HAVE_OPENCV_FEATURES2D
-typedef SimpleBlobDetector::Params SimpleBlobDetector_Params;
-typedef AKAZE::DescriptorType AKAZE_DescriptorType;
-typedef AgastFeatureDetector::DetectorType AgastFeatureDetector_DetectorType;
-typedef FastFeatureDetector::DetectorType FastFeatureDetector_DetectorType;
-typedef DescriptorMatcher::MatcherType DescriptorMatcher_MatcherType;
-typedef KAZE::DiffusivityType KAZE_DiffusivityType;
-typedef ORB::ScoreType ORB_ScoreType;
-#endif
-
-#ifdef HAVE_OPENCV_OBJDETECT
-
-#include "opencv4/opencv2/objdetect.hpp"
-
-typedef HOGDescriptor::HistogramNormType HOGDescriptor_HistogramNormType;
-typedef HOGDescriptor::DescriptorStorageFormat HOGDescriptor_DescriptorStorageFormat;
-
-#endif
-#ifdef HAVE_OPENCV_FLANN
-typedef cvflann::flann_distance_t cvflann_flann_distance_t;
-typedef cvflann::flann_algorithm_t cvflann_flann_algorithm_t;
-
-typedef flann::IndexParams flann_IndexParams ;
-typedef flann::SearchParams flann_SearchParams ;
-#endif
-"""
+mod_template = ""
+with open("binding_templates_cpp/template_cv2_submodule.cpp", "r") as f:
+    mod_template = Template(f.read())
 
 def normalize_class_name(name):
     return re.sub(r"^cv\.", "", name).replace(".", "_")
@@ -691,15 +653,25 @@ def gen(srcfiles, output_path):
         process_isalgorithm(classinfo)
 
 
-    cpp_code = StringIO()
     for name, ns in namespaces.items():
+        cpp_code = StringIO()
+        include_code = StringIO()
         if name.split('.')[-1] == '':
             continue
         cpp_code.write("JLCXX_MODULE %s_wrap(jlcxx::Module &mod) {\n" % name.split('.')[-1])
         cpp_code.write("using namespace %s;\n" % name.replace(".", "::"))
         for cname, cl in ns.classes.items():
             registered_types.append(get_template_arg(cname))
+
             cpp_code.write(cl.get_cpp_code_header())
+            if cl.base:
+                include_code.write("""
+template <>
+struct SuperType<%s>
+{
+    typedef %s type;
+};
+                                    """ % (cl.cname.replace('.', '::'), cl.base.replace('.', '::')))
 
         for e1,e2 in ns.enums.items():
             cpp_code.write('\n    mod.add_bits<{0}>("{1}", jlcxx::julia_type("CppEnum"));'.format(e2[0], e2[1]))
@@ -729,68 +701,21 @@ def gen(srcfiles, output_path):
                 cpp_code.write('    mod.set_const("%s", %s);\n'%(compat_name, cname))
 
         cpp_code.write('}\n');
-        
-    print(ns_template)
-    print(cpp_code.getvalue())
+        with open ('autogen_cpp/%s_wrap.cpp' % ns.name.replace('.', '_'), 'w') as fd:
+            fd.write(mod_template.substitute(include_code = include_code.getvalue(), cpp_code=cpp_code.getvalue()))
 
-    # print(set(argumentst))
-    # step 2: generate code for the classes and their methods
-    classlist = list(classes.items())
-    classlist.sort()
-    for name, classinfo in classlist:
-        code_types.write("//{}\n".format(80*"="))
-        code_types.write("// {} ({})\n".format(name, 'Map' if classinfo.ismap else 'Generic'))
-        code_types.write("//{}\n".format(80*"="))
-        code_types.write(classinfo.gen_code(self))
-        if classinfo.ismap:
-            code_types.write(gen_template_map_type_cvt.substitute(name=classinfo.name, cname=classinfo.cname))
-        else:
-            mappable_code = "\n".join([
-                                    gen_template_mappable.substitute(cname=classinfo.cname, mappable=mappable)
-                                        for mappable in classinfo.mappables])
-            code = gen_template_type_decl.substitute(
-                name=classinfo.name,
-                cname=classinfo.cname if classinfo.issimple else "Ptr<{}>".format(classinfo.cname),
-                mappable_code=mappable_code
-            )
-            code_types.write(code)
+    src_files = os.listdir('cpp_files')
+    for file_name in src_files:
+        full_file_name = os.path.join('cpp_files', file_name)
+        if os.path.isfile(full_file_name):
+            shutil.copy(full_file_name, 'autogen_cpp')
 
-    # register classes in the same order as they have been declared.
-    # this way, base classes will be registered in jlthon before their derivatives.
-    classlist1 = [(classinfo.decl_idx, name, classinfo) for name, classinfo in classlist]
-    classlist1.sort()
+    # copy over files from cpp_files
 
-    for decl_idx, name, classinfo in classlist1:
-        if classinfo.ismap:
-            continue
-        code_type_publish.write(classinfo.gen_def(self))
+    # print(ns_template)
 
+        # print(include_code.getvalue())
 
-    # step 3: generate the code for all the global functions
-    for ns_name, ns in sorted(namespaces.items()):
-        if ns_name.split('.')[0] != 'cv':
-            continue
-        for name, c in sorted(ns.funcs.items()):
-
-            if func.isconstructor:
-                continue
-            code = func.gen_code(self)
-            code_funcs.write(code)
-        gen_namespace(ns_name)
-        code_ns_init.write('CVjl_MODULE("{}", {});\n'.format(ns_name[2:], normalize_class_name(ns_name)))
-
-    # step 4: generate the code for enum types
-    enumlist = list(enums.values())
-    enumlist.sort()
-    for name in enumlist:
-        gen_enum_reg(name)
-
-    # step 5: generate the code for constants
-    # But empty actually and function doens't even exist
-    constlist = list(consts.items())
-    constlist.sort()
-    for name, constinfo in constlist:
-        gen_const_reg(constinfo)
 
 
 srcfiles = hdr_parser.opencv_hdr_list

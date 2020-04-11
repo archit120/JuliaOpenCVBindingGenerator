@@ -5,9 +5,8 @@ import hdr_parser, sys, re, os
 from string import Template
 from pprint import pprint
 from collections import namedtuple
-
 from io import StringIO
-
+import os, shutil
 
 forbidden_arg_types = ["void*"]
 
@@ -22,20 +21,12 @@ jl_cpp_argmap = {"int": "Int32", "float":"Float32", "double":"Float64", "bool":"
 
 typemap = {"Size": 'NTuple{Int'}
 
-module_template = Template("""
-module ${modname}
-    using CxxWrap
-    @wrapmodule(joinpath("${libpath}","libcv2_jlcxx"), :${modname}_wrap)
-
-    function __init__()
-        @initcxx
-    end
-
-    ${code}
-end
-""")
-
-
+submodule_template = Template('')
+root_template = Template('')
+with open("binding_templates_jl/template_cv2_submodule.jl", "r") as f:
+    submodule_template = Template(f.read())
+with open("binding_templates_jl/template_cv2_root.jl", "r") as f:
+    root_template = Template(f.read())
 
 def handle_def_arg(inp):
     if inp=="String()":
@@ -520,15 +511,17 @@ def add_enum(name, decl):
 
 
 
-def gen(srcfiles, output_path):
+def gen(srcfiles, output_path='', libpath = 'TODO'):
     parser = hdr_parser.CppHeaderParser(generate_umat_decls=True, generate_gpumat_decls=True)
     count = 0
+
     # step 1: scan the headers and build more descriptive maps of classes, consts, functions
     for hdr in srcfiles:
         decls = parser.parse(hdr)
         for ns in parser.namespaces:
             if ns not in namespaces:
                 namespaces[ns] = NameSpaceInfo(ns)
+               
         count += len(decls)
         if len(decls) == 0:
             continue
@@ -587,86 +580,43 @@ def gen(srcfiles, output_path):
 
     jl_code = StringIO()
     for name, ns in namespaces.items():
-        # jl_code.write("JLCXX_MODULE %s(jlcxx::Module &mod) {\n" % name.split('.')[-1])
+
+        jl_code = StringIO()
         for cname, cl in ns.classes.items():
             jl_code.write(cl.get_jl_code())
             for mname, fs in cl.methods.items():
                 for f in fs:
-                     jl_code.write('\n%s'  % f.get_complete_code())
+                    jl_code.write('\n%s'  % f.get_complete_code())
         for mname, fs in ns.funcs.items():
             for f in fs:
                 jl_code.write('\n%s' % f.get_complete_code())
-
-        # jl_code.write(' \n');
-
-    
-    print(jl_code.getvalue())
-
-    # print(set(argumentst))
-    # step 2: generate code for the classes and their methods
-    classlist = list(classes.items())
-    classlist.sort()
-    for name, classinfo in classlist:
-        code_types.write("//{}\n".format(80*"="))
-        code_types.write("// {} ({})\n".format(name, 'Map' if classinfo.ismap else 'Generic'))
-        code_types.write("//{}\n".format(80*"="))
-        code_types.write(classinfo.gen_code(self))
-        if classinfo.ismap:
-            code_types.write(gen_template_map_type_cvt.substitute(name=classinfo.name, cname=classinfo.cname))
+        
+        imports = ''
+        for namex in namespaces:
+            if namex.startswith(name) and len(namex.split('.')) == 1 + len(name.split('.')):
+                imports = imports + '\nimport("%s_wrap.jl")'%namex.replace('.', '_')
+        code = ''
+        if name == 'cv':
+            code = root_template.substitute(modname = name, code = jl_code.getvalue(), submodule_imports = imports, libpath=libpath)
         else:
-            mappable_code = "\n".join([
-                                    gen_template_mappable.substitute(cname=classinfo.cname, mappable=mappable)
-                                        for mappable in classinfo.mappables])
-            code = gen_template_type_decl.substitute(
-                name=classinfo.name,
-                cname=classinfo.cname if classinfo.issimple else "Ptr<{}>".format(classinfo.cname),
-                mappable_code=mappable_code
-            )
-            code_types.write(code)
+            code = submodule_template.substitute(modname = name, code = jl_code.getvalue(), submodule_imports = imports, libpath=libpath)
 
-    # register classes in the same order as they have been declared.
-    # this way, base classes will be registered in jlthon before their derivatives.
-    classlist1 = [(classinfo.decl_idx, name, classinfo) for name, classinfo in classlist]
-    classlist1.sort()
+        with open ('autogen_jl/%s_wrap.jl' % ns.name.replace('.', '_'), 'w') as fd:
+            fd.write(code)
 
-    for decl_idx, name, classinfo in classlist1:
-        if classinfo.ismap:
-            continue
-        code_type_publish.write(classinfo.gen_def(self))
+    src_files = os.listdir('jl_files')
+    for file_name in src_files:
+        full_file_name = os.path.join('jl_files', file_name)
+        if os.path.isfile(full_file_name):
+            shutil.copy(full_file_name, 'autogen_jl')
 
 
-    # step 3: generate the code for all the global functions
-    for ns_name, ns in sorted(namespaces.items()):
-        if ns_name.split('.')[0] != 'cv':
-            continue
-        for name, c in sorted(ns.funcs.items()):
-
-            if func.isconstructor:
-                continue
-            code = func.gen_code(self)
-            code_funcs.write(code)
-        gen_namespace(ns_name)
-        code_ns_init.write('CVjl_MODULE("{}", {});\n'.format(ns_name[2:], normalize_class_name(ns_name)))
-
-    # step 4: generate the code for enum types
-    enumlist = list(enums.values())
-    enumlist.sort()
-    for name in enumlist:
-        gen_enum_reg(name)
-
-    # step 5: generate the code for constants
-    # But empty actually and function doens't even exist
-    constlist = list(consts.items())
-    constlist.sort()
-    for name, constinfo in constlist:
-        gen_const_reg(constinfo)
 
 
 srcfiles = hdr_parser.opencv_hdr_list
-dstdir = "test/"
 if len(sys.argv) > 1:
     dstdir = sys.argv[1]
 if len(sys.argv) > 2:
     with open(sys.argv[2], 'r') as f:
         srcfiles = [l.strip() for l in f.readlines()]
-gen(srcfiles, dstdir)
+gen(srcfiles)
