@@ -1,0 +1,7 @@
+name = "OpenCV"
+uuid = "7095bbaf-0567-41e0-91c9-3838a1f78b4f"
+authors = ["Archit Rungta <architrungta120@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+CxxWrap = "1f15a43c-97ca-5a2a-ae31-89f07a497df4"
