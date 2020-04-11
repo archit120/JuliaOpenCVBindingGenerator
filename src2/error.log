@@ -1,0 +1,65 @@
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp: In function ‘void cv_wrap(jlcxx::Module&)’:
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:187:10: error: ‘class jlcxx::FunctionWrapperBase’ has no member named ‘method’
+         .method("jlopencv_KeyPoint_set_size", [](cv::KeyPoint &cobj, const float &v) { cobj.size = v; })
+          ^~~~~~
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:205:10: error: ‘class jlcxx::FunctionWrapperBase’ has no member named ‘method’
+         .method("jlopencv_DMatch_set_trainIdx", [](cv::DMatch &cobj, const int &v) { cobj.trainIdx = v; })
+          ^~~~~~
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:309:10: error: ‘class jlcxx::FunctionWrapperBase’ has no member named ‘method’
+         .method("jlopencv_CirclesGridFinderParameters_set_minDensity", [](cv::CirclesGridFinderParameters &cobj, const float &v) { cobj.minDensity = v; })
+          ^~~~~~
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:509:10: error: ‘class jlcxx::FunctionWrapperBase’ has no member named ‘method’
+         .method("jlopencv_SimpleBlobDetector_Params_set_minThreshold", [](cv::SimpleBlobDetector::Params &cobj, const float &v) { cobj.minThreshold = v; })
+          ^~~~~~
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:650:10: error: ‘class jlcxx::FunctionWrapperBase’ has no member named ‘method’
+         .method("jlopencv_KalmanFilter_set_statePost", [](cv::KalmanFilter &cobj, const Mat &v) { cobj.statePost = v; })
+          ^~~~~~
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:836:10: error: ‘class jlcxx::FunctionWrapperBase’ has no member named ‘method’
+         .method("jlopencv_HOGDescriptor_get_blockSize", [](const cv::HOGDescriptor &cobj) { return cobj.blockSize; })
+          ^~~~~~
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp: In function ‘void ml_wrap(jlcxx::Module&)’:
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:3006:10: error: ‘class jlcxx::FunctionWrapperBase’ has no member named ‘method’
+         .method("jlopencv_ml_ParamGrid_set_maxVal", [](cv::ml::ParamGrid &cobj, const double &v) { cobj.maxVal = v; })
+          ^~~~~~
+In file included from /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/jlcxx.hpp:14:0,
+                 from /home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:4:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp: In instantiation of ‘jlcxx::TypeWrapper<T> jlcxx::Module::add_type_internal(const string&, JLSuperT*) [with T = long unsigned int; SuperParametersT = jlcxx::ParameterList<>; JLSuperT = _jl_datatype_t; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1166:48:   required from ‘jlcxx::TypeWrapper<T> jlcxx::Module::add_type(const string&, JLSuperT*) [with T = long unsigned int; SuperParametersT = jlcxx::ParameterList<>; JLSuperT = _jl_datatype_t; std::__cxx11::string = std::__cxx11::basic_string<char>]’
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:175:34:   required from here
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1086:3: error: static assertion failed: Mirrored types (marked with IsMirroredType) can't be added using add_type, map them directly to a struct instead and use map_type or explicitly disable mirroring for this type, e.g. define template<> struct IsMirroredType<Foo> : std::false_type { };
+   static_assert(!IsMirroredType<T>::value, "Mirrored types (marked with IsMirroredType) can't be added using add_type, map them directly to a struct instead and use map_type or explicitly disable mirroring for this type, e.g. define template<> struct IsMirroredType<Foo> : std::false_type { };");
+   ^~~~~~~~~~~~~
+In file included from /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/jlcxx.hpp:14:0,
+                 from /home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:4:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1087:3: error: static assertion failed: Scalar types must be added using add_bits
+   static_assert(!std::is_scalar<T>::value, "Scalar types must be added using add_bits");
+   ^~~~~~~~~~~~~
+In file included from /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/jlcxx.hpp:14:0,
+                 from /home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:4:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp: In instantiation of ‘jlcxx::TypeWrapper<T> jlcxx::Module::add_type_internal(const string&, JLSuperT*) [with T = cvflann::flann_algorithm_t; SuperParametersT = jlcxx::ParameterList<>; JLSuperT = _jl_datatype_t; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1166:48:   required from ‘jlcxx::TypeWrapper<T> jlcxx::Module::add_type(const string&, JLSuperT*) [with T = cvflann::flann_algorithm_t; SuperParametersT = jlcxx::ParameterList<>; JLSuperT = _jl_datatype_t; std::__cxx11::string = std::__cxx11::basic_string<char>]’
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:2937:74:   required from here
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1086:3: error: static assertion failed: Mirrored types (marked with IsMirroredType) can't be added using add_type, map them directly to a struct instead and use map_type or explicitly disable mirroring for this type, e.g. define template<> struct IsMirroredType<Foo> : std::false_type { };
+   static_assert(!IsMirroredType<T>::value, "Mirrored types (marked with IsMirroredType) can't be added using add_type, map them directly to a struct instead and use map_type or explicitly disable mirroring for this type, e.g. define template<> struct IsMirroredType<Foo> : std::false_type { };");
+   ^~~~~~~~~~~~~
+In file included from /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/jlcxx.hpp:14:0,
+                 from /home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:4:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1087:3: error: static assertion failed: Scalar types must be added using add_bits
+   static_assert(!std::is_scalar<T>::value, "Scalar types must be added using add_bits");
+   ^~~~~~~~~~~~~
+In file included from /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/jlcxx.hpp:14:0,
+                 from /home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:4:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp: In instantiation of ‘jlcxx::TypeWrapper<T> jlcxx::Module::add_type_internal(const string&, JLSuperT*) [with T = cvflann::flann_distance_t; SuperParametersT = jlcxx::ParameterList<>; JLSuperT = _jl_datatype_t; std::__cxx11::string = std::__cxx11::basic_string<char>]’:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1166:48:   required from ‘jlcxx::TypeWrapper<T> jlcxx::Module::add_type(const string&, JLSuperT*) [with T = cvflann::flann_distance_t; SuperParametersT = jlcxx::ParameterList<>; JLSuperT = _jl_datatype_t; std::__cxx11::string = std::__cxx11::basic_string<char>]’
+/home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:2938:70:   required from here
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1086:3: error: static assertion failed: Mirrored types (marked with IsMirroredType) can't be added using add_type, map them directly to a struct instead and use map_type or explicitly disable mirroring for this type, e.g. define template<> struct IsMirroredType<Foo> : std::false_type { };
+   static_assert(!IsMirroredType<T>::value, "Mirrored types (marked with IsMirroredType) can't be added using add_type, map them directly to a struct instead and use map_type or explicitly disable mirroring for this type, e.g. define template<> struct IsMirroredType<Foo> : std::false_type { };");
+   ^~~~~~~~~~~~~
+In file included from /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/jlcxx.hpp:14:0,
+                 from /home/archit/GSoC_Work/opencv/modules/julia/src2/auto_cv2.cpp:4:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1087:3: error: static assertion failed: Scalar types must be added using add_bits
+   static_assert(!std::is_scalar<T>::value, "Scalar types must be added using add_bits");
+   ^~~~~~~~~~~~~
+make[2]: *** [CMakeFiles/cv2_jl.dir/auto_cv2.cpp.o] Error 1
+make[1]: *** [CMakeFiles/cv2_jl.dir/all] Error 2
+make: *** [all] Error 2

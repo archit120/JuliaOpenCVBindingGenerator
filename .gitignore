@@ -1,0 +1,9 @@
+.vscode/
+lib/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+test_image.png
+*.pyc
+test/
