@@ -1,6 +1,6 @@
-module cv.traits
+module cv_traits
     using CxxWrap
-    @wrapmodule(joinpath("TODO","libcv2_jlcxx"), :cv.traits_wrap)
+    @wrapmodule(joinpath("TODO","libcv2_jlcxx"), :cv_traits_wrap)
 
     function __init__()
         @initcxx

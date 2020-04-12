@@ -1,6 +1,6 @@
-module cv.internal
+module cv_internal
     using CxxWrap
-    @wrapmodule(joinpath("TODO","libcv2_jlcxx"), :cv.internal_wrap)
+    @wrapmodule(joinpath("TODO","libcv2_jlcxx"), :cv_internal_wrap)
 
     function __init__()
         @initcxx
