@@ -7,7 +7,7 @@ namespace jlcxx
 
 } // namespace jlcxx
 
-JLCXX_MODULE internal_wrap(jlcxx::Module &mod) {
+JLCXX_MODULE cv_internal_wrap(jlcxx::Module &mod) {
 using namespace cv::internal;
 }
 

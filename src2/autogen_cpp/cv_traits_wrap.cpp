@@ -7,7 +7,7 @@ namespace jlcxx
 
 } // namespace jlcxx
 
-JLCXX_MODULE traits_wrap(jlcxx::Module &mod) {
+JLCXX_MODULE cv_traits_wrap(jlcxx::Module &mod) {
 using namespace cv::traits;
 }
 
