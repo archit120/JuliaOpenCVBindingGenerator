@@ -14,14 +14,14 @@ function __init__()
         size_t = UInt32
     end
 end
-import("OpenCVImage.jl")
+include("OpenCVImage.jl")
 
 const Image = Union{OpenCVImage{A} where {A}, SubArray{T2, N, OpenCVImage{A}, T} where {N, A, T, T2 <: dtypes}}
 const Scalar = Union{Tuple{Number}, Tuple{Number, Number}, Tuple{Number, Number, Number}, NTuple{4, Number}}
 
 
-import("mat_conversion.jl")
-import("types_conversion.jl")
+include("mat_conversion.jl")
+include("types_conversion.jl")
 
 
 function cpp_to_julia(var)
@@ -136,156 +136,6 @@ function Base.setproperty!(m::DMatch, s::Symbol, v)
     end
     if s==:distance
         jlopencv_DMatch_set_distance(m, julia_to_cpp(v, Float32))
-    end
-    return Base.setfield(m, s, v)
-end
-function Base.getproperty(m::Moments, s::Symbol)
-    if s==:m00
-        return cpp_to_julia(jlopencv_Moments_get_m00(m))
-    end
-    if s==:m10
-        return cpp_to_julia(jlopencv_Moments_get_m10(m))
-    end
-    if s==:m01
-        return cpp_to_julia(jlopencv_Moments_get_m01(m))
-    end
-    if s==:m20
-        return cpp_to_julia(jlopencv_Moments_get_m20(m))
-    end
-    if s==:m11
-        return cpp_to_julia(jlopencv_Moments_get_m11(m))
-    end
-    if s==:m02
-        return cpp_to_julia(jlopencv_Moments_get_m02(m))
-    end
-    if s==:m30
-        return cpp_to_julia(jlopencv_Moments_get_m30(m))
-    end
-    if s==:m21
-        return cpp_to_julia(jlopencv_Moments_get_m21(m))
-    end
-    if s==:m12
-        return cpp_to_julia(jlopencv_Moments_get_m12(m))
-    end
-    if s==:m03
-        return cpp_to_julia(jlopencv_Moments_get_m03(m))
-    end
-    if s==:mu20
-        return cpp_to_julia(jlopencv_Moments_get_mu20(m))
-    end
-    if s==:mu11
-        return cpp_to_julia(jlopencv_Moments_get_mu11(m))
-    end
-    if s==:mu02
-        return cpp_to_julia(jlopencv_Moments_get_mu02(m))
-    end
-    if s==:mu30
-        return cpp_to_julia(jlopencv_Moments_get_mu30(m))
-    end
-    if s==:mu21
-        return cpp_to_julia(jlopencv_Moments_get_mu21(m))
-    end
-    if s==:mu12
-        return cpp_to_julia(jlopencv_Moments_get_mu12(m))
-    end
-    if s==:mu03
-        return cpp_to_julia(jlopencv_Moments_get_mu03(m))
-    end
-    if s==:nu20
-        return cpp_to_julia(jlopencv_Moments_get_nu20(m))
-    end
-    if s==:nu11
-        return cpp_to_julia(jlopencv_Moments_get_nu11(m))
-    end
-    if s==:nu02
-        return cpp_to_julia(jlopencv_Moments_get_nu02(m))
-    end
-    if s==:nu30
-        return cpp_to_julia(jlopencv_Moments_get_nu30(m))
-    end
-    if s==:nu21
-        return cpp_to_julia(jlopencv_Moments_get_nu21(m))
-    end
-    if s==:nu12
-        return cpp_to_julia(jlopencv_Moments_get_nu12(m))
-    end
-    if s==:nu03
-        return cpp_to_julia(jlopencv_Moments_get_nu03(m))
-    end
-    return Base.getfield(m, s)
-end
-function Base.setproperty!(m::Moments, s::Symbol, v)
-    if s==:m00
-        jlopencv_Moments_set_m00(m, julia_to_cpp(v, Float64))
-    end
-    if s==:m10
-        jlopencv_Moments_set_m10(m, julia_to_cpp(v, Float64))
-    end
-    if s==:m01
-        jlopencv_Moments_set_m01(m, julia_to_cpp(v, Float64))
-    end
-    if s==:m20
-        jlopencv_Moments_set_m20(m, julia_to_cpp(v, Float64))
-    end
-    if s==:m11
-        jlopencv_Moments_set_m11(m, julia_to_cpp(v, Float64))
-    end
-    if s==:m02
-        jlopencv_Moments_set_m02(m, julia_to_cpp(v, Float64))
-    end
-    if s==:m30
-        jlopencv_Moments_set_m30(m, julia_to_cpp(v, Float64))
-    end
-    if s==:m21
-        jlopencv_Moments_set_m21(m, julia_to_cpp(v, Float64))
-    end
-    if s==:m12
-        jlopencv_Moments_set_m12(m, julia_to_cpp(v, Float64))
-    end
-    if s==:m03
-        jlopencv_Moments_set_m03(m, julia_to_cpp(v, Float64))
-    end
-    if s==:mu20
-        jlopencv_Moments_set_mu20(m, julia_to_cpp(v, Float64))
-    end
-    if s==:mu11
-        jlopencv_Moments_set_mu11(m, julia_to_cpp(v, Float64))
-    end
-    if s==:mu02
-        jlopencv_Moments_set_mu02(m, julia_to_cpp(v, Float64))
-    end
-    if s==:mu30
-        jlopencv_Moments_set_mu30(m, julia_to_cpp(v, Float64))
-    end
-    if s==:mu21
-        jlopencv_Moments_set_mu21(m, julia_to_cpp(v, Float64))
-    end
-    if s==:mu12
-        jlopencv_Moments_set_mu12(m, julia_to_cpp(v, Float64))
-    end
-    if s==:mu03
-        jlopencv_Moments_set_mu03(m, julia_to_cpp(v, Float64))
-    end
-    if s==:nu20
-        jlopencv_Moments_set_nu20(m, julia_to_cpp(v, Float64))
-    end
-    if s==:nu11
-        jlopencv_Moments_set_nu11(m, julia_to_cpp(v, Float64))
-    end
-    if s==:nu02
-        jlopencv_Moments_set_nu02(m, julia_to_cpp(v, Float64))
-    end
-    if s==:nu30
-        jlopencv_Moments_set_nu30(m, julia_to_cpp(v, Float64))
-    end
-    if s==:nu21
-        jlopencv_Moments_set_nu21(m, julia_to_cpp(v, Float64))
-    end
-    if s==:nu12
-        jlopencv_Moments_set_nu12(m, julia_to_cpp(v, Float64))
-    end
-    if s==:nu03
-        jlopencv_Moments_set_nu03(m, julia_to_cpp(v, Float64))
     end
     return Base.setfield(m, s, v)
 end
@@ -6288,11 +6138,11 @@ displayStatusBar(winname::string, text::string; delayms::Int32 = 0) = displaySta
 
 
 
-import("cv_traits_wrap.jl")
-import("cv_ocl_wrap.jl")
-import("cv_flann_wrap.jl")
-import("cv_ml_wrap.jl")
-import("cv_fisheye_wrap.jl")
-import("cv_internal_wrap.jl")
+include("cv_traits_wrap.jl")
+include("cv_ocl_wrap.jl")
+include("cv_flann_wrap.jl")
+include("cv_ml_wrap.jl")
+include("cv_fisheye_wrap.jl")
+include("cv_internal_wrap.jl")
 
 end

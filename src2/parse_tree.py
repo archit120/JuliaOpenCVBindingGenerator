@@ -139,6 +139,8 @@ class ClassInfo(object):
             for m in decl[2]:
                 if m.startswith("="):
                     self.mapped_name = m[1:]
+                if m == "/Map":
+                    self.ismap = True
             self.props = [ClassProp(p) for p in decl[3]]
         # return code for functions and setters and getters if simple class or functions and map type
 

@@ -44,6 +44,8 @@ def handle_jl_arg(inp):
 class ClassInfo(ClassInfo):
 
     def get_jl_code(self):
+        if self.ismap:
+            return ''
         return self.overload_get()+self.overload_set()
 
     def overload_get(self):
@@ -123,7 +125,7 @@ def gen(srcfiles, output_path='', libpath = 'TODO'):
         imports = ''
         for namex in namespaces:
             if namex.startswith(name) and len(namex.split('::')) == 1 + len(name.split('::')):
-                imports = imports + '\nimport("%s_wrap.jl")'%namex.replace('::', '_')
+                imports = imports + '\ninclude("%s_wrap.jl")'%namex.replace('::', '_')
         code = ''
         if name == 'cv':
             code = root_template.substitute(modname = name, code = jl_code.getvalue(), submodule_imports = imports, libpath=libpath)

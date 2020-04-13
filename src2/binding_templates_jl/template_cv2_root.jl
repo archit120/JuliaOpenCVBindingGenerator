@@ -14,14 +14,14 @@ function __init__()
         size_t = UInt32
     end
 end
-import("OpenCVImage.jl")
+include("OpenCVImage.jl")
 
 const Image = Union{OpenCVImage{A} where {A}, SubArray{T2, N, OpenCVImage{A}, T} where {N, A, T, T2 <: dtypes}}
 const Scalar = Union{Tuple{Number}, Tuple{Number, Number}, Tuple{Number, Number, Number}, NTuple{4, Number}}
 
 
-import("mat_conversion.jl")
-import("types_conversion.jl")
+include("mat_conversion.jl")
+include("types_conversion.jl")
 
 
 function cpp_to_julia(var)
