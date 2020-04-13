@@ -16,45 +16,45 @@ function Base.setproperty!(m::Index, s::Symbol, v)
     return Base.setfield(m, s, v)
 end
 
-function build(cobj::Any, features::Mat, params::IndexParams, distType::cvflann_flann_distance_t)
+function build(cobj::Any, features::Image, params::IndexParams, distType::cvflann_flann_distance_t)
 	return cpp_to_julia(jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_build(julia_to_cpp(cobj),julia_to_cpp(features),julia_to_cpp(params),julia_to_cpp(distType)))
 end
-build(cobj::Any, features::Mat, params::IndexParams; distType::cvflann_flann_distance_t = cvflann::FLANN_DIST_L2) = build(cobj, features, params, distType)
+build(cobj::Any, features::Image, params::IndexParams; distType::cvflann_flann_distance_t = cvflann::FLANN_DIST_L2) = build(cobj, features, params, distType)
 
 function build(cobj::Any, features::UMat, params::IndexParams, distType::cvflann_flann_distance_t)
 	return cpp_to_julia(jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_build(julia_to_cpp(cobj),julia_to_cpp(features),julia_to_cpp(params),julia_to_cpp(distType)))
 end
 build(cobj::Any, features::UMat, params::IndexParams; distType::cvflann_flann_distance_t = cvflann::FLANN_DIST_L2) = build(cobj, features, params, distType)
 
-function knnSearch(cobj::Any, query::Mat, knn::Int32, indices::Mat, dists::Mat, params::SearchParams)
+function knnSearch(cobj::Any, query::Image, knn::Int32, indices::Image, dists::Image, params::SearchParams)
 	return cpp_to_julia(jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_knnSearch(julia_to_cpp(cobj),julia_to_cpp(query),julia_to_cpp(knn),julia_to_cpp(indices),julia_to_cpp(dists),julia_to_cpp(params)))
 end
-knnSearch(cobj::Any, query::Mat, knn::Int32; indices::Mat = , dists::Mat = , params::SearchParams = SearchParams()) = knnSearch(cobj, query, knn, indices, dists, params)
+knnSearch(cobj::Any, query::Image, knn::Int32; indices::Image = _Mat(), dists::Image = _Mat(), params::SearchParams = SearchParams()) = knnSearch(cobj, query, knn, indices, dists, params)
 
 function knnSearch(cobj::Any, query::UMat, knn::Int32, indices::UMat, dists::UMat, params::SearchParams)
 	return cpp_to_julia(jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_knnSearch(julia_to_cpp(cobj),julia_to_cpp(query),julia_to_cpp(knn),julia_to_cpp(indices),julia_to_cpp(dists),julia_to_cpp(params)))
 end
-knnSearch(cobj::Any, query::UMat, knn::Int32; indices::UMat = , dists::UMat = , params::SearchParams = SearchParams()) = knnSearch(cobj, query, knn, indices, dists, params)
+knnSearch(cobj::Any, query::UMat, knn::Int32; indices::UMat = UMat(), dists::UMat = UMat(), params::SearchParams = SearchParams()) = knnSearch(cobj, query, knn, indices, dists, params)
 
-function radiusSearch(cobj::Any, query::Mat, radius::Float64, maxResults::Int32, indices::Mat, dists::Mat, params::SearchParams)
+function radiusSearch(cobj::Any, query::Image, radius::Float64, maxResults::Int32, indices::Image, dists::Image, params::SearchParams)
 	return cpp_to_julia(jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_radiusSearch(julia_to_cpp(cobj),julia_to_cpp(query),julia_to_cpp(radius),julia_to_cpp(maxResults),julia_to_cpp(indices),julia_to_cpp(dists),julia_to_cpp(params)))
 end
-radiusSearch(cobj::Any, query::Mat, radius::Float64, maxResults::Int32; indices::Mat = , dists::Mat = , params::SearchParams = SearchParams()) = radiusSearch(cobj, query, radius, maxResults, indices, dists, params)
+radiusSearch(cobj::Any, query::Image, radius::Float64, maxResults::Int32; indices::Image = _Mat(), dists::Image = _Mat(), params::SearchParams = SearchParams()) = radiusSearch(cobj, query, radius, maxResults, indices, dists, params)
 
 function radiusSearch(cobj::Any, query::UMat, radius::Float64, maxResults::Int32, indices::UMat, dists::UMat, params::SearchParams)
 	return cpp_to_julia(jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_radiusSearch(julia_to_cpp(cobj),julia_to_cpp(query),julia_to_cpp(radius),julia_to_cpp(maxResults),julia_to_cpp(indices),julia_to_cpp(dists),julia_to_cpp(params)))
 end
-radiusSearch(cobj::Any, query::UMat, radius::Float64, maxResults::Int32; indices::UMat = , dists::UMat = , params::SearchParams = SearchParams()) = radiusSearch(cobj, query, radius, maxResults, indices, dists, params)
+radiusSearch(cobj::Any, query::UMat, radius::Float64, maxResults::Int32; indices::UMat = UMat(), dists::UMat = UMat(), params::SearchParams = SearchParams()) = radiusSearch(cobj, query, radius, maxResults, indices, dists, params)
 
 function save(cobj::Any, filename::string)
 	return cpp_to_julia(jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_save(julia_to_cpp(cobj),julia_to_cpp(filename)))
 end
 save(cobj::Any, filename::string; ) = save(cobj, filename)
 
-function load(cobj::Any, features::Mat, filename::string)
+function load(cobj::Any, features::Image, filename::string)
 	return cpp_to_julia(jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_load(julia_to_cpp(cobj),julia_to_cpp(features),julia_to_cpp(filename)))
 end
-load(cobj::Any, features::Mat, filename::string; ) = load(cobj, features, filename)
+load(cobj::Any, features::Image, filename::string; ) = load(cobj, features, filename)
 
 function load(cobj::Any, features::UMat, filename::string)
 	return cpp_to_julia(jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_load(julia_to_cpp(cobj),julia_to_cpp(features),julia_to_cpp(filename)))

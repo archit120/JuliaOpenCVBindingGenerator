@@ -22,15 +22,6 @@ module cv_ml
     return Base.getfield(m, s)
 end
 function Base.setproperty!(m::ParamGrid, s::Symbol, v)
-    if s==:minVal
-        jlopencv_ParamGrid_set_minVal(m, julia_to_cpp(v, Float64))
-    end
-    if s==:maxVal
-        jlopencv_ParamGrid_set_maxVal(m, julia_to_cpp(v, Float64))
-    end
-    if s==:logStep
-        jlopencv_ParamGrid_set_logStep(m, julia_to_cpp(v, Float64))
-    end
     return Base.setfield(m, s, v)
 end
 function Base.getproperty(m::TrainData, s::Symbol)
@@ -70,15 +61,15 @@ function getNAllVars(cobj::Any)
 end
 getNAllVars(cobj::Any; ) = getNAllVars(cobj)
 
-function getSample(cobj::Any, varIdx::Mat, sidx::Int32, buf::Float32*)
+function getSample(cobj::Any, varIdx::Image, sidx::Int32, buf::float)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getSample(julia_to_cpp(cobj),julia_to_cpp(varIdx),julia_to_cpp(sidx),julia_to_cpp(buf)))
 end
-getSample(cobj::Any, varIdx::Mat, sidx::Int32, buf::Float32*; ) = getSample(cobj, varIdx, sidx, buf)
+getSample(cobj::Any, varIdx::Image, sidx::Int32, buf::float*; ) = getSample(cobj, varIdx, sidx, buf)
 
-function getSample(cobj::Any, varIdx::UMat, sidx::Int32, buf::Float32*)
+function getSample(cobj::Any, varIdx::UMat, sidx::Int32, buf::float)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getSample(julia_to_cpp(cobj),julia_to_cpp(varIdx),julia_to_cpp(sidx),julia_to_cpp(buf)))
 end
-getSample(cobj::Any, varIdx::UMat, sidx::Int32, buf::Float32*; ) = getSample(cobj, varIdx, sidx, buf)
+getSample(cobj::Any, varIdx::UMat, sidx::Int32, buf::float*; ) = getSample(cobj, varIdx, sidx, buf)
 
 function getSamples(cobj::Any)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getSamples(julia_to_cpp(cobj)))
@@ -170,15 +161,15 @@ function getTestSampleIdx(cobj::Any)
 end
 getTestSampleIdx(cobj::Any; ) = getTestSampleIdx(cobj)
 
-function getValues(cobj::Any, vi::Int32, sidx::Mat, values::Float32*)
+function getValues(cobj::Any, vi::Int32, sidx::Image, values::float)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getValues(julia_to_cpp(cobj),julia_to_cpp(vi),julia_to_cpp(sidx),julia_to_cpp(values)))
 end
-getValues(cobj::Any, vi::Int32, sidx::Mat, values::Float32*; ) = getValues(cobj, vi, sidx, values)
+getValues(cobj::Any, vi::Int32, sidx::Image, values::float*; ) = getValues(cobj, vi, sidx, values)
 
-function getValues(cobj::Any, vi::Int32, sidx::UMat, values::Float32*)
+function getValues(cobj::Any, vi::Int32, sidx::UMat, values::float)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getValues(julia_to_cpp(cobj),julia_to_cpp(vi),julia_to_cpp(sidx),julia_to_cpp(values)))
 end
-getValues(cobj::Any, vi::Int32, sidx::UMat, values::Float32*; ) = getValues(cobj, vi, sidx, values)
+getValues(cobj::Any, vi::Int32, sidx::UMat, values::float*; ) = getValues(cobj, vi, sidx, values)
 
 function getDefaultSubstValues(cobj::Any)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getDefaultSubstValues(julia_to_cpp(cobj)))
@@ -225,10 +216,10 @@ function getTestSamples(cobj::Any)
 end
 getTestSamples(cobj::Any; ) = getTestSamples(cobj)
 
-function getNames(cobj::Any, names::vector{string})
+function getNames(cobj::Any, names::Array{string, 1})
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getNames(julia_to_cpp(cobj),julia_to_cpp(names)))
 end
-getNames(cobj::Any, names::vector{string}; ) = getNames(cobj, names)
+getNames(cobj::Any, names::Array{string, 1}; ) = getNames(cobj, names)
 function Base.getproperty(m::StatModel, s::Symbol)
     return Base.getfield(m, s)
 end
@@ -261,30 +252,30 @@ function train(cobj::Any, trainData::Ptr{TrainData}, flags::Int32)
 end
 train(cobj::Any, trainData::Ptr{TrainData}; flags::Int32 = 0) = train(cobj, trainData, flags)
 
-function train(cobj::Any, samples::Mat, layout::Int32, responses::Mat)
+function train(cobj::Any, samples::Image, layout::Int32, responses::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_train(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(layout),julia_to_cpp(responses)))
 end
-train(cobj::Any, samples::Mat, layout::Int32, responses::Mat; ) = train(cobj, samples, layout, responses)
+train(cobj::Any, samples::Image, layout::Int32, responses::Image; ) = train(cobj, samples, layout, responses)
 
 function train(cobj::Any, samples::UMat, layout::Int32, responses::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_train(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(layout),julia_to_cpp(responses)))
 end
 train(cobj::Any, samples::UMat, layout::Int32, responses::UMat; ) = train(cobj, samples, layout, responses)
 
-function calcError(cobj::Any, data::Ptr{TrainData}, test::Bool, resp::Mat)
+function calcError(cobj::Any, data::Ptr{TrainData}, test::Bool, resp::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_calcError(julia_to_cpp(cobj),julia_to_cpp(data),julia_to_cpp(test),julia_to_cpp(resp)))
 end
-calcError(cobj::Any, data::Ptr{TrainData}, test::Bool; resp::Mat = ) = calcError(cobj, data, test, resp)
+calcError(cobj::Any, data::Ptr{TrainData}, test::Bool; resp::Image = _Mat()) = calcError(cobj, data, test, resp)
 
 function calcError(cobj::Any, data::Ptr{TrainData}, test::Bool, resp::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_calcError(julia_to_cpp(cobj),julia_to_cpp(data),julia_to_cpp(test),julia_to_cpp(resp)))
 end
-calcError(cobj::Any, data::Ptr{TrainData}, test::Bool; resp::UMat = ) = calcError(cobj, data, test, resp)
+calcError(cobj::Any, data::Ptr{TrainData}, test::Bool; resp::UMat = UMat()) = calcError(cobj, data, test, resp)
 
-function predict(cobj::Any, samples::Mat, results::Mat, flags::Int32)
+function predict(cobj::Any, samples::Image, results::Image, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_predict(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(results),julia_to_cpp(flags)))
 end
-predict(cobj::Any, samples::Mat; results::Mat = Mat(), flags::Int32 = 0) = predict(cobj, samples, results, flags)
+predict(cobj::Any, samples::Image; results::Image = Mat(), flags::Int32 = 0) = predict(cobj, samples, results, flags)
 
 function predict(cobj::Any, samples::UMat, results::UMat, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_predict(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(results),julia_to_cpp(flags)))
@@ -297,15 +288,15 @@ function Base.setproperty!(m::NormalBayesClassifier, s::Symbol, v)
     return Base.setfield(m, s, v)
 end
 
-function predictProb(cobj::Any, inputs::Mat, outputs::Mat, outputProbs::Mat, flags::Int32)
+function predictProb(cobj::Any, inputs::Image, outputs::Image, outputProbs::Image, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_NormalBayesClassifier_cv_ml_NormalBayesClassifier_predictProb(julia_to_cpp(cobj),julia_to_cpp(inputs),julia_to_cpp(outputs),julia_to_cpp(outputProbs),julia_to_cpp(flags)))
 end
-predictProb(cobj::Any, inputs::Mat; outputs::Mat = , outputProbs::Mat = , flags::Int32 = 0) = predictProb(cobj, inputs, outputs, outputProbs, flags)
+predictProb(cobj::Any, inputs::Image; outputs::Image = _Mat(), outputProbs::Image = _Mat(), flags::Int32 = 0) = predictProb(cobj, inputs, outputs, outputProbs, flags)
 
 function predictProb(cobj::Any, inputs::UMat, outputs::UMat, outputProbs::UMat, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_NormalBayesClassifier_cv_ml_NormalBayesClassifier_predictProb(julia_to_cpp(cobj),julia_to_cpp(inputs),julia_to_cpp(outputs),julia_to_cpp(outputProbs),julia_to_cpp(flags)))
 end
-predictProb(cobj::Any, inputs::UMat; outputs::UMat = , outputProbs::UMat = , flags::Int32 = 0) = predictProb(cobj, inputs, outputs, outputProbs, flags)
+predictProb(cobj::Any, inputs::UMat; outputs::UMat = UMat(), outputProbs::UMat = UMat(), flags::Int32 = 0) = predictProb(cobj, inputs, outputs, outputProbs, flags)
 function Base.getproperty(m::KNearest, s::Symbol)
     return Base.getfield(m, s)
 end
@@ -353,15 +344,15 @@ function setAlgorithmType(cobj::Any, val::Int32)
 end
 setAlgorithmType(cobj::Any, val::Int32; ) = setAlgorithmType(cobj, val)
 
-function findNearest(cobj::Any, samples::Mat, k::Int32, results::Mat, neighborResponses::Mat, dist::Mat)
+function findNearest(cobj::Any, samples::Image, k::Int32, results::Image, neighborResponses::Image, dist::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_findNearest(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(k),julia_to_cpp(results),julia_to_cpp(neighborResponses),julia_to_cpp(dist)))
 end
-findNearest(cobj::Any, samples::Mat, k::Int32; results::Mat = , neighborResponses::Mat = Mat(), dist::Mat = Mat()) = findNearest(cobj, samples, k, results, neighborResponses, dist)
+findNearest(cobj::Any, samples::Image, k::Int32; results::Image = _Mat(), neighborResponses::Image = Mat(), dist::Image = Mat()) = findNearest(cobj, samples, k, results, neighborResponses, dist)
 
 function findNearest(cobj::Any, samples::UMat, k::Int32, results::UMat, neighborResponses::UMat, dist::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_findNearest(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(k),julia_to_cpp(results),julia_to_cpp(neighborResponses),julia_to_cpp(dist)))
 end
-findNearest(cobj::Any, samples::UMat, k::Int32; results::UMat = , neighborResponses::UMat = UMat(), dist::UMat = UMat()) = findNearest(cobj, samples, k, results, neighborResponses, dist)
+findNearest(cobj::Any, samples::UMat, k::Int32; results::UMat = UMat(), neighborResponses::UMat = UMat(), dist::UMat = UMat()) = findNearest(cobj, samples, k, results, neighborResponses, dist)
 function Base.getproperty(m::SVM, s::Symbol)
     return Base.getfield(m, s)
 end
@@ -444,15 +435,15 @@ function getClassWeights(cobj::Any)
 end
 getClassWeights(cobj::Any; ) = getClassWeights(cobj)
 
-function setClassWeights(cobj::Any, val::Mat)
+function setClassWeights(cobj::Any, val::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setClassWeights(julia_to_cpp(cobj),julia_to_cpp(val)))
 end
-setClassWeights(cobj::Any, val::Mat; ) = setClassWeights(cobj, val)
+setClassWeights(cobj::Any, val::Image; ) = setClassWeights(cobj, val)
 
-function setClassWeights(cobj::Any, val::Mat)
+function setClassWeights(cobj::Any, val::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setClassWeights(julia_to_cpp(cobj),julia_to_cpp(val)))
 end
-setClassWeights(cobj::Any, val::Mat; ) = setClassWeights(cobj, val)
+setClassWeights(cobj::Any, val::Image; ) = setClassWeights(cobj, val)
 
 function getTermCriteria(cobj::Any)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getTermCriteria(julia_to_cpp(cobj)))
@@ -474,10 +465,10 @@ function setKernel(cobj::Any, kernelType::Int32)
 end
 setKernel(cobj::Any, kernelType::Int32; ) = setKernel(cobj, kernelType)
 
-function trainAuto(cobj::Any, samples::Mat, layout::Int32, responses::Mat, kFold::Int32, Cgrid::Ptr{ParamGrid}, gammaGrid::Ptr{ParamGrid}, pGrid::Ptr{ParamGrid}, nuGrid::Ptr{ParamGrid}, coeffGrid::Ptr{ParamGrid}, degreeGrid::Ptr{ParamGrid}, balanced::Bool)
+function trainAuto(cobj::Any, samples::Image, layout::Int32, responses::Image, kFold::Int32, Cgrid::Ptr{ParamGrid}, gammaGrid::Ptr{ParamGrid}, pGrid::Ptr{ParamGrid}, nuGrid::Ptr{ParamGrid}, coeffGrid::Ptr{ParamGrid}, degreeGrid::Ptr{ParamGrid}, balanced::Bool)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_trainAuto(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(layout),julia_to_cpp(responses),julia_to_cpp(kFold),julia_to_cpp(Cgrid),julia_to_cpp(gammaGrid),julia_to_cpp(pGrid),julia_to_cpp(nuGrid),julia_to_cpp(coeffGrid),julia_to_cpp(degreeGrid),julia_to_cpp(balanced)))
 end
-trainAuto(cobj::Any, samples::Mat, layout::Int32, responses::Mat; kFold::Int32 = 10, Cgrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::C), gammaGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::GAMMA), pGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::P), nuGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::NU), coeffGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::COEF), degreeGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::DEGREE), balanced::Bool = false) = trainAuto(cobj, samples, layout, responses, kFold, Cgrid, gammaGrid, pGrid, nuGrid, coeffGrid, degreeGrid, balanced)
+trainAuto(cobj::Any, samples::Image, layout::Int32, responses::Image; kFold::Int32 = 10, Cgrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::C), gammaGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::GAMMA), pGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::P), nuGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::NU), coeffGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::COEF), degreeGrid::Ptr{ParamGrid} = SVM::getDefaultGridPtr(SVM::DEGREE), balanced::Bool = false) = trainAuto(cobj, samples, layout, responses, kFold, Cgrid, gammaGrid, pGrid, nuGrid, coeffGrid, degreeGrid, balanced)
 
 function trainAuto(cobj::Any, samples::UMat, layout::Int32, responses::UMat, kFold::Int32, Cgrid::Ptr{ParamGrid}, gammaGrid::Ptr{ParamGrid}, pGrid::Ptr{ParamGrid}, nuGrid::Ptr{ParamGrid}, coeffGrid::Ptr{ParamGrid}, degreeGrid::Ptr{ParamGrid}, balanced::Bool)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_trainAuto(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(layout),julia_to_cpp(responses),julia_to_cpp(kFold),julia_to_cpp(Cgrid),julia_to_cpp(gammaGrid),julia_to_cpp(pGrid),julia_to_cpp(nuGrid),julia_to_cpp(coeffGrid),julia_to_cpp(degreeGrid),julia_to_cpp(balanced)))
@@ -494,15 +485,15 @@ function getUncompressedSupportVectors(cobj::Any)
 end
 getUncompressedSupportVectors(cobj::Any; ) = getUncompressedSupportVectors(cobj)
 
-function getDecisionFunction(cobj::Any, i::Int32, alpha::Mat, svidx::Mat)
+function getDecisionFunction(cobj::Any, i::Int32, alpha::Image, svidx::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getDecisionFunction(julia_to_cpp(cobj),julia_to_cpp(i),julia_to_cpp(alpha),julia_to_cpp(svidx)))
 end
-getDecisionFunction(cobj::Any, i::Int32; alpha::Mat = , svidx::Mat = ) = getDecisionFunction(cobj, i, alpha, svidx)
+getDecisionFunction(cobj::Any, i::Int32; alpha::Image = _Mat(), svidx::Image = _Mat()) = getDecisionFunction(cobj, i, alpha, svidx)
 
 function getDecisionFunction(cobj::Any, i::Int32, alpha::UMat, svidx::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getDecisionFunction(julia_to_cpp(cobj),julia_to_cpp(i),julia_to_cpp(alpha),julia_to_cpp(svidx)))
 end
-getDecisionFunction(cobj::Any, i::Int32; alpha::UMat = , svidx::UMat = ) = getDecisionFunction(cobj, i, alpha, svidx)
+getDecisionFunction(cobj::Any, i::Int32; alpha::UMat = UMat(), svidx::UMat = UMat()) = getDecisionFunction(cobj, i, alpha, svidx)
 function Base.getproperty(m::EM, s::Symbol)
     return Base.getfield(m, s)
 end
@@ -550,60 +541,60 @@ function getMeans(cobj::Any)
 end
 getMeans(cobj::Any; ) = getMeans(cobj)
 
-function getCovs(cobj::Any, covs::vector{Mat})
+function getCovs(cobj::Any, covs::Array{Image, 1})
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_getCovs(julia_to_cpp(cobj),julia_to_cpp(covs)))
 end
-getCovs(cobj::Any; covs::vector{Mat} = ) = getCovs(cobj, covs)
+getCovs(cobj::Any; covs::Array{Image, 1} = Array{Image, 1}()) = getCovs(cobj, covs)
 
-function getCovs(cobj::Any, covs::vector{Mat})
+function getCovs(cobj::Any, covs::Array{Image, 1})
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_getCovs(julia_to_cpp(cobj),julia_to_cpp(covs)))
 end
-getCovs(cobj::Any; covs::vector{Mat} = ) = getCovs(cobj, covs)
+getCovs(cobj::Any; covs::Array{Image, 1} = Array{Image, 1}()) = getCovs(cobj, covs)
 
-function predict(cobj::Any, samples::Mat, results::Mat, flags::Int32)
+function predict(cobj::Any, samples::Image, results::Image, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_predict(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(results),julia_to_cpp(flags)))
 end
-predict(cobj::Any, samples::Mat; results::Mat = Mat(), flags::Int32 = 0) = predict(cobj, samples, results, flags)
+predict(cobj::Any, samples::Image; results::Image = Mat(), flags::Int32 = 0) = predict(cobj, samples, results, flags)
 
 function predict(cobj::Any, samples::UMat, results::UMat, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_predict(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(results),julia_to_cpp(flags)))
 end
 predict(cobj::Any, samples::UMat; results::UMat = UMat(), flags::Int32 = 0) = predict(cobj, samples, results, flags)
 
-function predict2(cobj::Any, sample::Mat, probs::Mat)
+function predict2(cobj::Any, sample::Image, probs::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_predict2(julia_to_cpp(cobj),julia_to_cpp(sample),julia_to_cpp(probs)))
 end
-predict2(cobj::Any, sample::Mat; probs::Mat = ) = predict2(cobj, sample, probs)
+predict2(cobj::Any, sample::Image; probs::Image = _Mat()) = predict2(cobj, sample, probs)
 
 function predict2(cobj::Any, sample::UMat, probs::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_predict2(julia_to_cpp(cobj),julia_to_cpp(sample),julia_to_cpp(probs)))
 end
-predict2(cobj::Any, sample::UMat; probs::UMat = ) = predict2(cobj, sample, probs)
+predict2(cobj::Any, sample::UMat; probs::UMat = UMat()) = predict2(cobj, sample, probs)
 
-function trainEM(cobj::Any, samples::Mat, logLikelihoods::Mat, labels::Mat, probs::Mat)
+function trainEM(cobj::Any, samples::Image, logLikelihoods::Image, labels::Image, probs::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainEM(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(logLikelihoods),julia_to_cpp(labels),julia_to_cpp(probs)))
 end
-trainEM(cobj::Any, samples::Mat; logLikelihoods::Mat = Mat(), labels::Mat = Mat(), probs::Mat = Mat()) = trainEM(cobj, samples, logLikelihoods, labels, probs)
+trainEM(cobj::Any, samples::Image; logLikelihoods::Image = Mat(), labels::Image = Mat(), probs::Image = Mat()) = trainEM(cobj, samples, logLikelihoods, labels, probs)
 
 function trainEM(cobj::Any, samples::UMat, logLikelihoods::UMat, labels::UMat, probs::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainEM(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(logLikelihoods),julia_to_cpp(labels),julia_to_cpp(probs)))
 end
 trainEM(cobj::Any, samples::UMat; logLikelihoods::UMat = UMat(), labels::UMat = UMat(), probs::UMat = UMat()) = trainEM(cobj, samples, logLikelihoods, labels, probs)
 
-function trainE(cobj::Any, samples::Mat, means0::Mat, covs0::Mat, weights0::Mat, logLikelihoods::Mat, labels::Mat, probs::Mat)
+function trainE(cobj::Any, samples::Image, means0::Image, covs0::Image, weights0::Image, logLikelihoods::Image, labels::Image, probs::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainE(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(means0),julia_to_cpp(covs0),julia_to_cpp(weights0),julia_to_cpp(logLikelihoods),julia_to_cpp(labels),julia_to_cpp(probs)))
 end
-trainE(cobj::Any, samples::Mat, means0::Mat; covs0::Mat = Mat(), weights0::Mat = Mat(), logLikelihoods::Mat = Mat(), labels::Mat = Mat(), probs::Mat = Mat()) = trainE(cobj, samples, means0, covs0, weights0, logLikelihoods, labels, probs)
+trainE(cobj::Any, samples::Image, means0::Image; covs0::Image = Mat(), weights0::Image = Mat(), logLikelihoods::Image = Mat(), labels::Image = Mat(), probs::Image = Mat()) = trainE(cobj, samples, means0, covs0, weights0, logLikelihoods, labels, probs)
 
 function trainE(cobj::Any, samples::UMat, means0::UMat, covs0::UMat, weights0::UMat, logLikelihoods::UMat, labels::UMat, probs::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainE(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(means0),julia_to_cpp(covs0),julia_to_cpp(weights0),julia_to_cpp(logLikelihoods),julia_to_cpp(labels),julia_to_cpp(probs)))
 end
 trainE(cobj::Any, samples::UMat, means0::UMat; covs0::UMat = UMat(), weights0::UMat = UMat(), logLikelihoods::UMat = UMat(), labels::UMat = UMat(), probs::UMat = UMat()) = trainE(cobj, samples, means0, covs0, weights0, logLikelihoods, labels, probs)
 
-function trainM(cobj::Any, samples::Mat, probs0::Mat, logLikelihoods::Mat, labels::Mat, probs::Mat)
+function trainM(cobj::Any, samples::Image, probs0::Image, logLikelihoods::Image, labels::Image, probs::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainM(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(probs0),julia_to_cpp(logLikelihoods),julia_to_cpp(labels),julia_to_cpp(probs)))
 end
-trainM(cobj::Any, samples::Mat, probs0::Mat; logLikelihoods::Mat = Mat(), labels::Mat = Mat(), probs::Mat = Mat()) = trainM(cobj, samples, probs0, logLikelihoods, labels, probs)
+trainM(cobj::Any, samples::Image, probs0::Image; logLikelihoods::Image = Mat(), labels::Image = Mat(), probs::Image = Mat()) = trainM(cobj, samples, probs0, logLikelihoods, labels, probs)
 
 function trainM(cobj::Any, samples::UMat, probs0::UMat, logLikelihoods::UMat, labels::UMat, probs::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainM(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(probs0),julia_to_cpp(logLikelihoods),julia_to_cpp(labels),julia_to_cpp(probs)))
@@ -701,15 +692,15 @@ function getPriors(cobj::Any)
 end
 getPriors(cobj::Any; ) = getPriors(cobj)
 
-function setPriors(cobj::Any, val::Mat)
+function setPriors(cobj::Any, val::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setPriors(julia_to_cpp(cobj),julia_to_cpp(val)))
 end
-setPriors(cobj::Any, val::Mat; ) = setPriors(cobj, val)
+setPriors(cobj::Any, val::Image; ) = setPriors(cobj, val)
 
-function setPriors(cobj::Any, val::Mat)
+function setPriors(cobj::Any, val::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setPriors(julia_to_cpp(cobj),julia_to_cpp(val)))
 end
-setPriors(cobj::Any, val::Mat; ) = setPriors(cobj, val)
+setPriors(cobj::Any, val::Image; ) = setPriors(cobj, val)
 function Base.getproperty(m::RTrees, s::Symbol)
     return Base.getfield(m, s)
 end
@@ -752,15 +743,15 @@ function getVarImportance(cobj::Any)
 end
 getVarImportance(cobj::Any; ) = getVarImportance(cobj)
 
-function getVotes(cobj::Any, samples::Mat, flags::Int32, results::Mat)
+function getVotes(cobj::Any, samples::Image, flags::Int32, results::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_getVotes(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(flags),julia_to_cpp(results)))
 end
-getVotes(cobj::Any, samples::Mat, flags::Int32; results::Mat = ) = getVotes(cobj, samples, flags, results)
+getVotes(cobj::Any, samples::Image, flags::Int32; results::Image = _Mat()) = getVotes(cobj, samples, flags, results)
 
 function getVotes(cobj::Any, samples::UMat, flags::Int32, results::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_getVotes(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(flags),julia_to_cpp(results)))
 end
-getVotes(cobj::Any, samples::UMat, flags::Int32; results::UMat = ) = getVotes(cobj, samples, flags, results)
+getVotes(cobj::Any, samples::UMat, flags::Int32; results::UMat = UMat()) = getVotes(cobj, samples, flags, results)
 function Base.getproperty(m::Boost, s::Symbol)
     return Base.getfield(m, s)
 end
@@ -819,10 +810,10 @@ function setActivationFunction(cobj::Any, type::Int32, param1::Float64, param2::
 end
 setActivationFunction(cobj::Any, type::Int32; param1::Float64 = 0, param2::Float64 = 0) = setActivationFunction(cobj, type, param1, param2)
 
-function setLayerSizes(cobj::Any, _layer_sizes::Mat)
+function setLayerSizes(cobj::Any, _layer_sizes::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setLayerSizes(julia_to_cpp(cobj),julia_to_cpp(_layer_sizes)))
 end
-setLayerSizes(cobj::Any, _layer_sizes::Mat; ) = setLayerSizes(cobj, _layer_sizes)
+setLayerSizes(cobj::Any, _layer_sizes::Image; ) = setLayerSizes(cobj, _layer_sizes)
 
 function setLayerSizes(cobj::Any, _layer_sizes::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setLayerSizes(julia_to_cpp(cobj),julia_to_cpp(_layer_sizes)))
@@ -1025,10 +1016,10 @@ function setTermCriteria(cobj::Any, val::TermCriteria)
 end
 setTermCriteria(cobj::Any, val::TermCriteria; ) = setTermCriteria(cobj, val)
 
-function predict(cobj::Any, samples::Mat, results::Mat, flags::Int32)
+function predict(cobj::Any, samples::Image, results::Image, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_predict(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(results),julia_to_cpp(flags)))
 end
-predict(cobj::Any, samples::Mat; results::Mat = Mat(), flags::Int32 = 0) = predict(cobj, samples, results, flags)
+predict(cobj::Any, samples::Image; results::Image = Mat(), flags::Int32 = 0) = predict(cobj, samples, results, flags)
 
 function predict(cobj::Any, samples::UMat, results::UMat, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_predict(julia_to_cpp(cobj),julia_to_cpp(samples),julia_to_cpp(results),julia_to_cpp(flags)))
@@ -1126,30 +1117,30 @@ function ParamGrid_create(minVal::Float64, maxVal::Float64, logstep::Float64)
 end
 ParamGrid_create(; minVal::Float64 = 0., maxVal::Float64 = 0., logstep::Float64 = 1.) = ParamGrid_create(minVal, maxVal, logstep)
 
-function TrainData_getSubVector(vec::Mat, idx::Mat)
+function TrainData_getSubVector(vec::Image, idx::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_getSubVector(julia_to_cpp(vec),julia_to_cpp(idx)))
 end
-TrainData_getSubVector(vec::Mat, idx::Mat; ) = TrainData_getSubVector(vec, idx)
+TrainData_getSubVector(vec::Image, idx::Image; ) = TrainData_getSubVector(vec, idx)
 
-function TrainData_getSubVector(vec::Mat, idx::Mat)
+function TrainData_getSubVector(vec::Image, idx::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_getSubVector(julia_to_cpp(vec),julia_to_cpp(idx)))
 end
-TrainData_getSubVector(vec::Mat, idx::Mat; ) = TrainData_getSubVector(vec, idx)
+TrainData_getSubVector(vec::Image, idx::Image; ) = TrainData_getSubVector(vec, idx)
 
-function TrainData_getSubMatrix(matrix::Mat, idx::Mat, layout::Int32)
+function TrainData_getSubMatrix(matrix::Image, idx::Image, layout::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_getSubMatrix(julia_to_cpp(matrix),julia_to_cpp(idx),julia_to_cpp(layout)))
 end
-TrainData_getSubMatrix(matrix::Mat, idx::Mat, layout::Int32; ) = TrainData_getSubMatrix(matrix, idx, layout)
+TrainData_getSubMatrix(matrix::Image, idx::Image, layout::Int32; ) = TrainData_getSubMatrix(matrix, idx, layout)
 
-function TrainData_getSubMatrix(matrix::Mat, idx::Mat, layout::Int32)
+function TrainData_getSubMatrix(matrix::Image, idx::Image, layout::Int32)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_getSubMatrix(julia_to_cpp(matrix),julia_to_cpp(idx),julia_to_cpp(layout)))
 end
-TrainData_getSubMatrix(matrix::Mat, idx::Mat, layout::Int32; ) = TrainData_getSubMatrix(matrix, idx, layout)
+TrainData_getSubMatrix(matrix::Image, idx::Image, layout::Int32; ) = TrainData_getSubMatrix(matrix, idx, layout)
 
-function TrainData_create(samples::Mat, layout::Int32, responses::Mat, varIdx::Mat, sampleIdx::Mat, sampleWeights::Mat, varType::Mat)
+function TrainData_create(samples::Image, layout::Int32, responses::Image, varIdx::Image, sampleIdx::Image, sampleWeights::Image, varType::Image)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_create(julia_to_cpp(samples),julia_to_cpp(layout),julia_to_cpp(responses),julia_to_cpp(varIdx),julia_to_cpp(sampleIdx),julia_to_cpp(sampleWeights),julia_to_cpp(varType)))
 end
-TrainData_create(samples::Mat, layout::Int32, responses::Mat; varIdx::Mat = Mat(), sampleIdx::Mat = Mat(), sampleWeights::Mat = Mat(), varType::Mat = Mat()) = TrainData_create(samples, layout, responses, varIdx, sampleIdx, sampleWeights, varType)
+TrainData_create(samples::Image, layout::Int32, responses::Image; varIdx::Image = Mat(), sampleIdx::Image = Mat(), sampleWeights::Image = Mat(), varType::Image = Mat()) = TrainData_create(samples, layout, responses, varIdx, sampleIdx, sampleWeights, varType)
 
 function TrainData_create(samples::UMat, layout::Int32, responses::UMat, varIdx::UMat, sampleIdx::UMat, sampleWeights::UMat, varType::UMat)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_TrainData_create(julia_to_cpp(samples),julia_to_cpp(layout),julia_to_cpp(responses),julia_to_cpp(varIdx),julia_to_cpp(sampleIdx),julia_to_cpp(sampleWeights),julia_to_cpp(varType)))
@@ -1164,7 +1155,7 @@ NormalBayesClassifier_create(; ) = NormalBayesClassifier_create()
 function NormalBayesClassifier_load(filepath::string, nodeName::string)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_NormalBayesClassifier_load(julia_to_cpp(filepath),julia_to_cpp(nodeName)))
 end
-NormalBayesClassifier_load(filepath::string; nodeName::string = String()) = NormalBayesClassifier_load(filepath, nodeName)
+NormalBayesClassifier_load(filepath::string; nodeName::string = "") = NormalBayesClassifier_load(filepath, nodeName)
 
 function KNearest_create()
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_KNearest_create())
@@ -1199,7 +1190,7 @@ EM_create(; ) = EM_create()
 function EM_load(filepath::string, nodeName::string)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_EM_load(julia_to_cpp(filepath),julia_to_cpp(nodeName)))
 end
-EM_load(filepath::string; nodeName::string = String()) = EM_load(filepath, nodeName)
+EM_load(filepath::string; nodeName::string = "") = EM_load(filepath, nodeName)
 
 function DTrees_create()
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_DTrees_create())
@@ -1209,7 +1200,7 @@ DTrees_create(; ) = DTrees_create()
 function DTrees_load(filepath::string, nodeName::string)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_DTrees_load(julia_to_cpp(filepath),julia_to_cpp(nodeName)))
 end
-DTrees_load(filepath::string; nodeName::string = String()) = DTrees_load(filepath, nodeName)
+DTrees_load(filepath::string; nodeName::string = "") = DTrees_load(filepath, nodeName)
 
 function RTrees_create()
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_RTrees_create())
@@ -1219,7 +1210,7 @@ RTrees_create(; ) = RTrees_create()
 function RTrees_load(filepath::string, nodeName::string)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_RTrees_load(julia_to_cpp(filepath),julia_to_cpp(nodeName)))
 end
-RTrees_load(filepath::string; nodeName::string = String()) = RTrees_load(filepath, nodeName)
+RTrees_load(filepath::string; nodeName::string = "") = RTrees_load(filepath, nodeName)
 
 function Boost_create()
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_Boost_create())
@@ -1229,7 +1220,7 @@ Boost_create(; ) = Boost_create()
 function Boost_load(filepath::string, nodeName::string)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_Boost_load(julia_to_cpp(filepath),julia_to_cpp(nodeName)))
 end
-Boost_load(filepath::string; nodeName::string = String()) = Boost_load(filepath, nodeName)
+Boost_load(filepath::string; nodeName::string = "") = Boost_load(filepath, nodeName)
 
 function ANN_MLP_create()
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_ANN_MLP_create())
@@ -1249,7 +1240,7 @@ LogisticRegression_create(; ) = LogisticRegression_create()
 function LogisticRegression_load(filepath::string, nodeName::string)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_LogisticRegression_load(julia_to_cpp(filepath),julia_to_cpp(nodeName)))
 end
-LogisticRegression_load(filepath::string; nodeName::string = String()) = LogisticRegression_load(filepath, nodeName)
+LogisticRegression_load(filepath::string; nodeName::string = "") = LogisticRegression_load(filepath, nodeName)
 
 function SVMSGD_create()
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_SVMSGD_create())
@@ -1259,7 +1250,7 @@ SVMSGD_create(; ) = SVMSGD_create()
 function SVMSGD_load(filepath::string, nodeName::string)
 	return cpp_to_julia(jlopencv_cv_ml_cv_ml_SVMSGD_load(julia_to_cpp(filepath),julia_to_cpp(nodeName)))
 end
-SVMSGD_load(filepath::string; nodeName::string = String()) = SVMSGD_load(filepath, nodeName)
+SVMSGD_load(filepath::string; nodeName::string = "") = SVMSGD_load(filepath, nodeName)
 
 
     

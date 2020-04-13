@@ -11,7 +11,7 @@ import os, shutil
 from parse_tree import *
 
 
-jl_cpp_argmap = {"int": "Int32", "float":"Float32", "double":"Float64", "bool":"Bool"}
+jl_cpp_argmap = {"int": "Int32", "float":"Float32", "double":"Float64", "bool":"Bool", "Mat":"Image", "Point":"Point{Int32}"}
 
 submodule_template = Template('')
 root_template = Template('')
@@ -20,25 +20,34 @@ with open("binding_templates_jl/template_cv2_submodule.jl", "r") as f:
 with open("binding_templates_jl/template_cv2_root.jl", "r") as f:
     root_template = Template(f.read())
 
-def handle_def_arg(inp):
+def handle_def_arg(inp, tp = ''):
+    inp = handle_jl_arg(inp)
+    if not inp:
+        if tp=='Mat' or tp=='Image':
+            return '_Mat()'
+        return tp+'()'
+
     if inp=="String()":
             return '""'
-    def handle_vector(match):
-        return handle_jl_arg("%sCxxWrap.StdVector{%s}()" % (match.group(1), match.group(2)))
-    inp = re.sub("std::vector<(.*)>", handle_vector, inp)
-    for k in jl_cpp_argmap:
-        inp = inp.replace(k, jl_cpp_argmap[k])
     return inp
 
 def handle_jl_arg(inp):
+    inp = inp.replace('std::', '').replace('cv::', '')
+
     def handle_vector(match):
-        return handle_jl_arg("%svector{%s}" % (match.group(1), match.group(2)))
+        return handle_jl_arg("%sArray{%s, 1}" % (match.group(1), match.group(2)))
     def handle_ptr(match):
         return handle_jl_arg("%sPtr{%s}" % (match.group(1), match.group(2)))
     inp = re.sub("(.*)vector<(.*)>", handle_vector, inp)
     inp = re.sub("(.*)Ptr<(.*)>", handle_ptr, inp)
+
     for k in jl_cpp_argmap:
-        inp = inp.replace(k, jl_cpp_argmap[k])
+        if inp == k:
+            inp = jl_cpp_argmap[k]
+            break
+        inp = re.sub("(.*[^\w])"+k+"(.*)", "\g<1>"+jl_cpp_argmap[k]+"\g<2>", inp)
+    
+    inp = inp.replace("2f","{Float32}").replace("2d", "{Float64}").replace("3f", "3{Float32}").replace("3d", "3{Float32}")
     return inp
 
 class ClassInfo(ClassInfo):
@@ -58,9 +67,11 @@ class ClassInfo(ClassInfo):
         return stra
 
     def overload_set(self):
+        
         stra = "function Base.setproperty!(m::%s, s::Symbol, v)\n" %(self.mapped_name)
         for prop in self.props:
-        
+            if not prop.readonly:
+                continue
             stra = stra + "    if s==:" + prop.name+"\n"
             stra = stra + "        %s(m, julia_to_cpp(v, %s))\n"%(self.get_prop_func_cpp("set", prop.name), handle_jl_arg(prop.tp))
             stra = stra + "    end\n" 
@@ -78,7 +89,7 @@ class FuncVariant(FuncVariant):
         return argstr
 
     def get_argument_opt(self):
-        str2 =  ", ".join(["%s::%s = %s" % (arg.name, handle_jl_arg(arg.tp), arg.default_value) for arg in self.optlist])
+        str2 =  ", ".join(["%s::%s = %s" % (arg.name, handle_jl_arg(arg.tp), handle_def_arg(arg.default_value, handle_jl_arg(arg.tp))) for arg in self.optlist])
         return str2
 
     def get_argument_def(self):

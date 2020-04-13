@@ -14,9 +14,9 @@ function __init__()
         size_t = UInt32
     end
 end
-include("OpenCVImage.jl")
+include("Mat.jl")
 
-const Image = Union{OpenCVImage{A} where {A}, SubArray{T2, N, OpenCVImage{A}, T} where {N, A, T, T2 <: dtypes}}
+const Image = Union{Mat{A} where {A}, SubArray{T2, N, Mat{A}, T} where {N, A, T, T2 <: dtypes}, Mat_}
 const Scalar = Union{Tuple{Number}, Tuple{Number, Number}, Tuple{Number, Number, Number}, NTuple{4, Number}}
 
 
@@ -30,6 +30,23 @@ end
 function julia_to_cpp(var, expected_type)
     return var
 end
+
+function julia_to_cpp(var::Array{T, 1}, expected_type) where {T}
+    ret = CxxWrap.StdVector{T}()
+    for x in var
+        push!(ret, julia_to_cpp(x, expected_type)) # When converting an array keep expected type as final type. 
+    end
+    return ret
+end
+
+function cpp_to_julia(var::CxxWrap.StdVector{T}) where {T}
+    ret = CxxWrap.StdVector{T}()
+    for x in var
+        push!(ret, cpp_to_julia(x))
+    end
+    return ret
+end
+
 
 ${code}
 

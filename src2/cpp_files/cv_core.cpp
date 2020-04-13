@@ -66,7 +66,7 @@ struct julia_type_factory<cv::Vec<T, Dim>, VecTrait>
 JLCXX_MODULE
 cv2_core(jlcxx::Module &mod)
 {
-    mod.add_type<Mat>("Mat").constructor<int, const int *, int, void *, const size_t *>();
+    mod.add_type<Mat>("Mat_").constructor<int, const int *, int, void *, const size_t *>();
 
     mod.method("jlopencv_core_get_sizet", [](){return sizeof(size_t);});
     jlcxx::add_smart_pointer<cv::Ptr>(mod, "cv_Ptr");
