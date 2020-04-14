@@ -64,7 +64,7 @@ struct julia_type_factory<cv::Vec<T, Dim>, VecTrait>
 } // namespace jlcxx
 
 JLCXX_MODULE
-cv2_core(jlcxx::Module &mod)
+cv_core(jlcxx::Module &mod)
 {
     mod.add_type<Mat>("Mat_").constructor<int, const int *, int, void *, const size_t *>();
 
@@ -131,7 +131,7 @@ cv2_core(jlcxx::Module &mod)
     });
 
 
-    mod.add_type<TermCriteria>("TermCritera_").constructor<int, int, double>()
+    mod.add_type<TermCriteria>("TermCriteria_").constructor<int, int, double>()
                                                 .method("jlopencv_core_get_type", [](const TermCriteria v){return v.type;})
                                                 .method("jlopencv_core_get_maxcount", [](const TermCriteria v){return v.maxCount;})
                                                 .method("jlopencv_core_get_epsilon", [](const TermCriteria v){return v.epsilon;});

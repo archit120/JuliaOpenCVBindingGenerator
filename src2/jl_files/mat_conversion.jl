@@ -17,8 +17,8 @@ CV_MAT_DEPTH(flags) = ((flags) & CV_MAT_DEPTH_MASK)
 CV_MAKETYPE(depth,cn) = (CV_MAT_DEPTH(depth) + (((cn)-1) << CV_CN_SHIFT))
 CV_MAKE_TYPE = CV_MAKETYPE
 
-function cpp_to_julia(mat::Mat_)
-    rets = jlopencv_core_Mat_mutable_data(mat)
+function cpp_to_julia(mat::wrapper_internal.Mat_)
+    rets = wrapper_internal.jlopencv_core_wrapper_internal.Mat_mutable_data(mat)
     if rets[2] == CV_MAKE_TYPE(CV_8U, rets[3])
         dtype = UInt8
     elseif rets[2]==CV_MAKE_TYPE(CV_8S, rets[3])
@@ -45,9 +45,9 @@ function cpp_to_julia(mat::Mat_)
     return Mat{dtype}(mat, arr)
 end
 
-function julia_to_cpp(img::Mat, expected_type)
+function julia_to_cpp(img::Image, expected_type)
     # TODO: UserTypes do not work with StridedArray. Find something else.
-    if typeof(img) <: Mat_
+    if typeof(img) <: wrapper_internal.Mat_
         return img
     end
 
@@ -63,19 +63,19 @@ function julia_to_cpp(img::Mat, expected_type)
         push!(ndims_a, Int32(size(img)[3]))
         push!(ndims_a, Int32(size(img)[2]))
         if eltype(img) == UInt8
-            return Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == UInt16
-            return Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Int8
-            return Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Int16
-            return Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Int32
-            return Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Float32
-            return Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Float64
-            return Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_64F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_64F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         end
 
         error("Bad Type")
@@ -85,17 +85,17 @@ function julia_to_cpp(img::Mat, expected_type)
     end
 end
 
-function julia_to_cpp(var::Array{Mat, 1}, expected_type)
-    ret = CxxWrap.StdVector{Mat_}()
+function julia_to_cpp(var::Array{Image, 1}, expected_type)
+    ret = CxxWrap.StdVector{wrapper_internal.Mat_}()
     for x in var
-        push!(ret, julia_to_cpp(x))
+        push!(ret, julia_to_cpp(x, wrapper_internal.Mat_))
     end
     return ret
 end
 
 
-function cpp_to_julia(var::CxxWrap.StdVector{T}) where {T<:Mat_}
-    ret = Array{Mat, 1}()
+function cpp_to_julia(var::CxxWrap.StdVector{T}) where {T<:wrapper_internal.Mat_}
+    ret = Array{Image, 1}()
     for x in var
         push!(ret, cpp_to_julia(x))
     end

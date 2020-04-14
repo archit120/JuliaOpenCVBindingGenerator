@@ -11,7 +11,7 @@ import os, shutil
 from parse_tree import *
 
 
-jl_cpp_argmap = {"int": "Int32", "float":"Float32", "double":"Float64", "bool":"Bool", "Mat":"Image", "Point":"Point{Int32}"}
+jl_cpp_argmap = {"int": "Int32", "float":"Float32", "double":"Float64", "bool":"Bool", "Mat":"Image", "Point":"Point{Int32}", "string":"String"}
 
 submodule_template = Template('')
 root_template = Template('')
@@ -145,6 +145,8 @@ def gen(srcfiles, output_path='', libpath = 'TODO'):
 
         with open ('autogen_jl/%s_wrap.jl' % ns.name.replace('::', '_'), 'w') as fd:
             fd.write(code)
+
+        break
 
     src_files = os.listdir('jl_files')
     for file_name in src_files:

@@ -10,3 +10,7 @@
  - rename function names from classname_functionname to functionname (needed for intheritance)
  - UMat wrapper
  - Refactor parsing code
+
+
+remove feature2d and term criteria duplicates
+consider a different internal module

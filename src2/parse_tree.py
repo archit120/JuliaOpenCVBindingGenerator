@@ -139,8 +139,8 @@ class ClassInfo(object):
             for m in decl[2]:
                 if m.startswith("="):
                     self.mapped_name = m[1:]
-                if m == "/Map":
-                    self.ismap = True
+                # if m == "/Map":
+                #     self.ismap = True
             self.props = [ClassProp(p) for p in decl[3]]
         # return code for functions and setters and getters if simple class or functions and map type
 
@@ -251,6 +251,9 @@ class FuncVariant(object):
         outlist = []
         deflist = []
         biglist = []
+
+# This logic can almost definitely be simplified
+
         for a in self.args:
             if a.isbig and not (a.inputarg and not a.default_value):
                 optlist.append(a)
@@ -260,7 +263,7 @@ class FuncVariant(object):
                 inlist.append(a)
             elif a.inputarg and a.default_value and not a.isbig:
                 optlist.append(a)
-            else:
+            elif not (a.isbig and not (a.inputarg and not a.default_value)):
                 deflist.append(a)
 
         if self.rettype:
@@ -484,5 +487,6 @@ def gen_tree(srcfiles):
         ns.register_types = [tp for tp in ns.register_types if not registered_tp_search(tp) and not tp in ns.registered]
         for tp in ns.register_types:
             registered_types.append(get_template_arg(tp))
+        
         # registered_types = registered_types + ns.register_types
     return namespaces

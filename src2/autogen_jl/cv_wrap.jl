@@ -1,35 +1,5 @@
-module OpenCV
-
-using CxxWrap
-@wrapmodule(joinpath("TODO","libcv2_jlcxx"), :cv2_core)
-@wrapmodule(joinpath("TODO","libcv2_jlcxx"), :cv_wrap)
-
-const dtypes = Union{UInt8, Int8, UInt16, Int16, Int32, Float32, Float64}
-size_t = UInt64
-
-function __init__()
-    @initcxx
-
-    if jlopencv_core_get_sizet()==4
-        size_t = UInt32
-    end
-end
-include("Mat.jl")
-
-const Image = Union{Mat{A} where {A}, SubArray{T2, N, Mat{A}, T} where {N, A, T, T2 <: dtypes}, Mat_}
-const Scalar = Union{Tuple{Number}, Tuple{Number, Number}, Tuple{Number, Number, Number}, NTuple{4, Number}}
-
-
-include("mat_conversion.jl")
-include("types_conversion.jl")
-
-
-function cpp_to_julia(var)
-    return var
-end
-function julia_to_cpp(var, expected_type)
-    return var
-end
+@wrapmodule(joinpath("lib","libcv2_jl"), :cv_wrap)
+# @wrapmodule(joinpath("TODO","libcv2_jl"), :cv_wrap)
 
 function Base.getproperty(m::Algorithm, s::Symbol)
     return Base.getfield(m, s)
@@ -43,10 +13,10 @@ function clear(cobj::Any)
 end
 clear(cobj::Any; ) = clear(cobj)
 
-function write(cobj::Any, fs::Ptr{FileStorage}, name::string)
+function write(cobj::Any, fs::Ptr{FileStorage}, name::String)
 	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_write(julia_to_cpp(cobj),julia_to_cpp(fs),julia_to_cpp(name)))
 end
-write(cobj::Any, fs::Ptr{FileStorage}; name::string = "") = write(cobj, fs, name)
+write(cobj::Any, fs::Ptr{FileStorage}; name::String = "") = write(cobj, fs, name)
 
 function read(cobj::Any, fn::FileNode)
 	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_read(julia_to_cpp(cobj),julia_to_cpp(fn)))
@@ -58,10 +28,10 @@ function empty(cobj::Any)
 end
 empty(cobj::Any; ) = empty(cobj)
 
-function save(cobj::Any, filename::string)
+function save(cobj::Any, filename::String)
 	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_save(julia_to_cpp(cobj),julia_to_cpp(filename)))
 end
-save(cobj::Any, filename::string; ) = save(cobj, filename)
+save(cobj::Any, filename::String; ) = save(cobj, filename)
 
 function getDefaultName(cobj::Any)
 	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_getDefaultName(julia_to_cpp(cobj)))
@@ -107,6 +77,84 @@ function Base.getproperty(m::DMatch, s::Symbol)
     return Base.getfield(m, s)
 end
 function Base.setproperty!(m::DMatch, s::Symbol, v)
+    return Base.setfield(m, s, v)
+end
+function Base.getproperty(m::Moments, s::Symbol)
+    if s==:m00
+        return cpp_to_julia(jlopencv_Moments_get_m00(m))
+    end
+    if s==:m10
+        return cpp_to_julia(jlopencv_Moments_get_m10(m))
+    end
+    if s==:m01
+        return cpp_to_julia(jlopencv_Moments_get_m01(m))
+    end
+    if s==:m20
+        return cpp_to_julia(jlopencv_Moments_get_m20(m))
+    end
+    if s==:m11
+        return cpp_to_julia(jlopencv_Moments_get_m11(m))
+    end
+    if s==:m02
+        return cpp_to_julia(jlopencv_Moments_get_m02(m))
+    end
+    if s==:m30
+        return cpp_to_julia(jlopencv_Moments_get_m30(m))
+    end
+    if s==:m21
+        return cpp_to_julia(jlopencv_Moments_get_m21(m))
+    end
+    if s==:m12
+        return cpp_to_julia(jlopencv_Moments_get_m12(m))
+    end
+    if s==:m03
+        return cpp_to_julia(jlopencv_Moments_get_m03(m))
+    end
+    if s==:mu20
+        return cpp_to_julia(jlopencv_Moments_get_mu20(m))
+    end
+    if s==:mu11
+        return cpp_to_julia(jlopencv_Moments_get_mu11(m))
+    end
+    if s==:mu02
+        return cpp_to_julia(jlopencv_Moments_get_mu02(m))
+    end
+    if s==:mu30
+        return cpp_to_julia(jlopencv_Moments_get_mu30(m))
+    end
+    if s==:mu21
+        return cpp_to_julia(jlopencv_Moments_get_mu21(m))
+    end
+    if s==:mu12
+        return cpp_to_julia(jlopencv_Moments_get_mu12(m))
+    end
+    if s==:mu03
+        return cpp_to_julia(jlopencv_Moments_get_mu03(m))
+    end
+    if s==:nu20
+        return cpp_to_julia(jlopencv_Moments_get_nu20(m))
+    end
+    if s==:nu11
+        return cpp_to_julia(jlopencv_Moments_get_nu11(m))
+    end
+    if s==:nu02
+        return cpp_to_julia(jlopencv_Moments_get_nu02(m))
+    end
+    if s==:nu30
+        return cpp_to_julia(jlopencv_Moments_get_nu30(m))
+    end
+    if s==:nu21
+        return cpp_to_julia(jlopencv_Moments_get_nu21(m))
+    end
+    if s==:nu12
+        return cpp_to_julia(jlopencv_Moments_get_nu12(m))
+    end
+    if s==:nu03
+        return cpp_to_julia(jlopencv_Moments_get_nu03(m))
+    end
+    return Base.getfield(m, s)
+end
+function Base.setproperty!(m::Moments, s::Symbol, v)
     return Base.setfield(m, s, v)
 end
 function Base.getproperty(m::GeneralizedHough, s::Symbol)
@@ -861,20 +909,20 @@ function defaultNorm(cobj::Any)
 end
 defaultNorm(cobj::Any; ) = defaultNorm(cobj)
 
-function write(cobj::Any, fileName::string)
+function write(cobj::Any, fileName::String)
 	return cpp_to_julia(jlopencv_cv_cv_Feature2D_cv_Feature2D_write(julia_to_cpp(cobj),julia_to_cpp(fileName)))
 end
-write(cobj::Any, fileName::string; ) = write(cobj, fileName)
+write(cobj::Any, fileName::String; ) = write(cobj, fileName)
 
-function write(cobj::Any, fs::Ptr{FileStorage}, name::string)
+function write(cobj::Any, fs::Ptr{FileStorage}, name::String)
 	return cpp_to_julia(jlopencv_cv_cv_Feature2D_cv_Feature2D_write(julia_to_cpp(cobj),julia_to_cpp(fs),julia_to_cpp(name)))
 end
-write(cobj::Any, fs::Ptr{FileStorage}; name::string = "") = write(cobj, fs, name)
+write(cobj::Any, fs::Ptr{FileStorage}; name::String = "") = write(cobj, fs, name)
 
-function read(cobj::Any, fileName::string)
+function read(cobj::Any, fileName::String)
 	return cpp_to_julia(jlopencv_cv_cv_Feature2D_cv_Feature2D_read(julia_to_cpp(cobj),julia_to_cpp(fileName)))
 end
-read(cobj::Any, fileName::string; ) = read(cobj, fileName)
+read(cobj::Any, fileName::String; ) = read(cobj, fileName)
 
 function read(cobj::Any, arg1::FileNode)
 	return cpp_to_julia(jlopencv_cv_cv_Feature2D_cv_Feature2D_read(julia_to_cpp(cobj),julia_to_cpp(arg1)))
@@ -1564,20 +1612,20 @@ function radiusMatch(cobj::Any, queryDescriptors::UMat, maxDistance::Float32, ma
 end
 radiusMatch(cobj::Any, queryDescriptors::UMat, maxDistance::Float32; masks::Array{UMat, 1} = vector_UMat(), compactResult::Bool = false) = radiusMatch(cobj, queryDescriptors, maxDistance, masks, compactResult)
 
-function write(cobj::Any, fileName::string)
+function write(cobj::Any, fileName::String)
 	return cpp_to_julia(jlopencv_cv_cv_DescriptorMatcher_cv_DescriptorMatcher_write(julia_to_cpp(cobj),julia_to_cpp(fileName)))
 end
-write(cobj::Any, fileName::string; ) = write(cobj, fileName)
+write(cobj::Any, fileName::String; ) = write(cobj, fileName)
 
-function write(cobj::Any, fs::Ptr{FileStorage}, name::string)
+function write(cobj::Any, fs::Ptr{FileStorage}, name::String)
 	return cpp_to_julia(jlopencv_cv_cv_DescriptorMatcher_cv_DescriptorMatcher_write(julia_to_cpp(cobj),julia_to_cpp(fs),julia_to_cpp(name)))
 end
-write(cobj::Any, fs::Ptr{FileStorage}; name::string = "") = write(cobj, fs, name)
+write(cobj::Any, fs::Ptr{FileStorage}; name::String = "") = write(cobj, fs, name)
 
-function read(cobj::Any, fileName::string)
+function read(cobj::Any, fileName::String)
 	return cpp_to_julia(jlopencv_cv_cv_DescriptorMatcher_cv_DescriptorMatcher_read(julia_to_cpp(cobj),julia_to_cpp(fileName)))
 end
-read(cobj::Any, fileName::string; ) = read(cobj, fileName)
+read(cobj::Any, fileName::String; ) = read(cobj, fileName)
 
 function read(cobj::Any, arg1::FileNode)
 	return cpp_to_julia(jlopencv_cv_cv_DescriptorMatcher_cv_DescriptorMatcher_read(julia_to_cpp(cobj),julia_to_cpp(arg1)))
@@ -2381,10 +2429,10 @@ function empty(cobj::Any)
 end
 empty(cobj::Any; ) = empty(cobj)
 
-function load(cobj::Any, filename::string)
+function load(cobj::Any, filename::String)
 	return cpp_to_julia(jlopencv_cv_cv_CascadeClassifier_cv_CascadeClassifier_load(julia_to_cpp(cobj),julia_to_cpp(filename)))
 end
-load(cobj::Any, filename::string; ) = load(cobj, filename)
+load(cobj::Any, filename::String; ) = load(cobj, filename)
 
 function read(cobj::Any, node::FileNode)
 	return cpp_to_julia(jlopencv_cv_cv_CascadeClassifier_cv_CascadeClassifier_read(julia_to_cpp(cobj),julia_to_cpp(node)))
@@ -2545,15 +2593,15 @@ function setSVMDetector(cobj::Any, svmdetector::UMat)
 end
 setSVMDetector(cobj::Any, svmdetector::UMat; ) = setSVMDetector(cobj, svmdetector)
 
-function load(cobj::Any, filename::string, objname::string)
+function load(cobj::Any, filename::String, objname::String)
 	return cpp_to_julia(jlopencv_cv_cv_HOGDescriptor_cv_HOGDescriptor_load(julia_to_cpp(cobj),julia_to_cpp(filename),julia_to_cpp(objname)))
 end
-load(cobj::Any, filename::string; objname::string = "") = load(cobj, filename, objname)
+load(cobj::Any, filename::String; objname::String = "") = load(cobj, filename, objname)
 
-function save(cobj::Any, filename::string, objname::string)
+function save(cobj::Any, filename::String, objname::String)
 	return cpp_to_julia(jlopencv_cv_cv_HOGDescriptor_cv_HOGDescriptor_save(julia_to_cpp(cobj),julia_to_cpp(filename),julia_to_cpp(objname)))
 end
-save(cobj::Any, filename::string; objname::string = "") = save(cobj, filename, objname)
+save(cobj::Any, filename::String; objname::String = "") = save(cobj, filename, objname)
 
 function compute(cobj::Any, img::Image, winStride::Size, padding::Size, locations::Array{Point{Int32}{Int32}, 1})
 	return cpp_to_julia(jlopencv_cv_cv_HOGDescriptor_cv_HOGDescriptor_compute(julia_to_cpp(cobj),julia_to_cpp(img),julia_to_cpp(winStride),julia_to_cpp(padding),julia_to_cpp(locations)))
@@ -2677,10 +2725,10 @@ function Base.setproperty!(m::VideoCapture, s::Symbol, v)
     return Base.setfield(m, s, v)
 end
 
-function open(cobj::Any, filename::string, apiPreference::Int32)
+function open(cobj::Any, filename::String, apiPreference::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_VideoCapture_cv_VideoCapture_open(julia_to_cpp(cobj),julia_to_cpp(filename),julia_to_cpp(apiPreference)))
 end
-open(cobj::Any, filename::string; apiPreference::Int32 = CAP_ANY) = open(cobj, filename, apiPreference)
+open(cobj::Any, filename::String; apiPreference::Int32 = CAP_ANY) = open(cobj, filename, apiPreference)
 
 function open(cobj::Any, index::Int32, apiPreference::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_VideoCapture_cv_VideoCapture_open(julia_to_cpp(cobj),julia_to_cpp(index),julia_to_cpp(apiPreference)))
@@ -2753,15 +2801,15 @@ function Base.setproperty!(m::VideoWriter, s::Symbol, v)
     return Base.setfield(m, s, v)
 end
 
-function open(cobj::Any, filename::string, fourcc::Int32, fps::Float64, frameSize::Size, isColor::Bool)
+function open(cobj::Any, filename::String, fourcc::Int32, fps::Float64, frameSize::Size, isColor::Bool)
 	return cpp_to_julia(jlopencv_cv_cv_VideoWriter_cv_VideoWriter_open(julia_to_cpp(cobj),julia_to_cpp(filename),julia_to_cpp(fourcc),julia_to_cpp(fps),julia_to_cpp(frameSize),julia_to_cpp(isColor)))
 end
-open(cobj::Any, filename::string, fourcc::Int32, fps::Float64, frameSize::Size; isColor::Bool = true) = open(cobj, filename, fourcc, fps, frameSize, isColor)
+open(cobj::Any, filename::String, fourcc::Int32, fps::Float64, frameSize::Size; isColor::Bool = true) = open(cobj, filename, fourcc, fps, frameSize, isColor)
 
-function open(cobj::Any, filename::string, apiPreference::Int32, fourcc::Int32, fps::Float64, frameSize::Size, isColor::Bool)
+function open(cobj::Any, filename::String, apiPreference::Int32, fourcc::Int32, fps::Float64, frameSize::Size, isColor::Bool)
 	return cpp_to_julia(jlopencv_cv_cv_VideoWriter_cv_VideoWriter_open(julia_to_cpp(cobj),julia_to_cpp(filename),julia_to_cpp(apiPreference),julia_to_cpp(fourcc),julia_to_cpp(fps),julia_to_cpp(frameSize),julia_to_cpp(isColor)))
 end
-open(cobj::Any, filename::string, apiPreference::Int32, fourcc::Int32, fps::Float64, frameSize::Size; isColor::Bool = true) = open(cobj, filename, apiPreference, fourcc, fps, frameSize, isColor)
+open(cobj::Any, filename::String, apiPreference::Int32, fourcc::Int32, fps::Float64, frameSize::Size; isColor::Bool = true) = open(cobj, filename, apiPreference, fourcc, fps, frameSize, isColor)
 
 function isOpened(cobj::Any)
 	return cpp_to_julia(jlopencv_cv_cv_VideoWriter_cv_VideoWriter_isOpened(julia_to_cpp(cobj)))
@@ -4858,20 +4906,20 @@ function ellipse2Poly(center::Point{Int32}, axes::Size, angle::Int32, arcStart::
 end
 ellipse2Poly(center::Point{Int32}, axes::Size, angle::Int32, arcStart::Int32, arcEnd::Int32, delta::Int32; ) = ellipse2Poly(center, axes, angle, arcStart, arcEnd, delta)
 
-function putText(img::Image, text::string, org::Point{Int32}, fontFace::Int32, fontScale::Float64, color::Scalar, thickness::Int32, lineType::Int32, bottomLeftOrigin::Bool)
+function putText(img::Image, text::String, org::Point{Int32}, fontFace::Int32, fontScale::Float64, color::Scalar, thickness::Int32, lineType::Int32, bottomLeftOrigin::Bool)
 	return cpp_to_julia(jlopencv_cv_cv_putText(julia_to_cpp(img),julia_to_cpp(text),julia_to_cpp(org),julia_to_cpp(fontFace),julia_to_cpp(fontScale),julia_to_cpp(color),julia_to_cpp(thickness),julia_to_cpp(lineType),julia_to_cpp(bottomLeftOrigin)))
 end
-putText(img::Image, text::string, org::Point{Int32}, fontFace::Int32, fontScale::Float64, color::Scalar; thickness::Int32 = 1, lineType::Int32 = LINE_8, bottomLeftOrigin::Bool = false) = putText(img, text, org, fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin)
+putText(img::Image, text::String, org::Point{Int32}, fontFace::Int32, fontScale::Float64, color::Scalar; thickness::Int32 = 1, lineType::Int32 = LINE_8, bottomLeftOrigin::Bool = false) = putText(img, text, org, fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin)
 
-function putText(img::UMat, text::string, org::Point{Int32}, fontFace::Int32, fontScale::Float64, color::Scalar, thickness::Int32, lineType::Int32, bottomLeftOrigin::Bool)
+function putText(img::UMat, text::String, org::Point{Int32}, fontFace::Int32, fontScale::Float64, color::Scalar, thickness::Int32, lineType::Int32, bottomLeftOrigin::Bool)
 	return cpp_to_julia(jlopencv_cv_cv_putText(julia_to_cpp(img),julia_to_cpp(text),julia_to_cpp(org),julia_to_cpp(fontFace),julia_to_cpp(fontScale),julia_to_cpp(color),julia_to_cpp(thickness),julia_to_cpp(lineType),julia_to_cpp(bottomLeftOrigin)))
 end
-putText(img::UMat, text::string, org::Point{Int32}, fontFace::Int32, fontScale::Float64, color::Scalar; thickness::Int32 = 1, lineType::Int32 = LINE_8, bottomLeftOrigin::Bool = false) = putText(img, text, org, fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin)
+putText(img::UMat, text::String, org::Point{Int32}, fontFace::Int32, fontScale::Float64, color::Scalar; thickness::Int32 = 1, lineType::Int32 = LINE_8, bottomLeftOrigin::Bool = false) = putText(img, text, org, fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin)
 
-function getTextSize(text::string, fontFace::Int32, fontScale::Float64, thickness::Int32)
+function getTextSize(text::String, fontFace::Int32, fontScale::Float64, thickness::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_getTextSize(julia_to_cpp(text),julia_to_cpp(fontFace),julia_to_cpp(fontScale),julia_to_cpp(thickness)))
 end
-getTextSize(text::string, fontFace::Int32, fontScale::Float64, thickness::Int32; ) = getTextSize(text, fontFace, fontScale, thickness)
+getTextSize(text::String, fontFace::Int32, fontScale::Float64, thickness::Int32; ) = getTextSize(text, fontFace, fontScale, thickness)
 
 function getFontScaleFromHeight(fontFace::Int32, pixelHeight::Int32, thickness::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_getFontScaleFromHeight(julia_to_cpp(fontFace),julia_to_cpp(pixelHeight),julia_to_cpp(thickness)))
@@ -5583,10 +5631,10 @@ function AKAZE_create(descriptor_type::AKAZE_DescriptorType, descriptor_size::In
 end
 AKAZE_create(; descriptor_type::AKAZE_DescriptorType = AKAZE::DESCRIPTOR_MLDB, descriptor_size::Int32 = 0, descriptor_channels::Int32 = 3, threshold::Float32 = 0.001f, nOctaves::Int32 = 4, nOctaveLayers::Int32 = 4, diffusivity::KAZE_DiffusivityType = KAZE::DIFF_PM_G2) = AKAZE_create(descriptor_type, descriptor_size, descriptor_channels, threshold, nOctaves, nOctaveLayers, diffusivity)
 
-function DescriptorMatcher_create(descriptorMatcherType::string)
+function DescriptorMatcher_create(descriptorMatcherType::String)
 	return cpp_to_julia(jlopencv_cv_cv_DescriptorMatcher_create(julia_to_cpp(descriptorMatcherType)))
 end
-DescriptorMatcher_create(descriptorMatcherType::string; ) = DescriptorMatcher_create(descriptorMatcherType)
+DescriptorMatcher_create(descriptorMatcherType::String; ) = DescriptorMatcher_create(descriptorMatcherType)
 
 function DescriptorMatcher_create(matcherType::DescriptorMatcher_MatcherType)
 	return cpp_to_julia(jlopencv_cv_cv_DescriptorMatcher_create(julia_to_cpp(matcherType)))
@@ -5703,20 +5751,20 @@ function findTransformECC(templateImage::UMat, inputImage::UMat, warpMatrix::UMa
 end
 findTransformECC(templateImage::UMat, inputImage::UMat, warpMatrix::UMat, motionType::Int32, criteria::TermCriteria, inputMask::UMat, gaussFiltSize::Int32; ) = findTransformECC(templateImage, inputImage, warpMatrix, motionType, criteria, inputMask, gaussFiltSize)
 
-function readOpticalFlow(path::string)
+function readOpticalFlow(path::String)
 	return cpp_to_julia(jlopencv_cv_cv_readOpticalFlow(julia_to_cpp(path)))
 end
-readOpticalFlow(path::string; ) = readOpticalFlow(path)
+readOpticalFlow(path::String; ) = readOpticalFlow(path)
 
-function writeOpticalFlow(path::string, flow::Image)
+function writeOpticalFlow(path::String, flow::Image)
 	return cpp_to_julia(jlopencv_cv_cv_writeOpticalFlow(julia_to_cpp(path),julia_to_cpp(flow)))
 end
-writeOpticalFlow(path::string, flow::Image; ) = writeOpticalFlow(path, flow)
+writeOpticalFlow(path::String, flow::Image; ) = writeOpticalFlow(path, flow)
 
-function writeOpticalFlow(path::string, flow::UMat)
+function writeOpticalFlow(path::String, flow::UMat)
 	return cpp_to_julia(jlopencv_cv_cv_writeOpticalFlow(julia_to_cpp(path),julia_to_cpp(flow)))
 end
-writeOpticalFlow(path::string, flow::UMat; ) = writeOpticalFlow(path, flow)
+writeOpticalFlow(path::String, flow::UMat; ) = writeOpticalFlow(path, flow)
 
 function FarnebackOpticalFlow_create(numLevels::Int32, pyrScale::Float64, fastPyramids::Bool, winSize::Int32, numIters::Int32, polyN::Int32, polySigma::Float64, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_FarnebackOpticalFlow_create(julia_to_cpp(numLevels),julia_to_cpp(pyrScale),julia_to_cpp(fastPyramids),julia_to_cpp(winSize),julia_to_cpp(numIters),julia_to_cpp(polyN),julia_to_cpp(polySigma),julia_to_cpp(flags)))
@@ -5753,10 +5801,10 @@ function groupRectangles(rectList::Array{Rect, 1}, groupThreshold::Int32, eps::F
 end
 groupRectangles(rectList::Array{Rect, 1}, groupThreshold::Int32; eps::Float64 = 0.2) = groupRectangles(rectList, groupThreshold, eps)
 
-function CascadeClassifier_convert(oldcascade::string, newcascade::string)
+function CascadeClassifier_convert(oldcascade::String, newcascade::String)
 	return cpp_to_julia(jlopencv_cv_cv_CascadeClassifier_convert(julia_to_cpp(oldcascade),julia_to_cpp(newcascade)))
 end
-CascadeClassifier_convert(oldcascade::string, newcascade::string; ) = CascadeClassifier_convert(oldcascade, newcascade)
+CascadeClassifier_convert(oldcascade::String, newcascade::String; ) = CascadeClassifier_convert(oldcascade, newcascade)
 
 function HOGDescriptor_getDefaultPeopleDetector()
 	return cpp_to_julia(jlopencv_cv_cv_HOGDescriptor_getDefaultPeopleDetector())
@@ -5768,30 +5816,30 @@ function HOGDescriptor_getDaimlerPeopleDetector()
 end
 HOGDescriptor_getDaimlerPeopleDetector(; ) = HOGDescriptor_getDaimlerPeopleDetector()
 
-function imread(filename::string, flags::Int32)
+function imread(filename::String, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_imread(julia_to_cpp(filename),julia_to_cpp(flags)))
 end
-imread(filename::string; flags::Int32 = IMREAD_COLOR) = imread(filename, flags)
+imread(filename::String; flags::Int32 = IMREAD_COLOR) = imread(filename, flags)
 
-function imreadmulti(filename::string, mats::Array{Image, 1}, flags::Int32)
+function imreadmulti(filename::String, mats::Array{Image, 1}, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_imreadmulti(julia_to_cpp(filename),julia_to_cpp(mats),julia_to_cpp(flags)))
 end
-imreadmulti(filename::string; mats::Array{Image, 1} = Array{Image, 1}(), flags::Int32 = IMREAD_ANYCOLOR) = imreadmulti(filename, mats, flags)
+imreadmulti(filename::String; mats::Array{Image, 1} = Array{Image, 1}(), flags::Int32 = IMREAD_ANYCOLOR) = imreadmulti(filename, mats, flags)
 
-function imreadmulti(filename::string, mats::Array{Image, 1}, flags::Int32)
+function imreadmulti(filename::String, mats::Array{Image, 1}, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_imreadmulti(julia_to_cpp(filename),julia_to_cpp(mats),julia_to_cpp(flags)))
 end
-imreadmulti(filename::string; mats::Array{Image, 1} = Array{Image, 1}(), flags::Int32 = IMREAD_ANYCOLOR) = imreadmulti(filename, mats, flags)
+imreadmulti(filename::String; mats::Array{Image, 1} = Array{Image, 1}(), flags::Int32 = IMREAD_ANYCOLOR) = imreadmulti(filename, mats, flags)
 
-function imwrite(filename::string, img::Image, params::Array{Int32, 1})
+function imwrite(filename::String, img::Image, params::Array{Int32, 1})
 	return cpp_to_julia(jlopencv_cv_cv_imwrite(julia_to_cpp(filename),julia_to_cpp(img),julia_to_cpp(params)))
 end
-imwrite(filename::string, img::Image; params::Array{Int32, 1} = Array{Int32, 1}()) = imwrite(filename, img, params)
+imwrite(filename::String, img::Image; params::Array{Int32, 1} = Array{Int32, 1}()) = imwrite(filename, img, params)
 
-function imwrite(filename::string, img::UMat, params::Array{Int32, 1})
+function imwrite(filename::String, img::UMat, params::Array{Int32, 1})
 	return cpp_to_julia(jlopencv_cv_cv_imwrite(julia_to_cpp(filename),julia_to_cpp(img),julia_to_cpp(params)))
 end
-imwrite(filename::string, img::UMat; params::Array{Int32, 1} = Array{Int32, 1}()) = imwrite(filename, img, params)
+imwrite(filename::String, img::UMat; params::Array{Int32, 1} = Array{Int32, 1}()) = imwrite(filename, img, params)
 
 function imdecode(buf::Image, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_imdecode(julia_to_cpp(buf),julia_to_cpp(flags)))
@@ -5803,40 +5851,40 @@ function imdecode(buf::UMat, flags::Int32)
 end
 imdecode(buf::UMat, flags::Int32; ) = imdecode(buf, flags)
 
-function imencode(ext::string, img::Image, params::Array{Int32, 1})
+function imencode(ext::String, img::Image, params::Array{Int32, 1})
 	return cpp_to_julia(jlopencv_cv_cv_imencode(julia_to_cpp(ext),julia_to_cpp(img),julia_to_cpp(params)))
 end
-imencode(ext::string, img::Image; params::Array{Int32, 1} = Array{Int32, 1}()) = imencode(ext, img, params)
+imencode(ext::String, img::Image; params::Array{Int32, 1} = Array{Int32, 1}()) = imencode(ext, img, params)
 
-function imencode(ext::string, img::UMat, params::Array{Int32, 1})
+function imencode(ext::String, img::UMat, params::Array{Int32, 1})
 	return cpp_to_julia(jlopencv_cv_cv_imencode(julia_to_cpp(ext),julia_to_cpp(img),julia_to_cpp(params)))
 end
-imencode(ext::string, img::UMat; params::Array{Int32, 1} = Array{Int32, 1}()) = imencode(ext, img, params)
+imencode(ext::String, img::UMat; params::Array{Int32, 1} = Array{Int32, 1}()) = imencode(ext, img, params)
 
-function haveImageReader(filename::string)
+function haveImageReader(filename::String)
 	return cpp_to_julia(jlopencv_cv_cv_haveImageReader(julia_to_cpp(filename)))
 end
-haveImageReader(filename::string; ) = haveImageReader(filename)
+haveImageReader(filename::String; ) = haveImageReader(filename)
 
-function haveImageWriter(filename::string)
+function haveImageWriter(filename::String)
 	return cpp_to_julia(jlopencv_cv_cv_haveImageWriter(julia_to_cpp(filename)))
 end
-haveImageWriter(filename::string; ) = haveImageWriter(filename)
+haveImageWriter(filename::String; ) = haveImageWriter(filename)
 
 function VideoWriter_fourcc(c1::char, c2::char, c3::char, c4::char)
 	return cpp_to_julia(jlopencv_cv_cv_VideoWriter_fourcc(julia_to_cpp(c1),julia_to_cpp(c2),julia_to_cpp(c3),julia_to_cpp(c4)))
 end
 VideoWriter_fourcc(c1::char, c2::char, c3::char, c4::char; ) = VideoWriter_fourcc(c1, c2, c3, c4)
 
-function namedWindow(winname::string, flags::Int32)
+function namedWindow(winname::String, flags::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_namedWindow(julia_to_cpp(winname),julia_to_cpp(flags)))
 end
-namedWindow(winname::string; flags::Int32 = WINDOW_AUTOSIZE) = namedWindow(winname, flags)
+namedWindow(winname::String; flags::Int32 = WINDOW_AUTOSIZE) = namedWindow(winname, flags)
 
-function destroyWindow(winname::string)
+function destroyWindow(winname::String)
 	return cpp_to_julia(jlopencv_cv_cv_destroyWindow(julia_to_cpp(winname)))
 end
-destroyWindow(winname::string; ) = destroyWindow(winname)
+destroyWindow(winname::String; ) = destroyWindow(winname)
 
 function destroyAllWindows()
 	return cpp_to_julia(jlopencv_cv_cv_destroyAllWindows())
@@ -5858,60 +5906,60 @@ function waitKey(delay::Int32)
 end
 waitKey(; delay::Int32 = 0) = waitKey(delay)
 
-function imshow(winname::string, mat::Image)
+function imshow(winname::String, mat::Image)
 	return cpp_to_julia(jlopencv_cv_cv_imshow(julia_to_cpp(winname),julia_to_cpp(mat)))
 end
-imshow(winname::string, mat::Image; ) = imshow(winname, mat)
+imshow(winname::String, mat::Image; ) = imshow(winname, mat)
 
-function imshow(winname::string, mat::UMat)
+function imshow(winname::String, mat::UMat)
 	return cpp_to_julia(jlopencv_cv_cv_imshow(julia_to_cpp(winname),julia_to_cpp(mat)))
 end
-imshow(winname::string, mat::UMat; ) = imshow(winname, mat)
+imshow(winname::String, mat::UMat; ) = imshow(winname, mat)
 
-function resizeWindow(winname::string, width::Int32, height::Int32)
+function resizeWindow(winname::String, width::Int32, height::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_resizeWindow(julia_to_cpp(winname),julia_to_cpp(width),julia_to_cpp(height)))
 end
-resizeWindow(winname::string, width::Int32, height::Int32; ) = resizeWindow(winname, width, height)
+resizeWindow(winname::String, width::Int32, height::Int32; ) = resizeWindow(winname, width, height)
 
-function resizeWindow(winname::string, size::Size)
+function resizeWindow(winname::String, size::Size)
 	return cpp_to_julia(jlopencv_cv_cv_resizeWindow(julia_to_cpp(winname),julia_to_cpp(size)))
 end
-resizeWindow(winname::string, size::Size; ) = resizeWindow(winname, size)
+resizeWindow(winname::String, size::Size; ) = resizeWindow(winname, size)
 
-function moveWindow(winname::string, x::Int32, y::Int32)
+function moveWindow(winname::String, x::Int32, y::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_moveWindow(julia_to_cpp(winname),julia_to_cpp(x),julia_to_cpp(y)))
 end
-moveWindow(winname::string, x::Int32, y::Int32; ) = moveWindow(winname, x, y)
+moveWindow(winname::String, x::Int32, y::Int32; ) = moveWindow(winname, x, y)
 
-function setWindowProperty(winname::string, prop_id::Int32, prop_value::Float64)
+function setWindowProperty(winname::String, prop_id::Int32, prop_value::Float64)
 	return cpp_to_julia(jlopencv_cv_cv_setWindowProperty(julia_to_cpp(winname),julia_to_cpp(prop_id),julia_to_cpp(prop_value)))
 end
-setWindowProperty(winname::string, prop_id::Int32, prop_value::Float64; ) = setWindowProperty(winname, prop_id, prop_value)
+setWindowProperty(winname::String, prop_id::Int32, prop_value::Float64; ) = setWindowProperty(winname, prop_id, prop_value)
 
-function setWindowTitle(winname::string, title::string)
+function setWindowTitle(winname::String, title::String)
 	return cpp_to_julia(jlopencv_cv_cv_setWindowTitle(julia_to_cpp(winname),julia_to_cpp(title)))
 end
-setWindowTitle(winname::string, title::string; ) = setWindowTitle(winname, title)
+setWindowTitle(winname::String, title::String; ) = setWindowTitle(winname, title)
 
-function getWindowProperty(winname::string, prop_id::Int32)
+function getWindowProperty(winname::String, prop_id::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_getWindowProperty(julia_to_cpp(winname),julia_to_cpp(prop_id)))
 end
-getWindowProperty(winname::string, prop_id::Int32; ) = getWindowProperty(winname, prop_id)
+getWindowProperty(winname::String, prop_id::Int32; ) = getWindowProperty(winname, prop_id)
 
-function getWindowImageRect(winname::string)
+function getWindowImageRect(winname::String)
 	return cpp_to_julia(jlopencv_cv_cv_getWindowImageRect(julia_to_cpp(winname)))
 end
-getWindowImageRect(winname::string; ) = getWindowImageRect(winname)
+getWindowImageRect(winname::String; ) = getWindowImageRect(winname)
 
-function selectROI(windowName::string, img::Image, showCrosshair::Bool, fromCenter::Bool)
+function selectROI(windowName::String, img::Image, showCrosshair::Bool, fromCenter::Bool)
 	return cpp_to_julia(jlopencv_cv_cv_selectROI(julia_to_cpp(windowName),julia_to_cpp(img),julia_to_cpp(showCrosshair),julia_to_cpp(fromCenter)))
 end
-selectROI(windowName::string, img::Image; showCrosshair::Bool = true, fromCenter::Bool = false) = selectROI(windowName, img, showCrosshair, fromCenter)
+selectROI(windowName::String, img::Image; showCrosshair::Bool = true, fromCenter::Bool = false) = selectROI(windowName, img, showCrosshair, fromCenter)
 
-function selectROI(windowName::string, img::UMat, showCrosshair::Bool, fromCenter::Bool)
+function selectROI(windowName::String, img::UMat, showCrosshair::Bool, fromCenter::Bool)
 	return cpp_to_julia(jlopencv_cv_cv_selectROI(julia_to_cpp(windowName),julia_to_cpp(img),julia_to_cpp(showCrosshair),julia_to_cpp(fromCenter)))
 end
-selectROI(windowName::string, img::UMat; showCrosshair::Bool = true, fromCenter::Bool = false) = selectROI(windowName, img, showCrosshair, fromCenter)
+selectROI(windowName::String, img::UMat; showCrosshair::Bool = true, fromCenter::Bool = false) = selectROI(windowName, img, showCrosshair, fromCenter)
 
 function selectROI(img::Image, showCrosshair::Bool, fromCenter::Bool)
 	return cpp_to_julia(jlopencv_cv_cv_selectROI(julia_to_cpp(img),julia_to_cpp(showCrosshair),julia_to_cpp(fromCenter)))
@@ -5923,64 +5971,61 @@ function selectROI(img::UMat, showCrosshair::Bool, fromCenter::Bool)
 end
 selectROI(img::UMat; showCrosshair::Bool = true, fromCenter::Bool = false) = selectROI(img, showCrosshair, fromCenter)
 
-function selectROIs(windowName::string, img::Image, showCrosshair::Bool, fromCenter::Bool)
+function selectROIs(windowName::String, img::Image, showCrosshair::Bool, fromCenter::Bool)
 	return cpp_to_julia(jlopencv_cv_cv_selectROIs(julia_to_cpp(windowName),julia_to_cpp(img),julia_to_cpp(showCrosshair),julia_to_cpp(fromCenter)))
 end
-selectROIs(windowName::string, img::Image; showCrosshair::Bool = true, fromCenter::Bool = false) = selectROIs(windowName, img, showCrosshair, fromCenter)
+selectROIs(windowName::String, img::Image; showCrosshair::Bool = true, fromCenter::Bool = false) = selectROIs(windowName, img, showCrosshair, fromCenter)
 
-function selectROIs(windowName::string, img::UMat, showCrosshair::Bool, fromCenter::Bool)
+function selectROIs(windowName::String, img::UMat, showCrosshair::Bool, fromCenter::Bool)
 	return cpp_to_julia(jlopencv_cv_cv_selectROIs(julia_to_cpp(windowName),julia_to_cpp(img),julia_to_cpp(showCrosshair),julia_to_cpp(fromCenter)))
 end
-selectROIs(windowName::string, img::UMat; showCrosshair::Bool = true, fromCenter::Bool = false) = selectROIs(windowName, img, showCrosshair, fromCenter)
+selectROIs(windowName::String, img::UMat; showCrosshair::Bool = true, fromCenter::Bool = false) = selectROIs(windowName, img, showCrosshair, fromCenter)
 
-function getTrackbarPos(trackbarname::string, winname::string)
+function getTrackbarPos(trackbarname::String, winname::String)
 	return cpp_to_julia(jlopencv_cv_cv_getTrackbarPos(julia_to_cpp(trackbarname),julia_to_cpp(winname)))
 end
-getTrackbarPos(trackbarname::string, winname::string; ) = getTrackbarPos(trackbarname, winname)
+getTrackbarPos(trackbarname::String, winname::String; ) = getTrackbarPos(trackbarname, winname)
 
-function setTrackbarPos(trackbarname::string, winname::string, pos::Int32)
+function setTrackbarPos(trackbarname::String, winname::String, pos::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_setTrackbarPos(julia_to_cpp(trackbarname),julia_to_cpp(winname),julia_to_cpp(pos)))
 end
-setTrackbarPos(trackbarname::string, winname::string, pos::Int32; ) = setTrackbarPos(trackbarname, winname, pos)
+setTrackbarPos(trackbarname::String, winname::String, pos::Int32; ) = setTrackbarPos(trackbarname, winname, pos)
 
-function setTrackbarMax(trackbarname::string, winname::string, maxval::Int32)
+function setTrackbarMax(trackbarname::String, winname::String, maxval::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_setTrackbarMax(julia_to_cpp(trackbarname),julia_to_cpp(winname),julia_to_cpp(maxval)))
 end
-setTrackbarMax(trackbarname::string, winname::string, maxval::Int32; ) = setTrackbarMax(trackbarname, winname, maxval)
+setTrackbarMax(trackbarname::String, winname::String, maxval::Int32; ) = setTrackbarMax(trackbarname, winname, maxval)
 
-function setTrackbarMin(trackbarname::string, winname::string, minval::Int32)
+function setTrackbarMin(trackbarname::String, winname::String, minval::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_setTrackbarMin(julia_to_cpp(trackbarname),julia_to_cpp(winname),julia_to_cpp(minval)))
 end
-setTrackbarMin(trackbarname::string, winname::string, minval::Int32; ) = setTrackbarMin(trackbarname, winname, minval)
+setTrackbarMin(trackbarname::String, winname::String, minval::Int32; ) = setTrackbarMin(trackbarname, winname, minval)
 
-function addText(img::Image, text::string, org::Point{Int32}, nameFont::string, pointSize::Int32, color::Scalar, weight::Int32, style::Int32, spacing::Int32)
+function addText(img::Image, text::String, org::Point{Int32}, nameFont::String, pointSize::Int32, color::Scalar, weight::Int32, style::Int32, spacing::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_addText(julia_to_cpp(img),julia_to_cpp(text),julia_to_cpp(org),julia_to_cpp(nameFont),julia_to_cpp(pointSize),julia_to_cpp(color),julia_to_cpp(weight),julia_to_cpp(style),julia_to_cpp(spacing)))
 end
-addText(img::Image, text::string, org::Point{Int32}, nameFont::string; pointSize::Int32 = -1, color::Scalar = Scalar::all(0), weight::Int32 = QT_FONT_NORMAL, style::Int32 = QT_STYLE_NORMAL, spacing::Int32 = 0) = addText(img, text, org, nameFont, pointSize, color, weight, style, spacing)
+addText(img::Image, text::String, org::Point{Int32}, nameFont::String; pointSize::Int32 = -1, color::Scalar = Scalar::all(0), weight::Int32 = QT_FONT_NORMAL, style::Int32 = QT_STYLE_NORMAL, spacing::Int32 = 0) = addText(img, text, org, nameFont, pointSize, color, weight, style, spacing)
 
-function addText(img::Image, text::string, org::Point{Int32}, nameFont::string, pointSize::Int32, color::Scalar, weight::Int32, style::Int32, spacing::Int32)
+function addText(img::Image, text::String, org::Point{Int32}, nameFont::String, pointSize::Int32, color::Scalar, weight::Int32, style::Int32, spacing::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_addText(julia_to_cpp(img),julia_to_cpp(text),julia_to_cpp(org),julia_to_cpp(nameFont),julia_to_cpp(pointSize),julia_to_cpp(color),julia_to_cpp(weight),julia_to_cpp(style),julia_to_cpp(spacing)))
 end
-addText(img::Image, text::string, org::Point{Int32}, nameFont::string; pointSize::Int32 = -1, color::Scalar = Scalar::all(0), weight::Int32 = QT_FONT_NORMAL, style::Int32 = QT_STYLE_NORMAL, spacing::Int32 = 0) = addText(img, text, org, nameFont, pointSize, color, weight, style, spacing)
+addText(img::Image, text::String, org::Point{Int32}, nameFont::String; pointSize::Int32 = -1, color::Scalar = Scalar::all(0), weight::Int32 = QT_FONT_NORMAL, style::Int32 = QT_STYLE_NORMAL, spacing::Int32 = 0) = addText(img, text, org, nameFont, pointSize, color, weight, style, spacing)
 
-function displayOverlay(winname::string, text::string, delayms::Int32)
+function displayOverlay(winname::String, text::String, delayms::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_displayOverlay(julia_to_cpp(winname),julia_to_cpp(text),julia_to_cpp(delayms)))
 end
-displayOverlay(winname::string, text::string; delayms::Int32 = 0) = displayOverlay(winname, text, delayms)
+displayOverlay(winname::String, text::String; delayms::Int32 = 0) = displayOverlay(winname, text, delayms)
 
-function displayStatusBar(winname::string, text::string, delayms::Int32)
+function displayStatusBar(winname::String, text::String, delayms::Int32)
 	return cpp_to_julia(jlopencv_cv_cv_displayStatusBar(julia_to_cpp(winname),julia_to_cpp(text),julia_to_cpp(delayms)))
 end
-displayStatusBar(winname::string, text::string; delayms::Int32 = 0) = displayStatusBar(winname, text, delayms)
+displayStatusBar(winname::String, text::String; delayms::Int32 = 0) = displayStatusBar(winname, text, delayms)
 
 
-
-
+# 
 include("cv_traits_wrap.jl")
 include("cv_ocl_wrap.jl")
 include("cv_flann_wrap.jl")
 include("cv_ml_wrap.jl")
 include("cv_fisheye_wrap.jl")
 include("cv_internal_wrap.jl")
-
-end
