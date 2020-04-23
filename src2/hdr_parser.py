@@ -4,22 +4,23 @@ from __future__ import print_function
 import os, sys, re, string, io
 
 # the list only for debugging. The real list, used in the real OpenCV build, is specified in CMakeLists.txt
+modpath = "/home/USER/src/opencv/modules"
 opencv_hdr_list = [
-"../../core/include/opencv2/core.hpp",
-"../../core/include/opencv2/core/mat.hpp",
-"../../core/include/opencv2/core/types.hpp",
-"../../core/include/opencv2/core/ocl.hpp",
-"../../flann/include/opencv2/flann/miniflann.hpp",
-"../../ml/include/opencv2/ml.hpp",
-"../../imgproc/include/opencv2/imgproc.hpp",
-"../../calib3d/include/opencv2/calib3d.hpp",
-"../../features2d/include/opencv2/features2d.hpp",
-"../../video/include/opencv2/video/tracking.hpp",
-"../../video/include/opencv2/video/background_segm.hpp",
-"../../objdetect/include/opencv2/objdetect.hpp",
-"../../imgcodecs/include/opencv2/imgcodecs.hpp",
-"../../videoio/include/opencv2/videoio.hpp",
-"../../highgui/include/opencv2/highgui.hpp",
+f"{modpath}/core/include/opencv2/core.hpp",
+f"{modpath}/core/include/opencv2/core/mat.hpp",
+f"{modpath}/core/include/opencv2/core/types.hpp",
+f"{modpath}/core/include/opencv2/core/ocl.hpp",
+f"{modpath}/flann/include/opencv2/flann/miniflann.hpp",
+f"{modpath}/ml/include/opencv2/ml.hpp",
+f"{modpath}/imgproc/include/opencv2/imgproc.hpp",
+f"{modpath}/calib3d/include/opencv2/calib3d.hpp",
+f"{modpath}/features2d/include/opencv2/features2d.hpp",
+f"{modpath}/video/include/opencv2/video/tracking.hpp",
+f"{modpath}/video/include/opencv2/video/background_segm.hpp",
+f"{modpath}/objdetect/include/opencv2/objdetect.hpp",
+f"{modpath}/imgcodecs/include/opencv2/imgcodecs.hpp",
+f"{modpath}/videoio/include/opencv2/videoio.hpp",
+f"{modpath}/highgui/include/opencv2/highgui.hpp",
 # "autogen_manual_header.h"
 ]
 
@@ -921,7 +922,7 @@ class CppHeaderParser(object):
                 stmt = " ".join(stmt.split()) # normalize the statement
                 #print(stmt)
                 stack_top = self.block_stack[-1]
-                
+
                 if stmt.startswith("@"):
                     # Objective C ?
                     break
