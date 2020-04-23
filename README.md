@@ -2,7 +2,7 @@
 
 This WIP repo has the code for an OpenCV module that automatically generates binding information. 
 
-The package folder contains a dummy Julia package
+The package folder contains a dummy Julia package. 
 
 The src2 folder containts all the auto-generation related files. The structure inside src2 is 
  - autogen_{cpp, jl}: auto-generated C++/Julia files
@@ -13,7 +13,7 @@ The src2 folder containts all the auto-generation related files. The structure i
  - hdr_parser.py: Parses the header files from OpenCV
  - CMakeLists.txt: WIP sample cmake
 
-The work on C++ side of auto-generation is mostly completed. Checks for some specific flags like `PHANTOM` and `MAPPABLE` remain but the generated files compile. Julia side more work is left as of right now.
+The work on C++ side of auto-generation is mostly completed. Checks for some specific flags like `PHANTOM` and `MAPPABLE` remain but the generated files compile. Julia side more work is left as of right now. 
 
 ### TODO
  - Ensure correct argument conversion (Vectors, Mats, ...) - partially done
@@ -32,7 +32,7 @@ The work on C++ side of auto-generation is mostly completed. Checks for some spe
  - Handle types.hpp
 
 
-To run, first modify hdr_parser.py with appropriate header file names. Then use
+To run, clone this repository into a folder named julia inside the OpenCV's source modules folder. Then modify hdr_parser.py with appropriate header file names and use
 
 ```python3 gen3_{lang}.py```
 
