@@ -17,8 +17,8 @@ CV_MAT_DEPTH(flags) = ((flags) & CV_MAT_DEPTH_MASK)
 CV_MAKETYPE(depth,cn) = (CV_MAT_DEPTH(depth) + (((cn)-1) << CV_CN_SHIFT))
 CV_MAKE_TYPE = CV_MAKETYPE
 
-function cpp_to_julia(mat::wrapper_internal.Mat_)
-    rets = wrapper_internal.jlopencv_core_wrapper_internal.Mat_mutable_data(mat)
+function cpp_to_julia(mat::OpenCVCxx.CxxMat)
+    rets = OpenCVCxx.jlopencv_core_wrapper_internal.Mat_mutable_data(mat)
     if rets[2] == CV_MAKE_TYPE(CV_8U, rets[3])
         dtype = UInt8
     elseif rets[2]==CV_MAKE_TYPE(CV_8S, rets[3])
@@ -47,10 +47,12 @@ end
 
 function julia_to_cpp(img::Image, expected_type)
     # TODO: UserTypes do not work with StridedArray. Find something else.
-    if typeof(img) <: wrapper_internal.Mat_
+    if typeof(img) <: OpenCVCxx.CxxMat
         return img
     end
-
+    if typeof(img) <: OpenCVCxx.Mat &&& img.mat != nothing
+        return img.mat
+    end
     steps = strides(img)
     if steps[1] <= steps[2] <= steps[3] && steps[1]==1
         steps_a = Array{size_t, 1}()
@@ -63,19 +65,19 @@ function julia_to_cpp(img::Image, expected_type)
         push!(ndims_a, Int32(size(img)[3]))
         push!(ndims_a, Int32(size(img)[2]))
         if eltype(img) == UInt8
-            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return OpenCVCxx.CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == UInt16
-            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return OpenCVCxx.CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Int8
-            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return OpenCVCxx.CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Int16
-            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return OpenCVCxx.CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Int32
-            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return OpenCVCxx.CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Float32
-            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return OpenCVCxx.CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == Float64
-            return wrapper_internal.Mat_(2, pointer(ndims_a), CV_MAKE_TYPE(CV_64F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
+            return OpenCVCxx.CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_64F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         end
 
         error("Bad Type")
@@ -86,15 +88,15 @@ function julia_to_cpp(img::Image, expected_type)
 end
 
 function julia_to_cpp(var::Array{Image, 1}, expected_type)
-    ret = CxxWrap.StdVector{wrapper_internal.Mat_}()
+    ret = CxxWrap.StdVector{OpenCVCxx.CxxMat}()
     for x in var
-        push!(ret, julia_to_cpp(x, wrapper_internal.Mat_))
+        push!(ret, julia_to_cpp(x, OpenCVCxx.CxxMat))
     end
     return ret
 end
 
 
-function cpp_to_julia(var::CxxWrap.StdVector{T}) where {T<:wrapper_internal.Mat_}
+function cpp_to_julia(var::CxxWrap.StdVector{T}) where {T<:OpenCVCxx.CxxMat}
     ret = Array{Image, 1}()
     for x in var
         push!(ret, cpp_to_julia(x))

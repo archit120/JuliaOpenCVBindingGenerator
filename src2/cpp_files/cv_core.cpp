@@ -13,28 +13,6 @@ struct ConstructorPointerType<cv::Ptr<T>>
     typedef T *type;
 };
 
-struct VecTrait
-{
-};
-
-template <typename T, int N>
-struct TraitSelector<Vec<T, N>>
-{
-    using type = VecTrait;
-};
-
-template <typename T, int N>
-struct MappingTrait<Vec<T, N>, VecTrait>
-{
-    using type = VecTrait;
-};
-
-template <typename T, int Dim>
-struct static_type_mapping<cv::Vec<T, Dim>, VecTrait>
-{
-    typedef jl_array_t *type;
-};
-
 template <typename T, int Dim>
 struct ConvertToJulia<cv::Vec<T, Dim>, VecTrait>
 {

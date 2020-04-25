@@ -79,6 +79,7 @@ def registered_tp_search(tp):
     return found
 
 namespaces = {}
+type_paths = {}
 enums = {}
 classes = {}
 functions = {}
@@ -478,6 +479,9 @@ def gen_tree(srcfiles):
         for name, cl in ns.classes.items():
             registered_types.append(get_template_arg(name))
             ns.registered.append(cl.mapped_name)
+            nss, clss, bs = split_decl_name(name)
+            type_paths[bs] = [name.replace("::", ".")]
+            type_paths["::".join(clss+[bs])] = [name.replace("::", ".")]
         for e1,e2 in ns.enums.items():
             registered_types.append(get_template_arg(e2[0]))
             registered_types.append(get_template_arg(e2[0]).replace('::', '_')) #whyyy typedef
@@ -489,4 +493,5 @@ def gen_tree(srcfiles):
             registered_types.append(get_template_arg(tp))
         
         # registered_types = registered_types + ns.register_types
+    print(type_paths)
     return namespaces

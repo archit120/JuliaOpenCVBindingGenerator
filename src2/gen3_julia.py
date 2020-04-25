@@ -13,6 +13,9 @@ from parse_tree import *
 
 jl_cpp_argmap = {"int": "Int32", "float":"Float32", "double":"Float64", "bool":"Bool", "Mat":"Image", "Point":"Point{Int32}", "string":"String"}
 
+julia_types = ["Int32", "Float32", "Float64", "Bool", "String", "Array", "Any"]
+cv_types = []
+
 submodule_template = Template('')
 root_template = Template('')
 with open("binding_templates_jl/template_cv2_submodule.jl", "r") as f:
@@ -21,23 +24,32 @@ with open("binding_templates_jl/template_cv2_root.jl", "r") as f:
     root_template = Template(f.read())
 
 def handle_def_arg(inp, tp = ''):
+    if tp in julia_types:
+        return inp
     inp = handle_jl_arg(inp)
     if not inp:
         if tp=='Mat' or tp=='Image':
-            return '_Mat()'
+            return 'Mat()'
         return tp+'()'
 
     if inp=="String()":
             return '""'
+    
+    # print(inp, tp)
     return inp
 
 def handle_jl_arg(inp):
+    if not inp:
+        return ''
     inp = inp.replace('std::', '').replace('cv::', '')
 
+    if inp in cv_types:
+        inp = 'OpenCVCxx.'+inp
+
     def handle_vector(match):
-        return handle_jl_arg("%sArray{%s, 1}" % (match.group(1), match.group(2)))
+        return handle_jl_arg("%sArray{%s, 1}" % (match.group(1), handle_jl_arg(match.group(2))))
     def handle_ptr(match):
-        return handle_jl_arg("%sPtr{%s}" % (match.group(1), match.group(2)))
+        return handle_jl_arg("%sOpenCVCxx.Ptr{%s}" % (match.group(1), handle_jl_arg(match.group(2))))
     inp = re.sub("(.*)vector<(.*)>", handle_vector, inp)
     inp = re.sub("(.*)Ptr<(.*)>", handle_ptr, inp)
 
@@ -45,10 +57,11 @@ def handle_jl_arg(inp):
         if inp == k:
             inp = jl_cpp_argmap[k]
             break
-        inp = re.sub("(.*[^\w])"+k+"(.*)", "\g<1>"+jl_cpp_argmap[k]+"\g<2>", inp)
+        inp = re.sub("(.*[^\w])"+k+"[^\w{](.*)", "\g<1>"+jl_cpp_argmap[k]+"\g<2>", inp)
     
     inp = inp.replace("2f","{Float32}").replace("2d", "{Float64}").replace("3f", "3{Float32}").replace("3d", "3{Float32}")
     return inp
+    # return outs
 
 class ClassInfo(ClassInfo):
 
@@ -58,22 +71,22 @@ class ClassInfo(ClassInfo):
         return self.overload_get()+self.overload_set()
 
     def overload_get(self):
-        stra = "function Base.getproperty(m::%s, s::Symbol)\n" %(self.mapped_name)
+        stra = "function Base.getproperty(m::OpenCVCxx.%s, s::Symbol)\n" %(self.mapped_name)
         for prop in self.props:
             stra = stra + "    if s==:" + prop.name+"\n"
-            stra = stra + "        return cpp_to_julia(%s(m))\n"%self.get_prop_func_cpp("get", prop.name)
+            stra = stra + "        return OpenCVCxx.cpp_to_julia(OpenCVCxx.%s(m))\n"%self.get_prop_func_cpp("get", prop.name)
             stra = stra + "    end\n" 
         stra = stra + "    return Base.getfield(m, s)\nend\n"
         return stra
 
     def overload_set(self):
         
-        stra = "function Base.setproperty!(m::%s, s::Symbol, v)\n" %(self.mapped_name)
+        stra = "function Base.setproperty!(m::OpenCVCxx.%s, s::Symbol, v)\n" %(self.mapped_name)
         for prop in self.props:
             if not prop.readonly:
                 continue
             stra = stra + "    if s==:" + prop.name+"\n"
-            stra = stra + "        %s(m, julia_to_cpp(v, %s))\n"%(self.get_prop_func_cpp("set", prop.name), handle_jl_arg(prop.tp))
+            stra = stra + "        OpenCVCxx.%s(m, OpenCVCxx.julia_to_cpp(v, %s))\n"%(self.get_prop_func_cpp("set", prop.name), handle_jl_arg(prop.tp))
             stra = stra + "    end\n" 
         stra = stra + "    return Base.setfield(m, s, v)\nend\n"
         return stra
@@ -98,7 +111,7 @@ class FuncVariant(FuncVariant):
         return str2
 
     def get_return(self):
-        return "return cpp_to_julia(%s(%s))" %(self.get_wrapper_name(), ",".join(["julia_to_cpp(%s)" % x.name for x in self.inlist + self.optlist]))
+        return "return OpenCVCxx.cpp_to_julia(OpenCVCxx.%s(%s))" %(self.get_wrapper_name(), ",".join(["OpenCVCxx.julia_to_cpp(%s)" % x.name for x in self.inlist + self.optlist]))
  
     def get_complete_code(self):
         outstr = 'function %s(%s)\n\t%s\nend\n' % (self.mapped_name, self.get_argument_full(),self.get_return())
@@ -114,7 +127,7 @@ def gen(srcfiles, output_path='', libpath = 'TODO'):
 
     jl_code = StringIO()
     for name, ns in namespaces.items():
-
+        cv_types.extend(ns.registered)
         jl_code = StringIO()
         for cname, cl in ns.classes.items():
             cl.__class__ = ClassInfo
@@ -146,7 +159,6 @@ def gen(srcfiles, output_path='', libpath = 'TODO'):
         with open ('autogen_jl/%s_wrap.jl' % ns.name.replace('::', '_'), 'w') as fd:
             fd.write(code)
 
-        break
 
     src_files = os.listdir('jl_files')
     for file_name in src_files:

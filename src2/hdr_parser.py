@@ -4,7 +4,7 @@ from __future__ import print_function
 import os, sys, re, string, io
 
 # the list only for debugging. The real list, used in the real OpenCV build, is specified in CMakeLists.txt
-modpath = "/home/USER/src/opencv/modules"
+modpath = "/home/archit/Documents/GitHub/opencv/modules"
 opencv_hdr_list = [
 f"{modpath}/core/include/opencv2/core.hpp",
 f"{modpath}/core/include/opencv2/core/mat.hpp",
