@@ -183,15 +183,17 @@ class FuncVariant(FuncVariant):
 
 
 def gen(srcfiles, output_path):
-    namespaces = gen_tree(srcfiles)
+    namespaces, default_values = gen_tree(srcfiles)
+    cpp_code = StringIO()
+    include_code = StringIO()
+
+    cpp_code.write("JLCXX_MODULE cv_wrap(jlcxx::Module &mod) {\n")
 
     for name, ns in namespaces.items():
-        cpp_code = StringIO()
-        include_code = StringIO()
+        cpp_code.write("using namespace %s;\n" % name.replace(".", "::"))
+
         if name.split('.')[-1] == '':
             continue
-        cpp_code.write("JLCXX_MODULE %s_wrap(jlcxx::Module &mod) {\n" % name.replace('::', '_'))
-        cpp_code.write("using namespace %s;\n" % name.replace(".", "::"))
         for name, cl in ns.classes.items():
             cl.__class__ = ClassInfo
             cpp_code.write(cl.get_cpp_code_header())
@@ -230,15 +232,19 @@ struct SuperType<%s>
             if name != compat_name:
                 cpp_code.write('    mod.set_const("%s", %s);\n'%(compat_name, mapname))
 
-        cpp_code.write('}\n');
-        with open ('autogen_cpp/%s_wrap.cpp' % ns.name.replace('::', '_'), 'w') as fd:
-            fd.write(mod_template.substitute(include_code = include_code.getvalue(), cpp_code=cpp_code.getvalue()))
+    for val in default_values:
+        cpp_code.write('    mod.set_const("%s", %s);\n'%(get_var(val), val))
+
+    cpp_code.write('}\n');
+    with open ('autogen_cpp/%s_wrap.cpp' % ns.name.replace('::', '_'), 'w') as fd:
+        fd.write(mod_template.substitute(include_code = include_code.getvalue(), cpp_code=cpp_code.getvalue()))
 
     src_files = os.listdir('cpp_files')
     for file_name in src_files:
         full_file_name = os.path.join('cpp_files', file_name)
         if os.path.isfile(full_file_name):
             shutil.copy(full_file_name, 'autogen_cpp')
+
 
     # copy over files from cpp_files
 

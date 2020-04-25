@@ -17,6 +17,20 @@ ignored_arg_types = ["RNG*"]
 pass_by_val_types = ["Point*", "Point2f*", "Rect*", "String*", "double*", "float*", "int*"]
 
 
+def get_char(c):
+    if c.isalpha():
+        return c
+    if ord(c)%52 < 26:
+        return chr(ord('a')+ord(c)%26)
+    return chr(ord('A')+ord(c)%26)
+
+
+def get_var(inp):
+    out = ''
+    for c in inp:
+        out = out+get_char(c)
+    return out
+
 def normalize_name(name):
     return name.replace('.', '::')
 
@@ -149,6 +163,7 @@ class ClassInfo(object):
         return "jlopencv_" + self.mapped_name + "_"+mode+"_"+propname
 
 argumentst = []
+default_values = []
 class ArgInfo(object):
     """
     Helper class to parse and contain information about function arguments
@@ -212,6 +227,8 @@ class FuncVariant(object):
 
         for ainfo in decl[3]:
             a = ArgInfo(ainfo)
+            if a.default_value and ('(' in a.default_value or ':' in a.default_value):
+                default_values.append(a.default_value)
             assert not a.tp in forbidden_arg_types, 'Forbidden type "{}" for argument "{}" in "{}" ("{}")'.format(a.tp, a.name, self.name, self.classname)
             if a.tp in ignored_arg_types:
                 continue
@@ -491,7 +508,7 @@ def gen_tree(srcfiles):
         ns.register_types = [tp for tp in ns.register_types if not registered_tp_search(tp) and not tp in ns.registered]
         for tp in ns.register_types:
             registered_types.append(get_template_arg(tp))
-        
+            ns.registered.append(get_template_arg(tp))
+    default_valuesr = list(set(default_values))
         # registered_types = registered_types + ns.register_types
-    print(type_paths)
-    return namespaces
+    return namespaces, default_valuesr

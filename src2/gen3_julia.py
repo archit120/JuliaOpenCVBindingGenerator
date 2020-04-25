@@ -14,7 +14,7 @@ from parse_tree import *
 jl_cpp_argmap = {"int": "Int32", "float":"Float32", "double":"Float64", "bool":"Bool", "Mat":"Image", "Point":"Point{Int32}", "string":"String"}
 
 julia_types = ["Int32", "Float32", "Float64", "Bool", "String", "Array", "Any"]
-cv_types = []
+cv_types = ["UMat","Size" ]
 
 submodule_template = Template('')
 root_template = Template('')
@@ -36,6 +36,7 @@ def handle_def_arg(inp, tp = ''):
             return '""'
     
     # print(inp, tp)
+    # print(inp, get_var(inp), tp)
     return inp
 
 def handle_jl_arg(inp):
@@ -43,13 +44,11 @@ def handle_jl_arg(inp):
         return ''
     inp = inp.replace('std::', '').replace('cv::', '')
 
-    if inp in cv_types:
-        inp = 'OpenCVCxx.'+inp
 
     def handle_vector(match):
         return handle_jl_arg("%sArray{%s, 1}" % (match.group(1), handle_jl_arg(match.group(2))))
     def handle_ptr(match):
-        return handle_jl_arg("%sOpenCVCxx.Ptr{%s}" % (match.group(1), handle_jl_arg(match.group(2))))
+        return handle_jl_arg("%sPtr{%s}" % (match.group(1), handle_jl_arg(match.group(2))))
     inp = re.sub("(.*)vector<(.*)>", handle_vector, inp)
     inp = re.sub("(.*)Ptr<(.*)>", handle_ptr, inp)
 
@@ -71,22 +70,22 @@ class ClassInfo(ClassInfo):
         return self.overload_get()+self.overload_set()
 
     def overload_get(self):
-        stra = "function Base.getproperty(m::OpenCVCxx.%s, s::Symbol)\n" %(self.mapped_name)
+        stra = "function Base.getproperty(m::%s, s::Symbol)\n" %(self.mapped_name)
         for prop in self.props:
             stra = stra + "    if s==:" + prop.name+"\n"
-            stra = stra + "        return OpenCVCxx.cpp_to_julia(OpenCVCxx.%s(m))\n"%self.get_prop_func_cpp("get", prop.name)
+            stra = stra + "        return cpp_to_julia(%s(m))\n"%self.get_prop_func_cpp("get", prop.name)
             stra = stra + "    end\n" 
         stra = stra + "    return Base.getfield(m, s)\nend\n"
         return stra
 
     def overload_set(self):
         
-        stra = "function Base.setproperty!(m::OpenCVCxx.%s, s::Symbol, v)\n" %(self.mapped_name)
+        stra = "function Base.setproperty!(m::%s, s::Symbol, v)\n" %(self.mapped_name)
         for prop in self.props:
             if not prop.readonly:
                 continue
             stra = stra + "    if s==:" + prop.name+"\n"
-            stra = stra + "        OpenCVCxx.%s(m, OpenCVCxx.julia_to_cpp(v, %s))\n"%(self.get_prop_func_cpp("set", prop.name), handle_jl_arg(prop.tp))
+            stra = stra + "        %s(m, julia_to_cpp(v, %s))\n"%(self.get_prop_func_cpp("set", prop.name), handle_jl_arg(prop.tp))
             stra = stra + "    end\n" 
         stra = stra + "    return Base.setfield(m, s, v)\nend\n"
         return stra
@@ -111,7 +110,7 @@ class FuncVariant(FuncVariant):
         return str2
 
     def get_return(self):
-        return "return OpenCVCxx.cpp_to_julia(OpenCVCxx.%s(%s))" %(self.get_wrapper_name(), ",".join(["OpenCVCxx.julia_to_cpp(%s)" % x.name for x in self.inlist + self.optlist]))
+        return "return cpp_to_julia(%s(%s))" %(self.get_wrapper_name(), ",".join(["julia_to_cpp(%s, %s)" % (x.name, handle_jl_arg(x.tp)) for x in self.inlist + self.optlist]))
  
     def get_complete_code(self):
         outstr = 'function %s(%s)\n\t%s\nend\n' % (self.mapped_name, self.get_argument_full(),self.get_return())

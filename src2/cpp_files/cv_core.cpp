@@ -13,32 +13,6 @@ struct ConstructorPointerType<cv::Ptr<T>>
     typedef T *type;
 };
 
-template <typename T, int Dim>
-struct ConvertToJulia<cv::Vec<T, Dim>, VecTrait>
-{
-    jl_array_t *operator()(cv::Vec<T, Dim> &&vec) const
-    {
-        return wrap_array(true, (T *)vec.val, Dim);
-    }
-};
-template <typename T, int Dim>
-struct ConvertToCpp<cv::Vec<T, Dim>, VecTrait>
-{
-    cv::Vec<T, Dim> operator()(jl_array_t *arr) const
-    {
-        return cv::Vec<T, Dim>((const T *)jl_array_data(arr));
-    }
-};
-
-template <typename T, int Dim>
-struct julia_type_factory<cv::Vec<T, Dim>, VecTrait>
-{
-    static jl_datatype_t *julia_type()
-    {
-        return (jl_datatype_t *)apply_array_type(jlcxx::julia_type<T>(), 1);
-    }
-};
-
 } // namespace jlcxx
 
 JLCXX_MODULE

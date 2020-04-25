@@ -42,6 +42,10 @@ function julia_to_cpp(var, expected_type)
     return var
 end
 
+function julia_to_cpp(var)
+    return var
+end
+
 function julia_to_cpp(var::Array{T, 1}, expected_type) where {T}
     ret = CxxWrap.StdVector{T}()
     for x in var
@@ -58,6 +62,5 @@ function cpp_to_julia(var::CxxWrap.StdVector{T}) where {T}
     return ret
 end
 
-include("cv_wrap.jl")
 
 end
