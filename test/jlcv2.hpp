@@ -59,4 +59,20 @@ struct get_template_type_vec<C<T, N>> {
   int dim = N;
 };
 
+template<typename T, bool v>
+struct force_enum{};
+template<typename T>
+struct force_enum<T, false>{
+  using Type = T;
+};
+template<typename T>
+struct force_enum<T, true>{
+  using Type = int;
+};
+
+template<typename T>
+struct force_enum_int{
+  using Type = typename force_enum<T, std::is_enum<T>::value>::Type;
+};
+
 #include "jlcv2_types.hpp"

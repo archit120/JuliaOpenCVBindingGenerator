@@ -5382,15 +5382,15 @@ function drawMatches(img1::UMat, keypoints1::Array{KeyPoint, 1}, img2::UMat, key
 end
 drawMatches(img1::UMat, keypoints1::Array{KeyPoint, 1}, img2::UMat, keypoints2::Array{KeyPoint, 1}, matches1to2::Array{DMatch, 1}, outImg::UMat; matchColor::Scalar = ScalarggallOTXP, singlePointColor::Scalar = ScalarggallOTXP, matchesMask::Array{Char, 1} = stdggvectoricharkOP, flags::DrawMatchesFlags = DrawMatchesFlagsggDEFAULT) = drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, flags)
 
-function drawMatchesKnn(img1::Image, keypoints1::Array{KeyPoint, 1}, img2::Image, keypoints2::Array{KeyPoint, 1}, matches1to2::Array{Array{DMatch, 1}, 1}, outImg::Image, matchColor::Scalar, singlePointColor::Scalar, matchesMask::Array{Array{Char 1}, 1}, flags::DrawMatchesFlags)
-	return cpp_to_julia(jlopencv_cv_cv_drawMatches(julia_to_cpp(img1),julia_to_cpp(keypoints1),julia_to_cpp(img2),julia_to_cpp(keypoints2),julia_to_cpp(matches1to2),julia_to_cpp(outImg),julia_to_cpp(matchColor),julia_to_cpp(singlePointColor),julia_to_cpp(matchesMask),julia_to_cpp(flags)))
-end
-drawMatchesKnn(img1::Image, keypoints1::Array{KeyPoint, 1}, img2::Image, keypoints2::Array{KeyPoint, 1}, matches1to2::Array{Array{DMatch, 1}, 1}, outImg::Image; matchColor::Scalar = ScalarggallOTXP, singlePointColor::Scalar = ScalarggallOTXP, matchesMask::Array{Array{Char 1}, 1} = stdggvectoristdggvectoricharkGkOP, flags::DrawMatchesFlags = DrawMatchesFlagsggDEFAULT) = drawMatchesKnn(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, flags)
+# function drawMatchesKnn(img1::Image, keypoints1::Array{KeyPoint, 1}, img2::Image, keypoints2::Array{KeyPoint, 1}, matches1to2::Array{Array{DMatch, 1}, 1}, outImg::Image, matchColor::Scalar, singlePointColor::Scalar, matchesMask::Array{Array{Char 1}, 1}, flags::DrawMatchesFlags)
+# 	return cpp_to_julia(jlopencv_cv_cv_drawMatches(julia_to_cpp(img1),julia_to_cpp(keypoints1),julia_to_cpp(img2),julia_to_cpp(keypoints2),julia_to_cpp(matches1to2),julia_to_cpp(outImg),julia_to_cpp(matchColor),julia_to_cpp(singlePointColor),julia_to_cpp(matchesMask),julia_to_cpp(flags)))
+# end
+# drawMatchesKnn(img1::Image, keypoints1::Array{KeyPoint, 1}, img2::Image, keypoints2::Array{KeyPoint, 1}, matches1to2::Array{Array{DMatch, 1}, 1}, outImg::Image; matchColor::Scalar = ScalarggallOTXP, singlePointColor::Scalar = ScalarggallOTXP, matchesMask::Array{Array{Char 1}, 1} = stdggvectoristdggvectoricharkGkOP, flags::DrawMatchesFlags = DrawMatchesFlagsggDEFAULT) = drawMatchesKnn(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, flags)
 
-function drawMatchesKnn(img1::UMat, keypoints1::Array{KeyPoint, 1}, img2::UMat, keypoints2::Array{KeyPoint, 1}, matches1to2::Array{Array{DMatch, 1}, 1}, outImg::UMat, matchColor::Scalar, singlePointColor::Scalar, matchesMask::Array{Array{Char 1}, 1}, flags::DrawMatchesFlags)
-	return cpp_to_julia(jlopencv_cv_cv_drawMatches(julia_to_cpp(img1),julia_to_cpp(keypoints1),julia_to_cpp(img2),julia_to_cpp(keypoints2),julia_to_cpp(matches1to2),julia_to_cpp(outImg),julia_to_cpp(matchColor),julia_to_cpp(singlePointColor),julia_to_cpp(matchesMask),julia_to_cpp(flags)))
-end
-drawMatchesKnn(img1::UMat, keypoints1::Array{KeyPoint, 1}, img2::UMat, keypoints2::Array{KeyPoint, 1}, matches1to2::Array{Array{DMatch, 1}, 1}, outImg::UMat; matchColor::Scalar = ScalarggallOTXP, singlePointColor::Scalar = ScalarggallOTXP, matchesMask::Array{Array{Char 1}, 1} = stdggvectoristdggvectoricharkGkOP, flags::DrawMatchesFlags = DrawMatchesFlagsggDEFAULT) = drawMatchesKnn(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, flags)
+# function drawMatchesKnn(img1::UMat, keypoints1::Array{KeyPoint, 1}, img2::UMat, keypoints2::Array{KeyPoint, 1}, matches1to2::Array{Array{DMatch, 1}, 1}, outImg::UMat, matchColor::Scalar, singlePointColor::Scalar, matchesMask::Array{Array{Char 1}, 1}, flags::DrawMatchesFlags)
+# 	return cpp_to_julia(jlopencv_cv_cv_drawMatches(julia_to_cpp(img1),julia_to_cpp(keypoints1),julia_to_cpp(img2),julia_to_cpp(keypoints2),julia_to_cpp(matches1to2),julia_to_cpp(outImg),julia_to_cpp(matchColor),julia_to_cpp(singlePointColor),julia_to_cpp(matchesMask),julia_to_cpp(flags)))
+# end
+# drawMatchesKnn(img1::UMat, keypoints1::Array{KeyPoint, 1}, img2::UMat, keypoints2::Array{KeyPoint, 1}, matches1to2::Array{Array{DMatch, 1}, 1}, outImg::UMat; matchColor::Scalar = ScalarggallOTXP, singlePointColor::Scalar = ScalarggallOTXP, matchesMask::Array{Array{Char 1}, 1} = stdggvectoristdggvectoricharkGkOP, flags::DrawMatchesFlags = DrawMatchesFlagsggDEFAULT) = drawMatchesKnn(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, flags)
 
 function CamShift(probImage::Image, window::Rect, criteria::TermCriteria)
 	return cpp_to_julia(jlopencv_cv_cv_CamShift(julia_to_cpp(probImage),julia_to_cpp(window),julia_to_cpp(criteria)))
@@ -5698,7 +5698,7 @@ displayStatusBar(winname::String, text::String; delayms::Int32 = 0) = displaySta
 
 
 
-include("cv_traits_wrap.jl")
-include("cv_ocl_wrap.jl")
-include("cv_fisheye_wrap.jl")
-include("cv_internal_wrap.jl")
+# include("cv_traits_wrap.jl")
+# include("cv_ocl_wrap.jl")
+# include("cv_fisheye_wrap.jl")
+# include("cv_internal_wrap.jl")

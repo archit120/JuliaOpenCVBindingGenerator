@@ -389,7 +389,7 @@ def add_class(stype, name, decl):
     
 
 
-def add_const(name, decl):
+def add_const(name, decl, tp = ''):
     name = name.replace('.','::')
     namespace, classes, barename = split_decl_name(name)
     namespace = '::'.join(namespace)
@@ -420,7 +420,7 @@ def add_enum(name, decl):
     
     for decl in const_decls:
         name = decl[0]
-        add_const(name.replace("const ", "").strip(), decl)
+        add_const(name.replace("const ", "", ).strip(), decl, "int")
 
 
 
@@ -450,6 +450,7 @@ def gen_tree(srcfiles):
                 add_class(stype, name, decl)
             elif name.startswith("const"):
                 # constant
+                assert(0)
                 add_const(name.replace("const ", "").strip(), decl)
             elif name.startswith("enum"):
                 # enum

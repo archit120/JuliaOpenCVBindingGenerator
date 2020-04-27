@@ -12,7 +12,7 @@ from io import StringIO
 from parse_tree import *
 
 mod_template = ""
-with open("binding_templates_cpp/template_cv2_submodule.cpp", "r") as f:
+with open("binding_templates_cpp/cv_core.cpp", "r") as f:
     mod_template = Template(f.read())
 
 
@@ -78,11 +78,11 @@ def registered_tp_search(tp):
     return found
 
 namespaces = {}
-enums = {}
+enums = []
 classes = {}
 functions = {}
 registered_types = ["int", "Size.*", "Rect.*", "Scalar", "RotatedRect", "Point.*", "explicit", "string", "bool", "uchar", 
-                    "Vec.*", "float", "double", "char", "Mat", "size_t", "RNG"]
+                    "Vec.*", "float", "double", "char", "Mat", "size_t", "RNG", "TermCriteria"]
 
 class ClassInfo(ClassInfo):
     def get_cpp_code_header(self):
@@ -150,8 +150,15 @@ class FuncVariant(FuncVariant):
             else:
                 args = [ArgInfo("cobj", self.classname)] + args
 
-
-        argnamelist = [(arg.tp if arg.tp not in pass_by_val_types else arg.tp[:-1]) +"& "+arg.name for arg in args]
+        argnamelist = []
+        for arg in args:
+            if arg.tp in pass_by_val_types:
+                argnamelist.append(arg.tp[:-1] +"& "+arg.name)
+            elif arg.tp in enums:
+                argnamelist.append("int& " + arg.name)
+            else:
+                argnamelist.append(arg.tp + "& "+arg.name)
+        # argnamelist = [(arg.tp if arg.tp not in pass_by_val_types else arg.tp[:-1]) +"& "+arg.name for arg in args]
         argstr = ", ".join(argnamelist)
         return argstr
 
@@ -166,7 +173,15 @@ class FuncVariant(FuncVariant):
             stra = "auto retval = "
         else:
             stra = ""
-        argstr = ", ".join([(x.name if x.tp not in pass_by_val_types else "&" + x.name) for x in self.args if x.tp not in ignored_arg_types])
+        arlist = []
+        for x in self.args:
+            if x.tp in pass_by_val_types:
+                arlist.append("&"+x.name)
+            elif x.tp in enums:
+                arlist.append("(%s)%s" %(x.tp, x.name))
+            else:
+                arlist.append(x.name)
+        argstr = ", ".join(arlist)
         if self.classname and not self.isstatic:
             stra = stra + "cobj%s%s(%s); " %("->" if isalgo else ".",self.name.split('::')[-1], argstr)
         else:
@@ -174,7 +189,18 @@ class FuncVariant(FuncVariant):
         return stra
 
     def get_cons_code(self, name, mapped_name):
-        return 'mod.method("%s", [](%s) { %s return jlcxx::create<%s>(%s);});' % (mapped_name, self.get_argument(False), self.get_def_outtypes(), name, " ,".join([x.name for x in self.args]))
+        if self.get_argument(False) == '':
+            return ''
+        arglist = []
+        for x in self.args:
+            if x.tp in pass_by_val_types:
+                arglist.append("&"+x.name)
+            elif x.tp in enums:
+                arglist.append("(%s)%s" %(x.tp, x.name))
+            else:
+                arglist.append(x.name)
+
+        return 'mod.method("%s", [](%s) { %s return jlcxx::create<%s>(%s);});' % (mapped_name, self.get_argument(False), self.get_def_outtypes(), name, " ,".join(arglist))
 
     def get_complete_code(self, classname, isalgo=False):
         outstr = '.method("%s",  [](%s) {%s %s %s})' % (self.get_wrapper_name(), self.get_argument(isalgo),self.get_def_outtypes(), self.get_retval(isalgo), self.get_return())
@@ -186,9 +212,6 @@ def gen(srcfiles, output_path):
     namespaces, default_values = gen_tree(srcfiles)
     cpp_code = StringIO()
     include_code = StringIO()
-
-    cpp_code.write("JLCXX_MODULE cv_wrap(jlcxx::Module &mod) {\n")
-
     for name, ns in namespaces.items():
         cpp_code.write("using namespace %s;\n" % name.replace(".", "::"))
 
@@ -207,11 +230,17 @@ struct SuperType<%s>
                                     """ % (cl.name.replace('.', '::'), cl.base.replace('.', '::')))
 
         for e1,e2 in ns.enums.items():
-            cpp_code.write('\n    mod.add_bits<{0}>("{1}", jlcxx::julia_type("CppEnum"));'.format(e2[0], e2[1]))
+            # cpp_code.write('\n    mod.add_bits<{0}>("{1}", jlcxx::julia_type("CppEnum"));'.format(e2[0], e2[1]))
+            enums.append(e2[0])
+            enums.append(e2[1])
 
 
         for tp in ns.register_types:
             cpp_code.write('   mod.add_type<%s>("%s");\n' %(tp, normalize_class_name(tp)))
+    
+
+    for name, ns in namespaces.items():
+        
 
         for name, cl in ns.classes.items():
             cl.__class__ = ClassInfo
@@ -220,6 +249,9 @@ struct SuperType<%s>
                 for f in fs:
                     f.__class__ = FuncVariant
                     cpp_code.write('\n    mod%s;'  % f.get_complete_code(cl.name, cl.isalgorithm))
+            for f in cl.constructors:
+                cpp_code.write('\n    %s; \n'  % f.get_cons_code(cl.name, cl.mapped_name))
+
 
         for mname, fs in ns.funcs.items():
             for f in fs:
@@ -227,16 +259,16 @@ struct SuperType<%s>
                 cpp_code.write('\n    mod%s;' % f.get_complete_code("", False))
 
         for mapname, name in sorted(ns.consts.items()):
-            cpp_code.write('    mod.set_const("%s", %s);\n'%(name, mapname))
+            cpp_code.write('    mod.set_const("%s", (force_enum_int<decltype(%s)>::Type)%s);\n'%(name, mapname, mapname))
             compat_name = re.sub(r"([a-z])([A-Z])", r"\1_\2", name).upper()
             if name != compat_name:
-                cpp_code.write('    mod.set_const("%s", %s);\n'%(compat_name, mapname))
-
+                cpp_code.write('    mod.set_const("%s", (force_enum_int<decltype(%s)>::Type)%s);\n'%(compat_name, mapname, mapname))
+    default_values = list(set(default_values))
     for val in default_values:
-        cpp_code.write('    mod.set_const("%s", %s);\n'%(get_var(val), val))
+        # val = handle_cpp_arg(val)
+        cpp_code.write('    mod.set_const("%s", (force_enum_int<decltype(%s)>::Type)%s);\n'%(get_var(val), val, val))
 
-    cpp_code.write('}\n');
-    with open ('autogen_cpp/%s_wrap.cpp' % ns.name.replace('::', '_'), 'w') as fd:
+    with open ('autogen_cpp/cv_wrap.cpp', 'w') as fd:
         fd.write(mod_template.substitute(include_code = include_code.getvalue(), cpp_code=cpp_code.getvalue()))
 
     src_files = os.listdir('cpp_files')
@@ -246,11 +278,6 @@ struct SuperType<%s>
             shutil.copy(full_file_name, 'autogen_cpp')
 
 
-    # copy over files from cpp_files
-
-    # print(ns_template)
-
-        # print(include_code.getvalue())
 
 
 

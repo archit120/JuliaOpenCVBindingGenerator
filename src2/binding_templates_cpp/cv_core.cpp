@@ -1,4 +1,3 @@
-#include <vector>
 
 #include "jlcxx/jlcxx.hpp"
 #include "jlcxx/functions.hpp"
@@ -39,6 +38,7 @@ struct BuildParameterList<cv::Vec<T, Val>>
 {
 typedef ParameterList<T, std::integral_constant<int, Val>> type;
 };
+${include_code}
 
 } // namespace jlcxx
 JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
@@ -54,20 +54,23 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
             wrapped.template constructor<const T*>();
         });
 
+    mod.add_type<Mat>("CxxMat").constructor<int, const int *, int, void *, const size_t *>();
 
-    
-    mod.add_type<Parametric<TypeVar<1>>>("Scalar_")
-  .apply<Scalar_<int>, Scalar_<float>, Scalar_<double>>([](auto wrapped)
-    {
-    typedef typename decltype(wrapped)::type WrappedT;
-    typedef typename get_template_type<WrappedT>::type T;
-    wrapped.template constructor<T, T, T, T>();
-    wrapped.method("jlopencv_core_get_z", [](const WrappedT v){return v[0];});
-    wrapped.method("jlopencv_core_get_o", [](const WrappedT v){return v[1];});
-    wrapped.method("jlopencv_core_get_tw", [](const WrappedT v){return v[2];});
-    wrapped.method("jlopencv_core_get_th", [](const WrappedT v){return v[3];});
+    mod.method("jlopencv_core_get_sizet", [](){return sizeof(size_t);});
+    jlcxx::add_smart_pointer<cv::Ptr>(mod, "cv_Ptr");
+    mod.method("jlopencv_core_Mat_mutable_data", [](Mat m) {
+        return make_tuple(m.data, m.type(), m.channels(), m.size[1], m.size[0], m.step[1], m.step[0]);
     });
 
     
+    mod.add_type<Parametric<TypeVar<1>>>("CxxScalar")
+        .apply<Scalar_<int>, Scalar_<float>, Scalar_<double>>([](auto wrapped) {
+                typedef typename decltype(wrapped)::type WrappedT;
+                typedef typename get_template_type<WrappedT>::type T;
+                wrapped.template constructor<T, T, T, T>();
+            });
+
+    ${cpp_code}
+
   
 }

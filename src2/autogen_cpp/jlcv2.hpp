@@ -45,8 +45,37 @@ typedef flann::SearchParams flann_SearchParams;
 
 template <typename C>
 struct get_template_type;
+template <typename C>
+struct get_template_type_vec;
 
 template <template <typename> class C, typename T>
 struct get_template_type<C<T>> {
   using type = T;
 };
+
+template <template <typename, int> class C, typename T, int N>
+struct get_template_type_vec<C<T, N>> {
+  using type = T;
+  int dim = N;
+};
+
+template<typename T, bool v>
+struct force_enum{};
+template<typename T>
+struct force_enum<T, false>{
+  using Type = T;
+};
+template<typename T>
+struct force_enum<T, true>{
+  using Type = int;
+};
+
+template<typename T>
+struct force_enum_int{
+  using Type = typename force_enum<T, std::is_enum<T>::value>::Type;
+};
+
+#define vector_Mat vector<Mat>
+#define vector_UMat vector<UMat>
+
+#include "jlcv2_types.hpp"

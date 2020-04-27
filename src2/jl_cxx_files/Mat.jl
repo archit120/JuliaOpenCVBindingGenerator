@@ -15,11 +15,6 @@ struct Mat{T <: dtypes} <: AbstractArray{T,3}
         mat = nothing
         new{T}(mat, data_raw, data)
     end
-
-    @inline function Mat{T}(data_raw::AbstractArray{T, 3}) where {T <: dtypes}
-        mat = OpenCVCxx.CxxMat()
-        new{T}(mat, data_raw, data)
-    end
 end
 
 function Base.deepcopy_internal(x::Mat{T}, y::IdDict) where {T}

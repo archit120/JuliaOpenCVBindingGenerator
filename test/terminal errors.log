@@ -1,0 +1,815 @@
+rchit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+Warning: Type N2cv9Feature2DE already had a mapped type set as Feature2DAllocated using hash 14936560907904971664 and const-ref indicator 0
+Warning: Type N2cv9Feature2DE already had a mapped type set as Feature2DAllocated using hash 14936560907904971664 and const-ref indicator 0
+C++ exception while wrapping module OpenCV: No appropriate factory for type N2cv4UMatE
+ERROR: LoadError: No appropriate factory for type N2cv4UMatE
+Stacktrace:
+ [1] register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+ [2] readmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+ [3] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+ [4] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [5] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [6] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [7] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+C++ exception while wrapping module OpenCV: No appropriate factory for type N2cv3ORB9ScoreTypeE
+ERROR: LoadError: No appropriate factory for type N2cv3ORB9ScoreTypeE
+Stacktrace:
+ [1] register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+ [2] readmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+ [3] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+ [4] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [5] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [6] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [7] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+C++ exception while wrapping module OpenCV: No appropriate factory for type N2cv19FastFeatureDetector12DetectorTypeE
+ERROR: LoadError: No appropriate factory for type N2cv19FastFeatureDetector12DetectorTypeE
+Stacktrace:
+ [1] register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+ [2] readmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+ [3] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+ [4] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [5] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [6] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [7] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+C++ exception while wrapping module OpenCV: No appropriate factory for type N2cv5flann11IndexParamsE
+ERROR: LoadError: No appropriate factory for type N2cv5flann11IndexParamsE
+Stacktrace:
+ [1] register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+ [2] readmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+ [3] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+ [4] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [5] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [6] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [7] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+/home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp: In function ‘void cv_wrap(jlcxx::Module&)’:
+/home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp:383:25: error: ‘flann_SearchParams’ is not a member of ‘cv::flann’
+ mod.add_type<cv::flann::flann_SearchParams>("SearchParams");
+                         ^~~~~~~~~~~~~~~~~~
+/home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp:383:25: note: suggested alternative: ‘SearchParams’
+ mod.add_type<cv::flann::flann_SearchParams>("SearchParams");
+                         ^~~~~~~~~~~~~~~~~~
+                         SearchParams
+/home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp:383:59: error: no matching function for call to ‘jlcxx::Module::add_type<<expression error> >(const char [13])’
+ mod.add_type<cv::flann::flann_SearchParams>("SearchParams");
+                                                           ^
+In file included from /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/jlcxx.hpp:14:0,
+                 from /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp:2:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1164:16: note: candidate: template<class T, class SuperParametersT, class JLSuperT> jlcxx::TypeWrapper<T> jlcxx::Module::add_type(const string&, JLSuperT*)
+ TypeWrapper<T> Module::add_type(const std::string& name, JLSuperT* super)
+                ^~~~~~
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1164:16: note:   template argument deduction/substitution failed:
+/home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp:383:59: error: template argument 1 is invalid
+ mod.add_type<cv::flann::flann_SearchParams>("SearchParams");
+                                                           ^
+CMakeFiles/cv2_jl.dir/build.make:62: recipe for target 'CMakeFiles/cv2_jl.dir/cv_core.cpp.o' failed
+make[2]: *** [CMakeFiles/cv2_jl.dir/cv_core.cpp.o] Error 1
+CMakeFiles/Makefile2:67: recipe for target 'CMakeFiles/cv2_jl.dir/all' failed
+make[1]: *** [CMakeFiles/cv2_jl.dir/all] Error 2
+Makefile:129: recipe for target 'all' failed
+make: *** [all] Error 2
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+C++ exception while wrapping module OpenCV: No appropriate factory for type N2cv13HOGDescriptor17HistogramNormTypeE
+ERROR: LoadError: No appropriate factory for type N2cv13HOGDescriptor17HistogramNormTypeE
+Stacktrace:
+ [1] register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+ [2] readmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+ [3] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+ [4] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [5] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [6] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [7] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+C++ exception while wrapping module OpenCV: No appropriate factory for type N7cvflann16flann_distance_tE
+ERROR: LoadError: No appropriate factory for type N7cvflann16flann_distance_tE
+Stacktrace:
+ [1] register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+ [2] readmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+ [3] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+ [4] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [5] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [6] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [7] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+/home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp: In function ‘void cv_wrap(jlcxx::Module&)’:
+/home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp:384:25: error: ‘fla’ is not a member of ‘cv::flann’
+ mod.add_type<cv::flann::fla>("SearchParams");
+                         ^~~
+/home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp:384:44: error: no matching function for call to ‘jlcxx::Module::add_type<<expression error> >(const char [13])’
+ mod.add_type<cv::flann::fla>("SearchParams");
+                                            ^
+In file included from /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/jlcxx.hpp:14:0,
+                 from /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp:2:
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1164:16: note: candidate: template<class T, class SuperParametersT, class JLSuperT> jlcxx::TypeWrapper<T> jlcxx::Module::add_type(const string&, JLSuperT*)
+ TypeWrapper<T> Module::add_type(const std::string& name, JLSuperT* super)
+                ^~~~~~
+/home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1164:16: note:   template argument deduction/substitution failed:
+/home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core.cpp:384:44: error: template argument 1 is invalid
+ mod.add_type<cv::flann::fla>("SearchParams");
+                                            ^
+CMakeFiles/cv2_jl.dir/build.make:62: recipe for target 'CMakeFiles/cv2_jl.dir/cv_core.cpp.o' failed
+make[2]: *** [CMakeFiles/cv2_jl.dir/cv_core.cpp.o] Error 1
+CMakeFiles/Makefile2:67: recipe for target 'CMakeFiles/cv2_jl.dir/all' failed
+make[1]: *** [CMakeFiles/cv2_jl.dir/all] Error 2
+Makefile:129: recipe for target 'all' failed
+make: *** [all] Error 2
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+C++ exception while wrapping module OpenCV: Duplicate registration of constant CALIB_FIX_INTRINSIC
+ERROR: LoadError: Duplicate registration of constant CALIB_FIX_INTRINSIC
+Stacktrace:
+ [1] register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+ [2] readmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+ [3] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+ [4] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [5] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [6] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [7] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+C++ exception while wrapping module OpenCV: Type N2cv3PtrINS_5flann17KDTreeIndexParamsEEE has no Julia wrapper
+ERROR: LoadError: Type N2cv3PtrINS_5flann17KDTreeIndexParamsEEE has no Julia wrapper
+Stacktrace:
+ [1] register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+ [2] readmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+ [3] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+ [4] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [5] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [6] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [7] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+C++ exception while wrapping module OpenCV: Type N2cv3PtrINS_5flann17KDTreeIndexParamsEEE has no Julia wrapper
+ERROR: LoadError: Type N2cv3PtrINS_5flann17KDTreeIndexParamsEEE has no Julia wrapper
+Stacktrace:
+ [1] register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+ [2] readmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+ [3] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+ [4] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [5] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [6] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [7] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+error in running finalizer: ErrorException("Manual Cxx Reference creation is only for C++ types")
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+ERROR: LoadError: Double registration for method OpenCV.KeyPoint(CxxWrap.CxxWrapCore.CxxRef{Core.Float32}, CxxWrap.CxxWrapCore.CxxRef{Core.Float32}, CxxWrap.CxxWrapCore.CxxRef{Core.Float32}, CxxWrap.CxxWrapCore.CxxRef{Core.Float32}, CxxWrap.CxxWrapCore.CxxRef{Core.Float32}, CxxWrap.CxxWrapCore.CxxRef{Core.Int32}, CxxWrap.CxxWrapCore.CxxRef{Core.Int32})::OpenCV.KeyPointAllocated
+Stacktrace:
+ [1] error(::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [2] _register_function_pointers at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:372 [inlined]
+ [3] wrap_functions(::Array{CxxWrap.CxxWrapCore.CppFunctionInfo,1}, ::Module) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:675
+ [4] wrapfunctions(::Module) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:697
+ [5] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:716
+ [6] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [7] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [8] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [9] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{CxxWrap.StdLib.StdVector{OpenCV.Point{Int32}}}(cpp_object=0x00000000018d8700),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{CxxWrap.StdLib.StdVector{OpenCV.CxxMat}}(cpp_object=0x00000000027a6db0),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.SearchParams}}(cpp_object=0x0000000002aed810),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000002c52c20),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x00000000013c4ae0),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{CxxWrap.StdLib.StdVector{OpenCV.UMat}}(cpp_object=0x0000000001a48e30),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x00000000021a5fe0),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{CxxWrap.StdLib.StdVector{CxxWrap.StdLib.StdVector{CxxWrap.CxxWrapCore.CxxChar}}}(cpp_object=0x0000000002b35b50),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x000000000241ce30),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000002be8dc0),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.SimpleBlobDetector}}(cpp_object=0x0000000001d33890),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{Float32}}(cpp_object=0x000000000296e210),), world=0x0000000000006ed1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000001c22790),), world=0x0000000000006ed1)
+marchit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+ERROR: LoadError: Double registration for method OpenCV.VideoCapture(CxxWrap.CxxWrapCore.CxxRef{CxxWrap.StdLib.StdString}, CxxWrap.CxxWrapCore.CxxRef{Core.Int32})::OpenCV.VideoCaptureAllocated
+Stacktrace:
+ [1] error(::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [2] _register_function_pointers at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:372 [inlined]
+ [3] wrap_functions(::Array{CxxWrap.CxxWrapCore.CppFunctionInfo,1}, ::Module) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:675
+ [4] wrapfunctions(::Module) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:697
+ [5] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:716
+ [6] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [7] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [8] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [9] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+merror in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000003879130),), world=0x0000000000007316)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000004973790),), world=0x0000000000007316)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000003d682b0),), world=0x0000000000007316)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{CxxWrap.StdLib.StdVector{CxxWrap.StdLib.StdVector{CxxWrap.CxxWrapCore.CxxChar}}}(cpp_object=0x00000000041e3a40),), world=0x0000000000007316)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000004407170),), world=0x0000000000007316)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000003370de0),), world=0x0000000000007316)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{Float32}}(cpp_object=0x00000000041bb510),), world=0x0000000000007316)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x00000000035e1ab0),), world=0x0000000000007316)
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+ERROR: LoadError: Double registration for method OpenCV.jlopencv_cv_cv_addText(CxxWrap.CxxWrapCore.CxxRef{OpenCV.CxxMat}, CxxWrap.CxxWrapCore.CxxRef{CxxWrap.StdLib.StdString}, CxxWrap.CxxWrapCore.CxxRef{OpenCV.Point{Core.Int32}}, CxxWrap.CxxWrapCore.CxxRef{CxxWrap.StdLib.StdString}, CxxWrap.CxxWrapCore.CxxRef{Core.Int32}, CxxWrap.CxxWrapCore.CxxRef{OpenCV.CxxScalar{Core.Float64}}, CxxWrap.CxxWrapCore.CxxRef{Core.Int32}, CxxWrap.CxxWrapCore.CxxRef{Core.Int32}, CxxWrap.CxxWrapCore.CxxRef{Core.Int32})::Core.Nothing
+Stacktrace:
+ [1] error(::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [2] _register_function_pointers at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:372 [inlined]
+ [3] wrap_functions(::Array{CxxWrap.CxxWrapCore.CppFunctionInfo,1}, ::Module) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:675
+ [4] wrapfunctions(::Module) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:697
+ [5] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:716
+ [6] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [7] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [8] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [9] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000002a6c2c0),), world=0x00000000000075c1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x00000000032e8cb0),), world=0x00000000000075c1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000001ffca80),), world=0x00000000000075c1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x00000000029d5820),), world=0x00000000000075c1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000001bbfd00),), world=0x00000000000075c1)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000002654900),), world=0x00000000000075c1)
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+ERROR: LoadError: Double registration for method OpenCV.jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setClassWeights(CxxWrap.CxxWrapCore.CxxRef{OpenCV.cv_Ptr{OpenCV.SVM}}, CxxWrap.CxxWrapCore.CxxRef{OpenCV.CxxMat})::Core.Nothing
+Stacktrace:
+ [1] error(::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [2] _register_function_pointers at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:372 [inlined]
+ [3] wrap_functions(::Array{CxxWrap.CxxWrapCore.CppFunctionInfo,1}, ::Module) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:675
+ [4] wrapfunctions(::Module) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:697
+ [5] wrapmodule(::String, ::Symbol, ::Module, ::Nothing) at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:716
+ [6] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+ [7] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [8] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [9] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+
+julia> exit()
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000001bad6b0),), world=0x000000000000768b)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x00000000031b4bd0),), world=0x000000000000768b)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x00000000021b2030),), world=0x000000000000768b)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x000000000270c680),), world=0x000000000000768b)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x000000000265e520),), world=0x000000000000768b)
+error in running finalizer: MethodError(f=typeof(CxxWrap.CxxWrapCore.__delete)(), args=(CxxWrap.CxxWrapCore.CxxPtr{OpenCV.cv_Ptr{OpenCV.ParamGrid}}(cpp_object=0x0000000002287b90),), world=0x000000000000768b)
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ make
+Scanning dependencies of target cv2_jl
+[ 50%] Building CXX object CMakeFiles/cv2_jl.dir/cv_core.cpp.o
+[100%] Linking CXX shared library lib/libcv2_jl.so
+[100%] Built target cv2_jl
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+Main.OpenCV
+
+julia> OpenCV.imread("/home/archit/Pictures/Screenshot from 2020-01-12 20-57-19.png")
+3×3840×1080 Main.OpenCV.Mat{UInt8}:
+[:, :, 1] =
+ 0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  …  0x4d  0x4d  0x4d  0x4d  0x4d  0x4d  0x4d  0x4d  0x4d  0x4d  0x4d  0x4d  0x4d  0x4d
+ 0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b     0x55  0x55  0x55  0x55  0x55  0x55  0x55  0x55  0x55  0x55  0x55  0x55  0x55  0x55
+ 0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c     0x58  0x58  0x58  0x58  0x58  0x58  0x58  0x58  0x58  0x58  0x58  0x58  0x58  0x58
+
+[:, :, 2] =
+ 0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  …  0x4c  0x4c  0x4c  0x4c  0x4c  0x4c  0x4c  0x4c  0x4c  0x4c  0x4c  0x4c  0x4c  0x4c
+ 0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b     0x54  0x54  0x54  0x54  0x54  0x54  0x54  0x54  0x54  0x54  0x54  0x54  0x54  0x54
+ 0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c     0x57  0x57  0x57  0x57  0x57  0x57  0x57  0x57  0x57  0x57  0x57  0x57  0x57  0x57
+
+[:, :, 3] =
+ 0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  0x37  …  0x4b  0x4b  0x4b  0x4b  0x4b  0x4b  0x4b  0x4b  0x4b  0x4b  0x4b  0x4b  0x4b  0x4b
+ 0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b  0x3b     0x53  0x53  0x53  0x53  0x53  0x53  0x53  0x53  0x53  0x53  0x53  0x53  0x53  0x53
+ 0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c  0x3c     0x56  0x56  0x56  0x56  0x56  0x56  0x56  0x56  0x56  0x56  0x56  0x56  0x56  0x56
+
+...
+
+[:, :, 1078] =
+ 0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  …  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f
+ 0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3     0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a
+ 0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3     0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26
+
+[:, :, 1079] =
+ 0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  …  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f
+ 0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3     0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a
+ 0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3     0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26
+
+[:, :, 1080] =
+ 0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  …  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f  0x2f
+ 0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3     0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a  0x2a
+ 0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3  0xe3     0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26  0x26
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+ERROR: LoadError: LoadError: UndefVarError: ORB_ScoreType not defined
+Stacktrace:
+ [1] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_wrap.jl:1036
+ [2] include at ./boot.jl:328 [inlined]
+ [3] include_relative(::Module, ::String) at ./loading.jl:1105
+ [4] include at ./Base.jl:31 [inlined]
+ [5] include(::String) at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:1
+ [6] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:63
+ [7] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [8] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [9] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_wrap.jl:1036
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:63
+
+julia> include("cv_core_2.jl")
+WARNING: replacing module OpenCV.
+Warning: Type N2cv11RotatedRectE already had a mapped type set as RotatedRect using hash 7097354190973105689 and const-ref indicator 0
+Warning: Type N2cv12TermCriteriaE already had a mapped type set as TermCriteria using hash 5771587391676055987 and const-ref indicator 0
+Warning: Type N2cv5RangeE already had a mapped type set as Range using hash 8034630275165509378 and const-ref indicator 0
+existing type found : 0x7f55652b57b0 <-> 0x7f55b383b570
+julia: /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1042: int jlcxx::TypeWrapper<T>::apply_internal(FunctorT&&) [with AppliedT = cv::Vec<float, 4>; FunctorT = cv_wrap(jlcxx::Module&)::<lambda(auto:1)>; T = jlcxx::Parametric<jlcxx::TypeVar<1>, jlcxx::TypeVar<2> >]: Assertion `julia_type<AppliedT>() == app_box_dt' failed.
+
+signal (6): Aborted
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+__libc_signal_restore_set at /build/glibc-OTsEL5/glibc-2.27/signal/../sysdeps/unix/sysv/linux/nptl-signals.h:80 [inlined]
+raise at /build/glibc-OTsEL5/glibc-2.27/signal/../sysdeps/unix/sysv/linux/raise.c:48
+abort at /build/glibc-OTsEL5/glibc-2.27/stdlib/abort.c:79
+__assert_fail_base at /build/glibc-OTsEL5/glibc-2.27/assert/assert.c:92
+__assert_fail at /build/glibc-OTsEL5/glibc-2.27/assert/assert.c:101
+_ZN5jlcxx11TypeWrapperINS_10ParametricIJNS_7TypeVarILi1EEENS2_ILi2EEEEEEE14apply_internalIN2cv3VecIfLi4EEEZ7cv_wrapEUlT_E_EEiOT0_ at lib/libcv2_jl.so (unknown line)
+_ZN5jlcxx11TypeWrapperINS_10ParametricIJNS_7TypeVarILi1EEENS2_ILi2EEEEEEE5applyIJN2cv3VecIfLi4EEENS9_IfLi6EEENS9_IdLi3EEENS9_IdLi2EEEEZ7cv_wrapEUlT_E_EERS6_OT0_ at lib/libcv2_jl.so (unknown line)
+cv_wrap at lib/libcv2_jl.so (unknown line)
+register_julia_module at /home/archit/.julia/artifacts/498b50190a577f93ae355b73f18831c0bacf1de8/lib/libcxxwrap_julia.so.0 (unknown line)
+register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+readmodule at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+wrapmodule at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2135 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1631 [inlined]
+do_call at /buildworker/worker/package_linux64/build/src/interpreter.c:328
+eval_value at /buildworker/worker/package_linux64/build/src/interpreter.c:417
+eval_stmt_value at /buildworker/worker/package_linux64/build/src/interpreter.c:368 [inlined]
+eval_body at /buildworker/worker/package_linux64/build/src/interpreter.c:778
+jl_interpret_toplevel_thunk_callback at /buildworker/worker/package_linux64/build/src/interpreter.c:888
+unknown function (ip: 0xfffffffffffffffe)
+unknown function (ip: 0x7f5587ed408f)
+unknown function (ip: (nil))
+jl_interpret_toplevel_thunk at /buildworker/worker/package_linux64/build/src/interpreter.c:897
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:814
+jl_eval_module_expr at /buildworker/worker/package_linux64/build/src/toplevel.c:181
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:640
+jl_parse_eval_all at /buildworker/worker/package_linux64/build/src/ast.c:873
+jl_load at /buildworker/worker/package_linux64/build/src/toplevel.c:878
+include at ./boot.jl:328 [inlined]
+include_relative at ./loading.jl:1105
+include at ./Base.jl:31
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2141 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+include at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so (unknown line)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2135 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1631 [inlined]
+do_call at /buildworker/worker/package_linux64/build/src/interpreter.c:328
+eval_value at /buildworker/worker/package_linux64/build/src/interpreter.c:417
+eval_stmt_value at /buildworker/worker/package_linux64/build/src/interpreter.c:368 [inlined]
+eval_body at /buildworker/worker/package_linux64/build/src/interpreter.c:778
+jl_interpret_toplevel_thunk_callback at /buildworker/worker/package_linux64/build/src/interpreter.c:888
+unknown function (ip: 0xfffffffffffffffe)
+unknown function (ip: 0x7f5565324e0f)
+unknown function (ip: 0xffffffffffffffff)
+jl_interpret_toplevel_thunk at /buildworker/worker/package_linux64/build/src/interpreter.c:897
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:814
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:764
+jl_toplevel_eval_in at /buildworker/worker/package_linux64/build/src/toplevel.c:843
+eval at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so (unknown line)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2135 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+eval_user_input at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so (unknown line)
+#26 at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so (unknown line)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2135 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1631 [inlined]
+start_task at /buildworker/worker/package_linux64/build/src/task.c:659
+unknown function (ip: 0xffffffffffffffff)
+Allocations: 95781677 (Pool: 95775821; Big: 5856); GC: 105
+Aborted (core dumped)
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+ERROR: LoadError: LoadError: syntax: "fs{FileStorage}" is not a valid function argument name
+Stacktrace:
+ [1] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_wrap.jl:13
+ [2] include at ./boot.jl:328 [inlined]
+ [3] include_relative(::Module, ::String) at ./loading.jl:1105
+ [4] include at ./Base.jl:31 [inlined]
+ [5] include(::String) at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:1
+ [6] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:63
+ [7] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [8] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [9] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_wrap.jl:13
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:63
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+ERROR: LoadError: LoadError: syntax: unexpected "}" in argument list
+Stacktrace:
+ [1] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_wrap.jl:463
+ [2] include at ./boot.jl:328 [inlined]
+ [3] include_relative(::Module, ::String) at ./loading.jl:1105
+ [4] include at ./Base.jl:31 [inlined]
+ [5] include(::String) at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:1
+ [6] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:63
+ [7] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [8] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [9] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_wrap.jl:463
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:63
+
+julia> exit()
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
+ERROR: LoadError: LoadError: syntax: extra token "Base" after end of expression
+Stacktrace:
+ [1] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_wrap.jl:73
+ [2] include at ./boot.jl:328 [inlined]
+ [3] include_relative(::Module, ::String) at ./loading.jl:1105
+ [4] include at ./Base.jl:31 [inlined]
+ [5] include(::String) at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:1
+ [6] top-level scope at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:63
+ [7] include_relative(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:?
+ [8] include(::Module, ::String) at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so:? (repeats 2 times)
+ [9] top-level scope at REPL[1]:1
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_wrap.jl:73
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:63
+
+julia> include("cv_core_2.jl")
+WARNING: replacing module OpenCV.
+Warning: Type N2cv11RotatedRectE already had a mapped type set as RotatedRect using hash 7097354190973105689 and const-ref indicator 0
+Warning: Type N2cv12TermCriteriaE already had a mapped type set as TermCriteria using hash 5771587391676055987 and const-ref indicator 0
+Warning: Type N2cv5RangeE already had a mapped type set as Range using hash 8034630275165509378 and const-ref indicator 0
+existing type found : 0x7f55e50c54a0 <-> 0x7f5632e2c470
+julia: /home/archit/GSoC_Work/libcxxwrap-julia/include/jlcxx/module.hpp:1042: int jlcxx::TypeWrapper<T>::apply_internal(FunctorT&&) [with AppliedT = cv::Vec<float, 4>; FunctorT = cv_wrap(jlcxx::Module&)::<lambda(auto:1)>; T = jlcxx::Parametric<jlcxx::TypeVar<1>, jlcxx::TypeVar<2> >]: Assertion `julia_type<AppliedT>() == app_box_dt' failed.
+
+signal (6): Aborted
+in expression starting at /home/archit/Documents/GitHub/JuliaOpenCVBindingGenerator/test/cv_core_2.jl:10
+__libc_signal_restore_set at /build/glibc-OTsEL5/glibc-2.27/signal/../sysdeps/unix/sysv/linux/nptl-signals.h:80 [inlined]
+raise at /build/glibc-OTsEL5/glibc-2.27/signal/../sysdeps/unix/sysv/linux/raise.c:48
+abort at /build/glibc-OTsEL5/glibc-2.27/stdlib/abort.c:79
+__assert_fail_base at /build/glibc-OTsEL5/glibc-2.27/assert/assert.c:92
+__assert_fail at /build/glibc-OTsEL5/glibc-2.27/assert/assert.c:101
+_ZN5jlcxx11TypeWrapperINS_10ParametricIJNS_7TypeVarILi1EEENS2_ILi2EEEEEEE14apply_internalIN2cv3VecIfLi4EEEZ7cv_wrapEUlT_E_EEiOT0_ at lib/libcv2_jl.so (unknown line)
+_ZN5jlcxx11TypeWrapperINS_10ParametricIJNS_7TypeVarILi1EEENS2_ILi2EEEEEEE5applyIJN2cv3VecIfLi4EEENS9_IfLi6EEENS9_IdLi3EEENS9_IdLi2EEEEZ7cv_wrapEUlT_E_EERS6_OT0_ at lib/libcv2_jl.so (unknown line)
+cv_wrap at lib/libcv2_jl.so (unknown line)
+register_julia_module at /home/archit/.julia/artifacts/498b50190a577f93ae355b73f18831c0bacf1de8/lib/libcxxwrap_julia.so.0 (unknown line)
+register_julia_module at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:404 [inlined]
+readmodule at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:710
+wrapmodule at /home/archit/.julia/packages/CxxWrap/Wi9ig/src/CxxWrap.jl:714
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2135 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1631 [inlined]
+do_call at /buildworker/worker/package_linux64/build/src/interpreter.c:328
+eval_value at /buildworker/worker/package_linux64/build/src/interpreter.c:417
+eval_stmt_value at /buildworker/worker/package_linux64/build/src/interpreter.c:368 [inlined]
+eval_body at /buildworker/worker/package_linux64/build/src/interpreter.c:778
+jl_interpret_toplevel_thunk_callback at /buildworker/worker/package_linux64/build/src/interpreter.c:888
+unknown function (ip: 0xfffffffffffffffe)
+unknown function (ip: 0x7f56084dc48f)
+unknown function (ip: (nil))
+jl_interpret_toplevel_thunk at /buildworker/worker/package_linux64/build/src/interpreter.c:897
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:814
+jl_eval_module_expr at /buildworker/worker/package_linux64/build/src/toplevel.c:181
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:640
+jl_parse_eval_all at /buildworker/worker/package_linux64/build/src/ast.c:873
+jl_load at /buildworker/worker/package_linux64/build/src/toplevel.c:878
+include at ./boot.jl:328 [inlined]
+include_relative at ./loading.jl:1105
+include at ./Base.jl:31
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2141 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+include at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so (unknown line)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2135 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1631 [inlined]
+do_call at /buildworker/worker/package_linux64/build/src/interpreter.c:328
+eval_value at /buildworker/worker/package_linux64/build/src/interpreter.c:417
+eval_stmt_value at /buildworker/worker/package_linux64/build/src/interpreter.c:368 [inlined]
+eval_body at /buildworker/worker/package_linux64/build/src/interpreter.c:778
+jl_interpret_toplevel_thunk_callback at /buildworker/worker/package_linux64/build/src/interpreter.c:888
+unknown function (ip: 0xfffffffffffffffe)
+unknown function (ip: 0x7f5607f6308f)
+unknown function (ip: 0xffffffffffffffff)
+jl_interpret_toplevel_thunk at /buildworker/worker/package_linux64/build/src/interpreter.c:897
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:814
+jl_toplevel_eval_flex at /buildworker/worker/package_linux64/build/src/toplevel.c:764
+jl_toplevel_eval_in at /buildworker/worker/package_linux64/build/src/toplevel.c:843
+eval at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so (unknown line)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2135 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+eval_user_input at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so (unknown line)
+#26 at /home/archit/Downloads/julia-1.3.1/lib/julia/sys.so (unknown line)
+_jl_invoke at /buildworker/worker/package_linux64/build/src/gf.c:2135 [inlined]
+jl_apply_generic at /buildworker/worker/package_linux64/build/src/gf.c:2305
+jl_apply at /buildworker/worker/package_linux64/build/src/julia.h:1631 [inlined]
+start_task at /buildworker/worker/package_linux64/build/src/task.c:659
+unknown function (ip: 0xffffffffffffffff)
+Allocations: 95809004 (Pool: 95803135; Big: 5869); GC: 102
+Aborted (core dumped)
+archit@archit-XPS-13-9370:~/Documents/GitHub/JuliaOpenCVBindingGenerator/test$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.3.1 (2019-12-30)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> include("cv_core_2.jl")
