@@ -117,9 +117,9 @@ class ClassInfo(ClassInfo):
         stra = ""
         for prop in self.props:
             if not self.isalgorithm:
-                stra = stra + '\nmod.method("%s", [](const %s &cobj) {return cobj.%s;});' % (self.get_prop_func_cpp("get", prop.name), self.name, prop.name)
+                stra = stra + '\nmod.method("%s", [](const %s &cobj) {return %scobj.%s;});' % (self.get_prop_func_cpp("get", prop.name), self.name, '(int)' if prop.tp in enums else '', prop.name)
             else:
-                stra = stra + '\nmod.method("%s", [](const cv::Ptr<%s> &cobj) {return cobj->%s;});' % (self.get_prop_func_cpp("get", prop.name), self.name, prop.name)    
+                stra = stra + '\nmod.method("%s", [](const cv::Ptr<%s> &cobj) {return %scobj->%s;});' % (self.get_prop_func_cpp("get", prop.name), self.name,'(int)' if prop.tp in enums else '',  prop.name)    
         return stra
 
     def get_setters(self):
@@ -130,7 +130,7 @@ class ClassInfo(ClassInfo):
             if not self.isalgorithm:
                 stra = stra + '\nmod.method("%s", [](%s &cobj,const %s &v) {cobj.%s=v;});' % (self.get_prop_func_cpp("set", prop.name), self.name, prop.tp, prop.name)
             else:
-                stra = stra + '\nmod.method("%s", [](%s cv::Ptr<cobj>, const %s &v) {cobj->%s=v;});' % (self.get_prop_func_cpp("set", prop.name), self.name, prop.tp, prop.name)
+                stra = stra + '\nmod.method("%s", [](%s cv::Ptr<cobj>, const force_enum_int<%s>::Type &v) {cobj->%s=(%s)v;});' % (self.get_prop_func_cpp("set", prop.name), self.name, prop.tp, prop.name, prop.tp)
         return stra
 
 class FuncVariant(FuncVariant):
@@ -139,8 +139,8 @@ class FuncVariant(FuncVariant):
         if len(self.outlist)==0:
             return ";"
         elif len(self.outlist)==1:
-            return "return %s;" % self.outlist[0].name
-        return "return make_tuple(%s);" %  ",".join(["move(%s)" % x.name for x in self.outlist])
+            return "return %s;" % ( ('(int)' if self.outlist[0].tp in enums else '') + self.outlist[0].name)
+        return "return make_tuple(%s);" %  ",".join(["move(%s)" %  (('(int)' if x.tp in enums else '') +x.name) for x in self.outlist])
     
     def get_argument(self, isalgo):
         args = self.inlist + self.optlist
@@ -200,7 +200,7 @@ class FuncVariant(FuncVariant):
             else:
                 arglist.append(x.name)
 
-        return 'mod.method("%s", [](%s) { %s return jlcxx::create<%s>(%s);});' % (mapped_name, self.get_argument(False), self.get_def_outtypes(), name, " ,".join(arglist))
+        return 'mod.method("%s", [](%s) { %s return jlcxx::create<%s>(%s);});' % (self.get_wrapper_name(), self.get_argument(False), self.get_def_outtypes(), name, " ,".join(arglist))
 
     def get_complete_code(self, classname, isalgo=False):
         outstr = '.method("%s",  [](%s) {%s %s %s})' % (self.get_wrapper_name(), self.get_argument(isalgo),self.get_def_outtypes(), self.get_retval(isalgo), self.get_return())
@@ -233,6 +233,7 @@ struct SuperType<%s>
             # cpp_code.write('\n    mod.add_bits<{0}>("{1}", jlcxx::julia_type("CppEnum"));'.format(e2[0], e2[1]))
             enums.append(e2[0])
             enums.append(e2[1])
+            enums.append(e2[0].replace("cv::", ""))
 
 
         for tp in ns.register_types:
@@ -249,8 +250,8 @@ struct SuperType<%s>
                 for f in fs:
                     f.__class__ = FuncVariant
                     cpp_code.write('\n    mod%s;'  % f.get_complete_code(cl.name, cl.isalgorithm))
-            for f in cl.constructors:
-                cpp_code.write('\n    %s; \n'  % f.get_cons_code(cl.name, cl.mapped_name))
+            # for f in cl.constructors:
+            #     cpp_code.write('\n    %s; \n'  % f.get_cons_code(cl.name, cl.mapped_name))
 
 
         for mname, fs in ns.funcs.items():

@@ -231,6 +231,72 @@ struct SuperType<cv::BaseCascadeClassifier>
     typedef cv::Algorithm type;
 };
                                     
+template <>
+struct SuperType<cv::ml::StatModel>
+{
+    typedef cv::Algorithm type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::NormalBayesClassifier>
+{
+    typedef cv::ml::StatModel type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::KNearest>
+{
+    typedef cv::ml::StatModel type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::SVM>
+{
+    typedef cv::ml::StatModel type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::EM>
+{
+    typedef cv::ml::StatModel type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::DTrees>
+{
+    typedef cv::ml::StatModel type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::RTrees>
+{
+    typedef cv::ml::DTrees type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::Boost>
+{
+    typedef cv::ml::DTrees type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::ANN_MLP>
+{
+    typedef cv::ml::StatModel type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::LogisticRegression>
+{
+    typedef cv::ml::StatModel type;
+};
+                                    
+template <>
+struct SuperType<cv::ml::SVMSGD>
+{
+    typedef cv::ml::StatModel type;
+};
+                                    
 
 } // namespace jlcxx
 JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
@@ -311,14 +377,35 @@ mod.add_type<cv::QRCodeDetector>("QRCodeDetector");
 mod.add_type<cv::VideoCapture>("VideoCapture");
 mod.add_type<cv::VideoWriter>("VideoWriter");
    mod.add_type<FileNode>("FileNode");
-   mod.add_type<FileStorage>("FileStorage");
-
-   mod.add_type<cv::flann::IndexParams>("IndexParams");
+//    mod.add_type<FeatureDetector>("FeatureDetector");
+//    mod.add_type<DescriptorExtractor>("DescriptorExtractor");
+mod.add_type<cv::flann::IndexParams>("IndexParams");
 mod.add_type<cv::flann::SearchParams>("SearchParams");
+// mod.add_type<cv::flann::flann_distance_t>("flann_distance_t");
+
+
+
 mod.add_type<UMat>("UMat");
+   mod.add_type<FileStorage>("FileStorage");
 using namespace cv::traits;
 using namespace cv::ocl;
 mod.add_type<cv::ocl::Device>("Device");
+using namespace cv::flann;
+mod.add_type<cv::flann::Index>("Index");
+using namespace cv::ml;
+mod.add_type<cv::ml::ParamGrid>("ParamGrid");
+mod.add_type<cv::ml::TrainData>("TrainData");
+mod.add_type<cv::ml::StatModel>("StatModel", jlcxx::julia_base_type<cv::Algorithm>());
+mod.add_type<cv::ml::NormalBayesClassifier>("NormalBayesClassifier", jlcxx::julia_base_type<cv::ml::StatModel>());
+mod.add_type<cv::ml::KNearest>("KNearest", jlcxx::julia_base_type<cv::ml::StatModel>());
+mod.add_type<cv::ml::SVM>("SVM", jlcxx::julia_base_type<cv::ml::StatModel>());
+mod.add_type<cv::ml::EM>("EM", jlcxx::julia_base_type<cv::ml::StatModel>());
+mod.add_type<cv::ml::DTrees>("DTrees", jlcxx::julia_base_type<cv::ml::StatModel>());
+mod.add_type<cv::ml::RTrees>("RTrees", jlcxx::julia_base_type<cv::ml::DTrees>());
+mod.add_type<cv::ml::Boost>("Boost", jlcxx::julia_base_type<cv::ml::DTrees>());
+mod.add_type<cv::ml::ANN_MLP>("ANN_MLP", jlcxx::julia_base_type<cv::ml::StatModel>());
+mod.add_type<cv::ml::LogisticRegression>("LogisticRegression", jlcxx::julia_base_type<cv::ml::StatModel>());
+mod.add_type<cv::ml::SVMSGD>("SVMSGD", jlcxx::julia_base_type<cv::ml::StatModel>());
 using namespace cv::fisheye;
 using namespace cv::internal;
 
@@ -329,7 +416,8 @@ using namespace cv::internal;
     mod.method("jlopencv_cv_cv_Algorithm_cv_Algorithm_read",  [](cv::Algorithm& cobj, FileNode& fn) { cobj.read(fn);  ;});
     mod.method("jlopencv_cv_cv_Algorithm_cv_Algorithm_empty",  [](cv::Algorithm& cobj) { auto retval = cobj.empty();  return retval;});
     mod.method("jlopencv_cv_cv_Algorithm_cv_Algorithm_save",  [](cv::Algorithm& cobj, string& filename) { cobj.save(filename);  ;});
-    mod.method("jlopencv_cv_cv_Algorithm_cv_Algorithm_getDefaultName",  [](cv::Algorithm& cobj) { auto retval = cobj.getDefaultName();  return retval;});mod.method("jlopencv_cv_cv_KeyPoint_cv_KeyPoint_KeyPoint", [](float& x, float& y, float& _size, float& _angle, float& _response, int& _octave, int& _class_id) {  return jlcxx::create<cv::KeyPoint>(x ,y ,_size ,_angle ,_response ,_octave ,_class_id);});
+    mod.method("jlopencv_cv_cv_Algorithm_cv_Algorithm_getDefaultName",  [](cv::Algorithm& cobj) { auto retval = cobj.getDefaultName();  return retval;});
+    // mod.method("KeyPoint", [](float& x, float& y, float& _size, float& _angle, float& _response, int& _octave, int& _class_id) {  return jlcxx::create<cv::KeyPoint>(x ,y ,_size ,_angle ,_response ,_octave ,_class_id);});
 
 mod.method("jlopencv_KeyPoint_set_pt", [](cv::KeyPoint &cobj,const Point2f &v) {cobj.pt=v;});
 mod.method("jlopencv_KeyPoint_set_size", [](cv::KeyPoint &cobj,const float &v) {cobj.size=v;});
@@ -343,7 +431,12 @@ mod.method("jlopencv_KeyPoint_get_size", [](const cv::KeyPoint &cobj) {return co
 mod.method("jlopencv_KeyPoint_get_angle", [](const cv::KeyPoint &cobj) {return cobj.angle;});
 mod.method("jlopencv_KeyPoint_get_response", [](const cv::KeyPoint &cobj) {return cobj.response;});
 mod.method("jlopencv_KeyPoint_get_octave", [](const cv::KeyPoint &cobj) {return cobj.octave;});
-mod.method("jlopencv_KeyPoint_get_class_id", [](const cv::KeyPoint &cobj) {return cobj.class_id;});;mod.method("jlopencv_cv_cv_DMatch_cv_DMatch_DMatch", [](int& _queryIdx, int& _trainIdx, float& _distance) {  return jlcxx::create<cv::DMatch>(_queryIdx ,_trainIdx ,_distance);});mod.method("jlopencv_cv_cv_DMatch_cv_DMatch_DMatch", [](int& _queryIdx, int& _trainIdx, int& _imgIdx, float& _distance) {  return jlcxx::create<cv::DMatch>(_queryIdx ,_trainIdx ,_imgIdx ,_distance);});
+mod.method("jlopencv_KeyPoint_get_class_id", [](const cv::KeyPoint &cobj) {return cobj.class_id;});;
+    ; 
+
+    mod.method("KeyPoint", [](float& x, float& y, float& _size, float& _angle, float& _response, int& _octave, int& _class_id) {  return jlcxx::create<cv::KeyPoint>(x ,y ,_size ,_angle ,_response ,_octave ,_class_id);});; 
+mod.method("DMatch", [](int& _queryIdx, int& _trainIdx, float& _distance) {  return jlcxx::create<cv::DMatch>(_queryIdx ,_trainIdx ,_distance);});
+mod.method("DMatch", [](int& _queryIdx, int& _trainIdx, int& _imgIdx, float& _distance) {  return jlcxx::create<cv::DMatch>(_queryIdx ,_trainIdx ,_imgIdx ,_distance);});
 
 mod.method("jlopencv_DMatch_set_queryIdx", [](cv::DMatch &cobj,const int &v) {cobj.queryIdx=v;});
 mod.method("jlopencv_DMatch_set_trainIdx", [](cv::DMatch &cobj,const int &v) {cobj.trainIdx=v;});
@@ -354,6 +447,12 @@ mod.method("jlopencv_DMatch_get_queryIdx", [](const cv::DMatch &cobj) {return co
 mod.method("jlopencv_DMatch_get_trainIdx", [](const cv::DMatch &cobj) {return cobj.trainIdx;});
 mod.method("jlopencv_DMatch_get_imgIdx", [](const cv::DMatch &cobj) {return cobj.imgIdx;});
 mod.method("jlopencv_DMatch_get_distance", [](const cv::DMatch &cobj) {return cobj.distance;});;
+    ; 
+
+    // mod.method("DMatch", [](int& _queryIdx, int& _trainIdx, float& _distance) {  return jlcxx::create<cv::DMatch>(_queryIdx ,_trainIdx ,_distance);});; 
+
+    // mod.method("DMatch", [](int& _queryIdx, int& _trainIdx, int& _imgIdx, float& _distance) {  return jlcxx::create<cv::DMatch>(_queryIdx ,_trainIdx ,_imgIdx ,_distance);});; 
+
 
 mod.method("jlopencv_Moments_set_m00", [](cv::Moments &cobj,const double &v) {cobj.m00=v;});
 mod.method("jlopencv_Moments_set_m10", [](cv::Moments &cobj,const double &v) {cobj.m10=v;});
@@ -464,7 +563,7 @@ mod.method("jlopencv_Moments_get_nu03", [](const cv::Moments &cobj) {return cobj
     mod.method("jlopencv_cv_cv_CLAHE_cv_CLAHE_getClipLimit",  [](cv::Ptr<cv::CLAHE>& cobj) { auto retval = cobj->getClipLimit();  return retval;});
     mod.method("jlopencv_cv_cv_CLAHE_cv_CLAHE_setTilesGridSize",  [](cv::Ptr<cv::CLAHE>& cobj, Size& tileGridSize) { cobj->setTilesGridSize(tileGridSize);  ;});
     mod.method("jlopencv_cv_cv_CLAHE_cv_CLAHE_getTilesGridSize",  [](cv::Ptr<cv::CLAHE>& cobj) { auto retval = cobj->getTilesGridSize();  return retval;});
-    mod.method("jlopencv_cv_cv_CLAHE_cv_CLAHE_collectGarbage",  [](cv::Ptr<cv::CLAHE>& cobj) { cobj->collectGarbage();  ;});mod.method("jlopencv_cv_cv_Subdiv2D_cv_Subdiv2D_Subdiv2D", [](Rect& rect) {  return jlcxx::create<cv::Subdiv2D>(rect);});
+    mod.method("jlopencv_cv_cv_CLAHE_cv_CLAHE_collectGarbage",  [](cv::Ptr<cv::CLAHE>& cobj) { cobj->collectGarbage();  ;});mod.method("Subdiv2D", [](Rect& rect) {  return jlcxx::create<cv::Subdiv2D>(rect);});
 
 ;
     mod.method("jlopencv_cv_cv_Subdiv2D_cv_Subdiv2D_initDelaunay",  [](cv::Subdiv2D& cobj, Rect& rect) { cobj.initDelaunay(rect);  ;});
@@ -483,6 +582,10 @@ mod.method("jlopencv_Moments_get_nu03", [](const cv::Moments &cobj) {return cobj
     mod.method("jlopencv_cv_cv_Subdiv2D_cv_Subdiv2D_symEdge",  [](cv::Subdiv2D& cobj, int& edge) { auto retval = cobj.symEdge(edge);  return retval;});
     mod.method("jlopencv_cv_cv_Subdiv2D_cv_Subdiv2D_edgeOrg",  [](cv::Subdiv2D& cobj, int& edge) {Point2f orgpt; auto retval = cobj.edgeOrg(edge, &orgpt);  return make_tuple(move(retval),move(orgpt));});
     mod.method("jlopencv_cv_cv_Subdiv2D_cv_Subdiv2D_edgeDst",  [](cv::Subdiv2D& cobj, int& edge) {Point2f dstpt; auto retval = cobj.edgeDst(edge, &dstpt);  return make_tuple(move(retval),move(dstpt));});
+    ; 
+
+    // mod.method("Subdiv2D", [](Rect& rect) {  return jlcxx::create<cv::Subdiv2D>(rect);});; 
+
 
 ;
     mod.method("jlopencv_cv_cv_LineSegmentDetector_cv_LineSegmentDetector_detect",  [](cv::Ptr<cv::LineSegmentDetector>& cobj, Mat& _image, Mat& _lines, Mat& width, Mat& prec, Mat& nfa) { cobj->detect(_image, _lines, width, prec, nfa);  return make_tuple(move(_lines),move(width),move(prec),move(nfa));});
@@ -523,6 +626,8 @@ mod.method("jlopencv_CirclesGridFinderParameters_get_convexHullFactor", [](const
 mod.method("jlopencv_CirclesGridFinderParameters_get_minRNGEdgeSwitchDist", [](const cv::CirclesGridFinderParameters &cobj) {return cobj.minRNGEdgeSwitchDist;});
 mod.method("jlopencv_CirclesGridFinderParameters_get_squareSize", [](const cv::CirclesGridFinderParameters &cobj) {return cobj.squareSize;});
 mod.method("jlopencv_CirclesGridFinderParameters_get_maxRectifiedDistance", [](const cv::CirclesGridFinderParameters &cobj) {return cobj.maxRectifiedDistance;});;
+    ; 
+
 
 ;
     mod.method("jlopencv_cv_cv_StereoMatcher_cv_StereoMatcher_compute",  [](cv::Ptr<cv::StereoMatcher>& cobj, Mat& left, Mat& right, Mat& disparity) { cobj->compute(left, right, disparity);  return disparity;});
@@ -707,6 +812,8 @@ mod.method("jlopencv_SimpleBlobDetector_Params_get_maxInertiaRatio", [](const cv
 mod.method("jlopencv_SimpleBlobDetector_Params_get_filterByConvexity", [](const cv::SimpleBlobDetector::Params &cobj) {return cobj.filterByConvexity;});
 mod.method("jlopencv_SimpleBlobDetector_Params_get_minConvexity", [](const cv::SimpleBlobDetector::Params &cobj) {return cobj.minConvexity;});
 mod.method("jlopencv_SimpleBlobDetector_Params_get_maxConvexity", [](const cv::SimpleBlobDetector::Params &cobj) {return cobj.maxConvexity;});;
+    ; 
+
 
 ;
     mod.method("jlopencv_cv_cv_KAZE_cv_KAZE_setExtended",  [](cv::Ptr<cv::KAZE>& cobj, bool& extended) { cobj->setExtended(extended);  ;});
@@ -764,11 +871,15 @@ mod.method("jlopencv_SimpleBlobDetector_Params_get_maxConvexity", [](const cv::S
     mod.method("jlopencv_cv_cv_DescriptorMatcher_cv_DescriptorMatcher_write",  [](cv::Ptr<cv::DescriptorMatcher>& cobj, Ptr<FileStorage>& fs, string& name) { cobj->write(fs, name);  ;});
     mod.method("jlopencv_cv_cv_DescriptorMatcher_cv_DescriptorMatcher_read",  [](cv::Ptr<cv::DescriptorMatcher>& cobj, string& fileName) { cobj->read(fileName);  ;});
     mod.method("jlopencv_cv_cv_DescriptorMatcher_cv_DescriptorMatcher_read",  [](cv::Ptr<cv::DescriptorMatcher>& cobj, FileNode& arg1) { cobj->read(arg1);  ;});
-    mod.method("jlopencv_cv_cv_DescriptorMatcher_cv_DescriptorMatcher_clone",  [](cv::Ptr<cv::DescriptorMatcher>& cobj, bool& emptyTrainData) { auto retval = cobj->clone(emptyTrainData);  return retval;});mod.method("jlopencv_cv_cv_BFMatcher_cv_BFMatcher_BFMatcher", [](int& normType, bool& crossCheck) {  return jlcxx::create<cv::BFMatcher>(normType ,crossCheck);});
-
-// ;mod.method("jlopencv_cv_cv_FlannBasedMatcher_cv_FlannBasedMatcher_FlannBasedMatcher", [](Ptr<flann_IndexParams>& indexParams, Ptr<flann_SearchParams>& searchParams) {  return jlcxx::create<cv::FlannBasedMatcher>(indexParams ,searchParams);});
+    mod.method("jlopencv_cv_cv_DescriptorMatcher_cv_DescriptorMatcher_clone",  [](cv::Ptr<cv::DescriptorMatcher>& cobj, bool& emptyTrainData) { auto retval = cobj->clone(emptyTrainData);  return retval;});mod.method("BFMatcher", [](int& normType, bool& crossCheck) {  return jlcxx::create<cv::BFMatcher>(normType ,crossCheck);});
 
 ;
+    // mod.method("BFMatcher", [](int& normType, bool& crossCheck) {  return jlcxx::create<cv::BFMatcher>(normType ,crossCheck);});; 
+mod.method("FlannBasedMatcher", [](Ptr<flann_IndexParams>& indexParams, Ptr<flann_SearchParams>& searchParams) {  return jlcxx::create<cv::FlannBasedMatcher>(indexParams ,searchParams);});
+
+;
+    // mod.method("FlannBasedMatcher", [](Ptr<flann_IndexParams>& indexParams, Ptr<flann_SearchParams>& searchParams) {  return jlcxx::create<cv::FlannBasedMatcher>(indexParams ,searchParams);});; 
+
 
 ;
     mod.method("jlopencv_cv_cv_BOWTrainer_cv_BOWTrainer_add",  [](cv::BOWTrainer& cobj, Mat& descriptors) { cobj.add(descriptors);  ;});
@@ -778,12 +889,14 @@ mod.method("jlopencv_SimpleBlobDetector_Params_get_maxConvexity", [](const cv::S
     mod.method("jlopencv_cv_cv_BOWTrainer_cv_BOWTrainer_clear",  [](cv::BOWTrainer& cobj) { cobj.clear();  ;});
     mod.method("jlopencv_cv_cv_BOWTrainer_cv_BOWTrainer_cluster",  [](cv::BOWTrainer& cobj) { auto retval = cobj.cluster();  return retval;});
     mod.method("jlopencv_cv_cv_BOWTrainer_cv_BOWTrainer_cluster",  [](cv::BOWTrainer& cobj, Mat& descriptors) { auto retval = cobj.cluster(descriptors);  return retval;});
-    // mod.method("jlopencv_cv_cv_BOWTrainer_cv_BOWTrainer_cluster",  [](cv::BOWTrainer& cobj, Mat& descriptors) { auto retval = cobj.cluster(descriptors);  return retval;});mod.method("jlopencv_cv_cv_BOWKMeansTrainer_cv_BOWKMeansTrainer_BOWKMeansTrainer", [](int& clusterCount, TermCriteria& termcrit, int& attempts, int& flags) {  return jlcxx::create<cv::BOWKMeansTrainer>(clusterCount ,termcrit ,attempts ,flags);});
+    // mod.method("jlopencv_cv_cv_BOWTrainer_cv_BOWTrainer_cluster",  [](cv::BOWTrainer& cobj, Mat& descriptors) { auto retval = cobj.cluster(descriptors);  return retval;});mod.method("BOWKMeansTrainer", [](int& clusterCount, TermCriteria& termcrit, int& attempts, int& flags) {  return jlcxx::create<cv::BOWKMeansTrainer>(clusterCount ,termcrit ,attempts ,flags);});
 
 ;
     mod.method("jlopencv_cv_cv_BOWKMeansTrainer_cv_BOWKMeansTrainer_cluster",  [](cv::BOWKMeansTrainer& cobj) { auto retval = cobj.cluster();  return retval;});
     mod.method("jlopencv_cv_cv_BOWKMeansTrainer_cv_BOWKMeansTrainer_cluster",  [](cv::BOWKMeansTrainer& cobj, Mat& descriptors) { auto retval = cobj.cluster(descriptors);  return retval;});
-    // mod.method("jlopencv_cv_cv_BOWKMeansTrainer_cv_BOWKMeansTrainer_cluster",  [](cv::BOWKMeansTrainer& cobj, Mat& descriptors) { auto retval = cobj.cluster(descriptors);  return retval;});mod.method("jlopencv_cv_cv_BOWImgDescriptorExtractor_cv_BOWImgDescriptorExtractor_BOWImgDescriptorExtractor", [](Ptr<DescriptorExtractor>& dextractor, Ptr<DescriptorMatcher>& dmatcher) {  return jlcxx::create<cv::BOWImgDescriptorExtractor>(dextractor ,dmatcher);});
+    // mod.method("jlopencv_cv_cv_BOWKMeansTrainer_cv_BOWKMeansTrainer_cluster",  [](cv::BOWKMeansTrainer& cobj, Mat& descriptors) { auto retval = cobj.cluster(descriptors);  return retval;});
+    mod.method("BOWKMeansTrainer", [](int& clusterCount, TermCriteria& termcrit, int& attempts, int& flags) {  return jlcxx::create<cv::BOWKMeansTrainer>(clusterCount ,termcrit ,attempts ,flags);});; 
+// mod.method("BOWImgDescriptorExtractor", [](Ptr<DescriptorExtractor>& dextractor, Ptr<DescriptorMatcher>& dmatcher) {  return jlcxx::create<cv::BOWImgDescriptorExtractor>(dextractor ,dmatcher);});
 
 ;
     mod.method("jlopencv_cv_cv_BOWImgDescriptorExtractor_cv_BOWImgDescriptorExtractor_setVocabulary",  [](cv::BOWImgDescriptorExtractor& cobj, Mat& vocabulary) { cobj.setVocabulary(vocabulary);  ;});
@@ -792,7 +905,9 @@ mod.method("jlopencv_SimpleBlobDetector_Params_get_maxConvexity", [](const cv::S
     mod.method("jlopencv_cv_cv_BOWImgDescriptorExtractor_cv_BOWImgDescriptorExtractor_compute2",  [](cv::BOWImgDescriptorExtractor& cobj, Mat& image, vector<KeyPoint>& keypoints, Mat& imgDescriptor) { cobj.compute2(image, keypoints, imgDescriptor);  return imgDescriptor;});
     // mod.method("jlopencv_cv_cv_BOWImgDescriptorExtractor_cv_BOWImgDescriptorExtractor_compute2",  [](cv::BOWImgDescriptorExtractor& cobj, Mat& image, vector<KeyPoint>& keypoints, Mat& imgDescriptor) { cobj.compute2(image, keypoints, imgDescriptor);  return imgDescriptor;});
     mod.method("jlopencv_cv_cv_BOWImgDescriptorExtractor_cv_BOWImgDescriptorExtractor_descriptorSize",  [](cv::BOWImgDescriptorExtractor& cobj) { auto retval = cobj.descriptorSize();  return retval;});
-    mod.method("jlopencv_cv_cv_BOWImgDescriptorExtractor_cv_BOWImgDescriptorExtractor_descriptorType",  [](cv::BOWImgDescriptorExtractor& cobj) { auto retval = cobj.descriptorType();  return retval;});mod.method("jlopencv_cv_cv_KalmanFilter_cv_KalmanFilter_KalmanFilter", [](int& dynamParams, int& measureParams, int& controlParams, int& type) {  return jlcxx::create<cv::KalmanFilter>(dynamParams ,measureParams ,controlParams ,type);});
+    mod.method("jlopencv_cv_cv_BOWImgDescriptorExtractor_cv_BOWImgDescriptorExtractor_descriptorType",  [](cv::BOWImgDescriptorExtractor& cobj) { auto retval = cobj.descriptorType();  return retval;});
+    mod.method("BOWImgDescriptorExtractor", [](Ptr<DescriptorExtractor>& dextractor, Ptr<DescriptorMatcher>& dmatcher) {  return jlcxx::create<cv::BOWImgDescriptorExtractor>(dextractor ,dmatcher);});; 
+// mod.method("KalmanFilter", [](int& dynamParams, int& measureParams, int& controlParams, int& type) {  return jlcxx::create<cv::KalmanFilter>(dynamParams ,measureParams ,controlParams ,type);});
 
 mod.method("jlopencv_KalmanFilter_set_statePre", [](cv::KalmanFilter &cobj,const Mat &v) {cobj.statePre=v;});
 mod.method("jlopencv_KalmanFilter_set_statePost", [](cv::KalmanFilter &cobj,const Mat &v) {cobj.statePost=v;});
@@ -819,6 +934,10 @@ mod.method("jlopencv_KalmanFilter_get_errorCovPost", [](const cv::KalmanFilter &
     // mod.method("jlopencv_cv_cv_KalmanFilter_cv_KalmanFilter_predict",  [](cv::KalmanFilter& cobj, Mat& control) { auto retval = cobj.predict(control);  return retval;});
     mod.method("jlopencv_cv_cv_KalmanFilter_cv_KalmanFilter_correct",  [](cv::KalmanFilter& cobj, Mat& measurement) { auto retval = cobj.correct(measurement);  return retval;});
     // mod.method("jlopencv_cv_cv_KalmanFilter_cv_KalmanFilter_correct",  [](cv::KalmanFilter& cobj, Mat& measurement) { auto retval = cobj.correct(measurement);  return retval;});
+    ; 
+
+    mod.method("KalmanFilter", [](int& dynamParams, int& measureParams, int& controlParams, int& type) {  return jlcxx::create<cv::KalmanFilter>(dynamParams ,measureParams ,controlParams ,type);});; 
+
 
 ;
     mod.method("jlopencv_cv_cv_DenseOpticalFlow_cv_DenseOpticalFlow_calc",  [](cv::Ptr<cv::DenseOpticalFlow>& cobj, Mat& I0, Mat& I1, Mat& flow) { cobj->calc(I0, I1, flow);  return flow;});
@@ -947,7 +1066,7 @@ mod.method("jlopencv_KalmanFilter_get_errorCovPost", [](const cv::KalmanFilter &
     mod.method("jlopencv_cv_cv_BackgroundSubtractorKNN_cv_BackgroundSubtractorKNN_getShadowThreshold",  [](cv::Ptr<cv::BackgroundSubtractorKNN>& cobj) { auto retval = cobj->getShadowThreshold();  return retval;});
     mod.method("jlopencv_cv_cv_BackgroundSubtractorKNN_cv_BackgroundSubtractorKNN_setShadowThreshold",  [](cv::Ptr<cv::BackgroundSubtractorKNN>& cobj, double& threshold) { cobj->setShadowThreshold(threshold);  ;});
 
-;mod.method("jlopencv_cv_cv_CascadeClassifier_cv_CascadeClassifier_CascadeClassifier", [](string& filename) {  return jlcxx::create<cv::CascadeClassifier>(filename);});
+;mod.method("CascadeClassifier", [](string& filename) {  return jlcxx::create<cv::CascadeClassifier>(filename);});
 
 ;
     mod.method("jlopencv_cv_cv_CascadeClassifier_cv_CascadeClassifier_empty",  [](cv::CascadeClassifier& cobj) { auto retval = cobj.empty();  return retval;});
@@ -961,7 +1080,11 @@ mod.method("jlopencv_KalmanFilter_get_errorCovPost", [](const cv::KalmanFilter &
     mod.method("jlopencv_cv_cv_CascadeClassifier_cv_CascadeClassifier_detectMultiScale",  [](cv::CascadeClassifier& cobj, UMat& image, double& scaleFactor, int& minNeighbors, int& flags, Size& minSize, Size& maxSize, bool& outputRejectLevels) {vector<Rect> objects;vector<int> rejectLevels;vector<double> levelWeights; cobj.detectMultiScale(image, objects, rejectLevels, levelWeights, scaleFactor, minNeighbors, flags, minSize, maxSize, outputRejectLevels);  return make_tuple(move(objects),move(rejectLevels),move(levelWeights));});
     mod.method("jlopencv_cv_cv_CascadeClassifier_cv_CascadeClassifier_isOldFormatCascade",  [](cv::CascadeClassifier& cobj) { auto retval = cobj.isOldFormatCascade();  return retval;});
     mod.method("jlopencv_cv_cv_CascadeClassifier_cv_CascadeClassifier_getOriginalWindowSize",  [](cv::CascadeClassifier& cobj) { auto retval = cobj.getOriginalWindowSize();  return retval;});
-    mod.method("jlopencv_cv_cv_CascadeClassifier_cv_CascadeClassifier_getFeatureType",  [](cv::CascadeClassifier& cobj) { auto retval = cobj.getFeatureType();  return retval;});mod.method("jlopencv_cv_cv_HOGDescriptor_cv_HOGDescriptor_HOGDescriptor", [](Size& _winSize, Size& _blockSize, Size& _blockStride, Size& _cellSize, int& _nbins, int& _derivAperture, double& _winSigma, int& _histogramNormType, double& _L2HysThreshold, bool& _gammaCorrection, int& _nlevels, bool& _signedGradient) {  return jlcxx::create<cv::HOGDescriptor>(_winSize ,_blockSize ,_blockStride ,_cellSize ,_nbins ,_derivAperture ,_winSigma ,(HOGDescriptor_HistogramNormType)_histogramNormType ,_L2HysThreshold ,_gammaCorrection ,_nlevels ,_signedGradient);});mod.method("jlopencv_cv_cv_HOGDescriptor_cv_HOGDescriptor_HOGDescriptor", [](string& filename) {  return jlcxx::create<cv::HOGDescriptor>(filename);});
+    mod.method("jlopencv_cv_cv_CascadeClassifier_cv_CascadeClassifier_getFeatureType",  [](cv::CascadeClassifier& cobj) { auto retval = cobj.getFeatureType();  return retval;});
+    ; 
+
+    // mod.method("CascadeClassifier", [](string& filename) {  return jlcxx::create<cv::CascadeClassifier>(filename);});; 
+// mod.method("HOGDescriptor", [](Size& _winSize, Size& _blockSize, Size& _blockStride, Size& _cellSize, int& _nbins, int& _derivAperture, double& _winSigma, int& _histogramNormType, double& _L2HysThreshold, bool& _gammaCorrection, int& _nlevels, bool& _signedGradient) {  return jlcxx::create<cv::HOGDescriptor>(_winSize ,_blockSize ,_blockStride ,_cellSize ,_nbins ,_derivAperture ,_winSigma ,(HOGDescriptor_HistogramNormType)_histogramNormType ,_L2HysThreshold ,_gammaCorrection ,_nlevels ,_signedGradient);});mod.method("HOGDescriptor", [](string& filename) {  return jlcxx::create<cv::HOGDescriptor>(filename);});
 
 
 mod.method("jlopencv_HOGDescriptor_get_winSize", [](const cv::HOGDescriptor &cobj) {return cobj.winSize;});
@@ -992,6 +1115,12 @@ mod.method("jlopencv_HOGDescriptor_get_signedGradient", [](const cv::HOGDescript
     mod.method("jlopencv_cv_cv_HOGDescriptor_cv_HOGDescriptor_detectMultiScale",  [](cv::HOGDescriptor& cobj, UMat& img, double& hitThreshold, Size& winStride, Size& padding, double& scale, double& finalThreshold, bool& useMeanshiftGrouping) {vector<Rect> foundLocations;vector<double> foundWeights; cobj.detectMultiScale(img, foundLocations, foundWeights, hitThreshold, winStride, padding, scale, finalThreshold, useMeanshiftGrouping);  return make_tuple(move(foundLocations),move(foundWeights));});
     mod.method("jlopencv_cv_cv_HOGDescriptor_cv_HOGDescriptor_computeGradient",  [](cv::HOGDescriptor& cobj, Mat& img, Mat& grad, Mat& angleOfs, Size& paddingTL, Size& paddingBR) { cobj.computeGradient(img, grad, angleOfs, paddingTL, paddingBR);  return make_tuple(move(grad),move(angleOfs));});
     mod.method("jlopencv_cv_cv_HOGDescriptor_cv_HOGDescriptor_computeGradient",  [](cv::HOGDescriptor& cobj, UMat& img, UMat& grad, UMat& angleOfs, Size& paddingTL, Size& paddingBR) { cobj.computeGradient(img, grad, angleOfs, paddingTL, paddingBR);  return make_tuple(move(grad),move(angleOfs));});
+    ; 
+
+    mod.method("HOGDescriptor", [](Size& _winSize, Size& _blockSize, Size& _blockStride, Size& _cellSize, int& _nbins, int& _derivAperture, double& _winSigma, int& _histogramNormType, double& _L2HysThreshold, bool& _gammaCorrection, int& _nlevels, bool& _signedGradient) {  return jlcxx::create<cv::HOGDescriptor>(_winSize ,_blockSize ,_blockStride ,_cellSize ,_nbins ,_derivAperture ,_winSigma ,(HOGDescriptor_HistogramNormType)_histogramNormType ,_L2HysThreshold ,_gammaCorrection ,_nlevels ,_signedGradient);});; 
+
+    mod.method("HOGDescriptor", [](string& filename) {  return jlcxx::create<cv::HOGDescriptor>(filename);});; 
+
 
 ;
     mod.method("jlopencv_cv_cv_QRCodeDetector_cv_QRCodeDetector_setEpsX",  [](cv::QRCodeDetector& cobj, double& epsX) { cobj.setEpsX(epsX);  ;});
@@ -1007,7 +1136,9 @@ mod.method("jlopencv_HOGDescriptor_get_signedGradient", [](const cv::HOGDescript
     mod.method("jlopencv_cv_cv_QRCodeDetector_cv_QRCodeDetector_decodeMulti",  [](cv::QRCodeDetector& cobj, Mat& img, Mat& points, vector<Mat>& straight_qrcode) {vector<string> decoded_info; auto retval = cobj.decodeMulti(img, points, decoded_info, straight_qrcode);  return make_tuple(move(retval),move(decoded_info),move(straight_qrcode));});
     mod.method("jlopencv_cv_cv_QRCodeDetector_cv_QRCodeDetector_decodeMulti",  [](cv::QRCodeDetector& cobj, UMat& img, UMat& points, vector<UMat>& straight_qrcode) {vector<string> decoded_info; auto retval = cobj.decodeMulti(img, points, decoded_info, straight_qrcode);  return make_tuple(move(retval),move(decoded_info),move(straight_qrcode));});
     mod.method("jlopencv_cv_cv_QRCodeDetector_cv_QRCodeDetector_detectAndDecodeMulti",  [](cv::QRCodeDetector& cobj, Mat& img, Mat& points, vector<Mat>& straight_qrcode) {vector<string> decoded_info; auto retval = cobj.detectAndDecodeMulti(img, decoded_info, points, straight_qrcode);  return make_tuple(move(retval),move(decoded_info),move(points),move(straight_qrcode));});
-    mod.method("jlopencv_cv_cv_QRCodeDetector_cv_QRCodeDetector_detectAndDecodeMulti",  [](cv::QRCodeDetector& cobj, UMat& img, UMat& points, vector<UMat>& straight_qrcode) {vector<string> decoded_info; auto retval = cobj.detectAndDecodeMulti(img, decoded_info, points, straight_qrcode);  return make_tuple(move(retval),move(decoded_info),move(points),move(straight_qrcode));});mod.method("jlopencv_cv_cv_VideoCapture_cv_VideoCapture_VideoCapture", [](string& filename, int& apiPreference) {  return jlcxx::create<cv::VideoCapture>(filename ,apiPreference);});mod.method("jlopencv_cv_cv_VideoCapture_cv_VideoCapture_VideoCapture", [](int& index, int& apiPreference) {  return jlcxx::create<cv::VideoCapture>(index ,apiPreference);});
+    mod.method("jlopencv_cv_cv_QRCodeDetector_cv_QRCodeDetector_detectAndDecodeMulti",  [](cv::QRCodeDetector& cobj, UMat& img, UMat& points, vector<UMat>& straight_qrcode) {vector<string> decoded_info; auto retval = cobj.detectAndDecodeMulti(img, decoded_info, points, straight_qrcode);  return make_tuple(move(retval),move(decoded_info),move(points),move(straight_qrcode));});
+    ; 
+// mod.method("VideoCapture", [](string& filename, int& apiPreference) {  return jlcxx::create<cv::VideoCapture>(filename ,apiPreference);});mod.method("VideoCapture", [](int& index, int& apiPreference) {  return jlcxx::create<cv::VideoCapture>(index ,apiPreference);});
 
 ;
     mod.method("jlopencv_cv_cv_VideoCapture_cv_VideoCapture_open",  [](cv::VideoCapture& cobj, string& filename, int& apiPreference) { auto retval = cobj.open(filename, apiPreference);  return retval;});
@@ -1023,7 +1154,13 @@ mod.method("jlopencv_HOGDescriptor_get_signedGradient", [](const cv::HOGDescript
     mod.method("jlopencv_cv_cv_VideoCapture_cv_VideoCapture_get",  [](cv::VideoCapture& cobj, int& propId) { auto retval = cobj.get(propId);  return retval;});
     mod.method("jlopencv_cv_cv_VideoCapture_cv_VideoCapture_getBackendName",  [](cv::VideoCapture& cobj) { auto retval = cobj.getBackendName();  return retval;});
     mod.method("jlopencv_cv_cv_VideoCapture_cv_VideoCapture_setExceptionMode",  [](cv::VideoCapture& cobj, bool& enable) { cobj.setExceptionMode(enable);  ;});
-    mod.method("jlopencv_cv_cv_VideoCapture_cv_VideoCapture_getExceptionMode",  [](cv::VideoCapture& cobj) { auto retval = cobj.getExceptionMode();  return retval;});mod.method("jlopencv_cv_cv_VideoWriter_cv_VideoWriter_VideoWriter", [](string& filename, int& fourcc, double& fps, Size& frameSize, bool& isColor) {  return jlcxx::create<cv::VideoWriter>(filename ,fourcc ,fps ,frameSize ,isColor);});mod.method("jlopencv_cv_cv_VideoWriter_cv_VideoWriter_VideoWriter", [](string& filename, int& apiPreference, int& fourcc, double& fps, Size& frameSize, bool& isColor) {  return jlcxx::create<cv::VideoWriter>(filename ,apiPreference ,fourcc ,fps ,frameSize ,isColor);});
+    mod.method("jlopencv_cv_cv_VideoCapture_cv_VideoCapture_getExceptionMode",  [](cv::VideoCapture& cobj) { auto retval = cobj.getExceptionMode();  return retval;});
+    ; 
+
+    mod.method("VideoCapture", [](string& filename, int& apiPreference) {  return jlcxx::create<cv::VideoCapture>(filename ,apiPreference);});; 
+
+    mod.method("VideoCapture", [](int& index, int& apiPreference) {  return jlcxx::create<cv::VideoCapture>(index ,apiPreference);});; 
+// mod.method("VideoWriter", [](string& filename, int& fourcc, double& fps, Size& frameSize, bool& isColor) {  return jlcxx::create<cv::VideoWriter>(filename ,fourcc ,fps ,frameSize ,isColor);});mod.method("VideoWriter", [](string& filename, int& apiPreference, int& fourcc, double& fps, Size& frameSize, bool& isColor) {  return jlcxx::create<cv::VideoWriter>(filename ,apiPreference ,fourcc ,fps ,frameSize ,isColor);});
 
 ;
     mod.method("jlopencv_cv_cv_VideoWriter_cv_VideoWriter_open",  [](cv::VideoWriter& cobj, string& filename, int& fourcc, double& fps, Size& frameSize, bool& isColor) { auto retval = cobj.open(filename, fourcc, fps, frameSize, isColor);  return retval;});
@@ -1035,6 +1172,12 @@ mod.method("jlopencv_HOGDescriptor_get_signedGradient", [](const cv::HOGDescript
     mod.method("jlopencv_cv_cv_VideoWriter_cv_VideoWriter_set",  [](cv::VideoWriter& cobj, int& propId, double& value) { auto retval = cobj.set(propId, value);  return retval;});
     mod.method("jlopencv_cv_cv_VideoWriter_cv_VideoWriter_get",  [](cv::VideoWriter& cobj, int& propId) { auto retval = cobj.get(propId);  return retval;});
     mod.method("jlopencv_cv_cv_VideoWriter_cv_VideoWriter_getBackendName",  [](cv::VideoWriter& cobj) { auto retval = cobj.getBackendName();  return retval;});
+    ; 
+
+    mod.method("VideoWriter", [](string& filename, int& fourcc, double& fps, Size& frameSize, bool& isColor) {  return jlcxx::create<cv::VideoWriter>(filename ,fourcc ,fps ,frameSize ,isColor);});; 
+
+    mod.method("VideoWriter", [](string& filename, int& apiPreference, int& fourcc, double& fps, Size& frameSize, bool& isColor) {  return jlcxx::create<cv::VideoWriter>(filename ,apiPreference ,fourcc ,fps ,frameSize ,isColor);});; 
+
     mod.method("jlopencv_cv_cv_borderInterpolate",  [](int& p, int& len, int& borderType) { auto retval = cv::borderInterpolate(p, len, borderType); return retval;});
     mod.method("jlopencv_cv_cv_copyMakeBorder",  [](Mat& src, int& top, int& bottom, int& left, int& right, int& borderType, Mat& dst, Scalar& value) { cv::copyMakeBorder(src, dst, top, bottom, left, right, borderType, value); return dst;});
     mod.method("jlopencv_cv_cv_copyMakeBorder",  [](UMat& src, int& top, int& bottom, int& left, int& right, int& borderType, UMat& dst, Scalar& value) { cv::copyMakeBorder(src, dst, top, bottom, left, right, borderType, value); return dst;});
@@ -2969,6 +3112,8 @@ mod.method("jlopencv_HOGDescriptor_get_signedGradient", [](const cv::HOGDescript
     mod.method("jlopencv_cv_ocl_cv_ocl_Device_cv_ocl_Device_preferredVectorWidthHalf",  [](cv::ocl::Device& cobj) { auto retval = cobj.preferredVectorWidthHalf();  return retval;});
     mod.method("jlopencv_cv_ocl_cv_ocl_Device_cv_ocl_Device_printfBufferSize",  [](cv::ocl::Device& cobj) { auto retval = cobj.printfBufferSize();  return retval;});
     mod.method("jlopencv_cv_ocl_cv_ocl_Device_cv_ocl_Device_profilingTimerResolution",  [](cv::ocl::Device& cobj) { auto retval = cobj.profilingTimerResolution();  return retval;});
+    ; 
+
     mod.method("jlopencv_cv_ocl_cv_ocl_haveOpenCL",  []() { auto retval = cv::ocl::haveOpenCL(); return retval;});
     mod.method("jlopencv_cv_ocl_cv_ocl_useOpenCL",  []() { auto retval = cv::ocl::useOpenCL(); return retval;});
     mod.method("jlopencv_cv_ocl_cv_ocl_haveAmdBlas",  []() { auto retval = cv::ocl::haveAmdBlas(); return retval;});
@@ -3046,6 +3191,387 @@ mod.method("jlopencv_HOGDescriptor_get_signedGradient", [](const cv::HOGDescript
     mod.set_const("OCL_VECTOR_DEFAULT", (force_enum_int<decltype(cv::ocl::OCL_VECTOR_DEFAULT)>::Type)cv::ocl::OCL_VECTOR_DEFAULT);
     mod.set_const("OCL_VECTOR_MAX", (force_enum_int<decltype(cv::ocl::OCL_VECTOR_MAX)>::Type)cv::ocl::OCL_VECTOR_MAX);
     mod.set_const("OCL_VECTOR_OWN", (force_enum_int<decltype(cv::ocl::OCL_VECTOR_OWN)>::Type)cv::ocl::OCL_VECTOR_OWN);
+// mod.method("Index", [](Mat& features, IndexParams& params, cvflann_flann_distance_t& distType) {  return jlcxx::create<cv::flann::Index>(features ,params ,distType);});mod.method("Index", [](UMat& features, IndexParams& params, cvflann_flann_distance_t& distType) {  return jlcxx::create<cv::flann::Index>(features ,params ,distType);});
+
+// ;
+//     mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_build",  [](cv::flann::Index& cobj, Mat& features, IndexParams& params, cvflann_flann_distance_t& distType) { cobj.build(features, params, distType);  ;});
+//     mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_build",  [](cv::flann::Index& cobj, UMat& features, IndexParams& params, cvflann_flann_distance_t& distType) { cobj.build(features, params, distType);  ;});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_knnSearch",  [](cv::flann::Index& cobj, Mat& query, int& knn, Mat& indices, Mat& dists, SearchParams& params) { cobj.knnSearch(query, indices, dists, knn, params);  return make_tuple(move(indices),move(dists));});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_knnSearch",  [](cv::flann::Index& cobj, UMat& query, int& knn, UMat& indices, UMat& dists, SearchParams& params) { cobj.knnSearch(query, indices, dists, knn, params);  return make_tuple(move(indices),move(dists));});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_radiusSearch",  [](cv::flann::Index& cobj, Mat& query, double& radius, int& maxResults, Mat& indices, Mat& dists, SearchParams& params) { auto retval = cobj.radiusSearch(query, indices, dists, radius, maxResults, params);  return make_tuple(move(retval),move(indices),move(dists));});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_radiusSearch",  [](cv::flann::Index& cobj, UMat& query, double& radius, int& maxResults, UMat& indices, UMat& dists, SearchParams& params) { auto retval = cobj.radiusSearch(query, indices, dists, radius, maxResults, params);  return make_tuple(move(retval),move(indices),move(dists));});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_save",  [](cv::flann::Index& cobj, string& filename) { cobj.save(filename);  ;});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_load",  [](cv::flann::Index& cobj, Mat& features, string& filename) { auto retval = cobj.load(features, filename);  return retval;});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_load",  [](cv::flann::Index& cobj, UMat& features, string& filename) { auto retval = cobj.load(features, filename);  return retval;});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_release",  [](cv::flann::Index& cobj) { cobj.release();  ;});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_getDistance",  [](cv::flann::Index& cobj) { auto retval = cobj.getDistance();  return (int)retval;});
+    mod.method("jlopencv_cv_flann_cv_flann_Index_cv_flann_Index_getAlgorithm",  [](cv::flann::Index& cobj) { auto retval = cobj.getAlgorithm();  return (int)retval;});
+    ; 
+
+    mod.method("Index", [](Mat& features, IndexParams& params, int& distType) {  return jlcxx::create<cv::flann::Index>(features ,params ,(cvflann_flann_distance_t)distType);});; 
+
+    // mod.method("Index", [](UMat& features, IndexParams& params, int& distType) {  return jlcxx::create<cv::flann::Index>(features ,params ,(cvflann_flann_distance_t)distType);});; 
+    mod.set_const("FLANN_INDEX_TYPE_16S", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_16S)>::Type)cv::flann::FLANN_INDEX_TYPE_16S);
+    mod.set_const("FLANN_INDEX_TYPE_16U", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_16U)>::Type)cv::flann::FLANN_INDEX_TYPE_16U);
+    mod.set_const("FLANN_INDEX_TYPE_32F", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_32F)>::Type)cv::flann::FLANN_INDEX_TYPE_32F);
+    mod.set_const("FLANN_INDEX_TYPE_32S", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_32S)>::Type)cv::flann::FLANN_INDEX_TYPE_32S);
+    mod.set_const("FLANN_INDEX_TYPE_64F", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_64F)>::Type)cv::flann::FLANN_INDEX_TYPE_64F);
+    mod.set_const("FLANN_INDEX_TYPE_8S", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_8S)>::Type)cv::flann::FLANN_INDEX_TYPE_8S);
+    mod.set_const("FLANN_INDEX_TYPE_8U", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_8U)>::Type)cv::flann::FLANN_INDEX_TYPE_8U);
+    mod.set_const("FLANN_INDEX_TYPE_ALGORITHM", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_ALGORITHM)>::Type)cv::flann::FLANN_INDEX_TYPE_ALGORITHM);
+    mod.set_const("FLANN_INDEX_TYPE_BOOL", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_BOOL)>::Type)cv::flann::FLANN_INDEX_TYPE_BOOL);
+    mod.set_const("FLANN_INDEX_TYPE_STRING", (force_enum_int<decltype(cv::flann::FLANN_INDEX_TYPE_STRING)>::Type)cv::flann::FLANN_INDEX_TYPE_STRING);
+    mod.set_const("LAST_VALUE_FLANN_INDEX_TYPE", (force_enum_int<decltype(cv::flann::LAST_VALUE_FLANN_INDEX_TYPE)>::Type)cv::flann::LAST_VALUE_FLANN_INDEX_TYPE);
+
+
+mod.method("jlopencv_ParamGrid_set_minVal", [](cv::ml::ParamGrid &cobj,const double &v) {cobj.minVal=v;});
+mod.method("jlopencv_ParamGrid_set_maxVal", [](cv::ml::ParamGrid &cobj,const double &v) {cobj.maxVal=v;});
+mod.method("jlopencv_ParamGrid_set_logStep", [](cv::ml::ParamGrid &cobj,const double &v) {cobj.logStep=v;});
+
+mod.method("jlopencv_ParamGrid_get_minVal", [](const cv::ml::ParamGrid &cobj) {return cobj.minVal;});
+mod.method("jlopencv_ParamGrid_get_maxVal", [](const cv::ml::ParamGrid &cobj) {return cobj.maxVal;});
+mod.method("jlopencv_ParamGrid_get_logStep", [](const cv::ml::ParamGrid &cobj) {return cobj.logStep;});;
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getLayout",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getLayout();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getNTrainSamples",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getNTrainSamples();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getNTestSamples",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getNTestSamples();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getNSamples",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getNSamples();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getNVars",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getNVars();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getNAllVars",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getNAllVars();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getSample",  [](cv::ml::TrainData& cobj, Mat& varIdx, int& sidx, float& buf) { cobj.getSample(varIdx, sidx, &buf);  return buf;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getSample",  [](cv::ml::TrainData& cobj, UMat& varIdx, int& sidx, float& buf) { cobj.getSample(varIdx, sidx, &buf);  return buf;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getSamples",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getSamples();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getMissing",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getMissing();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTrainSamples",  [](cv::ml::TrainData& cobj, int& layout, bool& compressSamples, bool& compressVars) { auto retval = cobj.getTrainSamples(layout, compressSamples, compressVars);  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTrainResponses",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getTrainResponses();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTrainNormCatResponses",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getTrainNormCatResponses();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTestResponses",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getTestResponses();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTestNormCatResponses",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getTestNormCatResponses();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getResponses",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getResponses();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getNormCatResponses",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getNormCatResponses();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getSampleWeights",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getSampleWeights();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTrainSampleWeights",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getTrainSampleWeights();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTestSampleWeights",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getTestSampleWeights();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getVarIdx",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getVarIdx();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getVarType",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getVarType();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getVarSymbolFlags",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getVarSymbolFlags();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getResponseType",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getResponseType();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTrainSampleIdx",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getTrainSampleIdx();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTestSampleIdx",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getTestSampleIdx();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getValues",  [](cv::ml::TrainData& cobj, int& vi, Mat& sidx, float& values) { cobj.getValues(vi, sidx, &values);  return values;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getValues",  [](cv::ml::TrainData& cobj, int& vi, UMat& sidx, float& values) { cobj.getValues(vi, sidx, &values);  return values;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getDefaultSubstValues",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getDefaultSubstValues();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getCatCount",  [](cv::ml::TrainData& cobj, int& vi) { auto retval = cobj.getCatCount(vi);  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getClassLabels",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getClassLabels();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getCatOfs",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getCatOfs();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getCatMap",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getCatMap();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_setTrainTestSplit",  [](cv::ml::TrainData& cobj, int& count, bool& shuffle) { cobj.setTrainTestSplit(count, shuffle);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_setTrainTestSplitRatio",  [](cv::ml::TrainData& cobj, double& ratio, bool& shuffle) { cobj.setTrainTestSplitRatio(ratio, shuffle);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_shuffleTrainTest",  [](cv::ml::TrainData& cobj) { cobj.shuffleTrainTest();  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getTestSamples",  [](cv::ml::TrainData& cobj) { auto retval = cobj.getTestSamples();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_cv_ml_TrainData_getNames",  [](cv::ml::TrainData& cobj, vector<string>& names) { cobj.getNames(names);  ;});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_getVarCount",  [](cv::Ptr<cv::ml::StatModel>& cobj) { auto retval = cobj->getVarCount();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_empty",  [](cv::Ptr<cv::ml::StatModel>& cobj) { auto retval = cobj->empty();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_isTrained",  [](cv::Ptr<cv::ml::StatModel>& cobj) { auto retval = cobj->isTrained();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_isClassifier",  [](cv::Ptr<cv::ml::StatModel>& cobj) { auto retval = cobj->isClassifier();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_train",  [](cv::Ptr<cv::ml::StatModel>& cobj, Ptr<TrainData>& trainData, int& flags) { auto retval = cobj->train(trainData, flags);  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_train",  [](cv::Ptr<cv::ml::StatModel>& cobj, Mat& samples, int& layout, Mat& responses) { auto retval = cobj->train(samples, layout, responses);  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_train",  [](cv::Ptr<cv::ml::StatModel>& cobj, UMat& samples, int& layout, UMat& responses) { auto retval = cobj->train(samples, layout, responses);  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_calcError",  [](cv::Ptr<cv::ml::StatModel>& cobj, Ptr<TrainData>& data, bool& test, Mat& resp) { auto retval = cobj->calcError(data, test, resp);  return make_tuple(move(retval),move(resp));});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_calcError",  [](cv::Ptr<cv::ml::StatModel>& cobj, Ptr<TrainData>& data, bool& test, UMat& resp) { auto retval = cobj->calcError(data, test, resp);  return make_tuple(move(retval),move(resp));});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_predict",  [](cv::Ptr<cv::ml::StatModel>& cobj, Mat& samples, Mat& results, int& flags) { auto retval = cobj->predict(samples, results, flags);  return make_tuple(move(retval),move(results));});
+    mod.method("jlopencv_cv_ml_cv_ml_StatModel_cv_ml_StatModel_predict",  [](cv::Ptr<cv::ml::StatModel>& cobj, UMat& samples, UMat& results, int& flags) { auto retval = cobj->predict(samples, results, flags);  return make_tuple(move(retval),move(results));});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_NormalBayesClassifier_cv_ml_NormalBayesClassifier_predictProb",  [](cv::Ptr<cv::ml::NormalBayesClassifier>& cobj, Mat& inputs, Mat& outputs, Mat& outputProbs, int& flags) { auto retval = cobj->predictProb(inputs, outputs, outputProbs, flags);  return make_tuple(move(retval),move(outputs),move(outputProbs));});
+    mod.method("jlopencv_cv_ml_cv_ml_NormalBayesClassifier_cv_ml_NormalBayesClassifier_predictProb",  [](cv::Ptr<cv::ml::NormalBayesClassifier>& cobj, UMat& inputs, UMat& outputs, UMat& outputProbs, int& flags) { auto retval = cobj->predictProb(inputs, outputs, outputProbs, flags);  return make_tuple(move(retval),move(outputs),move(outputProbs));});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_getDefaultK",  [](cv::Ptr<cv::ml::KNearest>& cobj) { auto retval = cobj->getDefaultK();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_setDefaultK",  [](cv::Ptr<cv::ml::KNearest>& cobj, int& val) { cobj->setDefaultK(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_getIsClassifier",  [](cv::Ptr<cv::ml::KNearest>& cobj) { auto retval = cobj->getIsClassifier();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_setIsClassifier",  [](cv::Ptr<cv::ml::KNearest>& cobj, bool& val) { cobj->setIsClassifier(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_getEmax",  [](cv::Ptr<cv::ml::KNearest>& cobj) { auto retval = cobj->getEmax();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_setEmax",  [](cv::Ptr<cv::ml::KNearest>& cobj, int& val) { cobj->setEmax(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_getAlgorithmType",  [](cv::Ptr<cv::ml::KNearest>& cobj) { auto retval = cobj->getAlgorithmType();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_setAlgorithmType",  [](cv::Ptr<cv::ml::KNearest>& cobj, int& val) { cobj->setAlgorithmType(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_findNearest",  [](cv::Ptr<cv::ml::KNearest>& cobj, Mat& samples, int& k, Mat& results, Mat& neighborResponses, Mat& dist) { auto retval = cobj->findNearest(samples, k, results, neighborResponses, dist);  return make_tuple(move(retval),move(results),move(neighborResponses),move(dist));});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_cv_ml_KNearest_findNearest",  [](cv::Ptr<cv::ml::KNearest>& cobj, UMat& samples, int& k, UMat& results, UMat& neighborResponses, UMat& dist) { auto retval = cobj->findNearest(samples, k, results, neighborResponses, dist);  return make_tuple(move(retval),move(results),move(neighborResponses),move(dist));});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getType",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getType();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setType",  [](cv::Ptr<cv::ml::SVM>& cobj, int& val) { cobj->setType(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getGamma",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getGamma();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setGamma",  [](cv::Ptr<cv::ml::SVM>& cobj, double& val) { cobj->setGamma(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getCoef0",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getCoef0();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setCoef0",  [](cv::Ptr<cv::ml::SVM>& cobj, double& val) { cobj->setCoef0(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getDegree",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getDegree();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setDegree",  [](cv::Ptr<cv::ml::SVM>& cobj, double& val) { cobj->setDegree(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getC",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getC();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setC",  [](cv::Ptr<cv::ml::SVM>& cobj, double& val) { cobj->setC(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getNu",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getNu();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setNu",  [](cv::Ptr<cv::ml::SVM>& cobj, double& val) { cobj->setNu(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getP",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getP();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setP",  [](cv::Ptr<cv::ml::SVM>& cobj, double& val) { cobj->setP(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getClassWeights",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getClassWeights();  return retval;});
+    // mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setClassWeights",  [](cv::Ptr<cv::ml::SVM>& cobj, Mat& val) { cobj->setClassWeights(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setClassWeights",  [](cv::Ptr<cv::ml::SVM>& cobj, Mat& val) { cobj->setClassWeights(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getTermCriteria",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getTermCriteria();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setTermCriteria",  [](cv::Ptr<cv::ml::SVM>& cobj, TermCriteria& val) { cobj->setTermCriteria(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getKernelType",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getKernelType();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_setKernel",  [](cv::Ptr<cv::ml::SVM>& cobj, int& kernelType) { cobj->setKernel(kernelType);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_trainAuto",  [](cv::Ptr<cv::ml::SVM>& cobj, Mat& samples, int& layout, Mat& responses, int& kFold, Ptr<ParamGrid>& Cgrid, Ptr<ParamGrid>& gammaGrid, Ptr<ParamGrid>& pGrid, Ptr<ParamGrid>& nuGrid, Ptr<ParamGrid>& coeffGrid, Ptr<ParamGrid>& degreeGrid, bool& balanced) { auto retval = cobj->trainAuto(samples, layout, responses, kFold, Cgrid, gammaGrid, pGrid, nuGrid, coeffGrid, degreeGrid, balanced);  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_trainAuto",  [](cv::Ptr<cv::ml::SVM>& cobj, UMat& samples, int& layout, UMat& responses, int& kFold, Ptr<ParamGrid>& Cgrid, Ptr<ParamGrid>& gammaGrid, Ptr<ParamGrid>& pGrid, Ptr<ParamGrid>& nuGrid, Ptr<ParamGrid>& coeffGrid, Ptr<ParamGrid>& degreeGrid, bool& balanced) { auto retval = cobj->trainAuto(samples, layout, responses, kFold, Cgrid, gammaGrid, pGrid, nuGrid, coeffGrid, degreeGrid, balanced);  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getSupportVectors",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getSupportVectors();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getUncompressedSupportVectors",  [](cv::Ptr<cv::ml::SVM>& cobj) { auto retval = cobj->getUncompressedSupportVectors();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getDecisionFunction",  [](cv::Ptr<cv::ml::SVM>& cobj, int& i, Mat& alpha, Mat& svidx) { auto retval = cobj->getDecisionFunction(i, alpha, svidx);  return make_tuple(move(retval),move(alpha),move(svidx));});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_cv_ml_SVM_getDecisionFunction",  [](cv::Ptr<cv::ml::SVM>& cobj, int& i, UMat& alpha, UMat& svidx) { auto retval = cobj->getDecisionFunction(i, alpha, svidx);  return make_tuple(move(retval),move(alpha),move(svidx));});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_getClustersNumber",  [](cv::Ptr<cv::ml::EM>& cobj) { auto retval = cobj->getClustersNumber();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_setClustersNumber",  [](cv::Ptr<cv::ml::EM>& cobj, int& val) { cobj->setClustersNumber(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_getCovarianceMatrixType",  [](cv::Ptr<cv::ml::EM>& cobj) { auto retval = cobj->getCovarianceMatrixType();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_setCovarianceMatrixType",  [](cv::Ptr<cv::ml::EM>& cobj, int& val) { cobj->setCovarianceMatrixType(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_getTermCriteria",  [](cv::Ptr<cv::ml::EM>& cobj) { auto retval = cobj->getTermCriteria();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_setTermCriteria",  [](cv::Ptr<cv::ml::EM>& cobj, TermCriteria& val) { cobj->setTermCriteria(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_getWeights",  [](cv::Ptr<cv::ml::EM>& cobj) { auto retval = cobj->getWeights();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_getMeans",  [](cv::Ptr<cv::ml::EM>& cobj) { auto retval = cobj->getMeans();  return retval;});
+    // mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_getCovs",  [](cv::Ptr<cv::ml::EM>& cobj, vector<Mat>& covs) { cobj->getCovs(covs);  return covs;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_getCovs",  [](cv::Ptr<cv::ml::EM>& cobj, vector<Mat>& covs) { cobj->getCovs(covs);  return covs;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_predict",  [](cv::Ptr<cv::ml::EM>& cobj, Mat& samples, Mat& results, int& flags) { auto retval = cobj->predict(samples, results, flags);  return make_tuple(move(retval),move(results));});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_predict",  [](cv::Ptr<cv::ml::EM>& cobj, UMat& samples, UMat& results, int& flags) { auto retval = cobj->predict(samples, results, flags);  return make_tuple(move(retval),move(results));});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_predict2",  [](cv::Ptr<cv::ml::EM>& cobj, Mat& sample, Mat& probs) { auto retval = cobj->predict2(sample, probs);  return make_tuple(move(retval),move(probs));});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_predict2",  [](cv::Ptr<cv::ml::EM>& cobj, UMat& sample, UMat& probs) { auto retval = cobj->predict2(sample, probs);  return make_tuple(move(retval),move(probs));});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainEM",  [](cv::Ptr<cv::ml::EM>& cobj, Mat& samples, Mat& logLikelihoods, Mat& labels, Mat& probs) { auto retval = cobj->trainEM(samples, logLikelihoods, labels, probs);  return make_tuple(move(retval),move(logLikelihoods),move(labels),move(probs));});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainEM",  [](cv::Ptr<cv::ml::EM>& cobj, UMat& samples, UMat& logLikelihoods, UMat& labels, UMat& probs) { auto retval = cobj->trainEM(samples, logLikelihoods, labels, probs);  return make_tuple(move(retval),move(logLikelihoods),move(labels),move(probs));});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainE",  [](cv::Ptr<cv::ml::EM>& cobj, Mat& samples, Mat& means0, Mat& covs0, Mat& weights0, Mat& logLikelihoods, Mat& labels, Mat& probs) { auto retval = cobj->trainE(samples, means0, covs0, weights0, logLikelihoods, labels, probs);  return make_tuple(move(retval),move(logLikelihoods),move(labels),move(probs));});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainE",  [](cv::Ptr<cv::ml::EM>& cobj, UMat& samples, UMat& means0, UMat& covs0, UMat& weights0, UMat& logLikelihoods, UMat& labels, UMat& probs) { auto retval = cobj->trainE(samples, means0, covs0, weights0, logLikelihoods, labels, probs);  return make_tuple(move(retval),move(logLikelihoods),move(labels),move(probs));});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainM",  [](cv::Ptr<cv::ml::EM>& cobj, Mat& samples, Mat& probs0, Mat& logLikelihoods, Mat& labels, Mat& probs) { auto retval = cobj->trainM(samples, probs0, logLikelihoods, labels, probs);  return make_tuple(move(retval),move(logLikelihoods),move(labels),move(probs));});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_cv_ml_EM_trainM",  [](cv::Ptr<cv::ml::EM>& cobj, UMat& samples, UMat& probs0, UMat& logLikelihoods, UMat& labels, UMat& probs) { auto retval = cobj->trainM(samples, probs0, logLikelihoods, labels, probs);  return make_tuple(move(retval),move(logLikelihoods),move(labels),move(probs));});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_getMaxCategories",  [](cv::Ptr<cv::ml::DTrees>& cobj) { auto retval = cobj->getMaxCategories();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setMaxCategories",  [](cv::Ptr<cv::ml::DTrees>& cobj, int& val) { cobj->setMaxCategories(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_getMaxDepth",  [](cv::Ptr<cv::ml::DTrees>& cobj) { auto retval = cobj->getMaxDepth();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setMaxDepth",  [](cv::Ptr<cv::ml::DTrees>& cobj, int& val) { cobj->setMaxDepth(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_getMinSampleCount",  [](cv::Ptr<cv::ml::DTrees>& cobj) { auto retval = cobj->getMinSampleCount();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setMinSampleCount",  [](cv::Ptr<cv::ml::DTrees>& cobj, int& val) { cobj->setMinSampleCount(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_getCVFolds",  [](cv::Ptr<cv::ml::DTrees>& cobj) { auto retval = cobj->getCVFolds();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setCVFolds",  [](cv::Ptr<cv::ml::DTrees>& cobj, int& val) { cobj->setCVFolds(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_getUseSurrogates",  [](cv::Ptr<cv::ml::DTrees>& cobj) { auto retval = cobj->getUseSurrogates();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setUseSurrogates",  [](cv::Ptr<cv::ml::DTrees>& cobj, bool& val) { cobj->setUseSurrogates(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_getUse1SERule",  [](cv::Ptr<cv::ml::DTrees>& cobj) { auto retval = cobj->getUse1SERule();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setUse1SERule",  [](cv::Ptr<cv::ml::DTrees>& cobj, bool& val) { cobj->setUse1SERule(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_getTruncatePrunedTree",  [](cv::Ptr<cv::ml::DTrees>& cobj) { auto retval = cobj->getTruncatePrunedTree();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setTruncatePrunedTree",  [](cv::Ptr<cv::ml::DTrees>& cobj, bool& val) { cobj->setTruncatePrunedTree(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_getRegressionAccuracy",  [](cv::Ptr<cv::ml::DTrees>& cobj) { auto retval = cobj->getRegressionAccuracy();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setRegressionAccuracy",  [](cv::Ptr<cv::ml::DTrees>& cobj, float& val) { cobj->setRegressionAccuracy(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_getPriors",  [](cv::Ptr<cv::ml::DTrees>& cobj) { auto retval = cobj->getPriors();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setPriors",  [](cv::Ptr<cv::ml::DTrees>& cobj, Mat& val) { cobj->setPriors(val);  ;});
+    // mod.method("jlopencv_cv_ml_cv_ml_DTrees_cv_ml_DTrees_setPriors",  [](cv::Ptr<cv::ml::DTrees>& cobj, Mat& val) { cobj->setPriors(val);  ;});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_getCalculateVarImportance",  [](cv::Ptr<cv::ml::RTrees>& cobj) { auto retval = cobj->getCalculateVarImportance();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_setCalculateVarImportance",  [](cv::Ptr<cv::ml::RTrees>& cobj, bool& val) { cobj->setCalculateVarImportance(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_getActiveVarCount",  [](cv::Ptr<cv::ml::RTrees>& cobj) { auto retval = cobj->getActiveVarCount();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_setActiveVarCount",  [](cv::Ptr<cv::ml::RTrees>& cobj, int& val) { cobj->setActiveVarCount(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_getTermCriteria",  [](cv::Ptr<cv::ml::RTrees>& cobj) { auto retval = cobj->getTermCriteria();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_setTermCriteria",  [](cv::Ptr<cv::ml::RTrees>& cobj, TermCriteria& val) { cobj->setTermCriteria(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_getVarImportance",  [](cv::Ptr<cv::ml::RTrees>& cobj) { auto retval = cobj->getVarImportance();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_getVotes",  [](cv::Ptr<cv::ml::RTrees>& cobj, Mat& samples, int& flags, Mat& results) { cobj->getVotes(samples, results, flags);  return results;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_cv_ml_RTrees_getVotes",  [](cv::Ptr<cv::ml::RTrees>& cobj, UMat& samples, int& flags, UMat& results) { cobj->getVotes(samples, results, flags);  return results;});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_Boost_cv_ml_Boost_getBoostType",  [](cv::Ptr<cv::ml::Boost>& cobj) { auto retval = cobj->getBoostType();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_Boost_cv_ml_Boost_setBoostType",  [](cv::Ptr<cv::ml::Boost>& cobj, int& val) { cobj->setBoostType(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_Boost_cv_ml_Boost_getWeakCount",  [](cv::Ptr<cv::ml::Boost>& cobj) { auto retval = cobj->getWeakCount();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_Boost_cv_ml_Boost_setWeakCount",  [](cv::Ptr<cv::ml::Boost>& cobj, int& val) { cobj->setWeakCount(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_Boost_cv_ml_Boost_getWeightTrimRate",  [](cv::Ptr<cv::ml::Boost>& cobj) { auto retval = cobj->getWeightTrimRate();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_Boost_cv_ml_Boost_setWeightTrimRate",  [](cv::Ptr<cv::ml::Boost>& cobj, double& val) { cobj->setWeightTrimRate(val);  ;});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setTrainMethod",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, int& method, double& param1, double& param2) { cobj->setTrainMethod(method, param1, param2);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getTrainMethod",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getTrainMethod();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setActivationFunction",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, int& type, double& param1, double& param2) { cobj->setActivationFunction(type, param1, param2);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setLayerSizes",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, Mat& _layer_sizes) { cobj->setLayerSizes(_layer_sizes);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setLayerSizes",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, UMat& _layer_sizes) { cobj->setLayerSizes(_layer_sizes);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getLayerSizes",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getLayerSizes();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getTermCriteria",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getTermCriteria();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setTermCriteria",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, TermCriteria& val) { cobj->setTermCriteria(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getBackpropWeightScale",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getBackpropWeightScale();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setBackpropWeightScale",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setBackpropWeightScale(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getBackpropMomentumScale",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getBackpropMomentumScale();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setBackpropMomentumScale",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setBackpropMomentumScale(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getRpropDW0",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getRpropDW0();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setRpropDW0",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setRpropDW0(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getRpropDWPlus",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getRpropDWPlus();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setRpropDWPlus",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setRpropDWPlus(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getRpropDWMinus",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getRpropDWMinus();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setRpropDWMinus",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setRpropDWMinus(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getRpropDWMin",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getRpropDWMin();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setRpropDWMin",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setRpropDWMin(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getRpropDWMax",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getRpropDWMax();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setRpropDWMax",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setRpropDWMax(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getAnnealInitialT",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getAnnealInitialT();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setAnnealInitialT",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setAnnealInitialT(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getAnnealFinalT",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getAnnealFinalT();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setAnnealFinalT",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setAnnealFinalT(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getAnnealCoolingRatio",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getAnnealCoolingRatio();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setAnnealCoolingRatio",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, double& val) { cobj->setAnnealCoolingRatio(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getAnnealItePerStep",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj) { auto retval = cobj->getAnnealItePerStep();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_setAnnealItePerStep",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, int& val) { cobj->setAnnealItePerStep(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_cv_ml_ANN_MLP_getWeights",  [](cv::Ptr<cv::ml::ANN_MLP>& cobj, int& layerIdx) { auto retval = cobj->getWeights(layerIdx);  return retval;});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_getLearningRate",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj) { auto retval = cobj->getLearningRate();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_setLearningRate",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj, double& val) { cobj->setLearningRate(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_getIterations",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj) { auto retval = cobj->getIterations();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_setIterations",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj, int& val) { cobj->setIterations(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_getRegularization",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj) { auto retval = cobj->getRegularization();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_setRegularization",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj, int& val) { cobj->setRegularization(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_getTrainMethod",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj) { auto retval = cobj->getTrainMethod();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_setTrainMethod",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj, int& val) { cobj->setTrainMethod(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_getMiniBatchSize",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj) { auto retval = cobj->getMiniBatchSize();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_setMiniBatchSize",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj, int& val) { cobj->setMiniBatchSize(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_getTermCriteria",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj) { auto retval = cobj->getTermCriteria();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_setTermCriteria",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj, TermCriteria& val) { cobj->setTermCriteria(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_predict",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj, Mat& samples, Mat& results, int& flags) { auto retval = cobj->predict(samples, results, flags);  return make_tuple(move(retval),move(results));});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_predict",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj, UMat& samples, UMat& results, int& flags) { auto retval = cobj->predict(samples, results, flags);  return make_tuple(move(retval),move(results));});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_cv_ml_LogisticRegression_get_learnt_thetas",  [](cv::Ptr<cv::ml::LogisticRegression>& cobj) { auto retval = cobj->get_learnt_thetas();  return retval;});
+
+;
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_getWeights",  [](cv::Ptr<cv::ml::SVMSGD>& cobj) { auto retval = cobj->getWeights();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_getShift",  [](cv::Ptr<cv::ml::SVMSGD>& cobj) { auto retval = cobj->getShift();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_setOptimalParameters",  [](cv::Ptr<cv::ml::SVMSGD>& cobj, int& svmsgdType, int& marginType) { cobj->setOptimalParameters(svmsgdType, marginType);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_getSvmsgdType",  [](cv::Ptr<cv::ml::SVMSGD>& cobj) { auto retval = cobj->getSvmsgdType();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_setSvmsgdType",  [](cv::Ptr<cv::ml::SVMSGD>& cobj, int& svmsgdType) { cobj->setSvmsgdType(svmsgdType);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_getMarginType",  [](cv::Ptr<cv::ml::SVMSGD>& cobj) { auto retval = cobj->getMarginType();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_setMarginType",  [](cv::Ptr<cv::ml::SVMSGD>& cobj, int& marginType) { cobj->setMarginType(marginType);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_getMarginRegularization",  [](cv::Ptr<cv::ml::SVMSGD>& cobj) { auto retval = cobj->getMarginRegularization();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_setMarginRegularization",  [](cv::Ptr<cv::ml::SVMSGD>& cobj, float& marginRegularization) { cobj->setMarginRegularization(marginRegularization);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_getInitialStepSize",  [](cv::Ptr<cv::ml::SVMSGD>& cobj) { auto retval = cobj->getInitialStepSize();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_setInitialStepSize",  [](cv::Ptr<cv::ml::SVMSGD>& cobj, float& InitialStepSize) { cobj->setInitialStepSize(InitialStepSize);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_getStepDecreasingPower",  [](cv::Ptr<cv::ml::SVMSGD>& cobj) { auto retval = cobj->getStepDecreasingPower();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_setStepDecreasingPower",  [](cv::Ptr<cv::ml::SVMSGD>& cobj, float& stepDecreasingPower) { cobj->setStepDecreasingPower(stepDecreasingPower);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_getTermCriteria",  [](cv::Ptr<cv::ml::SVMSGD>& cobj) { auto retval = cobj->getTermCriteria();  return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_cv_ml_SVMSGD_setTermCriteria",  [](cv::Ptr<cv::ml::SVMSGD>& cobj, TermCriteria& val) { cobj->setTermCriteria(val);  ;});
+    mod.method("jlopencv_cv_ml_cv_ml_ParamGrid_create",  [](double& minVal, double& maxVal, double& logstep) { auto retval = cv::ml::ParamGrid::create(minVal, maxVal, logstep); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_getSubVector",  [](Mat& vec, Mat& idx) { auto retval = cv::ml::TrainData::getSubVector(vec, idx); return retval;});
+    // mod.method("jlopencv_cv_ml_cv_ml_TrainData_getSubVector",  [](Mat& vec, Mat& idx) { auto retval = cv::ml::TrainData::getSubVector(vec, idx); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_getSubMatrix",  [](Mat& matrix, Mat& idx, int& layout) { auto retval = cv::ml::TrainData::getSubMatrix(matrix, idx, layout); return retval;});
+    // mod.method("jlopencv_cv_ml_cv_ml_TrainData_getSubMatrix",  [](Mat& matrix, Mat& idx, int& layout) { auto retval = cv::ml::TrainData::getSubMatrix(matrix, idx, layout); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_create",  [](Mat& samples, int& layout, Mat& responses, Mat& varIdx, Mat& sampleIdx, Mat& sampleWeights, Mat& varType) { auto retval = cv::ml::TrainData::create(samples, layout, responses, varIdx, sampleIdx, sampleWeights, varType); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_TrainData_create",  [](UMat& samples, int& layout, UMat& responses, UMat& varIdx, UMat& sampleIdx, UMat& sampleWeights, UMat& varType) { auto retval = cv::ml::TrainData::create(samples, layout, responses, varIdx, sampleIdx, sampleWeights, varType); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_NormalBayesClassifier_create",  []() { auto retval = cv::ml::NormalBayesClassifier::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_NormalBayesClassifier_load",  [](string& filepath, string& nodeName) { auto retval = cv::ml::NormalBayesClassifier::load(filepath, nodeName); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_create",  []() { auto retval = cv::ml::KNearest::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_KNearest_load",  [](string& filepath) { auto retval = cv::ml::KNearest::load(filepath); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_getDefaultGridPtr",  [](int& param_id) { auto retval = cv::ml::SVM::getDefaultGridPtr(param_id); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_create",  []() { auto retval = cv::ml::SVM::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVM_load",  [](string& filepath) { auto retval = cv::ml::SVM::load(filepath); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_create",  []() { auto retval = cv::ml::EM::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_EM_load",  [](string& filepath, string& nodeName) { auto retval = cv::ml::EM::load(filepath, nodeName); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_create",  []() { auto retval = cv::ml::DTrees::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_DTrees_load",  [](string& filepath, string& nodeName) { auto retval = cv::ml::DTrees::load(filepath, nodeName); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_create",  []() { auto retval = cv::ml::RTrees::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_RTrees_load",  [](string& filepath, string& nodeName) { auto retval = cv::ml::RTrees::load(filepath, nodeName); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_Boost_create",  []() { auto retval = cv::ml::Boost::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_Boost_load",  [](string& filepath, string& nodeName) { auto retval = cv::ml::Boost::load(filepath, nodeName); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_create",  []() { auto retval = cv::ml::ANN_MLP::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_ANN_MLP_load",  [](string& filepath) { auto retval = cv::ml::ANN_MLP::load(filepath); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_create",  []() { auto retval = cv::ml::LogisticRegression::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_LogisticRegression_load",  [](string& filepath, string& nodeName) { auto retval = cv::ml::LogisticRegression::load(filepath, nodeName); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_create",  []() { auto retval = cv::ml::SVMSGD::create(); return retval;});
+    mod.method("jlopencv_cv_ml_cv_ml_SVMSGD_load",  [](string& filepath, string& nodeName) { auto retval = cv::ml::SVMSGD::load(filepath, nodeName); return retval;});    mod.set_const("ANN_MLP_ANNEAL", (force_enum_int<decltype(cv::ml::ANN_MLP::ANNEAL)>::Type)cv::ml::ANN_MLP::ANNEAL);
+    mod.set_const("ANN_MLP_BACKPROP", (force_enum_int<decltype(cv::ml::ANN_MLP::BACKPROP)>::Type)cv::ml::ANN_MLP::BACKPROP);
+    mod.set_const("ANN_MLP_GAUSSIAN", (force_enum_int<decltype(cv::ml::ANN_MLP::GAUSSIAN)>::Type)cv::ml::ANN_MLP::GAUSSIAN);
+    mod.set_const("ANN_MLP_IDENTITY", (force_enum_int<decltype(cv::ml::ANN_MLP::IDENTITY)>::Type)cv::ml::ANN_MLP::IDENTITY);
+    mod.set_const("ANN_MLP_LEAKYRELU", (force_enum_int<decltype(cv::ml::ANN_MLP::LEAKYRELU)>::Type)cv::ml::ANN_MLP::LEAKYRELU);
+    mod.set_const("ANN_MLP_NO_INPUT_SCALE", (force_enum_int<decltype(cv::ml::ANN_MLP::NO_INPUT_SCALE)>::Type)cv::ml::ANN_MLP::NO_INPUT_SCALE);
+    mod.set_const("ANN_MLP_NO_OUTPUT_SCALE", (force_enum_int<decltype(cv::ml::ANN_MLP::NO_OUTPUT_SCALE)>::Type)cv::ml::ANN_MLP::NO_OUTPUT_SCALE);
+    mod.set_const("ANN_MLP_RELU", (force_enum_int<decltype(cv::ml::ANN_MLP::RELU)>::Type)cv::ml::ANN_MLP::RELU);
+    mod.set_const("ANN_MLP_RPROP", (force_enum_int<decltype(cv::ml::ANN_MLP::RPROP)>::Type)cv::ml::ANN_MLP::RPROP);
+    mod.set_const("ANN_MLP_SIGMOID_SYM", (force_enum_int<decltype(cv::ml::ANN_MLP::SIGMOID_SYM)>::Type)cv::ml::ANN_MLP::SIGMOID_SYM);
+    mod.set_const("ANN_MLP_UPDATE_WEIGHTS", (force_enum_int<decltype(cv::ml::ANN_MLP::UPDATE_WEIGHTS)>::Type)cv::ml::ANN_MLP::UPDATE_WEIGHTS);
+    mod.set_const("Boost_DISCRETE", (force_enum_int<decltype(cv::ml::Boost::DISCRETE)>::Type)cv::ml::Boost::DISCRETE);
+    mod.set_const("BOOST_DISCRETE", (force_enum_int<decltype(cv::ml::Boost::DISCRETE)>::Type)cv::ml::Boost::DISCRETE);
+    mod.set_const("Boost_GENTLE", (force_enum_int<decltype(cv::ml::Boost::GENTLE)>::Type)cv::ml::Boost::GENTLE);
+    mod.set_const("BOOST_GENTLE", (force_enum_int<decltype(cv::ml::Boost::GENTLE)>::Type)cv::ml::Boost::GENTLE);
+    mod.set_const("Boost_LOGIT", (force_enum_int<decltype(cv::ml::Boost::LOGIT)>::Type)cv::ml::Boost::LOGIT);
+    mod.set_const("BOOST_LOGIT", (force_enum_int<decltype(cv::ml::Boost::LOGIT)>::Type)cv::ml::Boost::LOGIT);
+    mod.set_const("Boost_REAL", (force_enum_int<decltype(cv::ml::Boost::REAL)>::Type)cv::ml::Boost::REAL);
+    mod.set_const("BOOST_REAL", (force_enum_int<decltype(cv::ml::Boost::REAL)>::Type)cv::ml::Boost::REAL);
+    mod.set_const("COL_SAMPLE", (force_enum_int<decltype(cv::ml::COL_SAMPLE)>::Type)cv::ml::COL_SAMPLE);
+    mod.set_const("DTrees_PREDICT_AUTO", (force_enum_int<decltype(cv::ml::DTrees::PREDICT_AUTO)>::Type)cv::ml::DTrees::PREDICT_AUTO);
+    mod.set_const("DTREES_PREDICT_AUTO", (force_enum_int<decltype(cv::ml::DTrees::PREDICT_AUTO)>::Type)cv::ml::DTrees::PREDICT_AUTO);
+    mod.set_const("DTrees_PREDICT_MASK", (force_enum_int<decltype(cv::ml::DTrees::PREDICT_MASK)>::Type)cv::ml::DTrees::PREDICT_MASK);
+    mod.set_const("DTREES_PREDICT_MASK", (force_enum_int<decltype(cv::ml::DTrees::PREDICT_MASK)>::Type)cv::ml::DTrees::PREDICT_MASK);
+    mod.set_const("DTrees_PREDICT_MAX_VOTE", (force_enum_int<decltype(cv::ml::DTrees::PREDICT_MAX_VOTE)>::Type)cv::ml::DTrees::PREDICT_MAX_VOTE);
+    mod.set_const("DTREES_PREDICT_MAX_VOTE", (force_enum_int<decltype(cv::ml::DTrees::PREDICT_MAX_VOTE)>::Type)cv::ml::DTrees::PREDICT_MAX_VOTE);
+    mod.set_const("DTrees_PREDICT_SUM", (force_enum_int<decltype(cv::ml::DTrees::PREDICT_SUM)>::Type)cv::ml::DTrees::PREDICT_SUM);
+    mod.set_const("DTREES_PREDICT_SUM", (force_enum_int<decltype(cv::ml::DTrees::PREDICT_SUM)>::Type)cv::ml::DTrees::PREDICT_SUM);
+    mod.set_const("EM_COV_MAT_DEFAULT", (force_enum_int<decltype(cv::ml::EM::COV_MAT_DEFAULT)>::Type)cv::ml::EM::COV_MAT_DEFAULT);
+    mod.set_const("EM_COV_MAT_DIAGONAL", (force_enum_int<decltype(cv::ml::EM::COV_MAT_DIAGONAL)>::Type)cv::ml::EM::COV_MAT_DIAGONAL);
+    mod.set_const("EM_COV_MAT_GENERIC", (force_enum_int<decltype(cv::ml::EM::COV_MAT_GENERIC)>::Type)cv::ml::EM::COV_MAT_GENERIC);
+    mod.set_const("EM_COV_MAT_SPHERICAL", (force_enum_int<decltype(cv::ml::EM::COV_MAT_SPHERICAL)>::Type)cv::ml::EM::COV_MAT_SPHERICAL);
+    mod.set_const("EM_DEFAULT_MAX_ITERS", (force_enum_int<decltype(cv::ml::EM::DEFAULT_MAX_ITERS)>::Type)cv::ml::EM::DEFAULT_MAX_ITERS);
+    mod.set_const("EM_DEFAULT_NCLUSTERS", (force_enum_int<decltype(cv::ml::EM::DEFAULT_NCLUSTERS)>::Type)cv::ml::EM::DEFAULT_NCLUSTERS);
+    mod.set_const("EM_START_AUTO_STEP", (force_enum_int<decltype(cv::ml::EM::START_AUTO_STEP)>::Type)cv::ml::EM::START_AUTO_STEP);
+    mod.set_const("EM_START_E_STEP", (force_enum_int<decltype(cv::ml::EM::START_E_STEP)>::Type)cv::ml::EM::START_E_STEP);
+    mod.set_const("EM_START_M_STEP", (force_enum_int<decltype(cv::ml::EM::START_M_STEP)>::Type)cv::ml::EM::START_M_STEP);
+    mod.set_const("KNearest_BRUTE_FORCE", (force_enum_int<decltype(cv::ml::KNearest::BRUTE_FORCE)>::Type)cv::ml::KNearest::BRUTE_FORCE);
+    mod.set_const("KNEAREST_BRUTE_FORCE", (force_enum_int<decltype(cv::ml::KNearest::BRUTE_FORCE)>::Type)cv::ml::KNearest::BRUTE_FORCE);
+    mod.set_const("KNearest_KDTREE", (force_enum_int<decltype(cv::ml::KNearest::KDTREE)>::Type)cv::ml::KNearest::KDTREE);
+    mod.set_const("KNEAREST_KDTREE", (force_enum_int<decltype(cv::ml::KNearest::KDTREE)>::Type)cv::ml::KNearest::KDTREE);
+    mod.set_const("LogisticRegression_BATCH", (force_enum_int<decltype(cv::ml::LogisticRegression::BATCH)>::Type)cv::ml::LogisticRegression::BATCH);
+    mod.set_const("LOGISTIC_REGRESSION_BATCH", (force_enum_int<decltype(cv::ml::LogisticRegression::BATCH)>::Type)cv::ml::LogisticRegression::BATCH);
+    mod.set_const("LogisticRegression_MINI_BATCH", (force_enum_int<decltype(cv::ml::LogisticRegression::MINI_BATCH)>::Type)cv::ml::LogisticRegression::MINI_BATCH);
+    mod.set_const("LOGISTIC_REGRESSION_MINI_BATCH", (force_enum_int<decltype(cv::ml::LogisticRegression::MINI_BATCH)>::Type)cv::ml::LogisticRegression::MINI_BATCH);
+    mod.set_const("LogisticRegression_REG_DISABLE", (force_enum_int<decltype(cv::ml::LogisticRegression::REG_DISABLE)>::Type)cv::ml::LogisticRegression::REG_DISABLE);
+    mod.set_const("LOGISTIC_REGRESSION_REG_DISABLE", (force_enum_int<decltype(cv::ml::LogisticRegression::REG_DISABLE)>::Type)cv::ml::LogisticRegression::REG_DISABLE);
+    mod.set_const("LogisticRegression_REG_L1", (force_enum_int<decltype(cv::ml::LogisticRegression::REG_L1)>::Type)cv::ml::LogisticRegression::REG_L1);
+    mod.set_const("LOGISTIC_REGRESSION_REG_L1", (force_enum_int<decltype(cv::ml::LogisticRegression::REG_L1)>::Type)cv::ml::LogisticRegression::REG_L1);
+    mod.set_const("LogisticRegression_REG_L2", (force_enum_int<decltype(cv::ml::LogisticRegression::REG_L2)>::Type)cv::ml::LogisticRegression::REG_L2);
+    mod.set_const("LOGISTIC_REGRESSION_REG_L2", (force_enum_int<decltype(cv::ml::LogisticRegression::REG_L2)>::Type)cv::ml::LogisticRegression::REG_L2);
+    mod.set_const("ROW_SAMPLE", (force_enum_int<decltype(cv::ml::ROW_SAMPLE)>::Type)cv::ml::ROW_SAMPLE);
+    mod.set_const("SVM_C", (force_enum_int<decltype(cv::ml::SVM::C)>::Type)cv::ml::SVM::C);
+    mod.set_const("SVM_CHI2", (force_enum_int<decltype(cv::ml::SVM::CHI2)>::Type)cv::ml::SVM::CHI2);
+    mod.set_const("SVM_COEF", (force_enum_int<decltype(cv::ml::SVM::COEF)>::Type)cv::ml::SVM::COEF);
+    mod.set_const("SVM_CUSTOM", (force_enum_int<decltype(cv::ml::SVM::CUSTOM)>::Type)cv::ml::SVM::CUSTOM);
+    mod.set_const("SVM_C_SVC", (force_enum_int<decltype(cv::ml::SVM::C_SVC)>::Type)cv::ml::SVM::C_SVC);
+    mod.set_const("SVM_DEGREE", (force_enum_int<decltype(cv::ml::SVM::DEGREE)>::Type)cv::ml::SVM::DEGREE);
+    mod.set_const("SVM_EPS_SVR", (force_enum_int<decltype(cv::ml::SVM::EPS_SVR)>::Type)cv::ml::SVM::EPS_SVR);
+    mod.set_const("SVM_GAMMA", (force_enum_int<decltype(cv::ml::SVM::GAMMA)>::Type)cv::ml::SVM::GAMMA);
+    mod.set_const("SVM_INTER", (force_enum_int<decltype(cv::ml::SVM::INTER)>::Type)cv::ml::SVM::INTER);
+    mod.set_const("SVM_LINEAR", (force_enum_int<decltype(cv::ml::SVM::LINEAR)>::Type)cv::ml::SVM::LINEAR);
+    mod.set_const("SVM_NU", (force_enum_int<decltype(cv::ml::SVM::NU)>::Type)cv::ml::SVM::NU);
+    mod.set_const("SVM_NU_SVC", (force_enum_int<decltype(cv::ml::SVM::NU_SVC)>::Type)cv::ml::SVM::NU_SVC);
+    mod.set_const("SVM_NU_SVR", (force_enum_int<decltype(cv::ml::SVM::NU_SVR)>::Type)cv::ml::SVM::NU_SVR);
+    mod.set_const("SVM_ONE_CLASS", (force_enum_int<decltype(cv::ml::SVM::ONE_CLASS)>::Type)cv::ml::SVM::ONE_CLASS);
+    mod.set_const("SVM_P", (force_enum_int<decltype(cv::ml::SVM::P)>::Type)cv::ml::SVM::P);
+    mod.set_const("SVM_POLY", (force_enum_int<decltype(cv::ml::SVM::POLY)>::Type)cv::ml::SVM::POLY);
+    mod.set_const("SVM_RBF", (force_enum_int<decltype(cv::ml::SVM::RBF)>::Type)cv::ml::SVM::RBF);
+    mod.set_const("SVM_SIGMOID", (force_enum_int<decltype(cv::ml::SVM::SIGMOID)>::Type)cv::ml::SVM::SIGMOID);
+    mod.set_const("SVMSGD_ASGD", (force_enum_int<decltype(cv::ml::SVMSGD::ASGD)>::Type)cv::ml::SVMSGD::ASGD);
+    mod.set_const("SVMSGD_HARD_MARGIN", (force_enum_int<decltype(cv::ml::SVMSGD::HARD_MARGIN)>::Type)cv::ml::SVMSGD::HARD_MARGIN);
+    mod.set_const("SVMSGD_SGD", (force_enum_int<decltype(cv::ml::SVMSGD::SGD)>::Type)cv::ml::SVMSGD::SGD);
+    mod.set_const("SVMSGD_SOFT_MARGIN", (force_enum_int<decltype(cv::ml::SVMSGD::SOFT_MARGIN)>::Type)cv::ml::SVMSGD::SOFT_MARGIN);
+    mod.set_const("StatModel_COMPRESSED_INPUT", (force_enum_int<decltype(cv::ml::StatModel::COMPRESSED_INPUT)>::Type)cv::ml::StatModel::COMPRESSED_INPUT);
+    mod.set_const("STAT_MODEL_COMPRESSED_INPUT", (force_enum_int<decltype(cv::ml::StatModel::COMPRESSED_INPUT)>::Type)cv::ml::StatModel::COMPRESSED_INPUT);
+    mod.set_const("StatModel_PREPROCESSED_INPUT", (force_enum_int<decltype(cv::ml::StatModel::PREPROCESSED_INPUT)>::Type)cv::ml::StatModel::PREPROCESSED_INPUT);
+    mod.set_const("STAT_MODEL_PREPROCESSED_INPUT", (force_enum_int<decltype(cv::ml::StatModel::PREPROCESSED_INPUT)>::Type)cv::ml::StatModel::PREPROCESSED_INPUT);
+    mod.set_const("StatModel_RAW_OUTPUT", (force_enum_int<decltype(cv::ml::StatModel::RAW_OUTPUT)>::Type)cv::ml::StatModel::RAW_OUTPUT);
+    mod.set_const("STAT_MODEL_RAW_OUTPUT", (force_enum_int<decltype(cv::ml::StatModel::RAW_OUTPUT)>::Type)cv::ml::StatModel::RAW_OUTPUT);
+    mod.set_const("StatModel_UPDATE_MODEL", (force_enum_int<decltype(cv::ml::StatModel::UPDATE_MODEL)>::Type)cv::ml::StatModel::UPDATE_MODEL);
+    mod.set_const("STAT_MODEL_UPDATE_MODEL", (force_enum_int<decltype(cv::ml::StatModel::UPDATE_MODEL)>::Type)cv::ml::StatModel::UPDATE_MODEL);
+    mod.set_const("TEST_ERROR", (force_enum_int<decltype(cv::ml::TEST_ERROR)>::Type)cv::ml::TEST_ERROR);
+    mod.set_const("TRAIN_ERROR", (force_enum_int<decltype(cv::ml::TRAIN_ERROR)>::Type)cv::ml::TRAIN_ERROR);
+    mod.set_const("VAR_CATEGORICAL", (force_enum_int<decltype(cv::ml::VAR_CATEGORICAL)>::Type)cv::ml::VAR_CATEGORICAL);
+    mod.set_const("VAR_NUMERICAL", (force_enum_int<decltype(cv::ml::VAR_NUMERICAL)>::Type)cv::ml::VAR_NUMERICAL);
+    mod.set_const("VAR_ORDERED", (force_enum_int<decltype(cv::ml::VAR_ORDERED)>::Type)cv::ml::VAR_ORDERED);
 
     mod.method("jlopencv_cv_fisheye_cv_fisheye_projectPoints",  [](Mat& objectPoints, Mat& rvec, Mat& tvec, Mat& K, Mat& D, Mat& imagePoints, double& alpha, Mat& jacobian) { cv::fisheye::projectPoints(objectPoints, imagePoints, rvec, tvec, K, D, alpha, jacobian); return make_tuple(move(imagePoints),move(jacobian));});
     mod.method("jlopencv_cv_fisheye_cv_fisheye_projectPoints",  [](UMat& objectPoints, UMat& rvec, UMat& tvec, UMat& K, UMat& D, UMat& imagePoints, double& alpha, UMat& jacobian) { cv::fisheye::projectPoints(objectPoints, imagePoints, rvec, tvec, K, D, alpha, jacobian); return make_tuple(move(imagePoints),move(jacobian));});
@@ -3071,56 +3597,66 @@ mod.method("jlopencv_HOGDescriptor_get_signedGradient", [](const cv::HOGDescript
     // mod.set_const("CALIB_FIX_K3", (force_enum_int<decltype(cv::fisheye::CALIB_FIX_K3)>::Type)cv::fisheye::CALIB_FIX_K3);
     // mod.set_const("CALIB_FIX_K4", (force_enum_int<decltype(cv::fisheye::CALIB_FIX_K4)>::Type)cv::fisheye::CALIB_FIX_K4);
     // mod.set_const("CALIB_FIX_PRINCIPAL_POINT", (force_enum_int<decltype(cv::fisheye::CALIB_FIX_PRINCIPAL_POINT)>::Type)cv::fisheye::CALIB_FIX_PRINCIPAL_POINT);
-    // mod.set_const("CALIB_FIX_SKEW", (force_enum_int<decltype(cv::fisheye::CALIB_FIX_SKEW)>::Type)cv::fisheye::CALIB_FIX_SKEW);
-    // mod.set_const("CALIB_RECOMPUTE_EXTRINSIC", (force_enum_int<decltype(cv::fisheye::CALIB_RECOMPUTE_EXTRINSIC)>::Type)cv::fisheye::CALIB_RECOMPUTE_EXTRINSIC);
+    mod.set_const("CALIB_FIX_SKEW", (force_enum_int<decltype(cv::fisheye::CALIB_FIX_SKEW)>::Type)cv::fisheye::CALIB_FIX_SKEW);
+    mod.set_const("CALIB_RECOMPUTE_EXTRINSIC", (force_enum_int<decltype(cv::fisheye::CALIB_RECOMPUTE_EXTRINSIC)>::Type)cv::fisheye::CALIB_RECOMPUTE_EXTRINSIC);
     // mod.set_const("CALIB_USE_INTRINSIC_GUESS", (force_enum_int<decltype(cv::fisheye::CALIB_USE_INTRINSIC_GUESS)>::Type)cv::fisheye::CALIB_USE_INTRINSIC_GUESS);
-    mod.set_const("AgastFeatureDetectorggOASTRfRXc", (force_enum_int<decltype(AgastFeatureDetector::OAST_9_16)>::Type)AgastFeatureDetector::OAST_9_16);
-    mod.set_const("DISOpticalFlowggPRESETRFAST", (force_enum_int<decltype(DISOpticalFlow::PRESET_FAST)>::Type)DISOpticalFlow::PRESET_FAST);
-    mod.set_const("TermCriteriaOTermCriteriaggCOUNTRTermCriteriaggEPSSGZWSGXeTcP", (force_enum_int<decltype(TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6))>::Type)TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6));
+    mod.set_const("SVMSGDggSOFTRMARGIN", (force_enum_int<decltype(SVMSGD::SOFT_MARGIN)>::Type)SVMSGD::SOFT_MARGIN);
     mod.set_const("ScalarOP", (force_enum_int<decltype(Scalar())>::Type)Scalar());
-    mod.set_const("fisheyeggCALIBRFIXRINTRINSIC", (force_enum_int<decltype(fisheye::CALIB_FIX_INTRINSIC)>::Type)fisheye::CALIB_FIX_INTRINSIC);
-    mod.set_const("morphologyDefaultBorderValueOP", (force_enum_int<decltype(morphologyDefaultBorderValue())>::Type)morphologyDefaultBorderValue());
-    mod.set_const("MatOP", (force_enum_int<decltype(Mat())>::Type)Mat());
-    // mod.set_const("makePtriflannggKDTreeIndexParamskOP", (force_enum_int<decltype(makePtr<flann::KDTreeIndexParams>())>::Type)makePtr<flann::KDTreeIndexParams>());
-    mod.set_const("HOGDescriptorggDEFAULTRNLEVELS", (force_enum_int<decltype(HOGDescriptor::DEFAULT_NLEVELS)>::Type)HOGDescriptor::DEFAULT_NLEVELS);
-    mod.set_const("SizeOYXSYXP", (force_enum_int<decltype(Size(21,21))>::Type)Size(21,21));
-    mod.set_const("TermCriteriaOP", (force_enum_int<decltype(TermCriteria())>::Type)TermCriteria());
-    mod.set_const("TermCriteriaOTermCriteriaggCOUNTGRGTermCriteriaggEPSSGXWWSGDBLREPSILONP", (force_enum_int<decltype(TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON))>::Type)TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON));
-    mod.set_const("SimpleBlobDetectorggcreateOP", (force_enum_int<decltype(SimpleBlobDetector::create())>::Type)SimpleBlobDetector::create());
-    mod.set_const("SizeOYXSGYXP", (force_enum_int<decltype(Size(21, 21))>::Type)Size(21, 21));
-    mod.set_const("DrawMatchesFlagsggDEFAULT", (force_enum_int<decltype(DrawMatchesFlags::DEFAULT)>::Type)DrawMatchesFlags::DEFAULT);
-    mod.set_const("PtrifloatkOP", (force_enum_int<decltype(Ptr<float>())>::Type)Ptr<float>());
-    mod.set_const("TermCriteriaOGTermCriteriaggCOUNTGRGTermCriteriaggEPSSGZWSGDBLREPSILONP", (force_enum_int<decltype(TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON))>::Type)TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON));
-    mod.set_const("FastFeatureDetectorggTYPERfRXc", (force_enum_int<decltype(FastFeatureDetector::TYPE_9_16)>::Type)FastFeatureDetector::TYPE_9_16);
-    mod.set_const("StringOP", (force_enum_int<decltype(String())>::Type)String());
-    mod.set_const("PointOTXSTXP", (force_enum_int<decltype(Point(-1,-1))>::Type)Point(-1,-1));
-    mod.set_const("SizeOeSGeP", (force_enum_int<decltype(Size(8, 8))>::Type)Size(8, 8));
-    mod.set_const("TermCriteriaOTermCriteriaggMAXRITERRTermCriteriaggEPSSbSXP", (force_enum_int<decltype(TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS,5,1))>::Type)TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS,5,1));
-    mod.set_const("stdggvectoricharkOP", (force_enum_int<decltype(std::vector<char>())>::Type)std::vector<char>());
-    mod.set_const("ORBggHARRISRSCORE", (force_enum_int<decltype(ORB::HARRIS_SCORE)>::Type)ORB::HARRIS_SCORE);
-    mod.set_const("KAZEggDIFFRPMRGY", (force_enum_int<decltype(KAZE::DIFF_PM_G2)>::Type)KAZE::DIFF_PM_G2);
-    mod.set_const("ScalarOXP", (force_enum_int<decltype(Scalar(1))>::Type)Scalar(1));
-    mod.set_const("stdggvectoristdggvectoricharkGkOP", (force_enum_int<decltype(std::vector<std::vector<char> >())>::Type)std::vector<std::vector<char> >());
-    mod.set_const("SizeOP", (force_enum_int<decltype(Size())>::Type)Size());
-    mod.set_const("SimpleBlobDetectorggParamsOP", (force_enum_int<decltype(SimpleBlobDetector::Params())>::Type)SimpleBlobDetector::Params());
-    mod.set_const("vectorRMatOP", (force_enum_int<decltype(vector<Mat>())>::Type)vector<Mat>());
-    mod.set_const("stdggvectoriPointkOP", (force_enum_int<decltype(std::vector<Point>())>::Type)std::vector<Point>());
-    // mod.set_const("makePtriflannggSearchParamskOP", (force_enum_int<decltype(makePtr<flann::SearchParams>())>::Type)makePtr<flann::SearchParams>());
-    mod.set_const("cvggMatOP", (force_enum_int<decltype(cv::Mat())>::Type)cv::Mat());
-    mod.set_const("UMatOP", (force_enum_int<decltype(UMat())>::Type)UMat());
     mod.set_const("StereoSGBMggMODERSGBM", (force_enum_int<decltype(StereoSGBM::MODE_SGBM)>::Type)StereoSGBM::MODE_SGBM);
+    mod.set_const("TermCriteriaOTermCriteriaggMAXRITERRTermCriteriaggEPSSbSXP", (force_enum_int<decltype(TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS,5,1))>::Type)TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS,5,1));
     mod.set_const("AKAZEggDESCRIPTORRMLDB", (force_enum_int<decltype(AKAZE::DESCRIPTOR_MLDB)>::Type)AKAZE::DESCRIPTOR_MLDB);
-    mod.set_const("TermCriteriaOTermCriteriaggEPSGRGTermCriteriaggCOUNTSGYWSGFLTREPSILONP", (force_enum_int<decltype(TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 20, FLT_EPSILON))>::Type)TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 20, FLT_EPSILON));
-    mod.set_const("PointYdOWSGWP", (force_enum_int<decltype(Point2d(0, 0))>::Type)Point2d(0, 0));
-    mod.set_const("PointOTXSGTXP", (force_enum_int<decltype(Point(-1, -1))>::Type)Point(-1, -1));
-    mod.set_const("PointOP", (force_enum_int<decltype(Point())>::Type)Point());
-    mod.set_const("vectorRUMatOP", (force_enum_int<decltype(vector<UMat>())>::Type)vector<UMat>());
-    mod.set_const("ScalarggallOWP", (force_enum_int<decltype(Scalar::all(0))>::Type)Scalar::all(0));
-    mod.set_const("cvggUMatOP", (force_enum_int<decltype(cv::UMat())>::Type)cv::UMat());
-    mod.set_const("HOGDescriptorggLYHys", (force_enum_int<decltype(HOGDescriptor::L2Hys)>::Type)HOGDescriptor::L2Hys);
-    mod.set_const("stdggvectoriintkOP", (force_enum_int<decltype(std::vector<int>())>::Type)std::vector<int>());
-    mod.set_const("ScalarggallOTXP", (force_enum_int<decltype(Scalar::all(-1))>::Type)Scalar::all(-1));
+    mod.set_const("SVMgggetDefaultGridPtrOSVMggCOEFP", (force_enum_int<decltype(SVM::getDefaultGridPtr(SVM::COEF))>::Type)SVM::getDefaultGridPtr(SVM::COEF));
+    mod.set_const("PtrifloatkOP", (force_enum_int<decltype(Ptr<float>())>::Type)Ptr<float>());
     mod.set_const("TermCriteriaOTermCriteriaggCOUNTRTermCriteriaggEPSSGZWSGWUWXP", (force_enum_int<decltype(TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 0.01))>::Type)TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 0.01));
+    mod.set_const("SimpleBlobDetectorggcreateOP", (force_enum_int<decltype(SimpleBlobDetector::create())>::Type)SimpleBlobDetector::create());
+    mod.set_const("PointOTXSGTXP", (force_enum_int<decltype(Point(-1, -1))>::Type)Point(-1, -1));
+    mod.set_const("SizeOeSGeP", (force_enum_int<decltype(Size(8, 8))>::Type)Size(8, 8));
+    mod.set_const("cvflannggFLANNRDISTRLY", (force_enum_int<decltype(cvflann::FLANN_DIST_L2)>::Type)cvflann::FLANN_DIST_L2);
+    mod.set_const("SizeOYXSYXP", (force_enum_int<decltype(Size(21,21))>::Type)Size(21,21));
+    mod.set_const("SVMgggetDefaultGridPtrOSVMggPP", (force_enum_int<decltype(SVM::getDefaultGridPtr(SVM::P))>::Type)SVM::getDefaultGridPtr(SVM::P));
+    mod.set_const("TermCriteriaOP", (force_enum_int<decltype(TermCriteria())>::Type)TermCriteria());
+    // mod.set_const("SearchParamsOP", (force_enum_int<decltype(SearchParams())>::Type)SearchParams());
+    mod.set_const("KAZEggDIFFRPMRGY", (force_enum_int<decltype(KAZE::DIFF_PM_G2)>::Type)KAZE::DIFF_PM_G2);
+    mod.set_const("cvggUMatOP", (force_enum_int<decltype(cv::UMat())>::Type)cv::UMat());
+    mod.set_const("PointOP", (force_enum_int<decltype(Point())>::Type)Point());
+    mod.set_const("ORBggHARRISRSCORE", (force_enum_int<decltype(ORB::HARRIS_SCORE)>::Type)ORB::HARRIS_SCORE);
+    mod.set_const("SizeOYXSGYXP", (force_enum_int<decltype(Size(21, 21))>::Type)Size(21, 21));
+    mod.set_const("SVMgggetDefaultGridPtrOSVMggNUP", (force_enum_int<decltype(SVM::getDefaultGridPtr(SVM::NU))>::Type)SVM::getDefaultGridPtr(SVM::NU));
+    mod.set_const("morphologyDefaultBorderValueOP", (force_enum_int<decltype(morphologyDefaultBorderValue())>::Type)morphologyDefaultBorderValue());
+    mod.set_const("stdggvectoristdggvectoricharkGkOP", (force_enum_int<decltype(std::vector<std::vector<char> >())>::Type)std::vector<std::vector<char> >());
+    mod.set_const("FastFeatureDetectorggTYPERfRXc", (force_enum_int<decltype(FastFeatureDetector::TYPE_9_16)>::Type)FastFeatureDetector::TYPE_9_16);
+    mod.set_const("PointOTXSTXP", (force_enum_int<decltype(Point(-1,-1))>::Type)Point(-1,-1));
+    mod.set_const("TermCriteriaOTermCriteriaggCOUNTGRGTermCriteriaggEPSSGXWWSGDBLREPSILONP", (force_enum_int<decltype(TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON))>::Type)TermCriteria(TermCriteria::COUNT + TermCriteria::EPS, 100, DBL_EPSILON));
+    mod.set_const("ScalarggallOTXP", (force_enum_int<decltype(Scalar::all(-1))>::Type)Scalar::all(-1));
+    mod.set_const("SVMgggetDefaultGridPtrOSVMggGAMMAP", (force_enum_int<decltype(SVM::getDefaultGridPtr(SVM::GAMMA))>::Type)SVM::getDefaultGridPtr(SVM::GAMMA));
+    mod.set_const("vectoriUMatOPk", (force_enum_int<decltype(vector<UMat>())>::Type)vector<UMat>());
+    mod.set_const("TermCriteriaOTermCriteriaggEPSGRGTermCriteriaggCOUNTSGYWSGFLTREPSILONP", (force_enum_int<decltype(TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 20, FLT_EPSILON))>::Type)TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 20, FLT_EPSILON));
+    mod.set_const("UMatOP", (force_enum_int<decltype(UMat())>::Type)UMat());
+    mod.set_const("stringOP", (force_enum_int<decltype(string())>::Type)string());
+    mod.set_const("stdggvectoriintkOP", (force_enum_int<decltype(std::vector<int>())>::Type)std::vector<int>());
+    mod.set_const("SVMgggetDefaultGridPtrOSVMggDEGREEP", (force_enum_int<decltype(SVM::getDefaultGridPtr(SVM::DEGREE))>::Type)SVM::getDefaultGridPtr(SVM::DEGREE));
+    mod.set_const("stdggvectoricharkOP", (force_enum_int<decltype(std::vector<char>())>::Type)std::vector<char>());
+    mod.set_const("DISOpticalFlowggPRESETRFAST", (force_enum_int<decltype(DISOpticalFlow::PRESET_FAST)>::Type)DISOpticalFlow::PRESET_FAST);
+    mod.set_const("SimpleBlobDetectorggParamsOP", (force_enum_int<decltype(SimpleBlobDetector::Params())>::Type)SimpleBlobDetector::Params());
+    mod.set_const("SVMgggetDefaultGridPtrOSVMggCP", (force_enum_int<decltype(SVM::getDefaultGridPtr(SVM::C))>::Type)SVM::getDefaultGridPtr(SVM::C));
+    mod.set_const("fisheyeggCALIBRFIXRINTRINSIC", (force_enum_int<decltype(fisheye::CALIB_FIX_INTRINSIC)>::Type)fisheye::CALIB_FIX_INTRINSIC);
+    mod.set_const("ScalarOXP", (force_enum_int<decltype(Scalar(1))>::Type)Scalar(1));
+    mod.set_const("SVMSGDggASGD", (force_enum_int<decltype(SVMSGD::ASGD)>::Type)SVMSGD::ASGD);
+    mod.set_const("HOGDescriptorggLYHys", (force_enum_int<decltype(HOGDescriptor::L2Hys)>::Type)HOGDescriptor::L2Hys);
+    mod.set_const("AgastFeatureDetectorggOASTRfRXc", (force_enum_int<decltype(AgastFeatureDetector::OAST_9_16)>::Type)AgastFeatureDetector::OAST_9_16);
+    mod.set_const("TermCriteriaOTermCriteriaggCOUNTRTermCriteriaggEPSSGZWSGXeTcP", (force_enum_int<decltype(TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6))>::Type)TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 1e-6));
+    mod.set_const("PointYdOWSGWP", (force_enum_int<decltype(Point2d(0, 0))>::Type)Point2d(0, 0));
+    mod.set_const("makePtriflannggSearchParamskOP", (force_enum_int<decltype(makePtr<flann::SearchParams>())>::Type)makePtr<flann::SearchParams>());
+    mod.set_const("TermCriteriaOGTermCriteriaggCOUNTGRGTermCriteriaggEPSSGZWSGDBLREPSILONP", (force_enum_int<decltype(TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON))>::Type)TermCriteria( TermCriteria::COUNT + TermCriteria::EPS, 30, DBL_EPSILON));
+    mod.set_const("DrawMatchesFlagsggDEFAULT", (force_enum_int<decltype(DrawMatchesFlags::DEFAULT)>::Type)DrawMatchesFlags::DEFAULT);
+    mod.set_const("SizeOP", (force_enum_int<decltype(Size())>::Type)Size());
+    mod.set_const("vectoriMatOPk", (force_enum_int<decltype(vector<Mat>())>::Type)vector<Mat>());
+    mod.set_const("ScalarggallOWP", (force_enum_int<decltype(Scalar::all(0))>::Type)Scalar::all(0));
+    // mod.set_const("makePtriflannggKDTreeIndexParamskOP", (force_enum_int<decltype(makePtr<flann::KDTreeIndexParams>())>::Type)makePtr<flann::KDTreeIndexParams>());
+    mod.set_const("MatOP", (force_enum_int<decltype(Mat())>::Type)Mat());
+    mod.set_const("HOGDescriptorggDEFAULTRNLEVELS", (force_enum_int<decltype(HOGDescriptor::DEFAULT_NLEVELS)>::Type)HOGDescriptor::DEFAULT_NLEVELS);
+    mod.set_const("cvggMatOP", (force_enum_int<decltype(cv::Mat())>::Type)cv::Mat());
+    mod.set_const("stdggvectoriPointkOP", (force_enum_int<decltype(std::vector<Point>())>::Type)std::vector<Point>());
 
 
   

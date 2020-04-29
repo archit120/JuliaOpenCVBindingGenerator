@@ -290,6 +290,10 @@ function profilingTimerResolution(cobj::Device)
 	return cpp_to_julia(jlopencv_cv_ocl_cv_ocl_Device_cv_ocl_Device_profilingTimerResolution(julia_to_cpp(cobj)))
 end
 
+function Device()
+	return cpp_to_julia(jlopencv_cv_ocl_cv_ocl_Device_cv_ocl_Device_Device())
+end
+
 function haveOpenCL()
 	return cpp_to_julia(jlopencv_cv_ocl_cv_ocl_haveOpenCL())
 end

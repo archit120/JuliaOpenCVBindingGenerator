@@ -44,6 +44,13 @@ function cpp_to_julia(var::CxxWrap.StdLib.StdVector{T}) where {T}
     return ret
 end
 
+function cpp_to_julia(var::Tuple)
+    ret_arr = Array{Any, 1}()
+    for it in var
+        push!(ret_arr, cpp_to_julia(it))
+    end
+    return tuple(ret_arr...)
+end
 
 include("cv_wrap.jl")
 end

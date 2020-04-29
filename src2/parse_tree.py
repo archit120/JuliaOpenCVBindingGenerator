@@ -98,7 +98,7 @@ enums = {}
 classes = {}
 functions = {}
 registered_types = ["int", "Size.*", "Rect.*", "Scalar", "RotatedRect", "Point.*", "explicit", "string", "bool", "uchar", 
-                    "Vec.*", "float", "double", "char", "Mat", "size_t", "RNG"]
+                    "Vec.*", "float", "double", "char", "Mat", "size_t", "RNG", "DescriptorExtractor", "FeatureDetector", "TermCriteria"]
 
 class ClassProp(object):
     """

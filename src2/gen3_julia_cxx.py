@@ -11,7 +11,7 @@ import os, shutil
 from parse_tree import *
 
 
-jl_cpp_argmap = {"int": "Int32", "float":"Float32", "double":"Float64", "bool":"Bool", "Mat":"Image", "Point":"Point{Int32}", "string":"String", "char":"Char", "FeatureDetector":"Feature2D"}
+jl_cpp_argmap = {"int": "Int32", "float":"Float32", "double":"Float64", "bool":"Bool", "Mat":"Image", "Point":"Point{Int32}", "string":"String", "char":"Char", "FeatureDetector":"Feature2D","DescriptorExtractor":"Feature2D"}
 
 julia_types = ["Int32", "Float32", "Float64", "Bool", "String", "Array", "Any"]
 cv_types = ["UMat","Size" ]
@@ -30,13 +30,13 @@ def handle_def_arg(inp, tp = ''):
     inp = handle_jl_arg(inp)
     if not inp:
         if tp=='Mat' or tp=='Image':
-            return 'Mat()'
+            return 'CxxMat()'
         return tp+'()'
 
     if inp=="String()":
             return '""'
     
-    if '(' in inp or ':' in inp:
+    if '(' in oinp or ':' in oinp:
         return get_var(oinp)
     # print(inp, tp)
     # print(inp, get_var(inp), tp)
@@ -46,20 +46,20 @@ def handle_jl_arg(inp):
     if not inp:
         return ''
     inp = inp.replace('std::', '').replace('cv::', '')
-
+    oinp = inp
 
     def handle_vector(match):
-        return handle_jl_arg("%sArray{%s, 1}" % (match.group(1), handle_jl_arg(match.group(2))))
+        return handle_jl_arg("%sArray{%s, 1}%s" % (match.group(1), handle_jl_arg(match.group(2)), match.group(3)))
     def handle_ptr(match):
-        return handle_jl_arg("%sPtr{%s}" % (match.group(1), handle_jl_arg(match.group(2))))
-    inp = re.sub("(.*)vector<(.*)>", handle_vector, inp)
-    inp = re.sub("(.*)Ptr<(.*)>", handle_ptr, inp)
+        return handle_jl_arg("%scv_Ptr{%s}" % (match.group(1), handle_jl_arg(match.group(2))))
+    inp = re.sub("(.*)vector<(.*)>(.*)", handle_vector, inp)
+    inp = re.sub("(.*)Ptr<(.*)>(.*)", handle_ptr, inp)
 
     for k in jl_cpp_argmap:
         if inp == k:
             inp = jl_cpp_argmap[k]
             break
-        inp = re.sub("(.*[^\w])"+k+"[^\w{](.*)", "\g<1>"+jl_cpp_argmap[k]+"\g<2>", inp)
+        inp = re.sub("(.*[^\w])"+k+"([^\w{].*)", "\g<1>"+jl_cpp_argmap[k]+"\g<2>", inp)
     
     inp = inp.replace("2f","{Float32}").replace("2d", "{Float64}").replace("3f", "3{Float32}").replace("3d", "3{Float32}")
     return inp
@@ -104,7 +104,7 @@ class FuncVariant(FuncVariant):
         return argstr
 
     def get_argument_opt(self):
-        str2 =  ", ".join(["%s::%s = %s" % (arg.name, handle_jl_arg(arg.tp), handle_def_arg(arg.default_value, handle_jl_arg(arg.tp))) for arg in self.optlist])
+        str2 =  ", ".join(["%s::%s = %s(%s)" % (arg.name, handle_jl_arg(arg.tp), handle_jl_arg(arg.tp) if (arg.tp == 'int' or arg.tp=='float' or arg.tp=='double') else '', handle_def_arg(arg.default_value, handle_jl_arg(arg.tp))) for arg in self.optlist])
         return str2
 
     def get_argument_def(self, classname, isalgo):
@@ -123,8 +123,8 @@ class FuncVariant(FuncVariant):
             return ''
         return ' where {T <: %s}' % classname
 
-    def get_complete_code(self, classname='', isalgo = False):
-        if classname:
+    def get_complete_code(self, classname='', isalgo = False, iscons = False, gen_default = True):
+        if classname and not iscons:
             if isalgo:
                 self.inlist = [ArgInfo("cobj", "cv_Ptr{T}")] + self.inlist
             else:
@@ -135,7 +135,7 @@ class FuncVariant(FuncVariant):
 
         str2 = ", ".join([x.name for x  in self.inlist + self.optlist])
         # outstr = outstr +
-        if self.get_argument_opt() != '':
+        if self.get_argument_opt() != '' and gen_default:
             outstr = outstr + ('%s(%s; %s)%s = %s(%s)\n' % (self.mapped_name, self.get_argument_def(classname, isalgo), self.get_argument_opt(), self.get_algo_tp(classname, isalgo), self.mapped_name, str2))
         return outstr
 
@@ -153,6 +153,8 @@ def gen(srcfiles, output_path='', libpath = 'TODO'):
             # jl_code.write('\n   const {0} = Int32'.format(e2[0]))
             jl_code.write('\n   const {0} = Int32 \n'.format(e2[1]))
             
+        # Do not duplicate functions. This should prevent overwriting of Mat function by UMat functions
+        function_signatures = []
 
         for cname, cl in ns.classes.items():
             cl.__class__ = ClassInfo
@@ -160,12 +162,38 @@ def gen(srcfiles, output_path='', libpath = 'TODO'):
             for mname, fs in cl.methods.items():
                 for f in fs:
                     f.__class__ = FuncVariant
-                    jl_code.write('\n%s'  % f.get_complete_code(classname = cl.mapped_name, isalgo = cl.isalgorithm))
+                    sign = (f.name, f.mapped_name, f.classname, [x.tp for x in f.args])
+                    if sign in function_signatures:
+                        print("Skipping entirely: ", f.name)
+                        continue
+                    sign2 = (f.name, f.mapped_name, f.classname, [x.tp for x in f.inlist])
+                    gend = True
+                    if sign2 in function_signatures:
+                        print("Skipping default declaration: ", f.name)
+                        gend = False
+                    jl_code.write('\n%s'  % f.get_complete_code(classname = cl.mapped_name, isalgo = cl.isalgorithm, gen_default = gend))
+                    function_signatures.append(sign)
+                    function_signatures.append(sign2)
+            for f in cl.constructors:
+                f.__class__ = FuncVariant
+                jl_code.write('\n%s'  % f.get_complete_code(classname = cl.mapped_name, isalgo = cl.isalgorithm, iscons = True))
         for mname, fs in ns.funcs.items():
             for f in fs:
                 f.__class__ = FuncVariant
+                sign = (f.name, f.mapped_name, f.classname, [x.tp for x in f.args])
+                if sign in function_signatures:
+                    print("Skipping entirely: ", f.name)
+                    continue
+                gend = True
+                sign2 = (f.name, f.mapped_name, f.classname, [x.tp for x in f.inlist])
+                if sign2 in function_signatures:
+                    print("Skipping default declaration: ", f.name)
+                    gend = False
 
-                jl_code.write('\n%s' % f.get_complete_code())
+                jl_code.write('\n%s' % f.get_complete_code(gen_default = gend))
+                function_signatures.append(sign)
+                function_signatures.append(sign2)
+
         
         imports = ''
         for namex in namespaces:
