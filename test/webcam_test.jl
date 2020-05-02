@@ -10,6 +10,7 @@ while true
     gray = OpenCV.equalizeHist(gray)
 
     OpenCV.imshow("facedetect", img)
+    OpenCV.imshow("gray", gray)
     if OpenCV.waitKey(Int32(5))==27
         break
     end

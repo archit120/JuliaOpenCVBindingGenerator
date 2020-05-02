@@ -1,8 +1,8 @@
 
+#include "jlcxx/array.hpp"
 #include "jlcxx/jlcxx.hpp"
 #include "jlcxx/functions.hpp"
 #include "jlcxx/stl.hpp"
-#include "jlcxx/array.hpp"
 #include "jlcxx/tuple.hpp"
 
 #include <opencv2/core/core.hpp>

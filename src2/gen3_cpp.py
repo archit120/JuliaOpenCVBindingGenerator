@@ -189,8 +189,8 @@ class FuncVariant(FuncVariant):
         return stra
 
     def get_cons_code(self, name, mapped_name):
-        if self.get_argument(False) == '':
-            return ''
+        # if self.get_argument(False) == '':
+        #     return ''
         arglist = []
         for x in self.args:
             if x.tp in pass_by_val_types:
