@@ -15,7 +15,7 @@ function __init__()
         size_t = UInt32
     end
 end
-const Scalar = Union{Tuple{Number}, Tuple{Number, Number}, Tuple{Number, Number, Number}, NTuple{4, Number}}
+const Scalar = Union{Tuple{}, Tuple{Number}, Tuple{Number, Number}, Tuple{Number, Number, Number}, NTuple{4, Number}}
 
 include("Mat.jl")
 
@@ -35,7 +35,7 @@ end
 function julia_to_cpp(var::Array{T, 1}) where {T}
     ret = CxxWrap.StdVector{T}()
     for x in var
-        push!(ret, julia_to_cpp(x)) # When converting an array keep expected type as final type. 
+        push!(ret, julia_to_cpp(x)) # When converting an array keep expected type as final type.
     end
     return ret
 end

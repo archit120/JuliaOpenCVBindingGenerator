@@ -1,0 +1,2552 @@
+TYPE:  enum  NAME:  SortFlags
+	NAME: SORT_EVERY_ROW  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: SORT_EVERY_COLUMN  POS:  1  DEFAULT VALUE:  []  MODS:  []
+	NAME: SORT_ASCENDING  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: SORT_DESCENDING  POS:  16  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  enum  NAME:  CovarFlags
+	NAME: COVAR_SCRAMBLED  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: COVAR_NORMAL  POS:  1  DEFAULT VALUE:  []  MODS:  []
+	NAME: COVAR_USE_AVG  POS:  2  DEFAULT VALUE:  []  MODS:  []
+	NAME: COVAR_SCALE  POS:  4  DEFAULT VALUE:  []  MODS:  []
+	NAME: COVAR_ROWS  POS:  8  DEFAULT VALUE:  []  MODS:  []
+	NAME: COVAR_COLS  POS:  16  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  enum  NAME:  KmeansFlags
+	NAME: KMEANS_RANDOM_CENTERS  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: KMEANS_PP_CENTERS  POS:  2  DEFAULT VALUE:  []  MODS:  []
+	NAME: KMEANS_USE_INITIAL_LABELS  POS:  1  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  enum  NAME:  ReduceTypes
+	NAME: REDUCE_SUM  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: REDUCE_AVG  POS:  1  DEFAULT VALUE:  []  MODS:  []
+	NAME: REDUCE_MAX  POS:  2  DEFAULT VALUE:  []  MODS:  []
+	NAME: REDUCE_MIN  POS:  3  DEFAULT VALUE:  []  MODS:  []
+
+TYPE: function NAME:  borderInterpolate RETURN TYPE:  int modlist =  []
+	TYPE: int  NAME:  p  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  len  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  borderType  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  copyMakeBorder RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  top  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  bottom  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  left  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  right  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  borderType  DEFAULT VALUE:    MODS:  []
+	TYPE: Scalar  NAME:  value  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  copyMakeBorder RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  top  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  bottom  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  left  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  right  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  borderType  DEFAULT VALUE:    MODS:  []
+	TYPE: Scalar  NAME:  value  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  add RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  add RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  subtract RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  subtract RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  multiply RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  scale  DEFAULT VALUE:  1  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  multiply RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  scale  DEFAULT VALUE:  1  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  divide RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  scale  DEFAULT VALUE:  1  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  divide RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  scale  DEFAULT VALUE:  1  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  divide RETURN TYPE:  void modlist =  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  divide RETURN TYPE:  void modlist =  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  scaleAdd RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  scaleAdd RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  addWeighted RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  beta  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  gamma  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  addWeighted RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  beta  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  gamma  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  convertScaleAbs RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:  1  MODS:  []
+	TYPE: double  NAME:  beta  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  convertScaleAbs RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:  1  MODS:  []
+	TYPE: double  NAME:  beta  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  convertFp16 RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  convertFp16 RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  LUT RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  lut  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  LUT RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  lut  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  sum RETURN TYPE:  Scalar modlist =  ['=sumElems']
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  sum RETURN TYPE:  Scalar modlist =  ['=sumElems']
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  countNonZero RETURN TYPE:  int modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  countNonZero RETURN TYPE:  int modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  findNonZero RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  idx  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  findNonZero RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  idx  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  mean RETURN TYPE:  Scalar modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  mean RETURN TYPE:  Scalar modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  meanStdDev RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  stddev  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  meanStdDev RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  stddev  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  norm RETURN TYPE:  double modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  normType  DEFAULT VALUE:  NORM_L2  MODS:  []
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  norm RETURN TYPE:  double modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  normType  DEFAULT VALUE:  NORM_L2  MODS:  []
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  norm RETURN TYPE:  double modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  normType  DEFAULT VALUE:  NORM_L2  MODS:  []
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  norm RETURN TYPE:  double modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  normType  DEFAULT VALUE:  NORM_L2  MODS:  []
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  PSNR RETURN TYPE:  double modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  R  DEFAULT VALUE:  255.  MODS:  []
+
+TYPE: function NAME:  PSNR RETURN TYPE:  double modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  R  DEFAULT VALUE:  255.  MODS:  []
+
+TYPE: function NAME:  batchDistance RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dist  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  nidx  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  normType  DEFAULT VALUE:  NORM_L2  MODS:  []
+	TYPE: int  NAME:  K  DEFAULT VALUE:  0  MODS:  []
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+	TYPE: int  NAME:  update  DEFAULT VALUE:  0  MODS:  []
+	TYPE: bool  NAME:  crosscheck  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  batchDistance RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dist  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  nidx  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  normType  DEFAULT VALUE:  NORM_L2  MODS:  []
+	TYPE: int  NAME:  K  DEFAULT VALUE:  0  MODS:  []
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+	TYPE: int  NAME:  update  DEFAULT VALUE:  0  MODS:  []
+	TYPE: bool  NAME:  crosscheck  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  normalize RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:  1  MODS:  []
+	TYPE: double  NAME:  beta  DEFAULT VALUE:  0  MODS:  []
+	TYPE: int  NAME:  norm_type  DEFAULT VALUE:  NORM_L2  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  normalize RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:  1  MODS:  []
+	TYPE: double  NAME:  beta  DEFAULT VALUE:  0  MODS:  []
+	TYPE: int  NAME:  norm_type  DEFAULT VALUE:  NORM_L2  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  minMaxLoc RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: double*  NAME:  minVal  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double*  NAME:  maxVal  DEFAULT VALUE:  0  MODS:  ['/O']
+	TYPE: Point*  NAME:  minLoc  DEFAULT VALUE:  0  MODS:  ['/O']
+	TYPE: Point*  NAME:  maxLoc  DEFAULT VALUE:  0  MODS:  ['/O']
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  minMaxLoc RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: double*  NAME:  minVal  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double*  NAME:  maxVal  DEFAULT VALUE:  0  MODS:  ['/O']
+	TYPE: Point*  NAME:  minLoc  DEFAULT VALUE:  0  MODS:  ['/O']
+	TYPE: Point*  NAME:  maxLoc  DEFAULT VALUE:  0  MODS:  ['/O']
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  reduce RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  dim  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  rtype  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  reduce RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  dim  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  rtype  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  merge RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  mv  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  merge RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  mv  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  split RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  m  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_Mat  NAME:  mv  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  split RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  m  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_UMat  NAME:  mv  DEFAULT VALUE:    MODS:  ['/O']
+
+['cv.mixChannels', 'void', [], [['vector_Mat', 'src', '', []], ['vector_Mat', 'dst', '', ['/IO']], ['vector_int', 'fromTo', '', ['/C', '/Ref']]], 'void', '@overload\n@param src input array or vector of matrices; all of the matrices must have the same size and the\nsame depth.\n@param dst output array or vector of matrices; all the matrices **must be allocated**; their size and\ndepth must be the same as in src[0].\n@param fromTo array of index pairs specifying which channels are copied and where; fromTo[k\\*2] is\na 0-based index of the input channel in src, fromTo[k\\*2+1] is an index of the output channel in\ndst; the continuous channel numbering is used: the first input image channels are indexed from 0 to\nsrc[0].channels()-1, the second input image channels are indexed from src[0].channels() to\nsrc[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image\nchannels; as a special case, when fromTo[k\\*2] is negative, the corresponding output channel is\nfilled with zero .']
+TYPE: function NAME:  mixChannels RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: vector_int  NAME:  fromTo  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+['cv.mixChannels', 'void', [], [['vector_UMat', 'src', '', []], ['vector_UMat', 'dst', '', ['/IO']], ['vector_int', 'fromTo', '', ['/C', '/Ref']]], 'void', '@overload\n@param src input array or vector of matrices; all of the matrices must have the same size and the\nsame depth.\n@param dst output array or vector of matrices; all the matrices **must be allocated**; their size and\ndepth must be the same as in src[0].\n@param fromTo array of index pairs specifying which channels are copied and where; fromTo[k\\*2] is\na 0-based index of the input channel in src, fromTo[k\\*2+1] is an index of the output channel in\ndst; the continuous channel numbering is used: the first input image channels are indexed from 0 to\nsrc[0].channels()-1, the second input image channels are indexed from src[0].channels() to\nsrc[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image\nchannels; as a special case, when fromTo[k\\*2] is negative, the corresponding output channel is\nfilled with zero .']
+TYPE: function NAME:  mixChannels RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: vector_int  NAME:  fromTo  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  extractChannel RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  coi  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  extractChannel RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  coi  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  insertChannel RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: int  NAME:  coi  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  insertChannel RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: int  NAME:  coi  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  flip RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flipCode  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  flip RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flipCode  DEFAULT VALUE:    MODS:  []
+
+TYPE:  enum  NAME:  RotateFlags
+	NAME: ROTATE_90_CLOCKWISE  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: ROTATE_180  POS:  1  DEFAULT VALUE:  []  MODS:  []
+	NAME: ROTATE_90_COUNTERCLOCKWISE  POS:  2  DEFAULT VALUE:  []  MODS:  []
+
+TYPE: function NAME:  rotate RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  rotateCode  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  rotate RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  rotateCode  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  repeat RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  ny  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  nx  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  repeat RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  ny  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  nx  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  hconcat RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  hconcat RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  vconcat RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  vconcat RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  bitwise_and RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  bitwise_and RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  bitwise_or RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  bitwise_or RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  bitwise_xor RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  bitwise_xor RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  bitwise_not RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:  Mat()  MODS:  []
+
+TYPE: function NAME:  bitwise_not RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:  UMat()  MODS:  []
+
+TYPE: function NAME:  absdiff RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  absdiff RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  copyTo RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  copyTo RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  inRange RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  lowerb  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  upperb  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  inRange RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  lowerb  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  upperb  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  compare RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  cmpop  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  compare RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  cmpop  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  min RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  min RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  max RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  max RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  sqrt RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  sqrt RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  pow RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  power  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  pow RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  power  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  exp RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  exp RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  log RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  log RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  polarToCart RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  magnitude  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  angle  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  x  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  y  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: bool  NAME:  angleInDegrees  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  polarToCart RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  magnitude  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  angle  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  x  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  y  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: bool  NAME:  angleInDegrees  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  cartToPolar RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  x  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  y  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  magnitude  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  angle  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: bool  NAME:  angleInDegrees  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  cartToPolar RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  x  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  y  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  magnitude  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  angle  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: bool  NAME:  angleInDegrees  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  phase RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  x  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  y  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  angle  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: bool  NAME:  angleInDegrees  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  phase RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  x  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  y  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  angle  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: bool  NAME:  angleInDegrees  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  magnitude RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  x  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  y  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  magnitude  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  magnitude RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  x  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  y  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  magnitude  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  checkRange RETURN TYPE:  bool modlist =  []
+	TYPE: Mat  NAME:  a  DEFAULT VALUE:    MODS:  []
+	TYPE: bool  NAME:  quiet  DEFAULT VALUE:  true  MODS:  []
+	TYPE: Point*  NAME:  pos  DEFAULT VALUE:  0  MODS:  ['/O']
+	TYPE: double  NAME:  minVal  DEFAULT VALUE:  -DBL_MAX  MODS:  []
+	TYPE: double  NAME:  maxVal  DEFAULT VALUE:  DBL_MAX  MODS:  []
+
+TYPE: function NAME:  checkRange RETURN TYPE:  bool modlist =  []
+	TYPE: UMat  NAME:  a  DEFAULT VALUE:    MODS:  []
+	TYPE: bool  NAME:  quiet  DEFAULT VALUE:  true  MODS:  []
+	TYPE: Point*  NAME:  pos  DEFAULT VALUE:  0  MODS:  ['/O']
+	TYPE: double  NAME:  minVal  DEFAULT VALUE:  -DBL_MAX  MODS:  []
+	TYPE: double  NAME:  maxVal  DEFAULT VALUE:  DBL_MAX  MODS:  []
+
+TYPE: function NAME:  patchNaNs RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  a  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: double  NAME:  val  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  patchNaNs RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  a  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: double  NAME:  val  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  gemm RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src3  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  beta  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  gemm RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  alpha  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src3  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  beta  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  mulTransposed RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: bool  NAME:  aTa  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  delta  DEFAULT VALUE:  Mat()  MODS:  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:  1  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  mulTransposed RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: bool  NAME:  aTa  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  delta  DEFAULT VALUE:  UMat()  MODS:  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:  1  MODS:  []
+	TYPE: int  NAME:  dtype  DEFAULT VALUE:  -1  MODS:  []
+
+TYPE: function NAME:  transpose RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  transpose RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  transform RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  m  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  transform RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  m  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  perspectiveTransform RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  m  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  perspectiveTransform RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  m  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  completeSymm RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  m  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: bool  NAME:  lowerToUpper  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  completeSymm RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  m  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: bool  NAME:  lowerToUpper  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  setIdentity RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  mtx  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: Scalar  NAME:  s  DEFAULT VALUE:  Scalar(1)  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  setIdentity RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  mtx  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: Scalar  NAME:  s  DEFAULT VALUE:  Scalar(1)  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  determinant RETURN TYPE:  double modlist =  []
+	TYPE: Mat  NAME:  mtx  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  determinant RETURN TYPE:  double modlist =  []
+	TYPE: UMat  NAME:  mtx  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  trace RETURN TYPE:  Scalar modlist =  []
+	TYPE: Mat  NAME:  mtx  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  trace RETURN TYPE:  Scalar modlist =  []
+	TYPE: UMat  NAME:  mtx  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  invert RETURN TYPE:  double modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  DECOMP_LU  MODS:  []
+
+TYPE: function NAME:  invert RETURN TYPE:  double modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  DECOMP_LU  MODS:  []
+
+TYPE: function NAME:  solve RETURN TYPE:  bool modlist =  []
+	TYPE: Mat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  DECOMP_LU  MODS:  []
+
+TYPE: function NAME:  solve RETURN TYPE:  bool modlist =  []
+	TYPE: UMat  NAME:  src1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  src2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  DECOMP_LU  MODS:  []
+
+TYPE: function NAME:  sort RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  sort RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  sortIdx RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  sortIdx RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  solveCubic RETURN TYPE:  int modlist =  []
+	TYPE: Mat  NAME:  coeffs  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  roots  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  solveCubic RETURN TYPE:  int modlist =  []
+	TYPE: UMat  NAME:  coeffs  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  roots  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  solvePoly RETURN TYPE:  double modlist =  []
+	TYPE: Mat  NAME:  coeffs  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  roots  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  maxIters  DEFAULT VALUE:  300  MODS:  []
+
+TYPE: function NAME:  solvePoly RETURN TYPE:  double modlist =  []
+	TYPE: UMat  NAME:  coeffs  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  roots  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  maxIters  DEFAULT VALUE:  300  MODS:  []
+
+TYPE: function NAME:  eigen RETURN TYPE:  bool modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  eigenvalues  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  eigenvectors  DEFAULT VALUE:  Mat()  MODS:  ['/O']
+
+TYPE: function NAME:  eigen RETURN TYPE:  bool modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  eigenvalues  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  eigenvectors  DEFAULT VALUE:  UMat()  MODS:  ['/O']
+
+TYPE: function NAME:  eigenNonSymmetric RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  eigenvalues  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  eigenNonSymmetric RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  eigenvalues  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  calcCovarMatrix RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  samples  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  covar  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  ctype  DEFAULT VALUE:  CV_64F  MODS:  []
+
+TYPE: function NAME:  calcCovarMatrix RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  samples  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  covar  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  ctype  DEFAULT VALUE:  CV_64F  MODS:  []
+
+TYPE: function NAME:  PCACompute RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: Mat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  maxComponents  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  PCACompute RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: UMat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  maxComponents  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  PCACompute RETURN TYPE:  void modlist =  ['=PCACompute2']
+	TYPE: Mat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: Mat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  eigenvalues  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  maxComponents  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  PCACompute RETURN TYPE:  void modlist =  ['=PCACompute2']
+	TYPE: UMat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: UMat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  eigenvalues  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  maxComponents  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  PCACompute RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: Mat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  retainedVariance  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  PCACompute RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: UMat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  retainedVariance  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  PCACompute RETURN TYPE:  void modlist =  ['=PCACompute2']
+	TYPE: Mat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: Mat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  eigenvalues  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  retainedVariance  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  PCACompute RETURN TYPE:  void modlist =  ['=PCACompute2']
+	TYPE: UMat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mean  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: UMat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  eigenvalues  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: double  NAME:  retainedVariance  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  PCAProject RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mean  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  result  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  PCAProject RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mean  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  result  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  PCABackProject RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mean  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  result  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  PCABackProject RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mean  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  eigenvectors  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  result  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  SVDecomp RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  w  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  u  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: Mat  NAME:  vt  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  SVDecomp RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  w  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  u  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: UMat  NAME:  vt  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  SVBackSubst RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  w  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  u  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  vt  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  rhs  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  SVBackSubst RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  w  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  u  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  vt  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  rhs  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  Mahalanobis RETURN TYPE:  double modlist =  []
+	TYPE: Mat  NAME:  v1  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  v2  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  icovar  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  Mahalanobis RETURN TYPE:  double modlist =  []
+	TYPE: UMat  NAME:  v1  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  v2  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  icovar  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dft RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+	TYPE: int  NAME:  nonzeroRows  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  dft RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+	TYPE: int  NAME:  nonzeroRows  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  idft RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+	TYPE: int  NAME:  nonzeroRows  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  idft RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+	TYPE: int  NAME:  nonzeroRows  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  dct RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  dct RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  idct RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  idct RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  src  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  mulSpectrums RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  a  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  b  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  c  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+	TYPE: bool  NAME:  conjB  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  mulSpectrums RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  a  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  b  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  c  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+	TYPE: bool  NAME:  conjB  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  getOptimalDFTSize RETURN TYPE:  int modlist =  []
+	TYPE: int  NAME:  vecsize  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  setRNGSeed RETURN TYPE:  void modlist =  []
+	TYPE: int  NAME:  seed  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  randu RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: Mat  NAME:  low  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  high  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  randu RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: UMat  NAME:  low  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  high  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  randn RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: Mat  NAME:  mean  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  stddev  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  randn RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: UMat  NAME:  mean  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  stddev  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  randShuffle RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: double  NAME:  iterFactor  DEFAULT VALUE:  1.  MODS:  []
+	TYPE: RNG*  NAME:  rng  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  randShuffle RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  dst  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: double  NAME:  iterFactor  DEFAULT VALUE:  1.  MODS:  []
+	TYPE: RNG*  NAME:  rng  DEFAULT VALUE:  0  MODS:  []
+
+TYPE:  enum  NAME:  PCA_Flags
+	NAME: PCA_DATA_AS_ROW  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: PCA_DATA_AS_COL  POS:  1  DEFAULT VALUE:  []  MODS:  []
+	NAME: PCA_USE_AVG  POS:  2  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  enum  NAME:  SVD_Flags
+	NAME: SVD_MODIFY_A  POS:  1  DEFAULT VALUE:  []  MODS:  []
+	NAME: SVD_NO_UV  POS:  2  DEFAULT VALUE:  []  MODS:  []
+	NAME: SVD_FULL_UV  POS:  4  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  enum  NAME:  RNG_<unnamed>
+	NAME: RNG_UNIFORM  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: RNG_NORMAL  POS:  1  DEFAULT VALUE:  []  MODS:  []
+
+TYPE: function NAME:  kmeans RETURN TYPE:  double modlist =  []
+	TYPE: Mat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  K  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  bestLabels  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: TermCriteria  NAME:  criteria  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  attempts  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  centers  DEFAULT VALUE:  Mat()  MODS:  ['/O']
+
+TYPE: function NAME:  kmeans RETURN TYPE:  double modlist =  []
+	TYPE: UMat  NAME:  data  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  K  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  bestLabels  DEFAULT VALUE:    MODS:  ['/IO']
+	TYPE: TermCriteria  NAME:  criteria  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  attempts  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  flags  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  centers  DEFAULT VALUE:  UMat()  MODS:  ['/O']
+
+TYPE:  enum  NAME:  Formatter_FormatType
+	NAME: Formatter_FMT_DEFAULT  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: Formatter_FMT_MATLAB  POS:  1  DEFAULT VALUE:  []  MODS:  []
+	NAME: Formatter_FMT_CSV  POS:  2  DEFAULT VALUE:  []  MODS:  []
+	NAME: Formatter_FMT_PYTHON  POS:  3  DEFAULT VALUE:  []  MODS:  []
+	NAME: Formatter_FMT_NUMPY  POS:  4  DEFAULT VALUE:  []  MODS:  []
+	NAME: Formatter_FMT_C  POS:  5  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  class  NAME:  Algorithm modlist =  []
+
+TYPE: function NAME:  Algorithm_clear RETURN TYPE:  void modlist =  ['/V']
+
+TYPE: function NAME:  Algorithm_write RETURN TYPE:  void modlist =  ['/C']
+	TYPE: Ptr_FileStorage  NAME:  fs  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  name  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  Algorithm_read RETURN TYPE:  void modlist =  ['/V']
+	TYPE: FileNode  NAME:  fn  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  Algorithm_empty RETURN TYPE:  bool modlist =  ['/C', '/V']
+
+TYPE: function NAME:  Algorithm_save RETURN TYPE:  void modlist =  ['/C', '/V']
+	TYPE: String  NAME:  filename  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  Algorithm_getDefaultName RETURN TYPE:  String modlist =  ['/C', '/V']
+
+TYPE:  enum  NAME:  struct
+	NAME: Param_INT  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_BOOLEAN  POS:  1  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_REAL  POS:  2  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_STRING  POS:  3  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_MAT  POS:  4  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_MAT_VECTOR  POS:  5  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_ALGORITHM  POS:  6  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_FLOAT  POS:  7  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_UNSIGNED_INT  POS:  8  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_UINT64  POS:  9  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_UCHAR  POS:  11  DEFAULT VALUE:  []  MODS:  []
+	NAME: Param_SCALAR  POS:  12  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  enum  NAME:  dnn_Backend
+	NAME: dnn_DNN_BACKEND_DEFAULT  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_HALIDE  POS:  0+1  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_INFERENCE_ENGINE  POS:  0+2  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_OPENCV  POS:  0+3  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_VKCOM  POS:  0+4  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_CUDA  POS:  0+5  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  enum  NAME:  dnn_Target
+	NAME: dnn_DNN_TARGET_CPU  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_OPENCL  POS:  0+1  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_OPENCL_FP16  POS:  0+2  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_MYRIAD  POS:  0+3  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_VULKAN  POS:  0+4  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_FPGA  POS:  0+5  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_CUDA  POS:  0+6  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_CUDA_FP16  POS:  0+7  DEFAULT VALUE:  []  MODS:  []
+
+TYPE: function NAME:  dnn_getAvailableTargets RETURN TYPE:  vector_Target modlist =  []
+	TYPE: dnn_Backend  NAME:  be  DEFAULT VALUE:    MODS:  []
+Modifited Return:  std::vector<Target>
+
+TYPE:  class  NAME:  dnn_Layer modlist =  []
+: cv::Algorithm
+	NAME: vector_Mat  POS:  blobs  DEFAULT VALUE:    MODS:  ['/RW']
+	NAME: String  POS:  name  DEFAULT VALUE:    MODS:  []
+	NAME: String  POS:  type  DEFAULT VALUE:    MODS:  []
+	NAME: int  POS:  preferableTarget  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Layer_finalize RETURN TYPE:  void modlist =  ['/V']
+	TYPE: vector_Mat  NAME:  inputs  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_Mat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_Layer_finalize RETURN TYPE:  void modlist =  ['/V']
+	TYPE: vector_UMat  NAME:  inputs  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_UMat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_Layer_run RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  inputs  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_Mat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Mat  NAME:  internals  DEFAULT VALUE:    MODS:  ['/IO', '/Ref']
+
+TYPE: function NAME:  dnn_Layer_run RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  inputs  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_Mat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Mat  NAME:  internals  DEFAULT VALUE:    MODS:  ['/IO', '/Ref']
+
+TYPE: function NAME:  dnn_Layer_outputNameToIndex RETURN TYPE:  int modlist =  ['/V']
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE:  class  NAME:  dnn_Net modlist =  ['/Simple']
+
+TYPE: function NAME:  dnn_Net_Net RETURN TYPE:   modlist =  []
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_Net_readFromModelOptimizer RETURN TYPE:  Net modlist =  ['/S']
+	TYPE: String  NAME:  xml  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  bin  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_readFromModelOptimizer RETURN TYPE:  Net modlist =  ['/S']
+	TYPE: vector_uchar  NAME:  bufferModelConfig  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferWeights  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_empty RETURN TYPE:  bool modlist =  ['/C']
+
+TYPE: function NAME:  dnn_Net_dump RETURN TYPE:  String modlist =  []
+
+TYPE: function NAME:  dnn_Net_dumpToFile RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  path  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayerId RETURN TYPE:  int modlist =  []
+	TYPE: String  NAME:  layer  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayerNames RETURN TYPE:  vector_String modlist =  ['/C']
+Modifited Return:  std::vector<String>
+
+TYPE: function NAME:  dnn_Net_getLayer RETURN TYPE:  Ptr_Layer modlist =  []
+	TYPE: LayerId  NAME:  layerId  DEFAULT VALUE:    MODS:  []
+Modifited Return:  Ptr<Layer>
+
+TYPE: function NAME:  dnn_Net_connect RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  outPin  DEFAULT VALUE:    MODS:  []
+	TYPE: String  NAME:  inpPin  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_setInputsNames RETURN TYPE:  void modlist =  []
+	TYPE: vector_String  NAME:  inputBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setInputShape RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  inputName  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: MatShape  NAME:  shape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  Mat modlist =  []
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forwardAsync RETURN TYPE:  AsyncArray modlist =  []
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: vector_String  NAME:  outBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: vector_String  NAME:  outBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  ['=forwardAndRetrieve']
+	TYPE: vector_vector_Mat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_String  NAME:  outBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setHalideScheduler RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  scheduler  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setPreferableBackend RETURN TYPE:  void modlist =  []
+	TYPE: int  NAME:  backendId  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_setPreferableTarget RETURN TYPE:  void modlist =  []
+	TYPE: int  NAME:  targetId  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_setInput RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  blob  DEFAULT VALUE:    MODS:  []
+	TYPE: String  NAME:  name  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setInput RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  blob  DEFAULT VALUE:    MODS:  []
+	TYPE: String  NAME:  name  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setParam RETURN TYPE:  void modlist =  []
+	TYPE: LayerId  NAME:  layer  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  numParam  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  blob  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setParam RETURN TYPE:  void modlist =  []
+	TYPE: LayerId  NAME:  layer  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  numParam  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  blob  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getParam RETURN TYPE:  Mat modlist =  []
+	TYPE: LayerId  NAME:  layer  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  numParam  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  dnn_Net_getUnconnectedOutLayers RETURN TYPE:  vector_int modlist =  ['/C']
+Modifited Return:  std::vector<int>
+
+TYPE: function NAME:  dnn_Net_getUnconnectedOutLayersNames RETURN TYPE:  vector_String modlist =  ['/C']
+Modifited Return:  std::vector<String>
+
+TYPE: function NAME:  dnn_Net_getLayersShapes RETURN TYPE:  void modlist =  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_int  NAME:  layersIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  inLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  outLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayersShapes RETURN TYPE:  void modlist =  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_int  NAME:  layersIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  inLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  outLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayerTypes RETURN TYPE:  void modlist =  ['/C']
+	TYPE: vector_String  NAME:  layersTypes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayersCount RETURN TYPE:  int modlist =  ['/C']
+	TYPE: String  NAME:  layerType  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getMemoryConsumption RETURN TYPE:  void modlist =  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: size_t  NAME:  weights  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: size_t  NAME:  blobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getMemoryConsumption RETURN TYPE:  void modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: size_t  NAME:  weights  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: size_t  NAME:  blobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getMemoryConsumption RETURN TYPE:  void modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: size_t  NAME:  weights  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: size_t  NAME:  blobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_enableFusion RETURN TYPE:  void modlist =  []
+	TYPE: bool  NAME:  fusion  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_getPerfProfile RETURN TYPE:  int64 modlist =  []
+	TYPE: vector_double  NAME:  timings  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromDarknet RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  cfgFile  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  darknetModel  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromDarknet RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferCfg  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromCaffe RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  prototxt  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  caffeModel  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromCaffe RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferProto  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromTensorflow RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromTensorflow RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferConfig  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromTorch RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  isBinary  DEFAULT VALUE:  true  MODS:  []
+	TYPE: bool  NAME:  evaluate  DEFAULT VALUE:  true  MODS:  []
+
+TYPE: function NAME:  dnn_readNet RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  framework  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNet RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  framework  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferConfig  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readTorchBlob RETURN TYPE:  Mat modlist =  []
+	TYPE: String  NAME:  filename  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  isBinary  DEFAULT VALUE:  true  MODS:  []
+
+TYPE: function NAME:  dnn_readNetFromModelOptimizer RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  xml  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  bin  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromModelOptimizer RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferModelConfig  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferWeights  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromONNX RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  onnxFile  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromONNX RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  buffer  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readTensorFromONNX RETURN TYPE:  Mat modlist =  []
+	TYPE: String  NAME:  path  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_blobFromImage RETURN TYPE:  Mat modlist =  []
+	TYPE: Mat  NAME:  image  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  ['/C', '/Ref']
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_blobFromImage RETURN TYPE:  Mat modlist =  []
+	TYPE: UMat  NAME:  image  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  ['/C', '/Ref']
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_blobFromImages RETURN TYPE:  Mat modlist =  []
+	TYPE: vector_Mat  NAME:  images  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_blobFromImages RETURN TYPE:  Mat modlist =  []
+	TYPE: vector_UMat  NAME:  images  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_imagesFromBlob RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  blob_  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_Mat  NAME:  images_  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_imagesFromBlob RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  blob_  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_UMat  NAME:  images_  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_shrinkCaffeModel RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  src  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  dst  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_String  NAME:  layersTypes  DEFAULT VALUE:  std::vector<String>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_writeTextGraph RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  output  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_NMSBoxes RETURN TYPE:  void modlist =  []
+	TYPE: vector_Rect2d  NAME:  bboxes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_float  NAME:  scores  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: float  NAME:  score_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: float  NAME:  nms_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_int  NAME:  indices  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  eta  DEFAULT VALUE:  1.f  MODS:  ['/C']
+	TYPE: int  NAME:  top_k  DEFAULT VALUE:  0  MODS:  ['/C']
+
+TYPE: function NAME:  dnn_NMSBoxes RETURN TYPE:  void modlist =  ['=NMSBoxesRotated']
+	TYPE: vector_RotatedRect  NAME:  bboxes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_float  NAME:  scores  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: float  NAME:  score_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: float  NAME:  nms_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_int  NAME:  indices  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  eta  DEFAULT VALUE:  1.f  MODS:  ['/C']
+	TYPE: int  NAME:  top_k  DEFAULT VALUE:  0  MODS:  ['/C']
+
+TYPE:  class  NAME:  dnn_Model modlist =  ['/Simple']
+: cv::dnn::Net
+
+TYPE: function NAME:  dnn_Model_Model RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_Model_Model RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_Model_setInputSize RETURN TYPE:  Model modlist =  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Model_setInputSize RETURN TYPE:  Model modlist =  []
+	TYPE: int  NAME:  width  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  height  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputMean RETURN TYPE:  Model modlist =  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Model_setInputScale RETURN TYPE:  Model modlist =  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputCrop RETURN TYPE:  Model modlist =  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputSwapRB RETURN TYPE:  Model modlist =  []
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputParams RETURN TYPE:  void modlist =  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  ['/C', '/Ref']
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  dnn_Model_predict RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_Mat  NAME:  outs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_Model_predict RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_UMat  NAME:  outs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE:  class  NAME:  dnn_ClassificationModel modlist =  ['/Simple']
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_ClassificationModel_ClassificationModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_ClassificationModel_ClassificationModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_ClassificationModel_classify RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  classId  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  conf  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_ClassificationModel_classify RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  classId  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  conf  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE:  class  NAME:  dnn_KeypointsModel modlist =  []
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_KeypointsModel_KeypointsModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_KeypointsModel_KeypointsModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_KeypointsModel_estimate RETURN TYPE:  vector_Point2f modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: float  NAME:  thresh  DEFAULT VALUE:  0.5  MODS:  []
+Modifited Return:  std::vector<Point2f>
+
+TYPE: function NAME:  dnn_KeypointsModel_estimate RETURN TYPE:  vector_Point2f modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: float  NAME:  thresh  DEFAULT VALUE:  0.5  MODS:  []
+Modifited Return:  std::vector<Point2f>
+
+TYPE:  class  NAME:  dnn_SegmentationModel modlist =  []
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_SegmentationModel_SegmentationModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_SegmentationModel_SegmentationModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_SegmentationModel_segment RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_SegmentationModel_segment RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE:  class  NAME:  dnn_DetectionModel modlist =  ['/Simple']
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_DetectionModel_DetectionModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_DetectionModel_DetectionModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_DetectionModel_detect RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_int  NAME:  classIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_float  NAME:  confidences  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Rect  NAME:  boxes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  confThreshold  DEFAULT VALUE:  0.5f  MODS:  []
+	TYPE: float  NAME:  nmsThreshold  DEFAULT VALUE:  0.0f  MODS:  []
+
+TYPE: function NAME:  dnn_DetectionModel_detect RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_int  NAME:  classIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_float  NAME:  confidences  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Rect  NAME:  boxes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  confThreshold  DEFAULT VALUE:  0.5f  MODS:  []
+	TYPE: float  NAME:  nmsThreshold  DEFAULT VALUE:  0.0f  MODS:  []
+
+TYPE:  enum  NAME:  dnn_Backend
+	NAME: dnn_DNN_BACKEND_DEFAULT  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_HALIDE  POS:  0+1  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_INFERENCE_ENGINE  POS:  0+2  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_OPENCV  POS:  0+3  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_VKCOM  POS:  0+4  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_CUDA  POS:  0+5  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  enum  NAME:  dnn_Target
+	NAME: dnn_DNN_TARGET_CPU  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_OPENCL  POS:  0+1  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_OPENCL_FP16  POS:  0+2  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_MYRIAD  POS:  0+3  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_VULKAN  POS:  0+4  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_FPGA  POS:  0+5  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_CUDA  POS:  0+6  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_CUDA_FP16  POS:  0+7  DEFAULT VALUE:  []  MODS:  []
+
+TYPE: function NAME:  dnn_getAvailableTargets RETURN TYPE:  vector_Target modlist =  []
+	TYPE: dnn_Backend  NAME:  be  DEFAULT VALUE:    MODS:  []
+Modifited Return:  std::vector<Target>
+
+TYPE:  class  NAME:  dnn_Layer modlist =  []
+: cv::Algorithm
+	NAME: vector_Mat  POS:  blobs  DEFAULT VALUE:    MODS:  ['/RW']
+	NAME: String  POS:  name  DEFAULT VALUE:    MODS:  []
+	NAME: String  POS:  type  DEFAULT VALUE:    MODS:  []
+	NAME: int  POS:  preferableTarget  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Layer_finalize RETURN TYPE:  void modlist =  ['/V']
+	TYPE: vector_Mat  NAME:  inputs  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_Mat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_Layer_finalize RETURN TYPE:  void modlist =  ['/V']
+	TYPE: vector_UMat  NAME:  inputs  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_UMat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_Layer_run RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  inputs  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_Mat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Mat  NAME:  internals  DEFAULT VALUE:    MODS:  ['/IO', '/Ref']
+
+TYPE: function NAME:  dnn_Layer_run RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  inputs  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_Mat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Mat  NAME:  internals  DEFAULT VALUE:    MODS:  ['/IO', '/Ref']
+
+TYPE: function NAME:  dnn_Layer_outputNameToIndex RETURN TYPE:  int modlist =  ['/V']
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE:  class  NAME:  dnn_Net modlist =  ['/Simple']
+
+TYPE: function NAME:  dnn_Net_Net RETURN TYPE:   modlist =  []
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_Net_readFromModelOptimizer RETURN TYPE:  Net modlist =  ['/S']
+	TYPE: String  NAME:  xml  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  bin  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_readFromModelOptimizer RETURN TYPE:  Net modlist =  ['/S']
+	TYPE: vector_uchar  NAME:  bufferModelConfig  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferWeights  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_empty RETURN TYPE:  bool modlist =  ['/C']
+
+TYPE: function NAME:  dnn_Net_dump RETURN TYPE:  String modlist =  []
+
+TYPE: function NAME:  dnn_Net_dumpToFile RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  path  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayerId RETURN TYPE:  int modlist =  []
+	TYPE: String  NAME:  layer  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayerNames RETURN TYPE:  vector_String modlist =  ['/C']
+Modifited Return:  std::vector<String>
+
+TYPE: function NAME:  dnn_Net_getLayer RETURN TYPE:  Ptr_Layer modlist =  []
+	TYPE: LayerId  NAME:  layerId  DEFAULT VALUE:    MODS:  []
+Modifited Return:  Ptr<Layer>
+
+TYPE: function NAME:  dnn_Net_connect RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  outPin  DEFAULT VALUE:    MODS:  []
+	TYPE: String  NAME:  inpPin  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_setInputsNames RETURN TYPE:  void modlist =  []
+	TYPE: vector_String  NAME:  inputBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setInputShape RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  inputName  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: MatShape  NAME:  shape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  Mat modlist =  []
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forwardAsync RETURN TYPE:  AsyncArray modlist =  []
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: vector_String  NAME:  outBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: vector_String  NAME:  outBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  ['=forwardAndRetrieve']
+	TYPE: vector_vector_Mat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_String  NAME:  outBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setHalideScheduler RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  scheduler  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setPreferableBackend RETURN TYPE:  void modlist =  []
+	TYPE: int  NAME:  backendId  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_setPreferableTarget RETURN TYPE:  void modlist =  []
+	TYPE: int  NAME:  targetId  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_setInput RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  blob  DEFAULT VALUE:    MODS:  []
+	TYPE: String  NAME:  name  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setInput RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  blob  DEFAULT VALUE:    MODS:  []
+	TYPE: String  NAME:  name  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setParam RETURN TYPE:  void modlist =  []
+	TYPE: LayerId  NAME:  layer  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  numParam  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  blob  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setParam RETURN TYPE:  void modlist =  []
+	TYPE: LayerId  NAME:  layer  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  numParam  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  blob  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getParam RETURN TYPE:  Mat modlist =  []
+	TYPE: LayerId  NAME:  layer  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  numParam  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  dnn_Net_getUnconnectedOutLayers RETURN TYPE:  vector_int modlist =  ['/C']
+Modifited Return:  std::vector<int>
+
+TYPE: function NAME:  dnn_Net_getUnconnectedOutLayersNames RETURN TYPE:  vector_String modlist =  ['/C']
+Modifited Return:  std::vector<String>
+
+TYPE: function NAME:  dnn_Net_getLayersShapes RETURN TYPE:  void modlist =  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_int  NAME:  layersIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  inLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  outLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayersShapes RETURN TYPE:  void modlist =  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_int  NAME:  layersIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  inLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  outLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayerTypes RETURN TYPE:  void modlist =  ['/C']
+	TYPE: vector_String  NAME:  layersTypes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayersCount RETURN TYPE:  int modlist =  ['/C']
+	TYPE: String  NAME:  layerType  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getMemoryConsumption RETURN TYPE:  void modlist =  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: size_t  NAME:  weights  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: size_t  NAME:  blobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getMemoryConsumption RETURN TYPE:  void modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: size_t  NAME:  weights  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: size_t  NAME:  blobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getMemoryConsumption RETURN TYPE:  void modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: size_t  NAME:  weights  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: size_t  NAME:  blobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_enableFusion RETURN TYPE:  void modlist =  []
+	TYPE: bool  NAME:  fusion  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_getPerfProfile RETURN TYPE:  int64 modlist =  []
+	TYPE: vector_double  NAME:  timings  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromDarknet RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  cfgFile  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  darknetModel  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromDarknet RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferCfg  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromCaffe RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  prototxt  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  caffeModel  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromCaffe RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferProto  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromTensorflow RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromTensorflow RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferConfig  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromTorch RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  isBinary  DEFAULT VALUE:  true  MODS:  []
+	TYPE: bool  NAME:  evaluate  DEFAULT VALUE:  true  MODS:  []
+
+TYPE: function NAME:  dnn_readNet RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  framework  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNet RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  framework  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferConfig  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readTorchBlob RETURN TYPE:  Mat modlist =  []
+	TYPE: String  NAME:  filename  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  isBinary  DEFAULT VALUE:  true  MODS:  []
+
+TYPE: function NAME:  dnn_readNetFromModelOptimizer RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  xml  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  bin  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromModelOptimizer RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferModelConfig  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferWeights  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromONNX RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  onnxFile  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromONNX RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  buffer  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readTensorFromONNX RETURN TYPE:  Mat modlist =  []
+	TYPE: String  NAME:  path  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_blobFromImage RETURN TYPE:  Mat modlist =  []
+	TYPE: Mat  NAME:  image  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  ['/C', '/Ref']
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_blobFromImage RETURN TYPE:  Mat modlist =  []
+	TYPE: UMat  NAME:  image  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  ['/C', '/Ref']
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_blobFromImages RETURN TYPE:  Mat modlist =  []
+	TYPE: vector_Mat  NAME:  images  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_blobFromImages RETURN TYPE:  Mat modlist =  []
+	TYPE: vector_UMat  NAME:  images  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_imagesFromBlob RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  blob_  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_Mat  NAME:  images_  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_imagesFromBlob RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  blob_  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_UMat  NAME:  images_  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_shrinkCaffeModel RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  src  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  dst  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_String  NAME:  layersTypes  DEFAULT VALUE:  std::vector<String>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_writeTextGraph RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  output  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_NMSBoxes RETURN TYPE:  void modlist =  []
+	TYPE: vector_Rect2d  NAME:  bboxes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_float  NAME:  scores  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: float  NAME:  score_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: float  NAME:  nms_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_int  NAME:  indices  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  eta  DEFAULT VALUE:  1.f  MODS:  ['/C']
+	TYPE: int  NAME:  top_k  DEFAULT VALUE:  0  MODS:  ['/C']
+
+TYPE: function NAME:  dnn_NMSBoxes RETURN TYPE:  void modlist =  ['=NMSBoxesRotated']
+	TYPE: vector_RotatedRect  NAME:  bboxes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_float  NAME:  scores  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: float  NAME:  score_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: float  NAME:  nms_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_int  NAME:  indices  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  eta  DEFAULT VALUE:  1.f  MODS:  ['/C']
+	TYPE: int  NAME:  top_k  DEFAULT VALUE:  0  MODS:  ['/C']
+
+TYPE:  class  NAME:  dnn_Model modlist =  ['/Simple']
+: cv::dnn::Net
+
+TYPE: function NAME:  dnn_Model_Model RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_Model_Model RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_Model_setInputSize RETURN TYPE:  Model modlist =  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Model_setInputSize RETURN TYPE:  Model modlist =  []
+	TYPE: int  NAME:  width  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  height  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputMean RETURN TYPE:  Model modlist =  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Model_setInputScale RETURN TYPE:  Model modlist =  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputCrop RETURN TYPE:  Model modlist =  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputSwapRB RETURN TYPE:  Model modlist =  []
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputParams RETURN TYPE:  void modlist =  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  ['/C', '/Ref']
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  dnn_Model_predict RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_Mat  NAME:  outs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_Model_predict RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_UMat  NAME:  outs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE:  class  NAME:  dnn_ClassificationModel modlist =  ['/Simple']
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_ClassificationModel_ClassificationModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_ClassificationModel_ClassificationModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_ClassificationModel_classify RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  classId  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  conf  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_ClassificationModel_classify RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  classId  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  conf  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE:  class  NAME:  dnn_KeypointsModel modlist =  []
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_KeypointsModel_KeypointsModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_KeypointsModel_KeypointsModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_KeypointsModel_estimate RETURN TYPE:  vector_Point2f modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: float  NAME:  thresh  DEFAULT VALUE:  0.5  MODS:  []
+Modifited Return:  std::vector<Point2f>
+
+TYPE: function NAME:  dnn_KeypointsModel_estimate RETURN TYPE:  vector_Point2f modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: float  NAME:  thresh  DEFAULT VALUE:  0.5  MODS:  []
+Modifited Return:  std::vector<Point2f>
+
+TYPE:  class  NAME:  dnn_SegmentationModel modlist =  []
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_SegmentationModel_SegmentationModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_SegmentationModel_SegmentationModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_SegmentationModel_segment RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_SegmentationModel_segment RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE:  class  NAME:  dnn_DetectionModel modlist =  ['/Simple']
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_DetectionModel_DetectionModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_DetectionModel_DetectionModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_DetectionModel_detect RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_int  NAME:  classIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_float  NAME:  confidences  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Rect  NAME:  boxes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  confThreshold  DEFAULT VALUE:  0.5f  MODS:  []
+	TYPE: float  NAME:  nmsThreshold  DEFAULT VALUE:  0.0f  MODS:  []
+
+TYPE: function NAME:  dnn_DetectionModel_detect RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_int  NAME:  classIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_float  NAME:  confidences  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Rect  NAME:  boxes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  confThreshold  DEFAULT VALUE:  0.5f  MODS:  []
+	TYPE: float  NAME:  nmsThreshold  DEFAULT VALUE:  0.0f  MODS:  []
+
+TYPE:  enum  NAME:  dnn_Backend
+	NAME: dnn_DNN_BACKEND_DEFAULT  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_HALIDE  POS:  0+1  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_INFERENCE_ENGINE  POS:  0+2  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_OPENCV  POS:  0+3  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_VKCOM  POS:  0+4  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_BACKEND_CUDA  POS:  0+5  DEFAULT VALUE:  []  MODS:  []
+
+TYPE:  enum  NAME:  dnn_Target
+	NAME: dnn_DNN_TARGET_CPU  POS:  0  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_OPENCL  POS:  0+1  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_OPENCL_FP16  POS:  0+2  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_MYRIAD  POS:  0+3  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_VULKAN  POS:  0+4  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_FPGA  POS:  0+5  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_CUDA  POS:  0+6  DEFAULT VALUE:  []  MODS:  []
+	NAME: dnn_DNN_TARGET_CUDA_FP16  POS:  0+7  DEFAULT VALUE:  []  MODS:  []
+
+TYPE: function NAME:  dnn_getAvailableTargets RETURN TYPE:  vector_Target modlist =  []
+	TYPE: dnn_Backend  NAME:  be  DEFAULT VALUE:    MODS:  []
+Modifited Return:  std::vector<Target>
+
+TYPE:  class  NAME:  dnn_Layer modlist =  []
+: cv::Algorithm
+	NAME: vector_Mat  POS:  blobs  DEFAULT VALUE:    MODS:  ['/RW']
+	NAME: String  POS:  name  DEFAULT VALUE:    MODS:  []
+	NAME: String  POS:  type  DEFAULT VALUE:    MODS:  []
+	NAME: int  POS:  preferableTarget  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Layer_finalize RETURN TYPE:  void modlist =  ['/V']
+	TYPE: vector_Mat  NAME:  inputs  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_Mat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_Layer_finalize RETURN TYPE:  void modlist =  ['/V']
+	TYPE: vector_UMat  NAME:  inputs  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_UMat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_Layer_run RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  inputs  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_Mat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Mat  NAME:  internals  DEFAULT VALUE:    MODS:  ['/IO', '/Ref']
+
+TYPE: function NAME:  dnn_Layer_run RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  inputs  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_Mat  NAME:  outputs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Mat  NAME:  internals  DEFAULT VALUE:    MODS:  ['/IO', '/Ref']
+
+TYPE: function NAME:  dnn_Layer_outputNameToIndex RETURN TYPE:  int modlist =  ['/V']
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE:  class  NAME:  dnn_Net modlist =  ['/Simple']
+
+TYPE: function NAME:  dnn_Net_Net RETURN TYPE:   modlist =  []
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_Net_readFromModelOptimizer RETURN TYPE:  Net modlist =  ['/S']
+	TYPE: String  NAME:  xml  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  bin  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_readFromModelOptimizer RETURN TYPE:  Net modlist =  ['/S']
+	TYPE: vector_uchar  NAME:  bufferModelConfig  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferWeights  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_empty RETURN TYPE:  bool modlist =  ['/C']
+
+TYPE: function NAME:  dnn_Net_dump RETURN TYPE:  String modlist =  []
+
+TYPE: function NAME:  dnn_Net_dumpToFile RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  path  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayerId RETURN TYPE:  int modlist =  []
+	TYPE: String  NAME:  layer  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayerNames RETURN TYPE:  vector_String modlist =  ['/C']
+Modifited Return:  std::vector<String>
+
+TYPE: function NAME:  dnn_Net_getLayer RETURN TYPE:  Ptr_Layer modlist =  []
+	TYPE: LayerId  NAME:  layerId  DEFAULT VALUE:    MODS:  []
+Modifited Return:  Ptr<Layer>
+
+TYPE: function NAME:  dnn_Net_connect RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  outPin  DEFAULT VALUE:    MODS:  []
+	TYPE: String  NAME:  inpPin  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_setInputsNames RETURN TYPE:  void modlist =  []
+	TYPE: vector_String  NAME:  inputBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setInputShape RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  inputName  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: MatShape  NAME:  shape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  Mat modlist =  []
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forwardAsync RETURN TYPE:  AsyncArray modlist =  []
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: String  NAME:  outputName  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_Mat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: vector_String  NAME:  outBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  []
+	TYPE: vector_UMat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O']
+	TYPE: vector_String  NAME:  outBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_forward RETURN TYPE:  void modlist =  ['=forwardAndRetrieve']
+	TYPE: vector_vector_Mat  NAME:  outputBlobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_String  NAME:  outBlobNames  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setHalideScheduler RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  scheduler  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setPreferableBackend RETURN TYPE:  void modlist =  []
+	TYPE: int  NAME:  backendId  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_setPreferableTarget RETURN TYPE:  void modlist =  []
+	TYPE: int  NAME:  targetId  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_setInput RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  blob  DEFAULT VALUE:    MODS:  []
+	TYPE: String  NAME:  name  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setInput RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  blob  DEFAULT VALUE:    MODS:  []
+	TYPE: String  NAME:  name  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setParam RETURN TYPE:  void modlist =  []
+	TYPE: LayerId  NAME:  layer  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  numParam  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  blob  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_setParam RETURN TYPE:  void modlist =  []
+	TYPE: LayerId  NAME:  layer  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  numParam  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  blob  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getParam RETURN TYPE:  Mat modlist =  []
+	TYPE: LayerId  NAME:  layer  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  numParam  DEFAULT VALUE:  0  MODS:  []
+
+TYPE: function NAME:  dnn_Net_getUnconnectedOutLayers RETURN TYPE:  vector_int modlist =  ['/C']
+Modifited Return:  std::vector<int>
+
+TYPE: function NAME:  dnn_Net_getUnconnectedOutLayersNames RETURN TYPE:  vector_String modlist =  ['/C']
+Modifited Return:  std::vector<String>
+
+TYPE: function NAME:  dnn_Net_getLayersShapes RETURN TYPE:  void modlist =  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_int  NAME:  layersIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  inLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  outLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayersShapes RETURN TYPE:  void modlist =  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_int  NAME:  layersIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  inLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_vector_MatShape  NAME:  outLayersShapes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getFLOPS RETURN TYPE:  int64 modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayerTypes RETURN TYPE:  void modlist =  ['/C']
+	TYPE: vector_String  NAME:  layersTypes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getLayersCount RETURN TYPE:  int modlist =  ['/C']
+	TYPE: String  NAME:  layerType  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getMemoryConsumption RETURN TYPE:  void modlist =  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: size_t  NAME:  weights  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: size_t  NAME:  blobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getMemoryConsumption RETURN TYPE:  void modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_MatShape  NAME:  netInputShapes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: size_t  NAME:  weights  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: size_t  NAME:  blobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_getMemoryConsumption RETURN TYPE:  void modlist =  ['/C']
+	TYPE: int  NAME:  layerId  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: MatShape  NAME:  netInputShape  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: size_t  NAME:  weights  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: size_t  NAME:  blobs  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_Net_enableFusion RETURN TYPE:  void modlist =  []
+	TYPE: bool  NAME:  fusion  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Net_getPerfProfile RETURN TYPE:  int64 modlist =  []
+	TYPE: vector_double  NAME:  timings  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromDarknet RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  cfgFile  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  darknetModel  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromDarknet RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferCfg  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromCaffe RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  prototxt  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  caffeModel  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromCaffe RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferProto  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromTensorflow RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  String()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromTensorflow RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferConfig  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromTorch RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  isBinary  DEFAULT VALUE:  true  MODS:  []
+	TYPE: bool  NAME:  evaluate  DEFAULT VALUE:  true  MODS:  []
+
+TYPE: function NAME:  dnn_readNet RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  framework  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNet RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  framework  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferModel  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferConfig  DEFAULT VALUE:  std::vector<uchar>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readTorchBlob RETURN TYPE:  Mat modlist =  []
+	TYPE: String  NAME:  filename  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  isBinary  DEFAULT VALUE:  true  MODS:  []
+
+TYPE: function NAME:  dnn_readNetFromModelOptimizer RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  xml  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  bin  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromModelOptimizer RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  bufferModelConfig  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_uchar  NAME:  bufferWeights  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromONNX RETURN TYPE:  Net modlist =  []
+	TYPE: String  NAME:  onnxFile  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readNetFromONNX RETURN TYPE:  Net modlist =  []
+	TYPE: vector_uchar  NAME:  buffer  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_readTensorFromONNX RETURN TYPE:  Mat modlist =  []
+	TYPE: String  NAME:  path  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_blobFromImage RETURN TYPE:  Mat modlist =  []
+	TYPE: Mat  NAME:  image  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  ['/C', '/Ref']
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_blobFromImage RETURN TYPE:  Mat modlist =  []
+	TYPE: UMat  NAME:  image  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  ['/C', '/Ref']
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_blobFromImages RETURN TYPE:  Mat modlist =  []
+	TYPE: vector_Mat  NAME:  images  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_blobFromImages RETURN TYPE:  Mat modlist =  []
+	TYPE: vector_UMat  NAME:  images  DEFAULT VALUE:    MODS:  []
+	TYPE: double  NAME:  scalefactor  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+	TYPE: int  NAME:  ddepth  DEFAULT VALUE:  CV_32F  MODS:  []
+
+TYPE: function NAME:  dnn_imagesFromBlob RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  blob_  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_Mat  NAME:  images_  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_imagesFromBlob RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  blob_  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_UMat  NAME:  images_  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_shrinkCaffeModel RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  src  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  dst  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_String  NAME:  layersTypes  DEFAULT VALUE:  std::vector<String>()  MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_writeTextGraph RETURN TYPE:  void modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  output  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_NMSBoxes RETURN TYPE:  void modlist =  []
+	TYPE: vector_Rect2d  NAME:  bboxes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_float  NAME:  scores  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: float  NAME:  score_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: float  NAME:  nms_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_int  NAME:  indices  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  eta  DEFAULT VALUE:  1.f  MODS:  ['/C']
+	TYPE: int  NAME:  top_k  DEFAULT VALUE:  0  MODS:  ['/C']
+
+TYPE: function NAME:  dnn_NMSBoxes RETURN TYPE:  void modlist =  ['=NMSBoxesRotated']
+	TYPE: vector_RotatedRect  NAME:  bboxes  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: vector_float  NAME:  scores  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: float  NAME:  score_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: float  NAME:  nms_threshold  DEFAULT VALUE:    MODS:  ['/C']
+	TYPE: vector_int  NAME:  indices  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  eta  DEFAULT VALUE:  1.f  MODS:  ['/C']
+	TYPE: int  NAME:  top_k  DEFAULT VALUE:  0  MODS:  ['/C']
+
+TYPE:  class  NAME:  dnn_Model modlist =  ['/Simple']
+: cv::dnn::Net
+
+TYPE: function NAME:  dnn_Model_Model RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_Model_Model RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_Model_setInputSize RETURN TYPE:  Model modlist =  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Model_setInputSize RETURN TYPE:  Model modlist =  []
+	TYPE: int  NAME:  width  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  height  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputMean RETURN TYPE:  Model modlist =  []
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+
+TYPE: function NAME:  dnn_Model_setInputScale RETURN TYPE:  Model modlist =  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputCrop RETURN TYPE:  Model modlist =  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputSwapRB RETURN TYPE:  Model modlist =  []
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:    MODS:  []
+
+TYPE: function NAME:  dnn_Model_setInputParams RETURN TYPE:  void modlist =  []
+	TYPE: double  NAME:  scale  DEFAULT VALUE:  1.0  MODS:  []
+	TYPE: Size  NAME:  size  DEFAULT VALUE:  Size()  MODS:  ['/C', '/Ref']
+	TYPE: Scalar  NAME:  mean  DEFAULT VALUE:  Scalar()  MODS:  ['/C', '/Ref']
+	TYPE: bool  NAME:  swapRB  DEFAULT VALUE:  false  MODS:  []
+	TYPE: bool  NAME:  crop  DEFAULT VALUE:  false  MODS:  []
+
+TYPE: function NAME:  dnn_Model_predict RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_Mat  NAME:  outs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_Model_predict RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_UMat  NAME:  outs  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE:  class  NAME:  dnn_ClassificationModel modlist =  ['/Simple']
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_ClassificationModel_ClassificationModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_ClassificationModel_ClassificationModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_ClassificationModel_classify RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  classId  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  conf  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE: function NAME:  dnn_ClassificationModel_classify RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: int  NAME:  classId  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  conf  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+
+TYPE:  class  NAME:  dnn_KeypointsModel modlist =  []
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_KeypointsModel_KeypointsModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_KeypointsModel_KeypointsModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_KeypointsModel_estimate RETURN TYPE:  vector_Point2f modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: float  NAME:  thresh  DEFAULT VALUE:  0.5  MODS:  []
+Modifited Return:  std::vector<Point2f>
+
+TYPE: function NAME:  dnn_KeypointsModel_estimate RETURN TYPE:  vector_Point2f modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: float  NAME:  thresh  DEFAULT VALUE:  0.5  MODS:  []
+Modifited Return:  std::vector<Point2f>
+
+TYPE:  class  NAME:  dnn_SegmentationModel modlist =  []
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_SegmentationModel_SegmentationModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_SegmentationModel_SegmentationModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_SegmentationModel_segment RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: Mat  NAME:  mask  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE: function NAME:  dnn_SegmentationModel_segment RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: UMat  NAME:  mask  DEFAULT VALUE:    MODS:  ['/O']
+
+TYPE:  class  NAME:  dnn_DetectionModel modlist =  ['/Simple']
+: cv::dnn::Model
+
+TYPE: function NAME:  dnn_DetectionModel_DetectionModel RETURN TYPE:   modlist =  []
+	TYPE: String  NAME:  model  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+	TYPE: String  NAME:  config  DEFAULT VALUE:  ""  MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_DetectionModel_DetectionModel RETURN TYPE:   modlist =  []
+	TYPE: Net  NAME:  network  DEFAULT VALUE:    MODS:  ['/C', '/Ref']
+Modifited Return:  None
+
+TYPE: function NAME:  dnn_DetectionModel_detect RETURN TYPE:  void modlist =  []
+	TYPE: Mat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_int  NAME:  classIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_float  NAME:  confidences  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Rect  NAME:  boxes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  confThreshold  DEFAULT VALUE:  0.5f  MODS:  []
+	TYPE: float  NAME:  nmsThreshold  DEFAULT VALUE:  0.0f  MODS:  []
+
+TYPE: function NAME:  dnn_DetectionModel_detect RETURN TYPE:  void modlist =  []
+	TYPE: UMat  NAME:  frame  DEFAULT VALUE:    MODS:  []
+	TYPE: vector_int  NAME:  classIds  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_float  NAME:  confidences  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: vector_Rect  NAME:  boxes  DEFAULT VALUE:    MODS:  ['/O', '/Ref']
+	TYPE: float  NAME:  confThreshold  DEFAULT VALUE:  0.5f  MODS:  []
+	TYPE: float  NAME:  nmsThreshold  DEFAULT VALUE:  0.0f  MODS:  []
+
+['/S', '/IO', '/V', '=NMSBoxesRotated', '=sumElems', '/RW', '/C', '=forwardAndRetrieve', '/O', '=PCACompute2', '/Simple', '/Ref']
+525
+namespaces: cv cv.dnn

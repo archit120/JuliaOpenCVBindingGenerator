@@ -7,20 +7,24 @@ import os, sys, re, string, io
 modpath = "/home/archit/Documents/GitHub/opencv/modules"
 opencv_hdr_list = [
 f"{modpath}/core/include/opencv2/core.hpp",
-f"{modpath}/core/include/opencv2/core/mat.hpp",
-f"{modpath}/core/include/opencv2/core/types.hpp",
-f"{modpath}/core/include/opencv2/core/ocl.hpp",
-# f"{modpath}/flann/include/opencv2/flann/miniflann.hpp",
-# f"{modpath}/ml/include/opencv2/ml.hpp",
-f"{modpath}/imgproc/include/opencv2/imgproc.hpp",
-f"{modpath}/calib3d/include/opencv2/calib3d.hpp",
-f"{modpath}/features2d/include/opencv2/features2d.hpp",
-f"{modpath}/video/include/opencv2/video/tracking.hpp",
-f"{modpath}/video/include/opencv2/video/background_segm.hpp",
-f"{modpath}/objdetect/include/opencv2/objdetect.hpp",
-f"{modpath}/imgcodecs/include/opencv2/imgcodecs.hpp",
-f"{modpath}/videoio/include/opencv2/videoio.hpp",
-f"{modpath}/highgui/include/opencv2/highgui.hpp",
+# f"{modpath}/core/include/opencv2/core/mat.hpp",
+# f"{modpath}/core/include/opencv2/core/types.hpp",
+# f"{modpath}/core/include/opencv2/core/ocl.hpp",
+# # f"{modpath}/flann/include/opencv2/flann/miniflann.hpp",
+# # f"{modpath}/ml/include/opencv2/ml.hpp",
+# f"{modpath}/imgproc/include/opencv2/imgproc.hpp",
+# f"{modpath}/calib3d/include/opencv2/calib3d.hpp",
+# f"{modpath}/features2d/include/opencv2/features2d.hpp",
+# f"{modpath}/video/include/opencv2/video/tracking.hpp",
+# f"{modpath}/video/include/opencv2/video/background_segm.hpp",
+# f"{modpath}/objdetect/include/opencv2/objdetect.hpp",
+# f"{modpath}/imgcodecs/include/opencv2/imgcodecs.hpp",
+# f"{modpath}/videoio/include/opencv2/videoio.hpp",
+# f"{modpath}/highgui/include/opencv2/highgui.hpp",
+f"{modpath}/dnn/include/opencv2/dnn/dnn.hpp",
+f"{modpath}/dnn/include/opencv2/dnn/dnn.hpp",
+f"{modpath}/dnn/include/opencv2/dnn/dnn.hpp",
+
 # "autogen_manual_header.h"
 ]
 
