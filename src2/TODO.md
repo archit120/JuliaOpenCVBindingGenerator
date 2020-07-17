@@ -26,3 +26,9 @@ uchar - UInt8
 1.f - 1.0f
 
 empty constructors fix
+bools - CxxBools
+setfield - setfield!
+
+
+
+use ref types in julia for pass by reference
