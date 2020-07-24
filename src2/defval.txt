@@ -45,7 +45,7 @@ Float32|0|0
 Int32|-1|-1
 Float64|-DBL_MAX|-typemax(Float64)
 Scalar|Scalar::all(0)|cpp_to_julia(ScalarggallOWP())
-InputArray||InputArray()
+InputArray||CxxMat()
 Int32|QT_STYLE_NORMAL|cv_QT_STYLE_NORMAL
 Int32|INTER_LINEAR|cv_INTER_LINEAR
 Bool|false|false

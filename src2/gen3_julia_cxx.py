@@ -31,7 +31,9 @@ with open("defval.txt", 'r') as f:
     tmp = f.readlines()
     for ln in tmp:
         ln = ln.strip('\n').split('|')
-        jl_cpp_defmap[ln[1]] = ln[2]
+        if ln[0] not in jl_cpp_defmap:
+            jl_cpp_defmap[ln[0]] = {}
+        jl_cpp_defmap[ln[0]][ln[1]] = ln[2]
 
 print(jl_cpp_defmap)
 
@@ -57,8 +59,8 @@ def handle_def_arg(inp, tp = '', ns=''):
     else:
         print("Default not found")
 
-    if inp in jl_cpp_defmap:
-        out = jl_cpp_defmap[inp]
+    if inp in jl_cpp_defmap[tp]:
+        out = jl_cpp_defmap[tp][inp]
     elif inp != '':
         print(inp+" not found")
     # print(inp, tp, out)

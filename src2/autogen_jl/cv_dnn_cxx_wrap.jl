@@ -65,7 +65,7 @@ end
 function dnn_forward(cobj::Net, outBlobNames::Array{String, 1}, outputBlobs::Array{InputArray, 1})
 	return cpp_to_julia(jlopencv_cv_dnn_cv_dnn_Net_cv_dnn_Net_forward(julia_to_cpp(cobj),julia_to_cpp(outBlobNames),julia_to_cpp(outputBlobs)))
 end
-dnn_forward(cobj::Net, outBlobNames::Array{String, 1}; outputBlobs::Array{InputArray, 1} = (InputArray())) = forward(cobj, outBlobNames, outputBlobs)
+dnn_forward(cobj::Net, outBlobNames::Array{String, 1}; outputBlobs::Array{InputArray, 1} = (Array{InputArray, 1}())) = forward(cobj, outBlobNames, outputBlobs)
 
 function dnn_forward(cobj::Net, outBlobNames::Array{String, 1})
 	return cpp_to_julia(jlopencv_cv_dnn_cv_dnn_Net_cv_dnn_Net_forward(julia_to_cpp(cobj),julia_to_cpp(outBlobNames)))
@@ -176,7 +176,7 @@ dnn_setInputParams(cobj::Model; scale::Float64 = Float64(1.0), size::Size{Int32}
 function dnn_predict(cobj::Model, frame::InputArray, outs::Array{InputArray, 1})
 	return cpp_to_julia(jlopencv_cv_dnn_cv_dnn_Model_cv_dnn_Model_predict(julia_to_cpp(cobj),julia_to_cpp(frame),julia_to_cpp(outs)))
 end
-dnn_predict(cobj::Model, frame::InputArray; outs::Array{InputArray, 1} = (InputArray())) = predict(cobj, frame, outs)
+dnn_predict(cobj::Model, frame::InputArray; outs::Array{InputArray, 1} = (Array{InputArray, 1}())) = predict(cobj, frame, outs)
 
 function dnn_Model(model::String, config::String)
 	return cpp_to_julia(jlopencv_cv_dnn_cv_dnn_Model_cv_dnn_Model_Model(julia_to_cpp(model),julia_to_cpp(config)))
@@ -235,7 +235,7 @@ end
 function dnn_segment(cobj::SegmentationModel, frame::InputArray, mask::InputArray)
 	return cpp_to_julia(jlopencv_cv_dnn_cv_dnn_SegmentationModel_cv_dnn_SegmentationModel_segment(julia_to_cpp(cobj),julia_to_cpp(frame),julia_to_cpp(mask)))
 end
-dnn_segment(cobj::SegmentationModel, frame::InputArray; mask::InputArray = (InputArray())) = segment(cobj, frame, mask)
+dnn_segment(cobj::SegmentationModel, frame::InputArray; mask::InputArray = (CxxMat())) = segment(cobj, frame, mask)
 
 function dnn_SegmentationModel(model::String, config::String)
 	return cpp_to_julia(jlopencv_cv_dnn_cv_dnn_SegmentationModel_cv_dnn_SegmentationModel_SegmentationModel(julia_to_cpp(model),julia_to_cpp(config)))
@@ -357,7 +357,7 @@ dnn_blobFromImages(images::Array{InputArray, 1}; scalefactor::Float64 = Float64(
 function dnn_imagesFromBlob(blob_::InputArray, images_::Array{InputArray, 1})
 	return cpp_to_julia(jlopencv_cv_dnn_cv_dnn_imagesFromBlob(julia_to_cpp(blob_),julia_to_cpp(images_)))
 end
-dnn_imagesFromBlob(blob_::InputArray; images_::Array{InputArray, 1} = (InputArray())) = imagesFromBlob(blob_, images_)
+dnn_imagesFromBlob(blob_::InputArray; images_::Array{InputArray, 1} = (Array{InputArray, 1}())) = imagesFromBlob(blob_, images_)
 
 function dnn_shrinkCaffeModel(src::String, dst::String, layersTypes::Array{String, 1})
 	return cpp_to_julia(jlopencv_cv_dnn_cv_dnn_shrinkCaffeModel(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(layersTypes)))

@@ -1,4 +1,3 @@
-module OpenCVCxx
 # using StaticArrays
 
 include("typestructs.jl")
@@ -21,7 +20,6 @@ include("Mat.jl")
 
 const InputArray = Union{AbstractArray{T, 3} where {T <: dtypes}, CxxMat}
 
-
 include("mat_conversion.jl")
 include("types_conversion.jl")
 
@@ -41,5 +39,3 @@ function cpp_to_julia(var::Tuple)
 end
 
 include("cv_cxx_wrap.jl")
-
-end
