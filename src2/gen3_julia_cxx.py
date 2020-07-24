@@ -158,7 +158,7 @@ class FuncVariant(FuncVariant):
         str2 = ", ".join([x.name for x  in self.inlist + self.optlist])
         # outstr = outstr +
         if self.get_argument_opt() != '' and gen_default:
-            outstr = outstr + ('%s(%s; %s)%s = %s(%s)\n' % (map_name, self.get_argument_def(classname, isalgo), self.get_argument_opt(ns), self.get_algo_tp(classname, isalgo), self.mapped_name, str2))
+            outstr = outstr + ('%s(%s; %s)%s = %s(%s)\n' % (map_name, self.get_argument_def(classname, isalgo), self.get_argument_opt(ns), self.get_algo_tp(classname, isalgo), map_name, str2))
         return outstr
 
 

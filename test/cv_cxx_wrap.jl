@@ -1,129 +1,129 @@
 
-   const SortFlags = Int32 
+   const SortFlags = Int32
 
-   const CovarFlags = Int32 
+   const CovarFlags = Int32
 
-   const KmeansFlags = Int32 
+   const KmeansFlags = Int32
 
-   const ReduceTypes = Int32 
+   const ReduceTypes = Int32
 
-   const RotateFlags = Int32 
+   const RotateFlags = Int32
 
-   const PCA_Flags = Int32 
+   const PCA_Flags = Int32
 
-   const SVD_Flags = Int32 
+   const SVD_Flags = Int32
 
-   const Formatter_FormatType = Int32 
+   const Formatter_FormatType = Int32
 
-   const Param = Int32 
+   const Param = Int32
 
-   const DecompTypes = Int32 
+   const DecompTypes = Int32
 
-   const NormTypes = Int32 
+   const NormTypes = Int32
 
-   const CmpTypes = Int32 
+   const CmpTypes = Int32
 
-   const GemmFlags = Int32 
+   const GemmFlags = Int32
 
-   const DftFlags = Int32 
+   const DftFlags = Int32
 
-   const BorderTypes = Int32 
+   const BorderTypes = Int32
 
-   const SolveLPResult = Int32 
+   const SolveLPResult = Int32
 
-   const FileStorage_Mode = Int32 
+   const FileStorage_Mode = Int32
 
-   const FileStorage_State = Int32 
+   const FileStorage_State = Int32
 
-   const TermCriteria_Type = Int32 
+   const TermCriteria_Type = Int32
 
-   const SpecialFilter = Int32 
+   const SpecialFilter = Int32
 
-   const MorphTypes = Int32 
+   const MorphTypes = Int32
 
-   const MorphShapes = Int32 
+   const MorphShapes = Int32
 
-   const InterpolationFlags = Int32 
+   const InterpolationFlags = Int32
 
-   const WarpPolarMode = Int32 
+   const WarpPolarMode = Int32
 
-   const InterpolationMasks = Int32 
+   const InterpolationMasks = Int32
 
-   const DistanceTypes = Int32 
+   const DistanceTypes = Int32
 
-   const DistanceTransformMasks = Int32 
+   const DistanceTransformMasks = Int32
 
-   const ThresholdTypes = Int32 
+   const ThresholdTypes = Int32
 
-   const AdaptiveThresholdTypes = Int32 
+   const AdaptiveThresholdTypes = Int32
 
-   const GrabCutClasses = Int32 
+   const GrabCutClasses = Int32
 
-   const GrabCutModes = Int32 
+   const GrabCutModes = Int32
 
-   const DistanceTransformLabelTypes = Int32 
+   const DistanceTransformLabelTypes = Int32
 
-   const FloodFillFlags = Int32 
+   const FloodFillFlags = Int32
 
-   const ConnectedComponentsTypes = Int32 
+   const ConnectedComponentsTypes = Int32
 
-   const ConnectedComponentsAlgorithmsTypes = Int32 
+   const ConnectedComponentsAlgorithmsTypes = Int32
 
-   const RetrievalModes = Int32 
+   const RetrievalModes = Int32
 
-   const ContourApproximationModes = Int32 
+   const ContourApproximationModes = Int32
 
-   const ShapeMatchModes = Int32 
+   const ShapeMatchModes = Int32
 
-   const HoughModes = Int32 
+   const HoughModes = Int32
 
-   const LineSegmentDetectorModes = Int32 
+   const LineSegmentDetectorModes = Int32
 
-   const HistCompMethods = Int32 
+   const HistCompMethods = Int32
 
-   const ColorConversionCodes = Int32 
+   const ColorConversionCodes = Int32
 
-   const RectanglesIntersectTypes = Int32 
+   const RectanglesIntersectTypes = Int32
 
-   const LineTypes = Int32 
+   const LineTypes = Int32
 
-   const HersheyFonts = Int32 
+   const HersheyFonts = Int32
 
-   const MarkerTypes = Int32 
+   const MarkerTypes = Int32
 
-   const TemplateMatchModes = Int32 
+   const TemplateMatchModes = Int32
 
-   const ColormapTypes = Int32 
+   const ColormapTypes = Int32
 
-   const ImreadModes = Int32 
+   const ImreadModes = Int32
 
-   const ImwriteFlags = Int32 
+   const ImwriteFlags = Int32
 
-   const ImwriteEXRTypeFlags = Int32 
+   const ImwriteEXRTypeFlags = Int32
 
-   const ImwritePNGFlags = Int32 
+   const ImwritePNGFlags = Int32
 
-   const ImwritePAMFlags = Int32 
+   const ImwritePAMFlags = Int32
 
-   const VideoCaptureAPIs = Int32 
+   const VideoCaptureAPIs = Int32
 
-   const VideoCaptureProperties = Int32 
+   const VideoCaptureProperties = Int32
 
-   const VideoWriterProperties = Int32 
+   const VideoWriterProperties = Int32
 
-   const WindowFlags = Int32 
+   const WindowFlags = Int32
 
-   const WindowPropertyFlags = Int32 
+   const WindowPropertyFlags = Int32
 
-   const MouseEventTypes = Int32 
+   const MouseEventTypes = Int32
 
-   const MouseEventFlags = Int32 
+   const MouseEventFlags = Int32
 
-   const QtFontWeights = Int32 
+   const QtFontWeights = Int32
 
-   const QtFontStyles = Int32 
+   const QtFontStyles = Int32
 
-   const QtButtonTypes = Int32 
+   const QtButtonTypes = Int32
 function Base.getproperty(m::Algorithm, s::Symbol)
     return Base.getfield(m, s)
 end
@@ -1710,7 +1710,8 @@ end
 arrowedLine(img::InputArray, pt1::Point{Int32}, pt2::Point{Int32}, color::Scalar; thickness::Int32 = Int32(1), line_type::Int32 = Int32(8), shift::Int32 = Int32(0), tipLength::Float64 = Float64(0.1)) = arrowedLine(img, pt1, pt2, color, thickness, line_type, shift, tipLength)
 
 function rectangle(img::InputArray, pt1::Point{Int32}, pt2::Point{Int32}, color::Scalar, thickness::Int32, lineType::Int32, shift::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_rectangle(julia_to_cpp(img),julia_to_cpp(pt1),julia_to_cpp(pt2),julia_to_cpp(color),julia_to_cpp(thickness),julia_to_cpp(lineType),julia_to_cpp(shift)))
+	println(pointer(img))
+	imgr = cpp_to_julia(jlopencv_cv_cv_rectangle(julia_to_cpp(img),julia_to_cpp(pt1),julia_to_cpp(pt2),julia_to_cpp(color),julia_to_cpp(thickness),julia_to_cpp(lineType),julia_to_cpp(shift)))
 end
 rectangle(img::InputArray, pt1::Point{Int32}, pt2::Point{Int32}, color::Scalar; thickness::Int32 = Int32(1), lineType::Int32 = Int32(cv_LINE_8), shift::Int32 = Int32(0)) = rectangle(img, pt1, pt2, color, thickness, lineType, shift)
 

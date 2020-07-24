@@ -38,6 +38,7 @@ function cpp_to_julia(mat::CxxMat)
     steps = [rets[6]/sizeof(dtype), rets[7]/sizeof(dtype)]
     # println(steps[1]/rets[3], steps[2]/rets[3]/rets[4])
     #TODO: Implement views when steps do not result in continous memory
+    println("From cpp2julia: ", rets[1].cpp_object)
     arr = Base.unsafe_wrap(Array{dtype, 3}, Ptr{dtype}(rets[1].cpp_object), (rets[3], rets[4], rets[5]))
 
     #Preserve Mat so that array allocated by C++ isn't deallocated
@@ -53,6 +54,7 @@ function julia_to_cpp(img::InputArray)
         steps = strides(img)
     catch
         # Copy array since array is not strided
+	print("FUUU")
         img = img[:, :, :]
         steps = strides(img)
     end
@@ -67,6 +69,7 @@ function julia_to_cpp(img::InputArray)
 
         push!(ndims_a, Int32(size(img)[3]))
         push!(ndims_a, Int32(size(img)[2]))
+        println("From julia2cpp:", pointer(img))
         if eltype(img) == UInt8
             return CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         elseif eltype(img) == UInt16
@@ -84,6 +87,7 @@ function julia_to_cpp(img::InputArray)
         end
     else
         # Copy array, invalid config
+	print("FFUUU@")
         return julia_to_cpp(img[:, :, :])
     end
 end

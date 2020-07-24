@@ -61,6 +61,36 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
                 wrapped.template constructor<T, T, T, T>();
             });
 
+
+//
+// Manual Wrapping BEGIN
+//
+
+#ifdef HAVE_OPENCV_HIGHGUI
+    mod.method("createButton", [](const string & bar_name, jl_function_t* on_change, int type, bool initial_button_state) {createButton(bar_name, [](int s, void* c) {
+        JuliaFunction f((jl_function_t*)c);
+        f(forward<int>(s));
+    }, (void*)on_change, type, initial_button_state);});
+
+    mod.method("setMouseCallback", [](const string & winname, jl_function_t* onMouse) {
+        setMouseCallback(winname, [](int event, int x, int y, int flags, void* c) {
+        JuliaFunction f((jl_function_t*)c);
+        f(forward<int>(event), forward<int>(x), forward<int>(y), forward<int>(flags));
+    }, (void*)onMouse);});
+
+    mod.method("createTrackbar", [](const String &trackbarname, const String &winname, int& value, int count, jl_function_t* onChange) {
+        createTrackbar(trackbarname, winname, &value, count, [](int s, void* c) {
+        JuliaFunction f((jl_function_t*)c);
+        f(forward<int>(s));
+    }, (void*)onChange);});
+
+#endif
+
+
+//
+// Manual Wrapping END
+//
+
     ${cpp_code}
 
 

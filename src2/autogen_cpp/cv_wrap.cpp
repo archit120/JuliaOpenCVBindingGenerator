@@ -35,67 +35,67 @@ struct SuperType<cv::GeneralizedHough>
 {
     typedef cv::Algorithm type;
 };
-                                    
+
 template <>
 struct SuperType<cv::GeneralizedHoughBallard>
 {
     typedef cv::GeneralizedHough type;
 };
-                                    
+
 template <>
 struct SuperType<cv::GeneralizedHoughGuil>
 {
     typedef cv::GeneralizedHough type;
 };
-                                    
+
 template <>
 struct SuperType<cv::CLAHE>
 {
     typedef cv::Algorithm type;
 };
-                                    
+
 template <>
 struct SuperType<cv::LineSegmentDetector>
 {
     typedef cv::Algorithm type;
 };
-                                    
+
 template <>
 struct SuperType<cv::dnn::Layer>
 {
     typedef cv::Algorithm type;
 };
-                                    
+
 template <>
 struct SuperType<cv::dnn::Model>
 {
     typedef cv::dnn::Net type;
 };
-                                    
+
 template <>
 struct SuperType<cv::dnn::ClassificationModel>
 {
     typedef cv::dnn::Model type;
 };
-                                    
+
 template <>
 struct SuperType<cv::dnn::KeypointsModel>
 {
     typedef cv::dnn::Model type;
 };
-                                    
+
 template <>
 struct SuperType<cv::dnn::SegmentationModel>
 {
     typedef cv::dnn::Model type;
 };
-                                    
+
 template <>
 struct SuperType<cv::dnn::DetectionModel>
 {
     typedef cv::dnn::Model type;
 };
-                                    
+
 
 } // namespace jlcxx
 JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
@@ -163,6 +163,26 @@ mod.add_type<cv::dnn::SegmentationModel>("SegmentationModel", jlcxx::julia_base_
 mod.add_type<cv::dnn::DetectionModel>("DetectionModel", jlcxx::julia_base_type<cv::dnn::Model>());
    mod.add_type<LayerId>("LayerId");
 
+
+#ifdef HAVE_OPENCV_HIGHGUI
+    mod.method("createButton", [](const string & bar_name, jl_function_t* on_change, int type, bool initial_button_state) {createButton(bar_name, [](int s, void* c) {
+        JuliaFunction f((jl_function_t*)c);
+        f(forward<int>(s));
+    }, (void*)on_change, type, initial_button_state);});
+
+    mod.method("setMouseCallback", [](const string & winname, jl_function_t* onMouse) {
+        setMouseCallback(winname, [](int event, int x, int y, int flags, void* c) {
+        JuliaFunction f((jl_function_t*)c);
+        f(forward<int>(event), forward<int>(x), forward<int>(y), forward<int>(flags));
+    }, (void*)onMouse);});
+
+    mod.method("createTrackbar", [](const String &trackbarname, const String &winname, int& value, int count, jl_function_t* onChange) {
+        createTrackbar(trackbarname, winname, &value, count, [](int s, void* c) {
+        JuliaFunction f((jl_function_t*)c);
+        f(forward<int>(s));
+    }, (void*)onChange);});
+
+#endif
 
 ;mod.method("jlopencv_cv_cv_FileStorage_cv_FileStorage_FileStorage", []() {  return jlcxx::create<cv::FileStorage>();});mod.method("jlopencv_cv_cv_FileStorage_cv_FileStorage_FileStorage", [](string& filename, int& flags, string& encoding) {  return jlcxx::create<cv::FileStorage>(filename ,flags ,encoding);});
 

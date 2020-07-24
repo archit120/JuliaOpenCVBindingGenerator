@@ -39,3 +39,5 @@ function cpp_to_julia(var::Tuple)
 end
 
 include("cv_cxx_wrap.jl")
+
+include("cv_manual_wrap.jl")
