@@ -149,7 +149,7 @@ class FuncVariant(FuncVariant):
                 self.inlist = [ArgInfo("cobj", classname)] + self.inlist
         map_name = self.mapped_name
         if ns!='cv':
-            map_name = '%s_%s' %(ns.split('::')[-1])
+            map_name = '%s_%s' %(ns.split('::')[-1], map_name)
         outstr = 'function %s(%s)%s\n\t%s\nend\n' % (map_name, self.get_argument_full(classname, isalgo), self.get_algo_tp(classname, isalgo),self.get_return())
 
 
