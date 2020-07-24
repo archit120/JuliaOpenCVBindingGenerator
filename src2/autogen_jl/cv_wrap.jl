@@ -1,937 +1,1061 @@
 
-   const SortFlags = Int32 
-
-   const CovarFlags = Int32 
-
-   const KmeansFlags = Int32 
-
-   const ReduceTypes = Int32 
-
-   const RotateFlags = Int32 
-
-   const PCA_Flags = Int32 
-
-   const SVD_Flags = Int32 
-
-   const Formatter_FormatType = Int32 
-
-   const Param = Int32 
-function Base.getproperty(m::Algorithm, s::Symbol)
-    return Base.getfield(m, s)
-end
-function Base.setproperty!(m::Algorithm, s::Symbol, v)
-    return Base.setfield(m, s, v)
-end
-
-function clear(cobj::Algorithm)
-	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_clear(julia_to_cpp(cobj)))
-end
-
-function write(cobj::Algorithm, fs::cv_Ptr{FileStorage}, name::String)
-	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_write(julia_to_cpp(cobj),julia_to_cpp(fs),julia_to_cpp(name)))
-end
-write(cobj::Algorithm, fs::cv_Ptr{FileStorage}; name::String = (String())) = write(cobj, fs, name)
-
-function read(cobj::Algorithm, fn::FileNode)
-	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_read(julia_to_cpp(cobj),julia_to_cpp(fn)))
-end
-
-function empty(cobj::Algorithm)
-	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_empty(julia_to_cpp(cobj)))
-end
-
-function save(cobj::Algorithm, filename::String)
-	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_save(julia_to_cpp(cobj),julia_to_cpp(filename)))
-end
-
-function getDefaultName(cobj::Algorithm)
-	return cpp_to_julia(jlopencv_cv_cv_Algorithm_cv_Algorithm_getDefaultName(julia_to_cpp(cobj)))
-end
-
-function borderInterpolate(p::Int32, len::Int32, borderType::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_borderInterpolate(julia_to_cpp(p),julia_to_cpp(len),julia_to_cpp(borderType)))
-end
-
-function copyMakeBorder(src::Image, top::Int32, bottom::Int32, left::Int32, right::Int32, borderType::Int32, dst::Image, value::Scalar)
-	return cpp_to_julia(jlopencv_cv_cv_copyMakeBorder(julia_to_cpp(src),julia_to_cpp(top),julia_to_cpp(bottom),julia_to_cpp(left),julia_to_cpp(right),julia_to_cpp(borderType),julia_to_cpp(dst),julia_to_cpp(value)))
-end
-copyMakeBorder(src::Image, top::Int32, bottom::Int32, left::Int32, right::Int32, borderType::Int32; dst::Image = (CxxMat()), value::Scalar = (ScalarOP)) = copyMakeBorder(src, top, bottom, left, right, borderType, dst, value)
-
-function copyMakeBorder(src::UMat, top::Int32, bottom::Int32, left::Int32, right::Int32, borderType::Int32, dst::UMat, value::Scalar)
-	return cpp_to_julia(jlopencv_cv_cv_copyMakeBorder(julia_to_cpp(src),julia_to_cpp(top),julia_to_cpp(bottom),julia_to_cpp(left),julia_to_cpp(right),julia_to_cpp(borderType),julia_to_cpp(dst),julia_to_cpp(value)))
-end
-copyMakeBorder(src::UMat, top::Int32, bottom::Int32, left::Int32, right::Int32, borderType::Int32; dst::UMat = (UMat()), value::Scalar = (ScalarOP)) = copyMakeBorder(src, top, bottom, left, right, borderType, dst, value)
-
-function add(src1::Image, src2::Image, dst::Image, mask::Image, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_add(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask),julia_to_cpp(dtype)))
-end
-add(src1::Image, src2::Image; dst::Image = (CxxMat()), mask::Image = (MatOP), dtype::Int32 = Int32(-1)) = add(src1, src2, dst, mask, dtype)
-
-function add(src1::UMat, src2::UMat, dst::UMat, mask::UMat, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_add(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask),julia_to_cpp(dtype)))
-end
-add(src1::UMat, src2::UMat; dst::UMat = (UMat()), mask::UMat = (UMatOP), dtype::Int32 = Int32(-1)) = add(src1, src2, dst, mask, dtype)
-
-function subtract(src1::Image, src2::Image, dst::Image, mask::Image, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_subtract(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask),julia_to_cpp(dtype)))
-end
-subtract(src1::Image, src2::Image; dst::Image = (CxxMat()), mask::Image = (MatOP), dtype::Int32 = Int32(-1)) = subtract(src1, src2, dst, mask, dtype)
-
-function subtract(src1::UMat, src2::UMat, dst::UMat, mask::UMat, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_subtract(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask),julia_to_cpp(dtype)))
-end
-subtract(src1::UMat, src2::UMat; dst::UMat = (UMat()), mask::UMat = (UMatOP), dtype::Int32 = Int32(-1)) = subtract(src1, src2, dst, mask, dtype)
-
-function multiply(src1::Image, src2::Image, dst::Image, scale::Float64, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_multiply(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(scale),julia_to_cpp(dtype)))
-end
-multiply(src1::Image, src2::Image; dst::Image = (CxxMat()), scale::Float64 = Float64(1), dtype::Int32 = Int32(-1)) = multiply(src1, src2, dst, scale, dtype)
-
-function multiply(src1::UMat, src2::UMat, dst::UMat, scale::Float64, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_multiply(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(scale),julia_to_cpp(dtype)))
-end
-multiply(src1::UMat, src2::UMat; dst::UMat = (UMat()), scale::Float64 = Float64(1), dtype::Int32 = Int32(-1)) = multiply(src1, src2, dst, scale, dtype)
-
-function divide(src1::Image, src2::Image, dst::Image, scale::Float64, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_divide(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(scale),julia_to_cpp(dtype)))
-end
-divide(src1::Image, src2::Image; dst::Image = (CxxMat()), scale::Float64 = Float64(1), dtype::Int32 = Int32(-1)) = divide(src1, src2, dst, scale, dtype)
-
-function divide(src1::UMat, src2::UMat, dst::UMat, scale::Float64, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_divide(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(scale),julia_to_cpp(dtype)))
-end
-divide(src1::UMat, src2::UMat; dst::UMat = (UMat()), scale::Float64 = Float64(1), dtype::Int32 = Int32(-1)) = divide(src1, src2, dst, scale, dtype)
-
-function divide(scale::Float64, src2::Image, dst::Image, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_divide(julia_to_cpp(scale),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(dtype)))
-end
-divide(scale::Float64, src2::Image; dst::Image = (CxxMat()), dtype::Int32 = Int32(-1)) = divide(scale, src2, dst, dtype)
-
-function divide(scale::Float64, src2::UMat, dst::UMat, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_divide(julia_to_cpp(scale),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(dtype)))
-end
-divide(scale::Float64, src2::UMat; dst::UMat = (UMat()), dtype::Int32 = Int32(-1)) = divide(scale, src2, dst, dtype)
-
-function scaleAdd(src1::Image, alpha::Float64, src2::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_scaleAdd(julia_to_cpp(src1),julia_to_cpp(alpha),julia_to_cpp(src2),julia_to_cpp(dst)))
-end
-scaleAdd(src1::Image, alpha::Float64, src2::Image; dst::Image = (CxxMat())) = scaleAdd(src1, alpha, src2, dst)
-
-function scaleAdd(src1::UMat, alpha::Float64, src2::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_scaleAdd(julia_to_cpp(src1),julia_to_cpp(alpha),julia_to_cpp(src2),julia_to_cpp(dst)))
-end
-scaleAdd(src1::UMat, alpha::Float64, src2::UMat; dst::UMat = (UMat())) = scaleAdd(src1, alpha, src2, dst)
-
-function addWeighted(src1::Image, alpha::Float64, src2::Image, beta::Float64, gamma::Float64, dst::Image, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_addWeighted(julia_to_cpp(src1),julia_to_cpp(alpha),julia_to_cpp(src2),julia_to_cpp(beta),julia_to_cpp(gamma),julia_to_cpp(dst),julia_to_cpp(dtype)))
-end
-addWeighted(src1::Image, alpha::Float64, src2::Image, beta::Float64, gamma::Float64; dst::Image = (CxxMat()), dtype::Int32 = Int32(-1)) = addWeighted(src1, alpha, src2, beta, gamma, dst, dtype)
-
-function addWeighted(src1::UMat, alpha::Float64, src2::UMat, beta::Float64, gamma::Float64, dst::UMat, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_addWeighted(julia_to_cpp(src1),julia_to_cpp(alpha),julia_to_cpp(src2),julia_to_cpp(beta),julia_to_cpp(gamma),julia_to_cpp(dst),julia_to_cpp(dtype)))
-end
-addWeighted(src1::UMat, alpha::Float64, src2::UMat, beta::Float64, gamma::Float64; dst::UMat = (UMat()), dtype::Int32 = Int32(-1)) = addWeighted(src1, alpha, src2, beta, gamma, dst, dtype)
-
-function convertScaleAbs(src::Image, dst::Image, alpha::Float64, beta::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_convertScaleAbs(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(alpha),julia_to_cpp(beta)))
-end
-convertScaleAbs(src::Image; dst::Image = (CxxMat()), alpha::Float64 = Float64(1), beta::Float64 = Float64(0)) = convertScaleAbs(src, dst, alpha, beta)
-
-function convertScaleAbs(src::UMat, dst::UMat, alpha::Float64, beta::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_convertScaleAbs(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(alpha),julia_to_cpp(beta)))
-end
-convertScaleAbs(src::UMat; dst::UMat = (UMat()), alpha::Float64 = Float64(1), beta::Float64 = Float64(0)) = convertScaleAbs(src, dst, alpha, beta)
-
-function convertFp16(src::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_convertFp16(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-convertFp16(src::Image; dst::Image = (CxxMat())) = convertFp16(src, dst)
-
-function convertFp16(src::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_convertFp16(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-convertFp16(src::UMat; dst::UMat = (UMat())) = convertFp16(src, dst)
-
-function LUT(src::Image, lut::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_LUT(julia_to_cpp(src),julia_to_cpp(lut),julia_to_cpp(dst)))
-end
-LUT(src::Image, lut::Image; dst::Image = (CxxMat())) = LUT(src, lut, dst)
-
-function LUT(src::UMat, lut::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_LUT(julia_to_cpp(src),julia_to_cpp(lut),julia_to_cpp(dst)))
-end
-LUT(src::UMat, lut::UMat; dst::UMat = (UMat())) = LUT(src, lut, dst)
-
-function sumElems(src::Image)
-	return cpp_to_julia(jlopencv_cv_cv_sum(julia_to_cpp(src)))
-end
-
-function sumElems(src::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_sum(julia_to_cpp(src)))
-end
-
-function countNonZero(src::Image)
-	return cpp_to_julia(jlopencv_cv_cv_countNonZero(julia_to_cpp(src)))
-end
-
-function countNonZero(src::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_countNonZero(julia_to_cpp(src)))
-end
-
-function findNonZero(src::Image, idx::Image)
-	return cpp_to_julia(jlopencv_cv_cv_findNonZero(julia_to_cpp(src),julia_to_cpp(idx)))
-end
-findNonZero(src::Image; idx::Image = (CxxMat())) = findNonZero(src, idx)
-
-function findNonZero(src::UMat, idx::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_findNonZero(julia_to_cpp(src),julia_to_cpp(idx)))
-end
-findNonZero(src::UMat; idx::UMat = (UMat())) = findNonZero(src, idx)
-
-function mean(src::Image, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_mean(julia_to_cpp(src),julia_to_cpp(mask)))
-end
-mean(src::Image; mask::Image = (MatOP)) = mean(src, mask)
-
-function mean(src::UMat, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_mean(julia_to_cpp(src),julia_to_cpp(mask)))
-end
-mean(src::UMat; mask::UMat = (UMatOP)) = mean(src, mask)
-
-function meanStdDev(src::Image, mean::Image, stddev::Image, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_meanStdDev(julia_to_cpp(src),julia_to_cpp(mean),julia_to_cpp(stddev),julia_to_cpp(mask)))
-end
-meanStdDev(src::Image; mean::Image = (CxxMat()), stddev::Image = (CxxMat()), mask::Image = (MatOP)) = meanStdDev(src, mean, stddev, mask)
-
-function meanStdDev(src::UMat, mean::UMat, stddev::UMat, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_meanStdDev(julia_to_cpp(src),julia_to_cpp(mean),julia_to_cpp(stddev),julia_to_cpp(mask)))
-end
-meanStdDev(src::UMat; mean::UMat = (UMat()), stddev::UMat = (UMat()), mask::UMat = (UMatOP)) = meanStdDev(src, mean, stddev, mask)
-
-function norm(src1::Image, normType::Int32, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_norm(julia_to_cpp(src1),julia_to_cpp(normType),julia_to_cpp(mask)))
-end
-norm(src1::Image; normType::Int32 = Int32(NORM_L2), mask::Image = (MatOP)) = norm(src1, normType, mask)
-
-function norm(src1::UMat, normType::Int32, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_norm(julia_to_cpp(src1),julia_to_cpp(normType),julia_to_cpp(mask)))
-end
-norm(src1::UMat; normType::Int32 = Int32(NORM_L2), mask::UMat = (UMatOP)) = norm(src1, normType, mask)
-
-function norm(src1::Image, src2::Image, normType::Int32, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_norm(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(normType),julia_to_cpp(mask)))
-end
-norm(src1::Image, src2::Image; normType::Int32 = Int32(NORM_L2), mask::Image = (MatOP)) = norm(src1, src2, normType, mask)
-
-function norm(src1::UMat, src2::UMat, normType::Int32, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_norm(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(normType),julia_to_cpp(mask)))
-end
-norm(src1::UMat, src2::UMat; normType::Int32 = Int32(NORM_L2), mask::UMat = (UMatOP)) = norm(src1, src2, normType, mask)
-
-function PSNR(src1::Image, src2::Image, R::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_PSNR(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(R)))
-end
-PSNR(src1::Image, src2::Image; R::Float64 = Float64(255.)) = PSNR(src1, src2, R)
-
-function PSNR(src1::UMat, src2::UMat, R::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_PSNR(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(R)))
-end
-PSNR(src1::UMat, src2::UMat; R::Float64 = Float64(255.)) = PSNR(src1, src2, R)
-
-function batchDistance(src1::Image, src2::Image, dtype::Int32, dist::Image, nidx::Image, normType::Int32, K::Int32, mask::Image, update::Int32, crosscheck::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_batchDistance(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dtype),julia_to_cpp(dist),julia_to_cpp(nidx),julia_to_cpp(normType),julia_to_cpp(K),julia_to_cpp(mask),julia_to_cpp(update),julia_to_cpp(crosscheck)))
-end
-batchDistance(src1::Image, src2::Image, dtype::Int32; dist::Image = (CxxMat()), nidx::Image = (CxxMat()), normType::Int32 = Int32(NORM_L2), K::Int32 = Int32(0), mask::Image = (MatOP), update::Int32 = Int32(0), crosscheck::Bool = (false)) = batchDistance(src1, src2, dtype, dist, nidx, normType, K, mask, update, crosscheck)
-
-function batchDistance(src1::UMat, src2::UMat, dtype::Int32, dist::UMat, nidx::UMat, normType::Int32, K::Int32, mask::UMat, update::Int32, crosscheck::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_batchDistance(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dtype),julia_to_cpp(dist),julia_to_cpp(nidx),julia_to_cpp(normType),julia_to_cpp(K),julia_to_cpp(mask),julia_to_cpp(update),julia_to_cpp(crosscheck)))
-end
-batchDistance(src1::UMat, src2::UMat, dtype::Int32; dist::UMat = (UMat()), nidx::UMat = (UMat()), normType::Int32 = Int32(NORM_L2), K::Int32 = Int32(0), mask::UMat = (UMatOP), update::Int32 = Int32(0), crosscheck::Bool = (false)) = batchDistance(src1, src2, dtype, dist, nidx, normType, K, mask, update, crosscheck)
-
-function normalize(src::Image, dst::Image, alpha::Float64, beta::Float64, norm_type::Int32, dtype::Int32, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_normalize(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(alpha),julia_to_cpp(beta),julia_to_cpp(norm_type),julia_to_cpp(dtype),julia_to_cpp(mask)))
-end
-normalize(src::Image, dst::Image; alpha::Float64 = Float64(1), beta::Float64 = Float64(0), norm_type::Int32 = Int32(NORM_L2), dtype::Int32 = Int32(-1), mask::Image = (MatOP)) = normalize(src, dst, alpha, beta, norm_type, dtype, mask)
-
-function normalize(src::UMat, dst::UMat, alpha::Float64, beta::Float64, norm_type::Int32, dtype::Int32, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_normalize(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(alpha),julia_to_cpp(beta),julia_to_cpp(norm_type),julia_to_cpp(dtype),julia_to_cpp(mask)))
-end
-normalize(src::UMat, dst::UMat; alpha::Float64 = Float64(1), beta::Float64 = Float64(0), norm_type::Int32 = Int32(NORM_L2), dtype::Int32 = Int32(-1), mask::UMat = (UMatOP)) = normalize(src, dst, alpha, beta, norm_type, dtype, mask)
-
-function minMaxLoc(src::Image, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_minMaxLoc(julia_to_cpp(src),julia_to_cpp(mask)))
-end
-minMaxLoc(src::Image; mask::Image = (MatOP)) = minMaxLoc(src, mask)
-
-function minMaxLoc(src::UMat, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_minMaxLoc(julia_to_cpp(src),julia_to_cpp(mask)))
-end
-minMaxLoc(src::UMat; mask::UMat = (UMatOP)) = minMaxLoc(src, mask)
-
-function reduce(src::Image, dim::Int32, rtype::Int32, dst::Image, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_reduce(julia_to_cpp(src),julia_to_cpp(dim),julia_to_cpp(rtype),julia_to_cpp(dst),julia_to_cpp(dtype)))
-end
-reduce(src::Image, dim::Int32, rtype::Int32; dst::Image = (CxxMat()), dtype::Int32 = Int32(-1)) = reduce(src, dim, rtype, dst, dtype)
-
-function reduce(src::UMat, dim::Int32, rtype::Int32, dst::UMat, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_reduce(julia_to_cpp(src),julia_to_cpp(dim),julia_to_cpp(rtype),julia_to_cpp(dst),julia_to_cpp(dtype)))
-end
-reduce(src::UMat, dim::Int32, rtype::Int32; dst::UMat = (UMat()), dtype::Int32 = Int32(-1)) = reduce(src, dim, rtype, dst, dtype)
-
-function merge(mv::Array{Image, 1}, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_merge(julia_to_cpp(mv),julia_to_cpp(dst)))
-end
-merge(mv::Array{Image, 1}; dst::Image = (CxxMat())) = merge(mv, dst)
-
-function merge(mv::Array{UMat, 1}, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_merge(julia_to_cpp(mv),julia_to_cpp(dst)))
-end
-merge(mv::Array{UMat, 1}; dst::UMat = (UMat())) = merge(mv, dst)
-
-function split(m::Image, mv::Array{Image, 1})
-	return cpp_to_julia(jlopencv_cv_cv_split(julia_to_cpp(m),julia_to_cpp(mv)))
-end
-split(m::Image; mv::Array{Image, 1} = (Array{Image, 1}())) = split(m, mv)
-
-function split(m::UMat, mv::Array{UMat, 1})
-	return cpp_to_julia(jlopencv_cv_cv_split(julia_to_cpp(m),julia_to_cpp(mv)))
-end
-split(m::UMat; mv::Array{UMat, 1} = (Array{UMat, 1}())) = split(m, mv)
-
-function mixChannels(src::Array{Image, 1}, dst::Array{Image, 1}, fromTo::Array{Int32, 1})
-	return cpp_to_julia(jlopencv_cv_cv_mixChannels(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(fromTo)))
-end
-
-function mixChannels(src::Array{UMat, 1}, dst::Array{UMat, 1}, fromTo::Array{Int32, 1})
-	return cpp_to_julia(jlopencv_cv_cv_mixChannels(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(fromTo)))
-end
-
-function extractChannel(src::Image, coi::Int32, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_extractChannel(julia_to_cpp(src),julia_to_cpp(coi),julia_to_cpp(dst)))
-end
-extractChannel(src::Image, coi::Int32; dst::Image = (CxxMat())) = extractChannel(src, coi, dst)
-
-function extractChannel(src::UMat, coi::Int32, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_extractChannel(julia_to_cpp(src),julia_to_cpp(coi),julia_to_cpp(dst)))
-end
-extractChannel(src::UMat, coi::Int32; dst::UMat = (UMat())) = extractChannel(src, coi, dst)
-
-function insertChannel(src::Image, dst::Image, coi::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_insertChannel(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(coi)))
-end
-
-function insertChannel(src::UMat, dst::UMat, coi::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_insertChannel(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(coi)))
-end
-
-function flip(src::Image, flipCode::Int32, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_flip(julia_to_cpp(src),julia_to_cpp(flipCode),julia_to_cpp(dst)))
-end
-flip(src::Image, flipCode::Int32; dst::Image = (CxxMat())) = flip(src, flipCode, dst)
-
-function flip(src::UMat, flipCode::Int32, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_flip(julia_to_cpp(src),julia_to_cpp(flipCode),julia_to_cpp(dst)))
-end
-flip(src::UMat, flipCode::Int32; dst::UMat = (UMat())) = flip(src, flipCode, dst)
-
-function rotate(src::Image, rotateCode::Int32, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_rotate(julia_to_cpp(src),julia_to_cpp(rotateCode),julia_to_cpp(dst)))
-end
-rotate(src::Image, rotateCode::Int32; dst::Image = (CxxMat())) = rotate(src, rotateCode, dst)
-
-function rotate(src::UMat, rotateCode::Int32, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_rotate(julia_to_cpp(src),julia_to_cpp(rotateCode),julia_to_cpp(dst)))
-end
-rotate(src::UMat, rotateCode::Int32; dst::UMat = (UMat())) = rotate(src, rotateCode, dst)
-
-function repeat(src::Image, ny::Int32, nx::Int32, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_repeat(julia_to_cpp(src),julia_to_cpp(ny),julia_to_cpp(nx),julia_to_cpp(dst)))
-end
-repeat(src::Image, ny::Int32, nx::Int32; dst::Image = (CxxMat())) = repeat(src, ny, nx, dst)
-
-function repeat(src::UMat, ny::Int32, nx::Int32, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_repeat(julia_to_cpp(src),julia_to_cpp(ny),julia_to_cpp(nx),julia_to_cpp(dst)))
-end
-repeat(src::UMat, ny::Int32, nx::Int32; dst::UMat = (UMat())) = repeat(src, ny, nx, dst)
-
-function hconcat(src::Array{Image, 1}, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_hconcat(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-hconcat(src::Array{Image, 1}; dst::Image = (CxxMat())) = hconcat(src, dst)
-
-function hconcat(src::Array{UMat, 1}, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_hconcat(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-hconcat(src::Array{UMat, 1}; dst::UMat = (UMat())) = hconcat(src, dst)
-
-function vconcat(src::Array{Image, 1}, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_vconcat(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-vconcat(src::Array{Image, 1}; dst::Image = (CxxMat())) = vconcat(src, dst)
-
-function vconcat(src::Array{UMat, 1}, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_vconcat(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-vconcat(src::Array{UMat, 1}; dst::UMat = (UMat())) = vconcat(src, dst)
-
-function bitwise_and(src1::Image, src2::Image, dst::Image, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_bitwise_and(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask)))
-end
-bitwise_and(src1::Image, src2::Image; dst::Image = (CxxMat()), mask::Image = (MatOP)) = bitwise_and(src1, src2, dst, mask)
-
-function bitwise_and(src1::UMat, src2::UMat, dst::UMat, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_bitwise_and(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask)))
-end
-bitwise_and(src1::UMat, src2::UMat; dst::UMat = (UMat()), mask::UMat = (UMatOP)) = bitwise_and(src1, src2, dst, mask)
-
-function bitwise_or(src1::Image, src2::Image, dst::Image, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_bitwise_or(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask)))
-end
-bitwise_or(src1::Image, src2::Image; dst::Image = (CxxMat()), mask::Image = (MatOP)) = bitwise_or(src1, src2, dst, mask)
-
-function bitwise_or(src1::UMat, src2::UMat, dst::UMat, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_bitwise_or(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask)))
-end
-bitwise_or(src1::UMat, src2::UMat; dst::UMat = (UMat()), mask::UMat = (UMatOP)) = bitwise_or(src1, src2, dst, mask)
-
-function bitwise_xor(src1::Image, src2::Image, dst::Image, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_bitwise_xor(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask)))
-end
-bitwise_xor(src1::Image, src2::Image; dst::Image = (CxxMat()), mask::Image = (MatOP)) = bitwise_xor(src1, src2, dst, mask)
-
-function bitwise_xor(src1::UMat, src2::UMat, dst::UMat, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_bitwise_xor(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(mask)))
-end
-bitwise_xor(src1::UMat, src2::UMat; dst::UMat = (UMat()), mask::UMat = (UMatOP)) = bitwise_xor(src1, src2, dst, mask)
-
-function bitwise_not(src::Image, dst::Image, mask::Image)
-	return cpp_to_julia(jlopencv_cv_cv_bitwise_not(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(mask)))
-end
-bitwise_not(src::Image; dst::Image = (CxxMat()), mask::Image = (MatOP)) = bitwise_not(src, dst, mask)
-
-function bitwise_not(src::UMat, dst::UMat, mask::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_bitwise_not(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(mask)))
-end
-bitwise_not(src::UMat; dst::UMat = (UMat()), mask::UMat = (UMatOP)) = bitwise_not(src, dst, mask)
-
-function absdiff(src1::Image, src2::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_absdiff(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst)))
-end
-absdiff(src1::Image, src2::Image; dst::Image = (CxxMat())) = absdiff(src1, src2, dst)
-
-function absdiff(src1::UMat, src2::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_absdiff(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst)))
-end
-absdiff(src1::UMat, src2::UMat; dst::UMat = (UMat())) = absdiff(src1, src2, dst)
-
-function copyTo(src::Image, mask::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_copyTo(julia_to_cpp(src),julia_to_cpp(mask),julia_to_cpp(dst)))
-end
-copyTo(src::Image, mask::Image; dst::Image = (CxxMat())) = copyTo(src, mask, dst)
-
-function copyTo(src::UMat, mask::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_copyTo(julia_to_cpp(src),julia_to_cpp(mask),julia_to_cpp(dst)))
-end
-copyTo(src::UMat, mask::UMat; dst::UMat = (UMat())) = copyTo(src, mask, dst)
-
-function inRange(src::Image, lowerb::Image, upperb::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_inRange(julia_to_cpp(src),julia_to_cpp(lowerb),julia_to_cpp(upperb),julia_to_cpp(dst)))
-end
-inRange(src::Image, lowerb::Image, upperb::Image; dst::Image = (CxxMat())) = inRange(src, lowerb, upperb, dst)
-
-function inRange(src::UMat, lowerb::UMat, upperb::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_inRange(julia_to_cpp(src),julia_to_cpp(lowerb),julia_to_cpp(upperb),julia_to_cpp(dst)))
-end
-inRange(src::UMat, lowerb::UMat, upperb::UMat; dst::UMat = (UMat())) = inRange(src, lowerb, upperb, dst)
-
-function compare(src1::Image, src2::Image, cmpop::Int32, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_compare(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(cmpop),julia_to_cpp(dst)))
-end
-compare(src1::Image, src2::Image, cmpop::Int32; dst::Image = (CxxMat())) = compare(src1, src2, cmpop, dst)
-
-function compare(src1::UMat, src2::UMat, cmpop::Int32, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_compare(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(cmpop),julia_to_cpp(dst)))
-end
-compare(src1::UMat, src2::UMat, cmpop::Int32; dst::UMat = (UMat())) = compare(src1, src2, cmpop, dst)
-
-function min(src1::Image, src2::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_min(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst)))
-end
-min(src1::Image, src2::Image; dst::Image = (CxxMat())) = min(src1, src2, dst)
-
-function min(src1::UMat, src2::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_min(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst)))
-end
-min(src1::UMat, src2::UMat; dst::UMat = (UMat())) = min(src1, src2, dst)
-
-function max(src1::Image, src2::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_max(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst)))
-end
-max(src1::Image, src2::Image; dst::Image = (CxxMat())) = max(src1, src2, dst)
-
-function max(src1::UMat, src2::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_max(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst)))
-end
-max(src1::UMat, src2::UMat; dst::UMat = (UMat())) = max(src1, src2, dst)
-
-function sqrt(src::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_sqrt(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-sqrt(src::Image; dst::Image = (CxxMat())) = sqrt(src, dst)
-
-function sqrt(src::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_sqrt(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-sqrt(src::UMat; dst::UMat = (UMat())) = sqrt(src, dst)
-
-function pow(src::Image, power::Float64, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_pow(julia_to_cpp(src),julia_to_cpp(power),julia_to_cpp(dst)))
-end
-pow(src::Image, power::Float64; dst::Image = (CxxMat())) = pow(src, power, dst)
-
-function pow(src::UMat, power::Float64, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_pow(julia_to_cpp(src),julia_to_cpp(power),julia_to_cpp(dst)))
-end
-pow(src::UMat, power::Float64; dst::UMat = (UMat())) = pow(src, power, dst)
-
-function exp(src::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_exp(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-exp(src::Image; dst::Image = (CxxMat())) = exp(src, dst)
-
-function exp(src::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_exp(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-exp(src::UMat; dst::UMat = (UMat())) = exp(src, dst)
-
-function log(src::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_log(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-log(src::Image; dst::Image = (CxxMat())) = log(src, dst)
-
-function log(src::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_log(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-log(src::UMat; dst::UMat = (UMat())) = log(src, dst)
-
-function polarToCart(magnitude::Image, angle::Image, x::Image, y::Image, angleInDegrees::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_polarToCart(julia_to_cpp(magnitude),julia_to_cpp(angle),julia_to_cpp(x),julia_to_cpp(y),julia_to_cpp(angleInDegrees)))
-end
-polarToCart(magnitude::Image, angle::Image; x::Image = (CxxMat()), y::Image = (CxxMat()), angleInDegrees::Bool = (false)) = polarToCart(magnitude, angle, x, y, angleInDegrees)
-
-function polarToCart(magnitude::UMat, angle::UMat, x::UMat, y::UMat, angleInDegrees::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_polarToCart(julia_to_cpp(magnitude),julia_to_cpp(angle),julia_to_cpp(x),julia_to_cpp(y),julia_to_cpp(angleInDegrees)))
-end
-polarToCart(magnitude::UMat, angle::UMat; x::UMat = (UMat()), y::UMat = (UMat()), angleInDegrees::Bool = (false)) = polarToCart(magnitude, angle, x, y, angleInDegrees)
-
-function cartToPolar(x::Image, y::Image, magnitude::Image, angle::Image, angleInDegrees::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_cartToPolar(julia_to_cpp(x),julia_to_cpp(y),julia_to_cpp(magnitude),julia_to_cpp(angle),julia_to_cpp(angleInDegrees)))
-end
-cartToPolar(x::Image, y::Image; magnitude::Image = (CxxMat()), angle::Image = (CxxMat()), angleInDegrees::Bool = (false)) = cartToPolar(x, y, magnitude, angle, angleInDegrees)
-
-function cartToPolar(x::UMat, y::UMat, magnitude::UMat, angle::UMat, angleInDegrees::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_cartToPolar(julia_to_cpp(x),julia_to_cpp(y),julia_to_cpp(magnitude),julia_to_cpp(angle),julia_to_cpp(angleInDegrees)))
-end
-cartToPolar(x::UMat, y::UMat; magnitude::UMat = (UMat()), angle::UMat = (UMat()), angleInDegrees::Bool = (false)) = cartToPolar(x, y, magnitude, angle, angleInDegrees)
-
-function phase(x::Image, y::Image, angle::Image, angleInDegrees::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_phase(julia_to_cpp(x),julia_to_cpp(y),julia_to_cpp(angle),julia_to_cpp(angleInDegrees)))
-end
-phase(x::Image, y::Image; angle::Image = (CxxMat()), angleInDegrees::Bool = (false)) = phase(x, y, angle, angleInDegrees)
-
-function phase(x::UMat, y::UMat, angle::UMat, angleInDegrees::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_phase(julia_to_cpp(x),julia_to_cpp(y),julia_to_cpp(angle),julia_to_cpp(angleInDegrees)))
-end
-phase(x::UMat, y::UMat; angle::UMat = (UMat()), angleInDegrees::Bool = (false)) = phase(x, y, angle, angleInDegrees)
-
-function magnitude(x::Image, y::Image, magnitude::Image)
-	return cpp_to_julia(jlopencv_cv_cv_magnitude(julia_to_cpp(x),julia_to_cpp(y),julia_to_cpp(magnitude)))
-end
-magnitude(x::Image, y::Image; magnitude::Image = (CxxMat())) = magnitude(x, y, magnitude)
-
-function magnitude(x::UMat, y::UMat, magnitude::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_magnitude(julia_to_cpp(x),julia_to_cpp(y),julia_to_cpp(magnitude)))
-end
-magnitude(x::UMat, y::UMat; magnitude::UMat = (UMat())) = magnitude(x, y, magnitude)
-
-function checkRange(a::Image, quiet::Bool, minVal::Float64, maxVal::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_checkRange(julia_to_cpp(a),julia_to_cpp(quiet),julia_to_cpp(minVal),julia_to_cpp(maxVal)))
-end
-checkRange(a::Image; quiet::Bool = (true), minVal::Float64 = Float64(-DBL_MAX), maxVal::Float64 = Float64(DBL_MAX)) = checkRange(a, quiet, minVal, maxVal)
-
-function checkRange(a::UMat, quiet::Bool, minVal::Float64, maxVal::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_checkRange(julia_to_cpp(a),julia_to_cpp(quiet),julia_to_cpp(minVal),julia_to_cpp(maxVal)))
-end
-checkRange(a::UMat; quiet::Bool = (true), minVal::Float64 = Float64(-DBL_MAX), maxVal::Float64 = Float64(DBL_MAX)) = checkRange(a, quiet, minVal, maxVal)
-
-function patchNaNs(a::Image, val::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_patchNaNs(julia_to_cpp(a),julia_to_cpp(val)))
-end
-patchNaNs(a::Image; val::Float64 = Float64(0)) = patchNaNs(a, val)
-
-function patchNaNs(a::UMat, val::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_patchNaNs(julia_to_cpp(a),julia_to_cpp(val)))
-end
-patchNaNs(a::UMat; val::Float64 = Float64(0)) = patchNaNs(a, val)
-
-function gemm(src1::Image, src2::Image, alpha::Float64, src3::Image, beta::Float64, dst::Image, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_gemm(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(alpha),julia_to_cpp(src3),julia_to_cpp(beta),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-gemm(src1::Image, src2::Image, alpha::Float64, src3::Image, beta::Float64; dst::Image = (CxxMat()), flags::Int32 = Int32(0)) = gemm(src1, src2, alpha, src3, beta, dst, flags)
-
-function gemm(src1::UMat, src2::UMat, alpha::Float64, src3::UMat, beta::Float64, dst::UMat, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_gemm(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(alpha),julia_to_cpp(src3),julia_to_cpp(beta),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-gemm(src1::UMat, src2::UMat, alpha::Float64, src3::UMat, beta::Float64; dst::UMat = (UMat()), flags::Int32 = Int32(0)) = gemm(src1, src2, alpha, src3, beta, dst, flags)
-
-function mulTransposed(src::Image, aTa::Bool, dst::Image, delta::Image, scale::Float64, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_mulTransposed(julia_to_cpp(src),julia_to_cpp(aTa),julia_to_cpp(dst),julia_to_cpp(delta),julia_to_cpp(scale),julia_to_cpp(dtype)))
-end
-mulTransposed(src::Image, aTa::Bool; dst::Image = (CxxMat()), delta::Image = (MatOP), scale::Float64 = Float64(1), dtype::Int32 = Int32(-1)) = mulTransposed(src, aTa, dst, delta, scale, dtype)
-
-function mulTransposed(src::UMat, aTa::Bool, dst::UMat, delta::UMat, scale::Float64, dtype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_mulTransposed(julia_to_cpp(src),julia_to_cpp(aTa),julia_to_cpp(dst),julia_to_cpp(delta),julia_to_cpp(scale),julia_to_cpp(dtype)))
-end
-mulTransposed(src::UMat, aTa::Bool; dst::UMat = (UMat()), delta::UMat = (UMatOP), scale::Float64 = Float64(1), dtype::Int32 = Int32(-1)) = mulTransposed(src, aTa, dst, delta, scale, dtype)
-
-function transpose(src::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_transpose(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-transpose(src::Image; dst::Image = (CxxMat())) = transpose(src, dst)
-
-function transpose(src::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_transpose(julia_to_cpp(src),julia_to_cpp(dst)))
-end
-transpose(src::UMat; dst::UMat = (UMat())) = transpose(src, dst)
-
-function transform(src::Image, m::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_transform(julia_to_cpp(src),julia_to_cpp(m),julia_to_cpp(dst)))
-end
-transform(src::Image, m::Image; dst::Image = (CxxMat())) = transform(src, m, dst)
-
-function transform(src::UMat, m::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_transform(julia_to_cpp(src),julia_to_cpp(m),julia_to_cpp(dst)))
-end
-transform(src::UMat, m::UMat; dst::UMat = (UMat())) = transform(src, m, dst)
-
-function perspectiveTransform(src::Image, m::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_perspectiveTransform(julia_to_cpp(src),julia_to_cpp(m),julia_to_cpp(dst)))
-end
-perspectiveTransform(src::Image, m::Image; dst::Image = (CxxMat())) = perspectiveTransform(src, m, dst)
-
-function perspectiveTransform(src::UMat, m::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_perspectiveTransform(julia_to_cpp(src),julia_to_cpp(m),julia_to_cpp(dst)))
-end
-perspectiveTransform(src::UMat, m::UMat; dst::UMat = (UMat())) = perspectiveTransform(src, m, dst)
-
-function completeSymm(m::Image, lowerToUpper::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_completeSymm(julia_to_cpp(m),julia_to_cpp(lowerToUpper)))
-end
-completeSymm(m::Image; lowerToUpper::Bool = (false)) = completeSymm(m, lowerToUpper)
-
-function completeSymm(m::UMat, lowerToUpper::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_completeSymm(julia_to_cpp(m),julia_to_cpp(lowerToUpper)))
-end
-completeSymm(m::UMat; lowerToUpper::Bool = (false)) = completeSymm(m, lowerToUpper)
-
-function setIdentity(mtx::Image, s::Scalar)
-	return cpp_to_julia(jlopencv_cv_cv_setIdentity(julia_to_cpp(mtx),julia_to_cpp(s)))
-end
-setIdentity(mtx::Image; s::Scalar = (ScalarOXP)) = setIdentity(mtx, s)
-
-function setIdentity(mtx::UMat, s::Scalar)
-	return cpp_to_julia(jlopencv_cv_cv_setIdentity(julia_to_cpp(mtx),julia_to_cpp(s)))
-end
-setIdentity(mtx::UMat; s::Scalar = (ScalarOXP)) = setIdentity(mtx, s)
-
-function determinant(mtx::Image)
-	return cpp_to_julia(jlopencv_cv_cv_determinant(julia_to_cpp(mtx)))
-end
-
-function determinant(mtx::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_determinant(julia_to_cpp(mtx)))
-end
-
-function trace(mtx::Image)
-	return cpp_to_julia(jlopencv_cv_cv_trace(julia_to_cpp(mtx)))
-end
-
-function trace(mtx::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_trace(julia_to_cpp(mtx)))
-end
-
-function invert(src::Image, dst::Image, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_invert(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-invert(src::Image; dst::Image = (CxxMat()), flags::Int32 = Int32(DECOMP_LU)) = invert(src, dst, flags)
-
-function invert(src::UMat, dst::UMat, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_invert(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-invert(src::UMat; dst::UMat = (UMat()), flags::Int32 = Int32(DECOMP_LU)) = invert(src, dst, flags)
-
-function solve(src1::Image, src2::Image, dst::Image, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_solve(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-solve(src1::Image, src2::Image; dst::Image = (CxxMat()), flags::Int32 = Int32(DECOMP_LU)) = solve(src1, src2, dst, flags)
-
-function solve(src1::UMat, src2::UMat, dst::UMat, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_solve(julia_to_cpp(src1),julia_to_cpp(src2),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-solve(src1::UMat, src2::UMat; dst::UMat = (UMat()), flags::Int32 = Int32(DECOMP_LU)) = solve(src1, src2, dst, flags)
-
-function sort(src::Image, flags::Int32, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_sort(julia_to_cpp(src),julia_to_cpp(flags),julia_to_cpp(dst)))
-end
-sort(src::Image, flags::Int32; dst::Image = (CxxMat())) = sort(src, flags, dst)
-
-function sort(src::UMat, flags::Int32, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_sort(julia_to_cpp(src),julia_to_cpp(flags),julia_to_cpp(dst)))
-end
-sort(src::UMat, flags::Int32; dst::UMat = (UMat())) = sort(src, flags, dst)
-
-function sortIdx(src::Image, flags::Int32, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_sortIdx(julia_to_cpp(src),julia_to_cpp(flags),julia_to_cpp(dst)))
-end
-sortIdx(src::Image, flags::Int32; dst::Image = (CxxMat())) = sortIdx(src, flags, dst)
-
-function sortIdx(src::UMat, flags::Int32, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_sortIdx(julia_to_cpp(src),julia_to_cpp(flags),julia_to_cpp(dst)))
-end
-sortIdx(src::UMat, flags::Int32; dst::UMat = (UMat())) = sortIdx(src, flags, dst)
-
-function solveCubic(coeffs::Image, roots::Image)
-	return cpp_to_julia(jlopencv_cv_cv_solveCubic(julia_to_cpp(coeffs),julia_to_cpp(roots)))
-end
-solveCubic(coeffs::Image; roots::Image = (CxxMat())) = solveCubic(coeffs, roots)
-
-function solveCubic(coeffs::UMat, roots::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_solveCubic(julia_to_cpp(coeffs),julia_to_cpp(roots)))
-end
-solveCubic(coeffs::UMat; roots::UMat = (UMat())) = solveCubic(coeffs, roots)
-
-function solvePoly(coeffs::Image, roots::Image, maxIters::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_solvePoly(julia_to_cpp(coeffs),julia_to_cpp(roots),julia_to_cpp(maxIters)))
-end
-solvePoly(coeffs::Image; roots::Image = (CxxMat()), maxIters::Int32 = Int32(300)) = solvePoly(coeffs, roots, maxIters)
-
-function solvePoly(coeffs::UMat, roots::UMat, maxIters::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_solvePoly(julia_to_cpp(coeffs),julia_to_cpp(roots),julia_to_cpp(maxIters)))
-end
-solvePoly(coeffs::UMat; roots::UMat = (UMat()), maxIters::Int32 = Int32(300)) = solvePoly(coeffs, roots, maxIters)
-
-function eigen(src::Image, eigenvalues::Image, eigenvectors::Image)
-	return cpp_to_julia(jlopencv_cv_cv_eigen(julia_to_cpp(src),julia_to_cpp(eigenvalues),julia_to_cpp(eigenvectors)))
-end
-eigen(src::Image; eigenvalues::Image = (CxxMat()), eigenvectors::Image = (MatOP)) = eigen(src, eigenvalues, eigenvectors)
-
-function eigen(src::UMat, eigenvalues::UMat, eigenvectors::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_eigen(julia_to_cpp(src),julia_to_cpp(eigenvalues),julia_to_cpp(eigenvectors)))
-end
-eigen(src::UMat; eigenvalues::UMat = (UMat()), eigenvectors::UMat = (UMatOP)) = eigen(src, eigenvalues, eigenvectors)
-
-function eigenNonSymmetric(src::Image, eigenvalues::Image, eigenvectors::Image)
-	return cpp_to_julia(jlopencv_cv_cv_eigenNonSymmetric(julia_to_cpp(src),julia_to_cpp(eigenvalues),julia_to_cpp(eigenvectors)))
-end
-eigenNonSymmetric(src::Image; eigenvalues::Image = (CxxMat()), eigenvectors::Image = (CxxMat())) = eigenNonSymmetric(src, eigenvalues, eigenvectors)
-
-function eigenNonSymmetric(src::UMat, eigenvalues::UMat, eigenvectors::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_eigenNonSymmetric(julia_to_cpp(src),julia_to_cpp(eigenvalues),julia_to_cpp(eigenvectors)))
-end
-eigenNonSymmetric(src::UMat; eigenvalues::UMat = (UMat()), eigenvectors::UMat = (UMat())) = eigenNonSymmetric(src, eigenvalues, eigenvectors)
-
-function calcCovarMatrix(samples::Image, mean::Image, flags::Int32, covar::Image, ctype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_calcCovarMatrix(julia_to_cpp(samples),julia_to_cpp(mean),julia_to_cpp(flags),julia_to_cpp(covar),julia_to_cpp(ctype)))
-end
-calcCovarMatrix(samples::Image, mean::Image, flags::Int32; covar::Image = (CxxMat()), ctype::Int32 = Int32(CV_64F)) = calcCovarMatrix(samples, mean, flags, covar, ctype)
-
-function calcCovarMatrix(samples::UMat, mean::UMat, flags::Int32, covar::UMat, ctype::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_calcCovarMatrix(julia_to_cpp(samples),julia_to_cpp(mean),julia_to_cpp(flags),julia_to_cpp(covar),julia_to_cpp(ctype)))
-end
-calcCovarMatrix(samples::UMat, mean::UMat, flags::Int32; covar::UMat = (UMat()), ctype::Int32 = Int32(CV_64F)) = calcCovarMatrix(samples, mean, flags, covar, ctype)
-
-function PCACompute(data::Image, mean::Image, eigenvectors::Image, maxComponents::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_PCACompute(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(eigenvectors),julia_to_cpp(maxComponents)))
-end
-PCACompute(data::Image, mean::Image; eigenvectors::Image = (CxxMat()), maxComponents::Int32 = Int32(0)) = PCACompute(data, mean, eigenvectors, maxComponents)
-
-function PCACompute(data::UMat, mean::UMat, eigenvectors::UMat, maxComponents::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_PCACompute(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(eigenvectors),julia_to_cpp(maxComponents)))
-end
-PCACompute(data::UMat, mean::UMat; eigenvectors::UMat = (UMat()), maxComponents::Int32 = Int32(0)) = PCACompute(data, mean, eigenvectors, maxComponents)
-
-function PCACompute2(data::Image, mean::Image, eigenvectors::Image, eigenvalues::Image, maxComponents::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_PCACompute(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(eigenvectors),julia_to_cpp(eigenvalues),julia_to_cpp(maxComponents)))
-end
-PCACompute2(data::Image, mean::Image; eigenvectors::Image = (CxxMat()), eigenvalues::Image = (CxxMat()), maxComponents::Int32 = Int32(0)) = PCACompute2(data, mean, eigenvectors, eigenvalues, maxComponents)
-
-function PCACompute2(data::UMat, mean::UMat, eigenvectors::UMat, eigenvalues::UMat, maxComponents::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_PCACompute(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(eigenvectors),julia_to_cpp(eigenvalues),julia_to_cpp(maxComponents)))
-end
-PCACompute2(data::UMat, mean::UMat; eigenvectors::UMat = (UMat()), eigenvalues::UMat = (UMat()), maxComponents::Int32 = Int32(0)) = PCACompute2(data, mean, eigenvectors, eigenvalues, maxComponents)
-
-function PCACompute(data::Image, mean::Image, retainedVariance::Float64, eigenvectors::Image)
-	return cpp_to_julia(jlopencv_cv_cv_PCACompute(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(retainedVariance),julia_to_cpp(eigenvectors)))
-end
-PCACompute(data::Image, mean::Image, retainedVariance::Float64; eigenvectors::Image = (CxxMat())) = PCACompute(data, mean, retainedVariance, eigenvectors)
-
-function PCACompute(data::UMat, mean::UMat, retainedVariance::Float64, eigenvectors::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_PCACompute(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(retainedVariance),julia_to_cpp(eigenvectors)))
-end
-PCACompute(data::UMat, mean::UMat, retainedVariance::Float64; eigenvectors::UMat = (UMat())) = PCACompute(data, mean, retainedVariance, eigenvectors)
-
-function PCACompute2(data::Image, mean::Image, retainedVariance::Float64, eigenvectors::Image, eigenvalues::Image)
-	return cpp_to_julia(jlopencv_cv_cv_PCACompute(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(retainedVariance),julia_to_cpp(eigenvectors),julia_to_cpp(eigenvalues)))
-end
-PCACompute2(data::Image, mean::Image, retainedVariance::Float64; eigenvectors::Image = (CxxMat()), eigenvalues::Image = (CxxMat())) = PCACompute2(data, mean, retainedVariance, eigenvectors, eigenvalues)
-
-function PCACompute2(data::UMat, mean::UMat, retainedVariance::Float64, eigenvectors::UMat, eigenvalues::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_PCACompute(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(retainedVariance),julia_to_cpp(eigenvectors),julia_to_cpp(eigenvalues)))
-end
-PCACompute2(data::UMat, mean::UMat, retainedVariance::Float64; eigenvectors::UMat = (UMat()), eigenvalues::UMat = (UMat())) = PCACompute2(data, mean, retainedVariance, eigenvectors, eigenvalues)
-
-function PCAProject(data::Image, mean::Image, eigenvectors::Image, result::Image)
-	return cpp_to_julia(jlopencv_cv_cv_PCAProject(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(eigenvectors),julia_to_cpp(result)))
-end
-PCAProject(data::Image, mean::Image, eigenvectors::Image; result::Image = (CxxMat())) = PCAProject(data, mean, eigenvectors, result)
-
-function PCAProject(data::UMat, mean::UMat, eigenvectors::UMat, result::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_PCAProject(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(eigenvectors),julia_to_cpp(result)))
-end
-PCAProject(data::UMat, mean::UMat, eigenvectors::UMat; result::UMat = (UMat())) = PCAProject(data, mean, eigenvectors, result)
-
-function PCABackProject(data::Image, mean::Image, eigenvectors::Image, result::Image)
-	return cpp_to_julia(jlopencv_cv_cv_PCABackProject(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(eigenvectors),julia_to_cpp(result)))
-end
-PCABackProject(data::Image, mean::Image, eigenvectors::Image; result::Image = (CxxMat())) = PCABackProject(data, mean, eigenvectors, result)
-
-function PCABackProject(data::UMat, mean::UMat, eigenvectors::UMat, result::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_PCABackProject(julia_to_cpp(data),julia_to_cpp(mean),julia_to_cpp(eigenvectors),julia_to_cpp(result)))
-end
-PCABackProject(data::UMat, mean::UMat, eigenvectors::UMat; result::UMat = (UMat())) = PCABackProject(data, mean, eigenvectors, result)
-
-function SVDecomp(src::Image, w::Image, u::Image, vt::Image, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_SVDecomp(julia_to_cpp(src),julia_to_cpp(w),julia_to_cpp(u),julia_to_cpp(vt),julia_to_cpp(flags)))
-end
-SVDecomp(src::Image; w::Image = (CxxMat()), u::Image = (CxxMat()), vt::Image = (CxxMat()), flags::Int32 = Int32(0)) = SVDecomp(src, w, u, vt, flags)
-
-function SVDecomp(src::UMat, w::UMat, u::UMat, vt::UMat, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_SVDecomp(julia_to_cpp(src),julia_to_cpp(w),julia_to_cpp(u),julia_to_cpp(vt),julia_to_cpp(flags)))
-end
-SVDecomp(src::UMat; w::UMat = (UMat()), u::UMat = (UMat()), vt::UMat = (UMat()), flags::Int32 = Int32(0)) = SVDecomp(src, w, u, vt, flags)
-
-function SVBackSubst(w::Image, u::Image, vt::Image, rhs::Image, dst::Image)
-	return cpp_to_julia(jlopencv_cv_cv_SVBackSubst(julia_to_cpp(w),julia_to_cpp(u),julia_to_cpp(vt),julia_to_cpp(rhs),julia_to_cpp(dst)))
-end
-SVBackSubst(w::Image, u::Image, vt::Image, rhs::Image; dst::Image = (CxxMat())) = SVBackSubst(w, u, vt, rhs, dst)
-
-function SVBackSubst(w::UMat, u::UMat, vt::UMat, rhs::UMat, dst::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_SVBackSubst(julia_to_cpp(w),julia_to_cpp(u),julia_to_cpp(vt),julia_to_cpp(rhs),julia_to_cpp(dst)))
-end
-SVBackSubst(w::UMat, u::UMat, vt::UMat, rhs::UMat; dst::UMat = (UMat())) = SVBackSubst(w, u, vt, rhs, dst)
-
-function Mahalanobis(v1::Image, v2::Image, icovar::Image)
-	return cpp_to_julia(jlopencv_cv_cv_Mahalanobis(julia_to_cpp(v1),julia_to_cpp(v2),julia_to_cpp(icovar)))
-end
-
-function Mahalanobis(v1::UMat, v2::UMat, icovar::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_Mahalanobis(julia_to_cpp(v1),julia_to_cpp(v2),julia_to_cpp(icovar)))
-end
-
-function dft(src::Image, dst::Image, flags::Int32, nonzeroRows::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_dft(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags),julia_to_cpp(nonzeroRows)))
-end
-dft(src::Image; dst::Image = (CxxMat()), flags::Int32 = Int32(0), nonzeroRows::Int32 = Int32(0)) = dft(src, dst, flags, nonzeroRows)
-
-function dft(src::UMat, dst::UMat, flags::Int32, nonzeroRows::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_dft(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags),julia_to_cpp(nonzeroRows)))
-end
-dft(src::UMat; dst::UMat = (UMat()), flags::Int32 = Int32(0), nonzeroRows::Int32 = Int32(0)) = dft(src, dst, flags, nonzeroRows)
-
-function idft(src::Image, dst::Image, flags::Int32, nonzeroRows::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_idft(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags),julia_to_cpp(nonzeroRows)))
-end
-idft(src::Image; dst::Image = (CxxMat()), flags::Int32 = Int32(0), nonzeroRows::Int32 = Int32(0)) = idft(src, dst, flags, nonzeroRows)
-
-function idft(src::UMat, dst::UMat, flags::Int32, nonzeroRows::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_idft(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags),julia_to_cpp(nonzeroRows)))
-end
-idft(src::UMat; dst::UMat = (UMat()), flags::Int32 = Int32(0), nonzeroRows::Int32 = Int32(0)) = idft(src, dst, flags, nonzeroRows)
-
-function dct(src::Image, dst::Image, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_dct(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-dct(src::Image; dst::Image = (CxxMat()), flags::Int32 = Int32(0)) = dct(src, dst, flags)
-
-function dct(src::UMat, dst::UMat, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_dct(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-dct(src::UMat; dst::UMat = (UMat()), flags::Int32 = Int32(0)) = dct(src, dst, flags)
-
-function idct(src::Image, dst::Image, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_idct(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-idct(src::Image; dst::Image = (CxxMat()), flags::Int32 = Int32(0)) = idct(src, dst, flags)
-
-function idct(src::UMat, dst::UMat, flags::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_idct(julia_to_cpp(src),julia_to_cpp(dst),julia_to_cpp(flags)))
-end
-idct(src::UMat; dst::UMat = (UMat()), flags::Int32 = Int32(0)) = idct(src, dst, flags)
-
-function mulSpectrums(a::Image, b::Image, flags::Int32, c::Image, conjB::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_mulSpectrums(julia_to_cpp(a),julia_to_cpp(b),julia_to_cpp(flags),julia_to_cpp(c),julia_to_cpp(conjB)))
-end
-mulSpectrums(a::Image, b::Image, flags::Int32; c::Image = (CxxMat()), conjB::Bool = (false)) = mulSpectrums(a, b, flags, c, conjB)
-
-function mulSpectrums(a::UMat, b::UMat, flags::Int32, c::UMat, conjB::Bool)
-	return cpp_to_julia(jlopencv_cv_cv_mulSpectrums(julia_to_cpp(a),julia_to_cpp(b),julia_to_cpp(flags),julia_to_cpp(c),julia_to_cpp(conjB)))
-end
-mulSpectrums(a::UMat, b::UMat, flags::Int32; c::UMat = (UMat()), conjB::Bool = (false)) = mulSpectrums(a, b, flags, c, conjB)
-
-function getOptimalDFTSize(vecsize::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_getOptimalDFTSize(julia_to_cpp(vecsize)))
-end
-
-function setRNGSeed(seed::Int32)
-	return cpp_to_julia(jlopencv_cv_cv_setRNGSeed(julia_to_cpp(seed)))
-end
-
-function randu(dst::Image, low::Image, high::Image)
-	return cpp_to_julia(jlopencv_cv_cv_randu(julia_to_cpp(dst),julia_to_cpp(low),julia_to_cpp(high)))
-end
-
-function randu(dst::UMat, low::UMat, high::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_randu(julia_to_cpp(dst),julia_to_cpp(low),julia_to_cpp(high)))
-end
-
-function randn(dst::Image, mean::Image, stddev::Image)
-	return cpp_to_julia(jlopencv_cv_cv_randn(julia_to_cpp(dst),julia_to_cpp(mean),julia_to_cpp(stddev)))
-end
-
-function randn(dst::UMat, mean::UMat, stddev::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_randn(julia_to_cpp(dst),julia_to_cpp(mean),julia_to_cpp(stddev)))
-end
-
-function randShuffle(dst::Image, iterFactor::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_randShuffle(julia_to_cpp(dst),julia_to_cpp(iterFactor)))
-end
-randShuffle(dst::Image; iterFactor::Float64 = Float64(1.)) = randShuffle(dst, iterFactor)
-
-function randShuffle(dst::UMat, iterFactor::Float64)
-	return cpp_to_julia(jlopencv_cv_cv_randShuffle(julia_to_cpp(dst),julia_to_cpp(iterFactor)))
-end
-randShuffle(dst::UMat; iterFactor::Float64 = Float64(1.)) = randShuffle(dst, iterFactor)
-
-function kmeans(data::Image, K::Int32, bestLabels::Image, criteria::TermCriteria, attempts::Int32, flags::Int32, centers::Image)
-	return cpp_to_julia(jlopencv_cv_cv_kmeans(julia_to_cpp(data),julia_to_cpp(K),julia_to_cpp(bestLabels),julia_to_cpp(criteria),julia_to_cpp(attempts),julia_to_cpp(flags),julia_to_cpp(centers)))
-end
-kmeans(data::Image, K::Int32, bestLabels::Image, criteria::TermCriteria, attempts::Int32, flags::Int32; centers::Image = (MatOP)) = kmeans(data, K, bestLabels, criteria, attempts, flags, centers)
-
-function kmeans(data::UMat, K::Int32, bestLabels::UMat, criteria::TermCriteria, attempts::Int32, flags::Int32, centers::UMat)
-	return cpp_to_julia(jlopencv_cv_cv_kmeans(julia_to_cpp(data),julia_to_cpp(K),julia_to_cpp(bestLabels),julia_to_cpp(criteria),julia_to_cpp(attempts),julia_to_cpp(flags),julia_to_cpp(centers)))
-end
-kmeans(data::UMat, K::Int32, bestLabels::UMat, criteria::TermCriteria, attempts::Int32, flags::Int32; centers::UMat = (UMatOP)) = kmeans(data, K, bestLabels, criteria, attempts, flags, centers)
-
-
-
+    const ADAPTIVE_THRESH_GAUSSIAN_C = OpenCV.cv_ADAPTIVE_THRESH_GAUSSIAN_C
+    const ADAPTIVE_THRESH_MEAN_C = OpenCV.cv_ADAPTIVE_THRESH_MEAN_C
+    const BORDER_CONSTANT = OpenCV.cv_BORDER_CONSTANT
+    const BORDER_DEFAULT = OpenCV.cv_BORDER_DEFAULT
+    const BORDER_ISOLATED = OpenCV.cv_BORDER_ISOLATED
+    const BORDER_REFLECT = OpenCV.cv_BORDER_REFLECT
+    const BORDER_REFLECT101 = OpenCV.cv_BORDER_REFLECT101
+    const BORDER_REFLECT_101 = OpenCV.cv_BORDER_REFLECT_101
+    const BORDER_REPLICATE = OpenCV.cv_BORDER_REPLICATE
+    const BORDER_TRANSPARENT = OpenCV.cv_BORDER_TRANSPARENT
+    const BORDER_WRAP = OpenCV.cv_BORDER_WRAP
+    const CAP_ANDROID = OpenCV.cv_CAP_ANDROID
+    const CAP_ANY = OpenCV.cv_CAP_ANY
+    const CAP_ARAVIS = OpenCV.cv_CAP_ARAVIS
+    const CAP_AVFOUNDATION = OpenCV.cv_CAP_AVFOUNDATION
+    const CAP_CMU1394 = OpenCV.cv_CAP_CMU1394
+    const CAP_DC1394 = OpenCV.cv_CAP_DC1394
+    const CAP_DSHOW = OpenCV.cv_CAP_DSHOW
+    const CAP_FFMPEG = OpenCV.cv_CAP_FFMPEG
+    const CAP_FIREWARE = OpenCV.cv_CAP_FIREWARE
+    const CAP_FIREWIRE = OpenCV.cv_CAP_FIREWIRE
+    const CAP_GIGANETIX = OpenCV.cv_CAP_GIGANETIX
+    const CAP_GPHOTO2 = OpenCV.cv_CAP_GPHOTO2
+    const CAP_GSTREAMER = OpenCV.cv_CAP_GSTREAMER
+    const CAP_IEEE1394 = OpenCV.cv_CAP_IEEE1394
+    const CAP_IMAGES = OpenCV.cv_CAP_IMAGES
+    const CAP_INTELPERC = OpenCV.cv_CAP_INTELPERC
+    const CAP_INTELPERC_DEPTH_GENERATOR = OpenCV.cv_CAP_INTELPERC_DEPTH_GENERATOR
+    const CAP_INTELPERC_DEPTH_MAP = OpenCV.cv_CAP_INTELPERC_DEPTH_MAP
+    const CAP_INTELPERC_GENERATORS_MASK = OpenCV.cv_CAP_INTELPERC_GENERATORS_MASK
+    const CAP_INTELPERC_IMAGE = OpenCV.cv_CAP_INTELPERC_IMAGE
+    const CAP_INTELPERC_IMAGE_GENERATOR = OpenCV.cv_CAP_INTELPERC_IMAGE_GENERATOR
+    const CAP_INTELPERC_IR_GENERATOR = OpenCV.cv_CAP_INTELPERC_IR_GENERATOR
+    const CAP_INTELPERC_IR_MAP = OpenCV.cv_CAP_INTELPERC_IR_MAP
+    const CAP_INTELPERC_UVDEPTH_MAP = OpenCV.cv_CAP_INTELPERC_UVDEPTH_MAP
+    const CAP_INTEL_MFX = OpenCV.cv_CAP_INTEL_MFX
+    const CAP_MSMF = OpenCV.cv_CAP_MSMF
+    const CAP_OPENCV_MJPEG = OpenCV.cv_CAP_OPENCV_MJPEG
+    const CAP_OPENNI = OpenCV.cv_CAP_OPENNI
+    const CAP_OPENNI2 = OpenCV.cv_CAP_OPENNI2
+    const CAP_OPENNI2_ASUS = OpenCV.cv_CAP_OPENNI2_ASUS
+    const CAP_OPENNI_ASUS = OpenCV.cv_CAP_OPENNI_ASUS
+    const CAP_OPENNI_BGR_IMAGE = OpenCV.cv_CAP_OPENNI_BGR_IMAGE
+    const CAP_OPENNI_DEPTH_GENERATOR = OpenCV.cv_CAP_OPENNI_DEPTH_GENERATOR
+    const CAP_OPENNI_DEPTH_GENERATOR_BASELINE = OpenCV.cv_CAP_OPENNI_DEPTH_GENERATOR_BASELINE
+    const CAP_OPENNI_DEPTH_GENERATOR_FOCAL_LENGTH = OpenCV.cv_CAP_OPENNI_DEPTH_GENERATOR_FOCAL_LENGTH
+    const CAP_OPENNI_DEPTH_GENERATOR_PRESENT = OpenCV.cv_CAP_OPENNI_DEPTH_GENERATOR_PRESENT
+    const CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION = OpenCV.cv_CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION
+    const CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION_ON = OpenCV.cv_CAP_OPENNI_DEPTH_GENERATOR_REGISTRATION_ON
+    const CAP_OPENNI_DEPTH_MAP = OpenCV.cv_CAP_OPENNI_DEPTH_MAP
+    const CAP_OPENNI_DISPARITY_MAP = OpenCV.cv_CAP_OPENNI_DISPARITY_MAP
+    const CAP_OPENNI_DISPARITY_MAP_32F = OpenCV.cv_CAP_OPENNI_DISPARITY_MAP_32F
+    const CAP_OPENNI_GENERATORS_MASK = OpenCV.cv_CAP_OPENNI_GENERATORS_MASK
+    const CAP_OPENNI_GRAY_IMAGE = OpenCV.cv_CAP_OPENNI_GRAY_IMAGE
+    const CAP_OPENNI_IMAGE_GENERATOR = OpenCV.cv_CAP_OPENNI_IMAGE_GENERATOR
+    const CAP_OPENNI_IMAGE_GENERATOR_OUTPUT_MODE = OpenCV.cv_CAP_OPENNI_IMAGE_GENERATOR_OUTPUT_MODE
+    const CAP_OPENNI_IMAGE_GENERATOR_PRESENT = OpenCV.cv_CAP_OPENNI_IMAGE_GENERATOR_PRESENT
+    const CAP_OPENNI_IR_GENERATOR = OpenCV.cv_CAP_OPENNI_IR_GENERATOR
+    const CAP_OPENNI_IR_GENERATOR_PRESENT = OpenCV.cv_CAP_OPENNI_IR_GENERATOR_PRESENT
+    const CAP_OPENNI_IR_IMAGE = OpenCV.cv_CAP_OPENNI_IR_IMAGE
+    const CAP_OPENNI_POINT_CLOUD_MAP = OpenCV.cv_CAP_OPENNI_POINT_CLOUD_MAP
+    const CAP_OPENNI_QVGA_30HZ = OpenCV.cv_CAP_OPENNI_QVGA_30HZ
+    const CAP_OPENNI_QVGA_60HZ = OpenCV.cv_CAP_OPENNI_QVGA_60HZ
+    const CAP_OPENNI_SXGA_15HZ = OpenCV.cv_CAP_OPENNI_SXGA_15HZ
+    const CAP_OPENNI_SXGA_30HZ = OpenCV.cv_CAP_OPENNI_SXGA_30HZ
+    const CAP_OPENNI_VALID_DEPTH_MASK = OpenCV.cv_CAP_OPENNI_VALID_DEPTH_MASK
+    const CAP_OPENNI_VGA_30HZ = OpenCV.cv_CAP_OPENNI_VGA_30HZ
+    const CAP_PROP_APERTURE = OpenCV.cv_CAP_PROP_APERTURE
+    const CAP_PROP_ARAVIS_AUTOTRIGGER = OpenCV.cv_CAP_PROP_ARAVIS_AUTOTRIGGER
+    const CAP_PROP_AUTOFOCUS = OpenCV.cv_CAP_PROP_AUTOFOCUS
+    const CAP_PROP_AUTO_EXPOSURE = OpenCV.cv_CAP_PROP_AUTO_EXPOSURE
+    const CAP_PROP_AUTO_WB = OpenCV.cv_CAP_PROP_AUTO_WB
+    const CAP_PROP_BACKEND = OpenCV.cv_CAP_PROP_BACKEND
+    const CAP_PROP_BACKLIGHT = OpenCV.cv_CAP_PROP_BACKLIGHT
+    const CAP_PROP_BITRATE = OpenCV.cv_CAP_PROP_BITRATE
+    const CAP_PROP_BRIGHTNESS = OpenCV.cv_CAP_PROP_BRIGHTNESS
+    const CAP_PROP_BUFFERSIZE = OpenCV.cv_CAP_PROP_BUFFERSIZE
+    const CAP_PROP_CHANNEL = OpenCV.cv_CAP_PROP_CHANNEL
+    const CAP_PROP_CODEC_PIXEL_FORMAT = OpenCV.cv_CAP_PROP_CODEC_PIXEL_FORMAT
+    const CAP_PROP_CONTRAST = OpenCV.cv_CAP_PROP_CONTRAST
+    const CAP_PROP_CONVERT_RGB = OpenCV.cv_CAP_PROP_CONVERT_RGB
+    const CAP_PROP_DC1394_MAX = OpenCV.cv_CAP_PROP_DC1394_MAX
+    const CAP_PROP_DC1394_MODE_AUTO = OpenCV.cv_CAP_PROP_DC1394_MODE_AUTO
+    const CAP_PROP_DC1394_MODE_MANUAL = OpenCV.cv_CAP_PROP_DC1394_MODE_MANUAL
+    const CAP_PROP_DC1394_MODE_ONE_PUSH_AUTO = OpenCV.cv_CAP_PROP_DC1394_MODE_ONE_PUSH_AUTO
+    const CAP_PROP_DC1394_OFF = OpenCV.cv_CAP_PROP_DC1394_OFF
+    const CAP_PROP_EXPOSURE = OpenCV.cv_CAP_PROP_EXPOSURE
+    const CAP_PROP_EXPOSUREPROGRAM = OpenCV.cv_CAP_PROP_EXPOSUREPROGRAM
+    const CAP_PROP_FOCUS = OpenCV.cv_CAP_PROP_FOCUS
+    const CAP_PROP_FORMAT = OpenCV.cv_CAP_PROP_FORMAT
+    const CAP_PROP_FOURCC = OpenCV.cv_CAP_PROP_FOURCC
+    const CAP_PROP_FPS = OpenCV.cv_CAP_PROP_FPS
+    const CAP_PROP_FRAME_COUNT = OpenCV.cv_CAP_PROP_FRAME_COUNT
+    const CAP_PROP_FRAME_HEIGHT = OpenCV.cv_CAP_PROP_FRAME_HEIGHT
+    const CAP_PROP_FRAME_WIDTH = OpenCV.cv_CAP_PROP_FRAME_WIDTH
+    const CAP_PROP_GAIN = OpenCV.cv_CAP_PROP_GAIN
+    const CAP_PROP_GAMMA = OpenCV.cv_CAP_PROP_GAMMA
+    const CAP_PROP_GIGA_FRAME_HEIGH_MAX = OpenCV.cv_CAP_PROP_GIGA_FRAME_HEIGH_MAX
+    const CAP_PROP_GIGA_FRAME_OFFSET_X = OpenCV.cv_CAP_PROP_GIGA_FRAME_OFFSET_X
+    const CAP_PROP_GIGA_FRAME_OFFSET_Y = OpenCV.cv_CAP_PROP_GIGA_FRAME_OFFSET_Y
+    const CAP_PROP_GIGA_FRAME_SENS_HEIGH = OpenCV.cv_CAP_PROP_GIGA_FRAME_SENS_HEIGH
+    const CAP_PROP_GIGA_FRAME_SENS_WIDTH = OpenCV.cv_CAP_PROP_GIGA_FRAME_SENS_WIDTH
+    const CAP_PROP_GIGA_FRAME_WIDTH_MAX = OpenCV.cv_CAP_PROP_GIGA_FRAME_WIDTH_MAX
+    const CAP_PROP_GPHOTO2_COLLECT_MSGS = OpenCV.cv_CAP_PROP_GPHOTO2_COLLECT_MSGS
+    const CAP_PROP_GPHOTO2_FLUSH_MSGS = OpenCV.cv_CAP_PROP_GPHOTO2_FLUSH_MSGS
+    const CAP_PROP_GPHOTO2_PREVIEW = OpenCV.cv_CAP_PROP_GPHOTO2_PREVIEW
+    const CAP_PROP_GPHOTO2_RELOAD_CONFIG = OpenCV.cv_CAP_PROP_GPHOTO2_RELOAD_CONFIG
+    const CAP_PROP_GPHOTO2_RELOAD_ON_CHANGE = OpenCV.cv_CAP_PROP_GPHOTO2_RELOAD_ON_CHANGE
+    const CAP_PROP_GPHOTO2_WIDGET_ENUMERATE = OpenCV.cv_CAP_PROP_GPHOTO2_WIDGET_ENUMERATE
+    const CAP_PROP_GSTREAMER_QUEUE_LENGTH = OpenCV.cv_CAP_PROP_GSTREAMER_QUEUE_LENGTH
+    const CAP_PROP_GUID = OpenCV.cv_CAP_PROP_GUID
+    const CAP_PROP_HUE = OpenCV.cv_CAP_PROP_HUE
+    const CAP_PROP_IMAGES_BASE = OpenCV.cv_CAP_PROP_IMAGES_BASE
+    const CAP_PROP_IMAGES_LAST = OpenCV.cv_CAP_PROP_IMAGES_LAST
+    const CAP_PROP_INTELPERC_DEPTH_CONFIDENCE_THRESHOLD = OpenCV.cv_CAP_PROP_INTELPERC_DEPTH_CONFIDENCE_THRESHOLD
+    const CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_HORZ = OpenCV.cv_CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_HORZ
+    const CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_VERT = OpenCV.cv_CAP_PROP_INTELPERC_DEPTH_FOCAL_LENGTH_VERT
+    const CAP_PROP_INTELPERC_DEPTH_LOW_CONFIDENCE_VALUE = OpenCV.cv_CAP_PROP_INTELPERC_DEPTH_LOW_CONFIDENCE_VALUE
+    const CAP_PROP_INTELPERC_DEPTH_SATURATION_VALUE = OpenCV.cv_CAP_PROP_INTELPERC_DEPTH_SATURATION_VALUE
+    const CAP_PROP_INTELPERC_PROFILE_COUNT = OpenCV.cv_CAP_PROP_INTELPERC_PROFILE_COUNT
+    const CAP_PROP_INTELPERC_PROFILE_IDX = OpenCV.cv_CAP_PROP_INTELPERC_PROFILE_IDX
+    const CAP_PROP_IOS_DEVICE_EXPOSURE = OpenCV.cv_CAP_PROP_IOS_DEVICE_EXPOSURE
+    const CAP_PROP_IOS_DEVICE_FLASH = OpenCV.cv_CAP_PROP_IOS_DEVICE_FLASH
+    const CAP_PROP_IOS_DEVICE_FOCUS = OpenCV.cv_CAP_PROP_IOS_DEVICE_FOCUS
+    const CAP_PROP_IOS_DEVICE_TORCH = OpenCV.cv_CAP_PROP_IOS_DEVICE_TORCH
+    const CAP_PROP_IOS_DEVICE_WHITEBALANCE = OpenCV.cv_CAP_PROP_IOS_DEVICE_WHITEBALANCE
+    const CAP_PROP_IRIS = OpenCV.cv_CAP_PROP_IRIS
+    const CAP_PROP_ISO_SPEED = OpenCV.cv_CAP_PROP_ISO_SPEED
+    const CAP_PROP_MODE = OpenCV.cv_CAP_PROP_MODE
+    const CAP_PROP_MONOCHROME = OpenCV.cv_CAP_PROP_MONOCHROME
+    const CAP_PROP_OPENNI2_MIRROR = OpenCV.cv_CAP_PROP_OPENNI2_MIRROR
+    const CAP_PROP_OPENNI2_SYNC = OpenCV.cv_CAP_PROP_OPENNI2_SYNC
+    const CAP_PROP_OPENNI_APPROX_FRAME_SYNC = OpenCV.cv_CAP_PROP_OPENNI_APPROX_FRAME_SYNC
+    const CAP_PROP_OPENNI_BASELINE = OpenCV.cv_CAP_PROP_OPENNI_BASELINE
+    const CAP_PROP_OPENNI_CIRCLE_BUFFER = OpenCV.cv_CAP_PROP_OPENNI_CIRCLE_BUFFER
+    const CAP_PROP_OPENNI_FOCAL_LENGTH = OpenCV.cv_CAP_PROP_OPENNI_FOCAL_LENGTH
+    const CAP_PROP_OPENNI_FRAME_MAX_DEPTH = OpenCV.cv_CAP_PROP_OPENNI_FRAME_MAX_DEPTH
+    const CAP_PROP_OPENNI_GENERATOR_PRESENT = OpenCV.cv_CAP_PROP_OPENNI_GENERATOR_PRESENT
+    const CAP_PROP_OPENNI_MAX_BUFFER_SIZE = OpenCV.cv_CAP_PROP_OPENNI_MAX_BUFFER_SIZE
+    const CAP_PROP_OPENNI_MAX_TIME_DURATION = OpenCV.cv_CAP_PROP_OPENNI_MAX_TIME_DURATION
+    const CAP_PROP_OPENNI_OUTPUT_MODE = OpenCV.cv_CAP_PROP_OPENNI_OUTPUT_MODE
+    const CAP_PROP_OPENNI_REGISTRATION = OpenCV.cv_CAP_PROP_OPENNI_REGISTRATION
+    const CAP_PROP_OPENNI_REGISTRATION_ON = OpenCV.cv_CAP_PROP_OPENNI_REGISTRATION_ON
+    const CAP_PROP_PAN = OpenCV.cv_CAP_PROP_PAN
+    const CAP_PROP_POS_AVI_RATIO = OpenCV.cv_CAP_PROP_POS_AVI_RATIO
+    const CAP_PROP_POS_FRAMES = OpenCV.cv_CAP_PROP_POS_FRAMES
+    const CAP_PROP_POS_MSEC = OpenCV.cv_CAP_PROP_POS_MSEC
+    const CAP_PROP_PVAPI_BINNINGX = OpenCV.cv_CAP_PROP_PVAPI_BINNINGX
+    const CAP_PROP_PVAPI_BINNINGY = OpenCV.cv_CAP_PROP_PVAPI_BINNINGY
+    const CAP_PROP_PVAPI_DECIMATIONHORIZONTAL = OpenCV.cv_CAP_PROP_PVAPI_DECIMATIONHORIZONTAL
+    const CAP_PROP_PVAPI_DECIMATIONVERTICAL = OpenCV.cv_CAP_PROP_PVAPI_DECIMATIONVERTICAL
+    const CAP_PROP_PVAPI_FRAMESTARTTRIGGERMODE = OpenCV.cv_CAP_PROP_PVAPI_FRAMESTARTTRIGGERMODE
+    const CAP_PROP_PVAPI_MULTICASTIP = OpenCV.cv_CAP_PROP_PVAPI_MULTICASTIP
+    const CAP_PROP_PVAPI_PIXELFORMAT = OpenCV.cv_CAP_PROP_PVAPI_PIXELFORMAT
+    const CAP_PROP_RECTIFICATION = OpenCV.cv_CAP_PROP_RECTIFICATION
+    const CAP_PROP_ROLL = OpenCV.cv_CAP_PROP_ROLL
+    const CAP_PROP_SAR_DEN = OpenCV.cv_CAP_PROP_SAR_DEN
+    const CAP_PROP_SAR_NUM = OpenCV.cv_CAP_PROP_SAR_NUM
+    const CAP_PROP_SATURATION = OpenCV.cv_CAP_PROP_SATURATION
+    const CAP_PROP_SETTINGS = OpenCV.cv_CAP_PROP_SETTINGS
+    const CAP_PROP_SHARPNESS = OpenCV.cv_CAP_PROP_SHARPNESS
+    const CAP_PROP_SPEED = OpenCV.cv_CAP_PROP_SPEED
+    const CAP_PROP_TEMPERATURE = OpenCV.cv_CAP_PROP_TEMPERATURE
+    const CAP_PROP_TILT = OpenCV.cv_CAP_PROP_TILT
+    const CAP_PROP_TRIGGER = OpenCV.cv_CAP_PROP_TRIGGER
+    const CAP_PROP_TRIGGER_DELAY = OpenCV.cv_CAP_PROP_TRIGGER_DELAY
+    const CAP_PROP_VIEWFINDER = OpenCV.cv_CAP_PROP_VIEWFINDER
+    const CAP_PROP_WB_TEMPERATURE = OpenCV.cv_CAP_PROP_WB_TEMPERATURE
+    const CAP_PROP_WHITE_BALANCE_BLUE_U = OpenCV.cv_CAP_PROP_WHITE_BALANCE_BLUE_U
+    const CAP_PROP_WHITE_BALANCE_RED_V = OpenCV.cv_CAP_PROP_WHITE_BALANCE_RED_V
+    const CAP_PROP_XI_ACQ_BUFFER_SIZE = OpenCV.cv_CAP_PROP_XI_ACQ_BUFFER_SIZE
+    const CAP_PROP_XI_ACQ_BUFFER_SIZE_UNIT = OpenCV.cv_CAP_PROP_XI_ACQ_BUFFER_SIZE_UNIT
+    const CAP_PROP_XI_ACQ_FRAME_BURST_COUNT = OpenCV.cv_CAP_PROP_XI_ACQ_FRAME_BURST_COUNT
+    const CAP_PROP_XI_ACQ_TIMING_MODE = OpenCV.cv_CAP_PROP_XI_ACQ_TIMING_MODE
+    const CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_COMMIT = OpenCV.cv_CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_COMMIT
+    const CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_SIZE = OpenCV.cv_CAP_PROP_XI_ACQ_TRANSPORT_BUFFER_SIZE
+    const CAP_PROP_XI_AEAG = OpenCV.cv_CAP_PROP_XI_AEAG
+    const CAP_PROP_XI_AEAG_LEVEL = OpenCV.cv_CAP_PROP_XI_AEAG_LEVEL
+    const CAP_PROP_XI_AEAG_ROI_HEIGHT = OpenCV.cv_CAP_PROP_XI_AEAG_ROI_HEIGHT
+    const CAP_PROP_XI_AEAG_ROI_OFFSET_X = OpenCV.cv_CAP_PROP_XI_AEAG_ROI_OFFSET_X
+    const CAP_PROP_XI_AEAG_ROI_OFFSET_Y = OpenCV.cv_CAP_PROP_XI_AEAG_ROI_OFFSET_Y
+    const CAP_PROP_XI_AEAG_ROI_WIDTH = OpenCV.cv_CAP_PROP_XI_AEAG_ROI_WIDTH
+    const CAP_PROP_XI_AE_MAX_LIMIT = OpenCV.cv_CAP_PROP_XI_AE_MAX_LIMIT
+    const CAP_PROP_XI_AG_MAX_LIMIT = OpenCV.cv_CAP_PROP_XI_AG_MAX_LIMIT
+    const CAP_PROP_XI_APPLY_CMS = OpenCV.cv_CAP_PROP_XI_APPLY_CMS
+    const CAP_PROP_XI_AUTO_BANDWIDTH_CALCULATION = OpenCV.cv_CAP_PROP_XI_AUTO_BANDWIDTH_CALCULATION
+    const CAP_PROP_XI_AUTO_WB = OpenCV.cv_CAP_PROP_XI_AUTO_WB
+    const CAP_PROP_XI_AVAILABLE_BANDWIDTH = OpenCV.cv_CAP_PROP_XI_AVAILABLE_BANDWIDTH
+    const CAP_PROP_XI_BINNING_HORIZONTAL = OpenCV.cv_CAP_PROP_XI_BINNING_HORIZONTAL
+    const CAP_PROP_XI_BINNING_PATTERN = OpenCV.cv_CAP_PROP_XI_BINNING_PATTERN
+    const CAP_PROP_XI_BINNING_SELECTOR = OpenCV.cv_CAP_PROP_XI_BINNING_SELECTOR
+    const CAP_PROP_XI_BINNING_VERTICAL = OpenCV.cv_CAP_PROP_XI_BINNING_VERTICAL
+    const CAP_PROP_XI_BPC = OpenCV.cv_CAP_PROP_XI_BPC
+    const CAP_PROP_XI_BUFFERS_QUEUE_SIZE = OpenCV.cv_CAP_PROP_XI_BUFFERS_QUEUE_SIZE
+    const CAP_PROP_XI_BUFFER_POLICY = OpenCV.cv_CAP_PROP_XI_BUFFER_POLICY
+    const CAP_PROP_XI_CC_MATRIX_00 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_00
+    const CAP_PROP_XI_CC_MATRIX_01 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_01
+    const CAP_PROP_XI_CC_MATRIX_02 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_02
+    const CAP_PROP_XI_CC_MATRIX_03 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_03
+    const CAP_PROP_XI_CC_MATRIX_10 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_10
+    const CAP_PROP_XI_CC_MATRIX_11 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_11
+    const CAP_PROP_XI_CC_MATRIX_12 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_12
+    const CAP_PROP_XI_CC_MATRIX_13 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_13
+    const CAP_PROP_XI_CC_MATRIX_20 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_20
+    const CAP_PROP_XI_CC_MATRIX_21 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_21
+    const CAP_PROP_XI_CC_MATRIX_22 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_22
+    const CAP_PROP_XI_CC_MATRIX_23 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_23
+    const CAP_PROP_XI_CC_MATRIX_30 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_30
+    const CAP_PROP_XI_CC_MATRIX_31 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_31
+    const CAP_PROP_XI_CC_MATRIX_32 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_32
+    const CAP_PROP_XI_CC_MATRIX_33 = OpenCV.cv_CAP_PROP_XI_CC_MATRIX_33
+    const CAP_PROP_XI_CHIP_TEMP = OpenCV.cv_CAP_PROP_XI_CHIP_TEMP
+    const CAP_PROP_XI_CMS = OpenCV.cv_CAP_PROP_XI_CMS
+    const CAP_PROP_XI_COLOR_FILTER_ARRAY = OpenCV.cv_CAP_PROP_XI_COLOR_FILTER_ARRAY
+    const CAP_PROP_XI_COLUMN_FPN_CORRECTION = OpenCV.cv_CAP_PROP_XI_COLUMN_FPN_CORRECTION
+    const CAP_PROP_XI_COOLING = OpenCV.cv_CAP_PROP_XI_COOLING
+    const CAP_PROP_XI_COUNTER_SELECTOR = OpenCV.cv_CAP_PROP_XI_COUNTER_SELECTOR
+    const CAP_PROP_XI_COUNTER_VALUE = OpenCV.cv_CAP_PROP_XI_COUNTER_VALUE
+    const CAP_PROP_XI_DATA_FORMAT = OpenCV.cv_CAP_PROP_XI_DATA_FORMAT
+    const CAP_PROP_XI_DEBOUNCE_EN = OpenCV.cv_CAP_PROP_XI_DEBOUNCE_EN
+    const CAP_PROP_XI_DEBOUNCE_POL = OpenCV.cv_CAP_PROP_XI_DEBOUNCE_POL
+    const CAP_PROP_XI_DEBOUNCE_T0 = OpenCV.cv_CAP_PROP_XI_DEBOUNCE_T0
+    const CAP_PROP_XI_DEBOUNCE_T1 = OpenCV.cv_CAP_PROP_XI_DEBOUNCE_T1
+    const CAP_PROP_XI_DEBUG_LEVEL = OpenCV.cv_CAP_PROP_XI_DEBUG_LEVEL
+    const CAP_PROP_XI_DECIMATION_HORIZONTAL = OpenCV.cv_CAP_PROP_XI_DECIMATION_HORIZONTAL
+    const CAP_PROP_XI_DECIMATION_PATTERN = OpenCV.cv_CAP_PROP_XI_DECIMATION_PATTERN
+    const CAP_PROP_XI_DECIMATION_SELECTOR = OpenCV.cv_CAP_PROP_XI_DECIMATION_SELECTOR
+    const CAP_PROP_XI_DECIMATION_VERTICAL = OpenCV.cv_CAP_PROP_XI_DECIMATION_VERTICAL
+    const CAP_PROP_XI_DEFAULT_CC_MATRIX = OpenCV.cv_CAP_PROP_XI_DEFAULT_CC_MATRIX
+    const CAP_PROP_XI_DEVICE_MODEL_ID = OpenCV.cv_CAP_PROP_XI_DEVICE_MODEL_ID
+    const CAP_PROP_XI_DEVICE_RESET = OpenCV.cv_CAP_PROP_XI_DEVICE_RESET
+    const CAP_PROP_XI_DEVICE_SN = OpenCV.cv_CAP_PROP_XI_DEVICE_SN
+    const CAP_PROP_XI_DOWNSAMPLING = OpenCV.cv_CAP_PROP_XI_DOWNSAMPLING
+    const CAP_PROP_XI_DOWNSAMPLING_TYPE = OpenCV.cv_CAP_PROP_XI_DOWNSAMPLING_TYPE
+    const CAP_PROP_XI_EXPOSURE = OpenCV.cv_CAP_PROP_XI_EXPOSURE
+    const CAP_PROP_XI_EXPOSURE_BURST_COUNT = OpenCV.cv_CAP_PROP_XI_EXPOSURE_BURST_COUNT
+    const CAP_PROP_XI_EXP_PRIORITY = OpenCV.cv_CAP_PROP_XI_EXP_PRIORITY
+    const CAP_PROP_XI_FFS_ACCESS_KEY = OpenCV.cv_CAP_PROP_XI_FFS_ACCESS_KEY
+    const CAP_PROP_XI_FFS_FILE_ID = OpenCV.cv_CAP_PROP_XI_FFS_FILE_ID
+    const CAP_PROP_XI_FFS_FILE_SIZE = OpenCV.cv_CAP_PROP_XI_FFS_FILE_SIZE
+    const CAP_PROP_XI_FRAMERATE = OpenCV.cv_CAP_PROP_XI_FRAMERATE
+    const CAP_PROP_XI_FREE_FFS_SIZE = OpenCV.cv_CAP_PROP_XI_FREE_FFS_SIZE
+    const CAP_PROP_XI_GAIN = OpenCV.cv_CAP_PROP_XI_GAIN
+    const CAP_PROP_XI_GAIN_SELECTOR = OpenCV.cv_CAP_PROP_XI_GAIN_SELECTOR
+    const CAP_PROP_XI_GAMMAC = OpenCV.cv_CAP_PROP_XI_GAMMAC
+    const CAP_PROP_XI_GAMMAY = OpenCV.cv_CAP_PROP_XI_GAMMAY
+    const CAP_PROP_XI_GPI_LEVEL = OpenCV.cv_CAP_PROP_XI_GPI_LEVEL
+    const CAP_PROP_XI_GPI_MODE = OpenCV.cv_CAP_PROP_XI_GPI_MODE
+    const CAP_PROP_XI_GPI_SELECTOR = OpenCV.cv_CAP_PROP_XI_GPI_SELECTOR
+    const CAP_PROP_XI_GPO_MODE = OpenCV.cv_CAP_PROP_XI_GPO_MODE
+    const CAP_PROP_XI_GPO_SELECTOR = OpenCV.cv_CAP_PROP_XI_GPO_SELECTOR
+    const CAP_PROP_XI_HDR = OpenCV.cv_CAP_PROP_XI_HDR
+    const CAP_PROP_XI_HDR_KNEEPOINT_COUNT = OpenCV.cv_CAP_PROP_XI_HDR_KNEEPOINT_COUNT
+    const CAP_PROP_XI_HDR_T1 = OpenCV.cv_CAP_PROP_XI_HDR_T1
+    const CAP_PROP_XI_HDR_T2 = OpenCV.cv_CAP_PROP_XI_HDR_T2
+    const CAP_PROP_XI_HEIGHT = OpenCV.cv_CAP_PROP_XI_HEIGHT
+    const CAP_PROP_XI_HOUS_BACK_SIDE_TEMP = OpenCV.cv_CAP_PROP_XI_HOUS_BACK_SIDE_TEMP
+    const CAP_PROP_XI_HOUS_TEMP = OpenCV.cv_CAP_PROP_XI_HOUS_TEMP
+    const CAP_PROP_XI_HW_REVISION = OpenCV.cv_CAP_PROP_XI_HW_REVISION
+    const CAP_PROP_XI_IMAGE_BLACK_LEVEL = OpenCV.cv_CAP_PROP_XI_IMAGE_BLACK_LEVEL
+    const CAP_PROP_XI_IMAGE_DATA_BIT_DEPTH = OpenCV.cv_CAP_PROP_XI_IMAGE_DATA_BIT_DEPTH
+    const CAP_PROP_XI_IMAGE_DATA_FORMAT = OpenCV.cv_CAP_PROP_XI_IMAGE_DATA_FORMAT
+    const CAP_PROP_XI_IMAGE_DATA_FORMAT_RGB32_ALPHA = OpenCV.cv_CAP_PROP_XI_IMAGE_DATA_FORMAT_RGB32_ALPHA
+    const CAP_PROP_XI_IMAGE_IS_COLOR = OpenCV.cv_CAP_PROP_XI_IMAGE_IS_COLOR
+    const CAP_PROP_XI_IMAGE_PAYLOAD_SIZE = OpenCV.cv_CAP_PROP_XI_IMAGE_PAYLOAD_SIZE
+    const CAP_PROP_XI_IS_COOLED = OpenCV.cv_CAP_PROP_XI_IS_COOLED
+    const CAP_PROP_XI_IS_DEVICE_EXIST = OpenCV.cv_CAP_PROP_XI_IS_DEVICE_EXIST
+    const CAP_PROP_XI_KNEEPOINT1 = OpenCV.cv_CAP_PROP_XI_KNEEPOINT1
+    const CAP_PROP_XI_KNEEPOINT2 = OpenCV.cv_CAP_PROP_XI_KNEEPOINT2
+    const CAP_PROP_XI_LED_MODE = OpenCV.cv_CAP_PROP_XI_LED_MODE
+    const CAP_PROP_XI_LED_SELECTOR = OpenCV.cv_CAP_PROP_XI_LED_SELECTOR
+    const CAP_PROP_XI_LENS_APERTURE_VALUE = OpenCV.cv_CAP_PROP_XI_LENS_APERTURE_VALUE
+    const CAP_PROP_XI_LENS_FEATURE = OpenCV.cv_CAP_PROP_XI_LENS_FEATURE
+    const CAP_PROP_XI_LENS_FEATURE_SELECTOR = OpenCV.cv_CAP_PROP_XI_LENS_FEATURE_SELECTOR
+    const CAP_PROP_XI_LENS_FOCAL_LENGTH = OpenCV.cv_CAP_PROP_XI_LENS_FOCAL_LENGTH
+    const CAP_PROP_XI_LENS_FOCUS_DISTANCE = OpenCV.cv_CAP_PROP_XI_LENS_FOCUS_DISTANCE
+    const CAP_PROP_XI_LENS_FOCUS_MOVE = OpenCV.cv_CAP_PROP_XI_LENS_FOCUS_MOVE
+    const CAP_PROP_XI_LENS_FOCUS_MOVEMENT_VALUE = OpenCV.cv_CAP_PROP_XI_LENS_FOCUS_MOVEMENT_VALUE
+    const CAP_PROP_XI_LENS_MODE = OpenCV.cv_CAP_PROP_XI_LENS_MODE
+    const CAP_PROP_XI_LIMIT_BANDWIDTH = OpenCV.cv_CAP_PROP_XI_LIMIT_BANDWIDTH
+    const CAP_PROP_XI_LUT_EN = OpenCV.cv_CAP_PROP_XI_LUT_EN
+    const CAP_PROP_XI_LUT_INDEX = OpenCV.cv_CAP_PROP_XI_LUT_INDEX
+    const CAP_PROP_XI_LUT_VALUE = OpenCV.cv_CAP_PROP_XI_LUT_VALUE
+    const CAP_PROP_XI_MANUAL_WB = OpenCV.cv_CAP_PROP_XI_MANUAL_WB
+    const CAP_PROP_XI_OFFSET_X = OpenCV.cv_CAP_PROP_XI_OFFSET_X
+    const CAP_PROP_XI_OFFSET_Y = OpenCV.cv_CAP_PROP_XI_OFFSET_Y
+    const CAP_PROP_XI_OUTPUT_DATA_BIT_DEPTH = OpenCV.cv_CAP_PROP_XI_OUTPUT_DATA_BIT_DEPTH
+    const CAP_PROP_XI_OUTPUT_DATA_PACKING = OpenCV.cv_CAP_PROP_XI_OUTPUT_DATA_PACKING
+    const CAP_PROP_XI_OUTPUT_DATA_PACKING_TYPE = OpenCV.cv_CAP_PROP_XI_OUTPUT_DATA_PACKING_TYPE
+    const CAP_PROP_XI_RECENT_FRAME = OpenCV.cv_CAP_PROP_XI_RECENT_FRAME
+    const CAP_PROP_XI_REGION_MODE = OpenCV.cv_CAP_PROP_XI_REGION_MODE
+    const CAP_PROP_XI_REGION_SELECTOR = OpenCV.cv_CAP_PROP_XI_REGION_SELECTOR
+    const CAP_PROP_XI_ROW_FPN_CORRECTION = OpenCV.cv_CAP_PROP_XI_ROW_FPN_CORRECTION
+    const CAP_PROP_XI_SENSOR_BOARD_TEMP = OpenCV.cv_CAP_PROP_XI_SENSOR_BOARD_TEMP
+    const CAP_PROP_XI_SENSOR_CLOCK_FREQ_HZ = OpenCV.cv_CAP_PROP_XI_SENSOR_CLOCK_FREQ_HZ
+    const CAP_PROP_XI_SENSOR_CLOCK_FREQ_INDEX = OpenCV.cv_CAP_PROP_XI_SENSOR_CLOCK_FREQ_INDEX
+    const CAP_PROP_XI_SENSOR_DATA_BIT_DEPTH = OpenCV.cv_CAP_PROP_XI_SENSOR_DATA_BIT_DEPTH
+    const CAP_PROP_XI_SENSOR_FEATURE_SELECTOR = OpenCV.cv_CAP_PROP_XI_SENSOR_FEATURE_SELECTOR
+    const CAP_PROP_XI_SENSOR_FEATURE_VALUE = OpenCV.cv_CAP_PROP_XI_SENSOR_FEATURE_VALUE
+    const CAP_PROP_XI_SENSOR_MODE = OpenCV.cv_CAP_PROP_XI_SENSOR_MODE
+    const CAP_PROP_XI_SENSOR_OUTPUT_CHANNEL_COUNT = OpenCV.cv_CAP_PROP_XI_SENSOR_OUTPUT_CHANNEL_COUNT
+    const CAP_PROP_XI_SENSOR_TAPS = OpenCV.cv_CAP_PROP_XI_SENSOR_TAPS
+    const CAP_PROP_XI_SHARPNESS = OpenCV.cv_CAP_PROP_XI_SHARPNESS
+    const CAP_PROP_XI_SHUTTER_TYPE = OpenCV.cv_CAP_PROP_XI_SHUTTER_TYPE
+    const CAP_PROP_XI_TARGET_TEMP = OpenCV.cv_CAP_PROP_XI_TARGET_TEMP
+    const CAP_PROP_XI_TEST_PATTERN = OpenCV.cv_CAP_PROP_XI_TEST_PATTERN
+    const CAP_PROP_XI_TEST_PATTERN_GENERATOR_SELECTOR = OpenCV.cv_CAP_PROP_XI_TEST_PATTERN_GENERATOR_SELECTOR
+    const CAP_PROP_XI_TIMEOUT = OpenCV.cv_CAP_PROP_XI_TIMEOUT
+    const CAP_PROP_XI_TRANSPORT_PIXEL_FORMAT = OpenCV.cv_CAP_PROP_XI_TRANSPORT_PIXEL_FORMAT
+    const CAP_PROP_XI_TRG_DELAY = OpenCV.cv_CAP_PROP_XI_TRG_DELAY
+    const CAP_PROP_XI_TRG_SELECTOR = OpenCV.cv_CAP_PROP_XI_TRG_SELECTOR
+    const CAP_PROP_XI_TRG_SOFTWARE = OpenCV.cv_CAP_PROP_XI_TRG_SOFTWARE
+    const CAP_PROP_XI_TRG_SOURCE = OpenCV.cv_CAP_PROP_XI_TRG_SOURCE
+    const CAP_PROP_XI_TS_RST_MODE = OpenCV.cv_CAP_PROP_XI_TS_RST_MODE
+    const CAP_PROP_XI_TS_RST_SOURCE = OpenCV.cv_CAP_PROP_XI_TS_RST_SOURCE
+    const CAP_PROP_XI_USED_FFS_SIZE = OpenCV.cv_CAP_PROP_XI_USED_FFS_SIZE
+    const CAP_PROP_XI_WB_KB = OpenCV.cv_CAP_PROP_XI_WB_KB
+    const CAP_PROP_XI_WB_KG = OpenCV.cv_CAP_PROP_XI_WB_KG
+    const CAP_PROP_XI_WB_KR = OpenCV.cv_CAP_PROP_XI_WB_KR
+    const CAP_PROP_XI_WIDTH = OpenCV.cv_CAP_PROP_XI_WIDTH
+    const CAP_PROP_ZOOM = OpenCV.cv_CAP_PROP_ZOOM
+    const CAP_PVAPI = OpenCV.cv_CAP_PVAPI
+    const CAP_PVAPI_DECIMATION_2OUTOF16 = OpenCV.cv_CAP_PVAPI_DECIMATION_2OUTOF16
+    const CAP_PVAPI_DECIMATION_2OUTOF4 = OpenCV.cv_CAP_PVAPI_DECIMATION_2OUTOF4
+    const CAP_PVAPI_DECIMATION_2OUTOF8 = OpenCV.cv_CAP_PVAPI_DECIMATION_2OUTOF8
+    const CAP_PVAPI_DECIMATION_OFF = OpenCV.cv_CAP_PVAPI_DECIMATION_OFF
+    const CAP_PVAPI_FSTRIGMODE_FIXEDRATE = OpenCV.cv_CAP_PVAPI_FSTRIGMODE_FIXEDRATE
+    const CAP_PVAPI_FSTRIGMODE_FREERUN = OpenCV.cv_CAP_PVAPI_FSTRIGMODE_FREERUN
+    const CAP_PVAPI_FSTRIGMODE_SOFTWARE = OpenCV.cv_CAP_PVAPI_FSTRIGMODE_SOFTWARE
+    const CAP_PVAPI_FSTRIGMODE_SYNCIN1 = OpenCV.cv_CAP_PVAPI_FSTRIGMODE_SYNCIN1
+    const CAP_PVAPI_FSTRIGMODE_SYNCIN2 = OpenCV.cv_CAP_PVAPI_FSTRIGMODE_SYNCIN2
+    const CAP_PVAPI_PIXELFORMAT_BAYER16 = OpenCV.cv_CAP_PVAPI_PIXELFORMAT_BAYER16
+    const CAP_PVAPI_PIXELFORMAT_BAYER8 = OpenCV.cv_CAP_PVAPI_PIXELFORMAT_BAYER8
+    const CAP_PVAPI_PIXELFORMAT_BGR24 = OpenCV.cv_CAP_PVAPI_PIXELFORMAT_BGR24
+    const CAP_PVAPI_PIXELFORMAT_BGRA32 = OpenCV.cv_CAP_PVAPI_PIXELFORMAT_BGRA32
+    const CAP_PVAPI_PIXELFORMAT_MONO16 = OpenCV.cv_CAP_PVAPI_PIXELFORMAT_MONO16
+    const CAP_PVAPI_PIXELFORMAT_MONO8 = OpenCV.cv_CAP_PVAPI_PIXELFORMAT_MONO8
+    const CAP_PVAPI_PIXELFORMAT_RGB24 = OpenCV.cv_CAP_PVAPI_PIXELFORMAT_RGB24
+    const CAP_PVAPI_PIXELFORMAT_RGBA32 = OpenCV.cv_CAP_PVAPI_PIXELFORMAT_RGBA32
+    const CAP_QT = OpenCV.cv_CAP_QT
+    const CAP_REALSENSE = OpenCV.cv_CAP_REALSENSE
+    const CAP_UNICAP = OpenCV.cv_CAP_UNICAP
+    const CAP_V4L = OpenCV.cv_CAP_V4L
+    const CAP_V4L2 = OpenCV.cv_CAP_V4L2
+    const CAP_VFW = OpenCV.cv_CAP_VFW
+    const CAP_WINRT = OpenCV.cv_CAP_WINRT
+    const CAP_XIAPI = OpenCV.cv_CAP_XIAPI
+    const CAP_XINE = OpenCV.cv_CAP_XINE
+    const CCL_DEFAULT = OpenCV.cv_CCL_DEFAULT
+    const CCL_GRANA = OpenCV.cv_CCL_GRANA
+    const CCL_WU = OpenCV.cv_CCL_WU
+    const CC_STAT_AREA = OpenCV.cv_CC_STAT_AREA
+    const CC_STAT_HEIGHT = OpenCV.cv_CC_STAT_HEIGHT
+    const CC_STAT_LEFT = OpenCV.cv_CC_STAT_LEFT
+    const CC_STAT_MAX = OpenCV.cv_CC_STAT_MAX
+    const CC_STAT_TOP = OpenCV.cv_CC_STAT_TOP
+    const CC_STAT_WIDTH = OpenCV.cv_CC_STAT_WIDTH
+    const CHAIN_APPROX_NONE = OpenCV.cv_CHAIN_APPROX_NONE
+    const CHAIN_APPROX_SIMPLE = OpenCV.cv_CHAIN_APPROX_SIMPLE
+    const CHAIN_APPROX_TC89_KCOS = OpenCV.cv_CHAIN_APPROX_TC89_KCOS
+    const CHAIN_APPROX_TC89_L1 = OpenCV.cv_CHAIN_APPROX_TC89_L1
+    const CMP_EQ = OpenCV.cv_CMP_EQ
+    const CMP_GE = OpenCV.cv_CMP_GE
+    const CMP_GT = OpenCV.cv_CMP_GT
+    const CMP_LE = OpenCV.cv_CMP_LE
+    const CMP_LT = OpenCV.cv_CMP_LT
+    const CMP_NE = OpenCV.cv_CMP_NE
+    const COLORMAP_AUTUMN = OpenCV.cv_COLORMAP_AUTUMN
+    const COLORMAP_BONE = OpenCV.cv_COLORMAP_BONE
+    const COLORMAP_CIVIDIS = OpenCV.cv_COLORMAP_CIVIDIS
+    const COLORMAP_COOL = OpenCV.cv_COLORMAP_COOL
+    const COLORMAP_DEEPGREEN = OpenCV.cv_COLORMAP_DEEPGREEN
+    const COLORMAP_HOT = OpenCV.cv_COLORMAP_HOT
+    const COLORMAP_HSV = OpenCV.cv_COLORMAP_HSV
+    const COLORMAP_INFERNO = OpenCV.cv_COLORMAP_INFERNO
+    const COLORMAP_JET = OpenCV.cv_COLORMAP_JET
+    const COLORMAP_MAGMA = OpenCV.cv_COLORMAP_MAGMA
+    const COLORMAP_OCEAN = OpenCV.cv_COLORMAP_OCEAN
+    const COLORMAP_PARULA = OpenCV.cv_COLORMAP_PARULA
+    const COLORMAP_PINK = OpenCV.cv_COLORMAP_PINK
+    const COLORMAP_PLASMA = OpenCV.cv_COLORMAP_PLASMA
+    const COLORMAP_RAINBOW = OpenCV.cv_COLORMAP_RAINBOW
+    const COLORMAP_SPRING = OpenCV.cv_COLORMAP_SPRING
+    const COLORMAP_SUMMER = OpenCV.cv_COLORMAP_SUMMER
+    const COLORMAP_TURBO = OpenCV.cv_COLORMAP_TURBO
+    const COLORMAP_TWILIGHT = OpenCV.cv_COLORMAP_TWILIGHT
+    const COLORMAP_TWILIGHT_SHIFTED = OpenCV.cv_COLORMAP_TWILIGHT_SHIFTED
+    const COLORMAP_VIRIDIS = OpenCV.cv_COLORMAP_VIRIDIS
+    const COLORMAP_WINTER = OpenCV.cv_COLORMAP_WINTER
+    const COLOR_BGR2BGR555 = OpenCV.cv_COLOR_BGR2BGR555
+    const COLOR_BGR2BGR565 = OpenCV.cv_COLOR_BGR2BGR565
+    const COLOR_BGR2BGRA = OpenCV.cv_COLOR_BGR2BGRA
+    const COLOR_BGR2GRAY = OpenCV.cv_COLOR_BGR2GRAY
+    const COLOR_BGR2HLS = OpenCV.cv_COLOR_BGR2HLS
+    const COLOR_BGR2HLS_FULL = OpenCV.cv_COLOR_BGR2HLS_FULL
+    const COLOR_BGR2HSV = OpenCV.cv_COLOR_BGR2HSV
+    const COLOR_BGR2HSV_FULL = OpenCV.cv_COLOR_BGR2HSV_FULL
+    const COLOR_BGR2Lab = OpenCV.cv_COLOR_BGR2Lab
+    const COLOR_BGR2LAB = OpenCV.cv_COLOR_BGR2LAB;
+    const COLOR_BGR2Luv = OpenCV.cv_COLOR_BGR2Luv
+    const COLOR_BGR2LUV = OpenCV.cv_COLOR_BGR2LUV;
+    const COLOR_BGR2RGB = OpenCV.cv_COLOR_BGR2RGB
+    const COLOR_BGR2RGBA = OpenCV.cv_COLOR_BGR2RGBA
+    const COLOR_BGR2XYZ = OpenCV.cv_COLOR_BGR2XYZ
+    const COLOR_BGR2YCrCb = OpenCV.cv_COLOR_BGR2YCrCb
+    const COLOR_BGR2YCR_CB = OpenCV.cv_COLOR_BGR2YCR_CB;
+    const COLOR_BGR2YUV = OpenCV.cv_COLOR_BGR2YUV
+    const COLOR_BGR2YUV_I420 = OpenCV.cv_COLOR_BGR2YUV_I420
+    const COLOR_BGR2YUV_IYUV = OpenCV.cv_COLOR_BGR2YUV_IYUV
+    const COLOR_BGR2YUV_YV12 = OpenCV.cv_COLOR_BGR2YUV_YV12
+    const COLOR_BGR5552BGR = OpenCV.cv_COLOR_BGR5552BGR
+    const COLOR_BGR5552BGRA = OpenCV.cv_COLOR_BGR5552BGRA
+    const COLOR_BGR5552GRAY = OpenCV.cv_COLOR_BGR5552GRAY
+    const COLOR_BGR5552RGB = OpenCV.cv_COLOR_BGR5552RGB
+    const COLOR_BGR5552RGBA = OpenCV.cv_COLOR_BGR5552RGBA
+    const COLOR_BGR5652BGR = OpenCV.cv_COLOR_BGR5652BGR
+    const COLOR_BGR5652BGRA = OpenCV.cv_COLOR_BGR5652BGRA
+    const COLOR_BGR5652GRAY = OpenCV.cv_COLOR_BGR5652GRAY
+    const COLOR_BGR5652RGB = OpenCV.cv_COLOR_BGR5652RGB
+    const COLOR_BGR5652RGBA = OpenCV.cv_COLOR_BGR5652RGBA
+    const COLOR_BGRA2BGR = OpenCV.cv_COLOR_BGRA2BGR
+    const COLOR_BGRA2BGR555 = OpenCV.cv_COLOR_BGRA2BGR555
+    const COLOR_BGRA2BGR565 = OpenCV.cv_COLOR_BGRA2BGR565
+    const COLOR_BGRA2GRAY = OpenCV.cv_COLOR_BGRA2GRAY
+    const COLOR_BGRA2RGB = OpenCV.cv_COLOR_BGRA2RGB
+    const COLOR_BGRA2RGBA = OpenCV.cv_COLOR_BGRA2RGBA
+    const COLOR_BGRA2YUV_I420 = OpenCV.cv_COLOR_BGRA2YUV_I420
+    const COLOR_BGRA2YUV_IYUV = OpenCV.cv_COLOR_BGRA2YUV_IYUV
+    const COLOR_BGRA2YUV_YV12 = OpenCV.cv_COLOR_BGRA2YUV_YV12
+    const COLOR_BayerBG2BGR = OpenCV.cv_COLOR_BayerBG2BGR
+    const COLOR_BAYER_BG2BGR = OpenCV.cv_COLOR_BAYER_BG2BGR;
+    const COLOR_BayerBG2BGRA = OpenCV.cv_COLOR_BayerBG2BGRA
+    const COLOR_BAYER_BG2BGRA = OpenCV.cv_COLOR_BAYER_BG2BGRA;
+    const COLOR_BayerBG2BGR_EA = OpenCV.cv_COLOR_BayerBG2BGR_EA
+    const COLOR_BAYER_BG2BGR_EA = OpenCV.cv_COLOR_BAYER_BG2BGR_EA;
+    const COLOR_BayerBG2BGR_VNG = OpenCV.cv_COLOR_BayerBG2BGR_VNG
+    const COLOR_BAYER_BG2BGR_VNG = OpenCV.cv_COLOR_BAYER_BG2BGR_VNG;
+    const COLOR_BayerBG2GRAY = OpenCV.cv_COLOR_BayerBG2GRAY
+    const COLOR_BAYER_BG2GRAY = OpenCV.cv_COLOR_BAYER_BG2GRAY;
+    const COLOR_BayerBG2RGB = OpenCV.cv_COLOR_BayerBG2RGB
+    const COLOR_BAYER_BG2RGB = OpenCV.cv_COLOR_BAYER_BG2RGB;
+    const COLOR_BayerBG2RGBA = OpenCV.cv_COLOR_BayerBG2RGBA
+    const COLOR_BAYER_BG2RGBA = OpenCV.cv_COLOR_BAYER_BG2RGBA;
+    const COLOR_BayerBG2RGB_EA = OpenCV.cv_COLOR_BayerBG2RGB_EA
+    const COLOR_BAYER_BG2RGB_EA = OpenCV.cv_COLOR_BAYER_BG2RGB_EA;
+    const COLOR_BayerBG2RGB_VNG = OpenCV.cv_COLOR_BayerBG2RGB_VNG
+    const COLOR_BAYER_BG2RGB_VNG = OpenCV.cv_COLOR_BAYER_BG2RGB_VNG;
+    const COLOR_BayerGB2BGR = OpenCV.cv_COLOR_BayerGB2BGR
+    const COLOR_BAYER_GB2BGR = OpenCV.cv_COLOR_BAYER_GB2BGR;
+    const COLOR_BayerGB2BGRA = OpenCV.cv_COLOR_BayerGB2BGRA
+    const COLOR_BAYER_GB2BGRA = OpenCV.cv_COLOR_BAYER_GB2BGRA;
+    const COLOR_BayerGB2BGR_EA = OpenCV.cv_COLOR_BayerGB2BGR_EA
+    const COLOR_BAYER_GB2BGR_EA = OpenCV.cv_COLOR_BAYER_GB2BGR_EA;
+    const COLOR_BayerGB2BGR_VNG = OpenCV.cv_COLOR_BayerGB2BGR_VNG
+    const COLOR_BAYER_GB2BGR_VNG = OpenCV.cv_COLOR_BAYER_GB2BGR_VNG;
+    const COLOR_BayerGB2GRAY = OpenCV.cv_COLOR_BayerGB2GRAY
+    const COLOR_BAYER_GB2GRAY = OpenCV.cv_COLOR_BAYER_GB2GRAY;
+    const COLOR_BayerGB2RGB = OpenCV.cv_COLOR_BayerGB2RGB
+    const COLOR_BAYER_GB2RGB = OpenCV.cv_COLOR_BAYER_GB2RGB;
+    const COLOR_BayerGB2RGBA = OpenCV.cv_COLOR_BayerGB2RGBA
+    const COLOR_BAYER_GB2RGBA = OpenCV.cv_COLOR_BAYER_GB2RGBA;
+    const COLOR_BayerGB2RGB_EA = OpenCV.cv_COLOR_BayerGB2RGB_EA
+    const COLOR_BAYER_GB2RGB_EA = OpenCV.cv_COLOR_BAYER_GB2RGB_EA;
+    const COLOR_BayerGB2RGB_VNG = OpenCV.cv_COLOR_BayerGB2RGB_VNG
+    const COLOR_BAYER_GB2RGB_VNG = OpenCV.cv_COLOR_BAYER_GB2RGB_VNG;
+    const COLOR_BayerGR2BGR = OpenCV.cv_COLOR_BayerGR2BGR
+    const COLOR_BAYER_GR2BGR = OpenCV.cv_COLOR_BAYER_GR2BGR;
+    const COLOR_BayerGR2BGRA = OpenCV.cv_COLOR_BayerGR2BGRA
+    const COLOR_BAYER_GR2BGRA = OpenCV.cv_COLOR_BAYER_GR2BGRA;
+    const COLOR_BayerGR2BGR_EA = OpenCV.cv_COLOR_BayerGR2BGR_EA
+    const COLOR_BAYER_GR2BGR_EA = OpenCV.cv_COLOR_BAYER_GR2BGR_EA;
+    const COLOR_BayerGR2BGR_VNG = OpenCV.cv_COLOR_BayerGR2BGR_VNG
+    const COLOR_BAYER_GR2BGR_VNG = OpenCV.cv_COLOR_BAYER_GR2BGR_VNG;
+    const COLOR_BayerGR2GRAY = OpenCV.cv_COLOR_BayerGR2GRAY
+    const COLOR_BAYER_GR2GRAY = OpenCV.cv_COLOR_BAYER_GR2GRAY;
+    const COLOR_BayerGR2RGB = OpenCV.cv_COLOR_BayerGR2RGB
+    const COLOR_BAYER_GR2RGB = OpenCV.cv_COLOR_BAYER_GR2RGB;
+    const COLOR_BayerGR2RGBA = OpenCV.cv_COLOR_BayerGR2RGBA
+    const COLOR_BAYER_GR2RGBA = OpenCV.cv_COLOR_BAYER_GR2RGBA;
+    const COLOR_BayerGR2RGB_EA = OpenCV.cv_COLOR_BayerGR2RGB_EA
+    const COLOR_BAYER_GR2RGB_EA = OpenCV.cv_COLOR_BAYER_GR2RGB_EA;
+    const COLOR_BayerGR2RGB_VNG = OpenCV.cv_COLOR_BayerGR2RGB_VNG
+    const COLOR_BAYER_GR2RGB_VNG = OpenCV.cv_COLOR_BAYER_GR2RGB_VNG;
+    const COLOR_BayerRG2BGR = OpenCV.cv_COLOR_BayerRG2BGR
+    const COLOR_BAYER_RG2BGR = OpenCV.cv_COLOR_BAYER_RG2BGR;
+    const COLOR_BayerRG2BGRA = OpenCV.cv_COLOR_BayerRG2BGRA
+    const COLOR_BAYER_RG2BGRA = OpenCV.cv_COLOR_BAYER_RG2BGRA;
+    const COLOR_BayerRG2BGR_EA = OpenCV.cv_COLOR_BayerRG2BGR_EA
+    const COLOR_BAYER_RG2BGR_EA = OpenCV.cv_COLOR_BAYER_RG2BGR_EA;
+    const COLOR_BayerRG2BGR_VNG = OpenCV.cv_COLOR_BayerRG2BGR_VNG
+    const COLOR_BAYER_RG2BGR_VNG = OpenCV.cv_COLOR_BAYER_RG2BGR_VNG;
+    const COLOR_BayerRG2GRAY = OpenCV.cv_COLOR_BayerRG2GRAY
+    const COLOR_BAYER_RG2GRAY = OpenCV.cv_COLOR_BAYER_RG2GRAY;
+    const COLOR_BayerRG2RGB = OpenCV.cv_COLOR_BayerRG2RGB
+    const COLOR_BAYER_RG2RGB = OpenCV.cv_COLOR_BAYER_RG2RGB;
+    const COLOR_BayerRG2RGBA = OpenCV.cv_COLOR_BayerRG2RGBA
+    const COLOR_BAYER_RG2RGBA = OpenCV.cv_COLOR_BAYER_RG2RGBA;
+    const COLOR_BayerRG2RGB_EA = OpenCV.cv_COLOR_BayerRG2RGB_EA
+    const COLOR_BAYER_RG2RGB_EA = OpenCV.cv_COLOR_BAYER_RG2RGB_EA;
+    const COLOR_BayerRG2RGB_VNG = OpenCV.cv_COLOR_BayerRG2RGB_VNG
+    const COLOR_BAYER_RG2RGB_VNG = OpenCV.cv_COLOR_BAYER_RG2RGB_VNG;
+    const COLOR_COLORCVT_MAX = OpenCV.cv_COLOR_COLORCVT_MAX
+    const COLOR_GRAY2BGR = OpenCV.cv_COLOR_GRAY2BGR
+    const COLOR_GRAY2BGR555 = OpenCV.cv_COLOR_GRAY2BGR555
+    const COLOR_GRAY2BGR565 = OpenCV.cv_COLOR_GRAY2BGR565
+    const COLOR_GRAY2BGRA = OpenCV.cv_COLOR_GRAY2BGRA
+    const COLOR_GRAY2RGB = OpenCV.cv_COLOR_GRAY2RGB
+    const COLOR_GRAY2RGBA = OpenCV.cv_COLOR_GRAY2RGBA
+    const COLOR_HLS2BGR = OpenCV.cv_COLOR_HLS2BGR
+    const COLOR_HLS2BGR_FULL = OpenCV.cv_COLOR_HLS2BGR_FULL
+    const COLOR_HLS2RGB = OpenCV.cv_COLOR_HLS2RGB
+    const COLOR_HLS2RGB_FULL = OpenCV.cv_COLOR_HLS2RGB_FULL
+    const COLOR_HSV2BGR = OpenCV.cv_COLOR_HSV2BGR
+    const COLOR_HSV2BGR_FULL = OpenCV.cv_COLOR_HSV2BGR_FULL
+    const COLOR_HSV2RGB = OpenCV.cv_COLOR_HSV2RGB
+    const COLOR_HSV2RGB_FULL = OpenCV.cv_COLOR_HSV2RGB_FULL
+    const COLOR_LBGR2Lab = OpenCV.cv_COLOR_LBGR2Lab
+    const COLOR_LBGR2LAB = OpenCV.cv_COLOR_LBGR2LAB;
+    const COLOR_LBGR2Luv = OpenCV.cv_COLOR_LBGR2Luv
+    const COLOR_LBGR2LUV = OpenCV.cv_COLOR_LBGR2LUV;
+    const COLOR_LRGB2Lab = OpenCV.cv_COLOR_LRGB2Lab
+    const COLOR_LRGB2LAB = OpenCV.cv_COLOR_LRGB2LAB;
+    const COLOR_LRGB2Luv = OpenCV.cv_COLOR_LRGB2Luv
+    const COLOR_LRGB2LUV = OpenCV.cv_COLOR_LRGB2LUV;
+    const COLOR_Lab2BGR = OpenCV.cv_COLOR_Lab2BGR
+    const COLOR_LAB2BGR = OpenCV.cv_COLOR_LAB2BGR;
+    const COLOR_Lab2LBGR = OpenCV.cv_COLOR_Lab2LBGR
+    const COLOR_LAB2LBGR = OpenCV.cv_COLOR_LAB2LBGR;
+    const COLOR_Lab2LRGB = OpenCV.cv_COLOR_Lab2LRGB
+    const COLOR_LAB2LRGB = OpenCV.cv_COLOR_LAB2LRGB;
+    const COLOR_Lab2RGB = OpenCV.cv_COLOR_Lab2RGB
+    const COLOR_LAB2RGB = OpenCV.cv_COLOR_LAB2RGB;
+    const COLOR_Luv2BGR = OpenCV.cv_COLOR_Luv2BGR
+    const COLOR_LUV2BGR = OpenCV.cv_COLOR_LUV2BGR;
+    const COLOR_Luv2LBGR = OpenCV.cv_COLOR_Luv2LBGR
+    const COLOR_LUV2LBGR = OpenCV.cv_COLOR_LUV2LBGR;
+    const COLOR_Luv2LRGB = OpenCV.cv_COLOR_Luv2LRGB
+    const COLOR_LUV2LRGB = OpenCV.cv_COLOR_LUV2LRGB;
+    const COLOR_Luv2RGB = OpenCV.cv_COLOR_Luv2RGB
+    const COLOR_LUV2RGB = OpenCV.cv_COLOR_LUV2RGB;
+    const COLOR_RGB2BGR = OpenCV.cv_COLOR_RGB2BGR
+    const COLOR_RGB2BGR555 = OpenCV.cv_COLOR_RGB2BGR555
+    const COLOR_RGB2BGR565 = OpenCV.cv_COLOR_RGB2BGR565
+    const COLOR_RGB2BGRA = OpenCV.cv_COLOR_RGB2BGRA
+    const COLOR_RGB2GRAY = OpenCV.cv_COLOR_RGB2GRAY
+    const COLOR_RGB2HLS = OpenCV.cv_COLOR_RGB2HLS
+    const COLOR_RGB2HLS_FULL = OpenCV.cv_COLOR_RGB2HLS_FULL
+    const COLOR_RGB2HSV = OpenCV.cv_COLOR_RGB2HSV
+    const COLOR_RGB2HSV_FULL = OpenCV.cv_COLOR_RGB2HSV_FULL
+    const COLOR_RGB2Lab = OpenCV.cv_COLOR_RGB2Lab
+    const COLOR_RGB2LAB = OpenCV.cv_COLOR_RGB2LAB;
+    const COLOR_RGB2Luv = OpenCV.cv_COLOR_RGB2Luv
+    const COLOR_RGB2LUV = OpenCV.cv_COLOR_RGB2LUV;
+    const COLOR_RGB2RGBA = OpenCV.cv_COLOR_RGB2RGBA
+    const COLOR_RGB2XYZ = OpenCV.cv_COLOR_RGB2XYZ
+    const COLOR_RGB2YCrCb = OpenCV.cv_COLOR_RGB2YCrCb
+    const COLOR_RGB2YCR_CB = OpenCV.cv_COLOR_RGB2YCR_CB;
+    const COLOR_RGB2YUV = OpenCV.cv_COLOR_RGB2YUV
+    const COLOR_RGB2YUV_I420 = OpenCV.cv_COLOR_RGB2YUV_I420
+    const COLOR_RGB2YUV_IYUV = OpenCV.cv_COLOR_RGB2YUV_IYUV
+    const COLOR_RGB2YUV_YV12 = OpenCV.cv_COLOR_RGB2YUV_YV12
+    const COLOR_RGBA2BGR = OpenCV.cv_COLOR_RGBA2BGR
+    const COLOR_RGBA2BGR555 = OpenCV.cv_COLOR_RGBA2BGR555
+    const COLOR_RGBA2BGR565 = OpenCV.cv_COLOR_RGBA2BGR565
+    const COLOR_RGBA2BGRA = OpenCV.cv_COLOR_RGBA2BGRA
+    const COLOR_RGBA2GRAY = OpenCV.cv_COLOR_RGBA2GRAY
+    const COLOR_RGBA2RGB = OpenCV.cv_COLOR_RGBA2RGB
+    const COLOR_RGBA2YUV_I420 = OpenCV.cv_COLOR_RGBA2YUV_I420
+    const COLOR_RGBA2YUV_IYUV = OpenCV.cv_COLOR_RGBA2YUV_IYUV
+    const COLOR_RGBA2YUV_YV12 = OpenCV.cv_COLOR_RGBA2YUV_YV12
+    const COLOR_RGBA2mRGBA = OpenCV.cv_COLOR_RGBA2mRGBA
+    const COLOR_RGBA2M_RGBA = OpenCV.cv_COLOR_RGBA2M_RGBA;
+    const COLOR_XYZ2BGR = OpenCV.cv_COLOR_XYZ2BGR
+    const COLOR_XYZ2RGB = OpenCV.cv_COLOR_XYZ2RGB
+    const COLOR_YCrCb2BGR = OpenCV.cv_COLOR_YCrCb2BGR
+    const COLOR_YCR_CB2BGR = OpenCV.cv_COLOR_YCR_CB2BGR;
+    const COLOR_YCrCb2RGB = OpenCV.cv_COLOR_YCrCb2RGB
+    const COLOR_YCR_CB2RGB = OpenCV.cv_COLOR_YCR_CB2RGB;
+    const COLOR_YUV2BGR = OpenCV.cv_COLOR_YUV2BGR
+    const COLOR_YUV2BGRA_I420 = OpenCV.cv_COLOR_YUV2BGRA_I420
+    const COLOR_YUV2BGRA_IYUV = OpenCV.cv_COLOR_YUV2BGRA_IYUV
+    const COLOR_YUV2BGRA_NV12 = OpenCV.cv_COLOR_YUV2BGRA_NV12
+    const COLOR_YUV2BGRA_NV21 = OpenCV.cv_COLOR_YUV2BGRA_NV21
+    const COLOR_YUV2BGRA_UYNV = OpenCV.cv_COLOR_YUV2BGRA_UYNV
+    const COLOR_YUV2BGRA_UYVY = OpenCV.cv_COLOR_YUV2BGRA_UYVY
+    const COLOR_YUV2BGRA_Y422 = OpenCV.cv_COLOR_YUV2BGRA_Y422
+    const COLOR_YUV2BGRA_YUNV = OpenCV.cv_COLOR_YUV2BGRA_YUNV
+    const COLOR_YUV2BGRA_YUY2 = OpenCV.cv_COLOR_YUV2BGRA_YUY2
+    const COLOR_YUV2BGRA_YUYV = OpenCV.cv_COLOR_YUV2BGRA_YUYV
+    const COLOR_YUV2BGRA_YV12 = OpenCV.cv_COLOR_YUV2BGRA_YV12
+    const COLOR_YUV2BGRA_YVYU = OpenCV.cv_COLOR_YUV2BGRA_YVYU
+    const COLOR_YUV2BGR_I420 = OpenCV.cv_COLOR_YUV2BGR_I420
+    const COLOR_YUV2BGR_IYUV = OpenCV.cv_COLOR_YUV2BGR_IYUV
+    const COLOR_YUV2BGR_NV12 = OpenCV.cv_COLOR_YUV2BGR_NV12
+    const COLOR_YUV2BGR_NV21 = OpenCV.cv_COLOR_YUV2BGR_NV21
+    const COLOR_YUV2BGR_UYNV = OpenCV.cv_COLOR_YUV2BGR_UYNV
+    const COLOR_YUV2BGR_UYVY = OpenCV.cv_COLOR_YUV2BGR_UYVY
+    const COLOR_YUV2BGR_Y422 = OpenCV.cv_COLOR_YUV2BGR_Y422
+    const COLOR_YUV2BGR_YUNV = OpenCV.cv_COLOR_YUV2BGR_YUNV
+    const COLOR_YUV2BGR_YUY2 = OpenCV.cv_COLOR_YUV2BGR_YUY2
+    const COLOR_YUV2BGR_YUYV = OpenCV.cv_COLOR_YUV2BGR_YUYV
+    const COLOR_YUV2BGR_YV12 = OpenCV.cv_COLOR_YUV2BGR_YV12
+    const COLOR_YUV2BGR_YVYU = OpenCV.cv_COLOR_YUV2BGR_YVYU
+    const COLOR_YUV2GRAY_420 = OpenCV.cv_COLOR_YUV2GRAY_420
+    const COLOR_YUV2GRAY_I420 = OpenCV.cv_COLOR_YUV2GRAY_I420
+    const COLOR_YUV2GRAY_IYUV = OpenCV.cv_COLOR_YUV2GRAY_IYUV
+    const COLOR_YUV2GRAY_NV12 = OpenCV.cv_COLOR_YUV2GRAY_NV12
+    const COLOR_YUV2GRAY_NV21 = OpenCV.cv_COLOR_YUV2GRAY_NV21
+    const COLOR_YUV2GRAY_UYNV = OpenCV.cv_COLOR_YUV2GRAY_UYNV
+    const COLOR_YUV2GRAY_UYVY = OpenCV.cv_COLOR_YUV2GRAY_UYVY
+    const COLOR_YUV2GRAY_Y422 = OpenCV.cv_COLOR_YUV2GRAY_Y422
+    const COLOR_YUV2GRAY_YUNV = OpenCV.cv_COLOR_YUV2GRAY_YUNV
+    const COLOR_YUV2GRAY_YUY2 = OpenCV.cv_COLOR_YUV2GRAY_YUY2
+    const COLOR_YUV2GRAY_YUYV = OpenCV.cv_COLOR_YUV2GRAY_YUYV
+    const COLOR_YUV2GRAY_YV12 = OpenCV.cv_COLOR_YUV2GRAY_YV12
+    const COLOR_YUV2GRAY_YVYU = OpenCV.cv_COLOR_YUV2GRAY_YVYU
+    const COLOR_YUV2RGB = OpenCV.cv_COLOR_YUV2RGB
+    const COLOR_YUV2RGBA_I420 = OpenCV.cv_COLOR_YUV2RGBA_I420
+    const COLOR_YUV2RGBA_IYUV = OpenCV.cv_COLOR_YUV2RGBA_IYUV
+    const COLOR_YUV2RGBA_NV12 = OpenCV.cv_COLOR_YUV2RGBA_NV12
+    const COLOR_YUV2RGBA_NV21 = OpenCV.cv_COLOR_YUV2RGBA_NV21
+    const COLOR_YUV2RGBA_UYNV = OpenCV.cv_COLOR_YUV2RGBA_UYNV
+    const COLOR_YUV2RGBA_UYVY = OpenCV.cv_COLOR_YUV2RGBA_UYVY
+    const COLOR_YUV2RGBA_Y422 = OpenCV.cv_COLOR_YUV2RGBA_Y422
+    const COLOR_YUV2RGBA_YUNV = OpenCV.cv_COLOR_YUV2RGBA_YUNV
+    const COLOR_YUV2RGBA_YUY2 = OpenCV.cv_COLOR_YUV2RGBA_YUY2
+    const COLOR_YUV2RGBA_YUYV = OpenCV.cv_COLOR_YUV2RGBA_YUYV
+    const COLOR_YUV2RGBA_YV12 = OpenCV.cv_COLOR_YUV2RGBA_YV12
+    const COLOR_YUV2RGBA_YVYU = OpenCV.cv_COLOR_YUV2RGBA_YVYU
+    const COLOR_YUV2RGB_I420 = OpenCV.cv_COLOR_YUV2RGB_I420
+    const COLOR_YUV2RGB_IYUV = OpenCV.cv_COLOR_YUV2RGB_IYUV
+    const COLOR_YUV2RGB_NV12 = OpenCV.cv_COLOR_YUV2RGB_NV12
+    const COLOR_YUV2RGB_NV21 = OpenCV.cv_COLOR_YUV2RGB_NV21
+    const COLOR_YUV2RGB_UYNV = OpenCV.cv_COLOR_YUV2RGB_UYNV
+    const COLOR_YUV2RGB_UYVY = OpenCV.cv_COLOR_YUV2RGB_UYVY
+    const COLOR_YUV2RGB_Y422 = OpenCV.cv_COLOR_YUV2RGB_Y422
+    const COLOR_YUV2RGB_YUNV = OpenCV.cv_COLOR_YUV2RGB_YUNV
+    const COLOR_YUV2RGB_YUY2 = OpenCV.cv_COLOR_YUV2RGB_YUY2
+    const COLOR_YUV2RGB_YUYV = OpenCV.cv_COLOR_YUV2RGB_YUYV
+    const COLOR_YUV2RGB_YV12 = OpenCV.cv_COLOR_YUV2RGB_YV12
+    const COLOR_YUV2RGB_YVYU = OpenCV.cv_COLOR_YUV2RGB_YVYU
+    const COLOR_YUV420p2BGR = OpenCV.cv_COLOR_YUV420p2BGR
+    const COLOR_YUV420P2BGR = OpenCV.cv_COLOR_YUV420P2BGR;
+    const COLOR_YUV420p2BGRA = OpenCV.cv_COLOR_YUV420p2BGRA
+    const COLOR_YUV420P2BGRA = OpenCV.cv_COLOR_YUV420P2BGRA;
+    const COLOR_YUV420p2GRAY = OpenCV.cv_COLOR_YUV420p2GRAY
+    const COLOR_YUV420P2GRAY = OpenCV.cv_COLOR_YUV420P2GRAY;
+    const COLOR_YUV420p2RGB = OpenCV.cv_COLOR_YUV420p2RGB
+    const COLOR_YUV420P2RGB = OpenCV.cv_COLOR_YUV420P2RGB;
+    const COLOR_YUV420p2RGBA = OpenCV.cv_COLOR_YUV420p2RGBA
+    const COLOR_YUV420P2RGBA = OpenCV.cv_COLOR_YUV420P2RGBA;
+    const COLOR_YUV420sp2BGR = OpenCV.cv_COLOR_YUV420sp2BGR
+    const COLOR_YUV420SP2BGR = OpenCV.cv_COLOR_YUV420SP2BGR;
+    const COLOR_YUV420sp2BGRA = OpenCV.cv_COLOR_YUV420sp2BGRA
+    const COLOR_YUV420SP2BGRA = OpenCV.cv_COLOR_YUV420SP2BGRA;
+    const COLOR_YUV420sp2GRAY = OpenCV.cv_COLOR_YUV420sp2GRAY
+    const COLOR_YUV420SP2GRAY = OpenCV.cv_COLOR_YUV420SP2GRAY;
+    const COLOR_YUV420sp2RGB = OpenCV.cv_COLOR_YUV420sp2RGB
+    const COLOR_YUV420SP2RGB = OpenCV.cv_COLOR_YUV420SP2RGB;
+    const COLOR_YUV420sp2RGBA = OpenCV.cv_COLOR_YUV420sp2RGBA
+    const COLOR_YUV420SP2RGBA = OpenCV.cv_COLOR_YUV420SP2RGBA;
+    const COLOR_mRGBA2RGBA = OpenCV.cv_COLOR_mRGBA2RGBA
+    const COLOR_M_RGBA2RGBA = OpenCV.cv_COLOR_M_RGBA2RGBA;
+    const CONTOURS_MATCH_I1 = OpenCV.cv_CONTOURS_MATCH_I1
+    const CONTOURS_MATCH_I2 = OpenCV.cv_CONTOURS_MATCH_I2
+    const CONTOURS_MATCH_I3 = OpenCV.cv_CONTOURS_MATCH_I3
+    const COVAR_COLS = OpenCV.cv_COVAR_COLS
+    const COVAR_NORMAL = OpenCV.cv_COVAR_NORMAL
+    const COVAR_ROWS = OpenCV.cv_COVAR_ROWS
+    const COVAR_SCALE = OpenCV.cv_COVAR_SCALE
+    const COVAR_SCRAMBLED = OpenCV.cv_COVAR_SCRAMBLED
+    const COVAR_USE_AVG = OpenCV.cv_COVAR_USE_AVG
+    const DCT_INVERSE = OpenCV.cv_DCT_INVERSE
+    const DCT_ROWS = OpenCV.cv_DCT_ROWS
+    const DECOMP_CHOLESKY = OpenCV.cv_DECOMP_CHOLESKY
+    const DECOMP_EIG = OpenCV.cv_DECOMP_EIG
+    const DECOMP_LU = OpenCV.cv_DECOMP_LU
+    const DECOMP_NORMAL = OpenCV.cv_DECOMP_NORMAL
+    const DECOMP_QR = OpenCV.cv_DECOMP_QR
+    const DECOMP_SVD = OpenCV.cv_DECOMP_SVD
+    const DFT_COMPLEX_INPUT = OpenCV.cv_DFT_COMPLEX_INPUT
+    const DFT_COMPLEX_OUTPUT = OpenCV.cv_DFT_COMPLEX_OUTPUT
+    const DFT_INVERSE = OpenCV.cv_DFT_INVERSE
+    const DFT_REAL_OUTPUT = OpenCV.cv_DFT_REAL_OUTPUT
+    const DFT_ROWS = OpenCV.cv_DFT_ROWS
+    const DFT_SCALE = OpenCV.cv_DFT_SCALE
+    const DIST_C = OpenCV.cv_DIST_C
+    const DIST_FAIR = OpenCV.cv_DIST_FAIR
+    const DIST_HUBER = OpenCV.cv_DIST_HUBER
+    const DIST_L1 = OpenCV.cv_DIST_L1
+    const DIST_L12 = OpenCV.cv_DIST_L12
+    const DIST_L2 = OpenCV.cv_DIST_L2
+    const DIST_LABEL_CCOMP = OpenCV.cv_DIST_LABEL_CCOMP
+    const DIST_LABEL_PIXEL = OpenCV.cv_DIST_LABEL_PIXEL
+    const DIST_MASK_3 = OpenCV.cv_DIST_MASK_3
+    const DIST_MASK_5 = OpenCV.cv_DIST_MASK_5
+    const DIST_MASK_PRECISE = OpenCV.cv_DIST_MASK_PRECISE
+    const DIST_USER = OpenCV.cv_DIST_USER
+    const DIST_WELSCH = OpenCV.cv_DIST_WELSCH
+    const EVENT_FLAG_ALTKEY = OpenCV.cv_EVENT_FLAG_ALTKEY
+    const EVENT_FLAG_CTRLKEY = OpenCV.cv_EVENT_FLAG_CTRLKEY
+    const EVENT_FLAG_LBUTTON = OpenCV.cv_EVENT_FLAG_LBUTTON
+    const EVENT_FLAG_MBUTTON = OpenCV.cv_EVENT_FLAG_MBUTTON
+    const EVENT_FLAG_RBUTTON = OpenCV.cv_EVENT_FLAG_RBUTTON
+    const EVENT_FLAG_SHIFTKEY = OpenCV.cv_EVENT_FLAG_SHIFTKEY
+    const EVENT_LBUTTONDBLCLK = OpenCV.cv_EVENT_LBUTTONDBLCLK
+    const EVENT_LBUTTONDOWN = OpenCV.cv_EVENT_LBUTTONDOWN
+    const EVENT_LBUTTONUP = OpenCV.cv_EVENT_LBUTTONUP
+    const EVENT_MBUTTONDBLCLK = OpenCV.cv_EVENT_MBUTTONDBLCLK
+    const EVENT_MBUTTONDOWN = OpenCV.cv_EVENT_MBUTTONDOWN
+    const EVENT_MBUTTONUP = OpenCV.cv_EVENT_MBUTTONUP
+    const EVENT_MOUSEHWHEEL = OpenCV.cv_EVENT_MOUSEHWHEEL
+    const EVENT_MOUSEMOVE = OpenCV.cv_EVENT_MOUSEMOVE
+    const EVENT_MOUSEWHEEL = OpenCV.cv_EVENT_MOUSEWHEEL
+    const EVENT_RBUTTONDBLCLK = OpenCV.cv_EVENT_RBUTTONDBLCLK
+    const EVENT_RBUTTONDOWN = OpenCV.cv_EVENT_RBUTTONDOWN
+    const EVENT_RBUTTONUP = OpenCV.cv_EVENT_RBUTTONUP
+    const FILLED = OpenCV.cv_FILLED
+    const FILTER_SCHARR = OpenCV.cv_FILTER_SCHARR
+    const FLOODFILL_FIXED_RANGE = OpenCV.cv_FLOODFILL_FIXED_RANGE
+    const FLOODFILL_MASK_ONLY = OpenCV.cv_FLOODFILL_MASK_ONLY
+    const FONT_HERSHEY_COMPLEX = OpenCV.cv_FONT_HERSHEY_COMPLEX
+    const FONT_HERSHEY_COMPLEX_SMALL = OpenCV.cv_FONT_HERSHEY_COMPLEX_SMALL
+    const FONT_HERSHEY_DUPLEX = OpenCV.cv_FONT_HERSHEY_DUPLEX
+    const FONT_HERSHEY_PLAIN = OpenCV.cv_FONT_HERSHEY_PLAIN
+    const FONT_HERSHEY_SCRIPT_COMPLEX = OpenCV.cv_FONT_HERSHEY_SCRIPT_COMPLEX
+    const FONT_HERSHEY_SCRIPT_SIMPLEX = OpenCV.cv_FONT_HERSHEY_SCRIPT_SIMPLEX
+    const FONT_HERSHEY_SIMPLEX = OpenCV.cv_FONT_HERSHEY_SIMPLEX
+    const FONT_HERSHEY_TRIPLEX = OpenCV.cv_FONT_HERSHEY_TRIPLEX
+    const FONT_ITALIC = OpenCV.cv_FONT_ITALIC
+    const FileNode_EMPTY = OpenCV.cv_FileNode_EMPTY
+    const FILE_NODE_EMPTY = OpenCV.cv_FILE_NODE_EMPTY;
+    const FileNode_FLOAT = OpenCV.cv_FileNode_FLOAT
+    const FILE_NODE_FLOAT = OpenCV.cv_FILE_NODE_FLOAT;
+    const FileNode_FLOW = OpenCV.cv_FileNode_FLOW
+    const FILE_NODE_FLOW = OpenCV.cv_FILE_NODE_FLOW;
+    const FileNode_INT = OpenCV.cv_FileNode_INT
+    const FILE_NODE_INT = OpenCV.cv_FILE_NODE_INT;
+    const FileNode_MAP = OpenCV.cv_FileNode_MAP
+    const FILE_NODE_MAP = OpenCV.cv_FILE_NODE_MAP;
+    const FileNode_NAMED = OpenCV.cv_FileNode_NAMED
+    const FILE_NODE_NAMED = OpenCV.cv_FILE_NODE_NAMED;
+    const FileNode_NONE = OpenCV.cv_FileNode_NONE
+    const FILE_NODE_NONE = OpenCV.cv_FILE_NODE_NONE;
+    const FileNode_REAL = OpenCV.cv_FileNode_REAL
+    const FILE_NODE_REAL = OpenCV.cv_FILE_NODE_REAL;
+    const FileNode_SEQ = OpenCV.cv_FileNode_SEQ
+    const FILE_NODE_SEQ = OpenCV.cv_FILE_NODE_SEQ;
+    const FileNode_STR = OpenCV.cv_FileNode_STR
+    const FILE_NODE_STR = OpenCV.cv_FILE_NODE_STR;
+    const FileNode_STRING = OpenCV.cv_FileNode_STRING
+    const FILE_NODE_STRING = OpenCV.cv_FILE_NODE_STRING;
+    const FileNode_TYPE_MASK = OpenCV.cv_FileNode_TYPE_MASK
+    const FILE_NODE_TYPE_MASK = OpenCV.cv_FILE_NODE_TYPE_MASK;
+    const FileNode_UNIFORM = OpenCV.cv_FileNode_UNIFORM
+    const FILE_NODE_UNIFORM = OpenCV.cv_FILE_NODE_UNIFORM;
+    const FileStorage_APPEND = OpenCV.cv_FileStorage_APPEND
+    const FILE_STORAGE_APPEND = OpenCV.cv_FILE_STORAGE_APPEND;
+    const FileStorage_BASE64 = OpenCV.cv_FileStorage_BASE64
+    const FILE_STORAGE_BASE64 = OpenCV.cv_FILE_STORAGE_BASE64;
+    const FileStorage_FORMAT_AUTO = OpenCV.cv_FileStorage_FORMAT_AUTO
+    const FILE_STORAGE_FORMAT_AUTO = OpenCV.cv_FILE_STORAGE_FORMAT_AUTO;
+    const FileStorage_FORMAT_JSON = OpenCV.cv_FileStorage_FORMAT_JSON
+    const FILE_STORAGE_FORMAT_JSON = OpenCV.cv_FILE_STORAGE_FORMAT_JSON;
+    const FileStorage_FORMAT_MASK = OpenCV.cv_FileStorage_FORMAT_MASK
+    const FILE_STORAGE_FORMAT_MASK = OpenCV.cv_FILE_STORAGE_FORMAT_MASK;
+    const FileStorage_FORMAT_XML = OpenCV.cv_FileStorage_FORMAT_XML
+    const FILE_STORAGE_FORMAT_XML = OpenCV.cv_FILE_STORAGE_FORMAT_XML;
+    const FileStorage_FORMAT_YAML = OpenCV.cv_FileStorage_FORMAT_YAML
+    const FILE_STORAGE_FORMAT_YAML = OpenCV.cv_FILE_STORAGE_FORMAT_YAML;
+    const FileStorage_INSIDE_MAP = OpenCV.cv_FileStorage_INSIDE_MAP
+    const FILE_STORAGE_INSIDE_MAP = OpenCV.cv_FILE_STORAGE_INSIDE_MAP;
+    const FileStorage_MEMORY = OpenCV.cv_FileStorage_MEMORY
+    const FILE_STORAGE_MEMORY = OpenCV.cv_FILE_STORAGE_MEMORY;
+    const FileStorage_NAME_EXPECTED = OpenCV.cv_FileStorage_NAME_EXPECTED
+    const FILE_STORAGE_NAME_EXPECTED = OpenCV.cv_FILE_STORAGE_NAME_EXPECTED;
+    const FileStorage_READ = OpenCV.cv_FileStorage_READ
+    const FILE_STORAGE_READ = OpenCV.cv_FILE_STORAGE_READ;
+    const FileStorage_UNDEFINED = OpenCV.cv_FileStorage_UNDEFINED
+    const FILE_STORAGE_UNDEFINED = OpenCV.cv_FILE_STORAGE_UNDEFINED;
+    const FileStorage_VALUE_EXPECTED = OpenCV.cv_FileStorage_VALUE_EXPECTED
+    const FILE_STORAGE_VALUE_EXPECTED = OpenCV.cv_FILE_STORAGE_VALUE_EXPECTED;
+    const FileStorage_WRITE = OpenCV.cv_FileStorage_WRITE
+    const FILE_STORAGE_WRITE = OpenCV.cv_FILE_STORAGE_WRITE;
+    const FileStorage_WRITE_BASE64 = OpenCV.cv_FileStorage_WRITE_BASE64
+    const FILE_STORAGE_WRITE_BASE64 = OpenCV.cv_FILE_STORAGE_WRITE_BASE64;
+    const Formatter_FMT_C = OpenCV.cv_Formatter_FMT_C
+    const FORMATTER_FMT_C = OpenCV.cv_FORMATTER_FMT_C;
+    const Formatter_FMT_CSV = OpenCV.cv_Formatter_FMT_CSV
+    const FORMATTER_FMT_CSV = OpenCV.cv_FORMATTER_FMT_CSV;
+    const Formatter_FMT_DEFAULT = OpenCV.cv_Formatter_FMT_DEFAULT
+    const FORMATTER_FMT_DEFAULT = OpenCV.cv_FORMATTER_FMT_DEFAULT;
+    const Formatter_FMT_MATLAB = OpenCV.cv_Formatter_FMT_MATLAB
+    const FORMATTER_FMT_MATLAB = OpenCV.cv_FORMATTER_FMT_MATLAB;
+    const Formatter_FMT_NUMPY = OpenCV.cv_Formatter_FMT_NUMPY
+    const FORMATTER_FMT_NUMPY = OpenCV.cv_FORMATTER_FMT_NUMPY;
+    const Formatter_FMT_PYTHON = OpenCV.cv_Formatter_FMT_PYTHON
+    const FORMATTER_FMT_PYTHON = OpenCV.cv_FORMATTER_FMT_PYTHON;
+    const GC_BGD = OpenCV.cv_GC_BGD
+    const GC_EVAL = OpenCV.cv_GC_EVAL
+    const GC_EVAL_FREEZE_MODEL = OpenCV.cv_GC_EVAL_FREEZE_MODEL
+    const GC_FGD = OpenCV.cv_GC_FGD
+    const GC_INIT_WITH_MASK = OpenCV.cv_GC_INIT_WITH_MASK
+    const GC_INIT_WITH_RECT = OpenCV.cv_GC_INIT_WITH_RECT
+    const GC_PR_BGD = OpenCV.cv_GC_PR_BGD
+    const GC_PR_FGD = OpenCV.cv_GC_PR_FGD
+    const GEMM_1_T = OpenCV.cv_GEMM_1_T
+    const GEMM_2_T = OpenCV.cv_GEMM_2_T
+    const GEMM_3_T = OpenCV.cv_GEMM_3_T
+    const HISTCMP_BHATTACHARYYA = OpenCV.cv_HISTCMP_BHATTACHARYYA
+    const HISTCMP_CHISQR = OpenCV.cv_HISTCMP_CHISQR
+    const HISTCMP_CHISQR_ALT = OpenCV.cv_HISTCMP_CHISQR_ALT
+    const HISTCMP_CORREL = OpenCV.cv_HISTCMP_CORREL
+    const HISTCMP_HELLINGER = OpenCV.cv_HISTCMP_HELLINGER
+    const HISTCMP_INTERSECT = OpenCV.cv_HISTCMP_INTERSECT
+    const HISTCMP_KL_DIV = OpenCV.cv_HISTCMP_KL_DIV
+    const HOUGH_GRADIENT = OpenCV.cv_HOUGH_GRADIENT
+    const HOUGH_GRADIENT_ALT = OpenCV.cv_HOUGH_GRADIENT_ALT
+    const HOUGH_MULTI_SCALE = OpenCV.cv_HOUGH_MULTI_SCALE
+    const HOUGH_PROBABILISTIC = OpenCV.cv_HOUGH_PROBABILISTIC
+    const HOUGH_STANDARD = OpenCV.cv_HOUGH_STANDARD
+    const IMREAD_ANYCOLOR = OpenCV.cv_IMREAD_ANYCOLOR
+    const IMREAD_ANYDEPTH = OpenCV.cv_IMREAD_ANYDEPTH
+    const IMREAD_COLOR = OpenCV.cv_IMREAD_COLOR
+    const IMREAD_GRAYSCALE = OpenCV.cv_IMREAD_GRAYSCALE
+    const IMREAD_IGNORE_ORIENTATION = OpenCV.cv_IMREAD_IGNORE_ORIENTATION
+    const IMREAD_LOAD_GDAL = OpenCV.cv_IMREAD_LOAD_GDAL
+    const IMREAD_REDUCED_COLOR_2 = OpenCV.cv_IMREAD_REDUCED_COLOR_2
+    const IMREAD_REDUCED_COLOR_4 = OpenCV.cv_IMREAD_REDUCED_COLOR_4
+    const IMREAD_REDUCED_COLOR_8 = OpenCV.cv_IMREAD_REDUCED_COLOR_8
+    const IMREAD_REDUCED_GRAYSCALE_2 = OpenCV.cv_IMREAD_REDUCED_GRAYSCALE_2
+    const IMREAD_REDUCED_GRAYSCALE_4 = OpenCV.cv_IMREAD_REDUCED_GRAYSCALE_4
+    const IMREAD_REDUCED_GRAYSCALE_8 = OpenCV.cv_IMREAD_REDUCED_GRAYSCALE_8
+    const IMREAD_UNCHANGED = OpenCV.cv_IMREAD_UNCHANGED
+    const IMWRITE_EXR_TYPE = OpenCV.cv_IMWRITE_EXR_TYPE
+    const IMWRITE_EXR_TYPE_FLOAT = OpenCV.cv_IMWRITE_EXR_TYPE_FLOAT
+    const IMWRITE_EXR_TYPE_HALF = OpenCV.cv_IMWRITE_EXR_TYPE_HALF
+    const IMWRITE_JPEG2000_COMPRESSION_X1000 = OpenCV.cv_IMWRITE_JPEG2000_COMPRESSION_X1000
+    const IMWRITE_JPEG_CHROMA_QUALITY = OpenCV.cv_IMWRITE_JPEG_CHROMA_QUALITY
+    const IMWRITE_JPEG_LUMA_QUALITY = OpenCV.cv_IMWRITE_JPEG_LUMA_QUALITY
+    const IMWRITE_JPEG_OPTIMIZE = OpenCV.cv_IMWRITE_JPEG_OPTIMIZE
+    const IMWRITE_JPEG_PROGRESSIVE = OpenCV.cv_IMWRITE_JPEG_PROGRESSIVE
+    const IMWRITE_JPEG_QUALITY = OpenCV.cv_IMWRITE_JPEG_QUALITY
+    const IMWRITE_JPEG_RST_INTERVAL = OpenCV.cv_IMWRITE_JPEG_RST_INTERVAL
+    const IMWRITE_PAM_FORMAT_BLACKANDWHITE = OpenCV.cv_IMWRITE_PAM_FORMAT_BLACKANDWHITE
+    const IMWRITE_PAM_FORMAT_GRAYSCALE = OpenCV.cv_IMWRITE_PAM_FORMAT_GRAYSCALE
+    const IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA = OpenCV.cv_IMWRITE_PAM_FORMAT_GRAYSCALE_ALPHA
+    const IMWRITE_PAM_FORMAT_NULL = OpenCV.cv_IMWRITE_PAM_FORMAT_NULL
+    const IMWRITE_PAM_FORMAT_RGB = OpenCV.cv_IMWRITE_PAM_FORMAT_RGB
+    const IMWRITE_PAM_FORMAT_RGB_ALPHA = OpenCV.cv_IMWRITE_PAM_FORMAT_RGB_ALPHA
+    const IMWRITE_PAM_TUPLETYPE = OpenCV.cv_IMWRITE_PAM_TUPLETYPE
+    const IMWRITE_PNG_BILEVEL = OpenCV.cv_IMWRITE_PNG_BILEVEL
+    const IMWRITE_PNG_COMPRESSION = OpenCV.cv_IMWRITE_PNG_COMPRESSION
+    const IMWRITE_PNG_STRATEGY = OpenCV.cv_IMWRITE_PNG_STRATEGY
+    const IMWRITE_PNG_STRATEGY_DEFAULT = OpenCV.cv_IMWRITE_PNG_STRATEGY_DEFAULT
+    const IMWRITE_PNG_STRATEGY_FILTERED = OpenCV.cv_IMWRITE_PNG_STRATEGY_FILTERED
+    const IMWRITE_PNG_STRATEGY_FIXED = OpenCV.cv_IMWRITE_PNG_STRATEGY_FIXED
+    const IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY = OpenCV.cv_IMWRITE_PNG_STRATEGY_HUFFMAN_ONLY
+    const IMWRITE_PNG_STRATEGY_RLE = OpenCV.cv_IMWRITE_PNG_STRATEGY_RLE
+    const IMWRITE_PXM_BINARY = OpenCV.cv_IMWRITE_PXM_BINARY
+    const IMWRITE_TIFF_COMPRESSION = OpenCV.cv_IMWRITE_TIFF_COMPRESSION
+    const IMWRITE_TIFF_RESUNIT = OpenCV.cv_IMWRITE_TIFF_RESUNIT
+    const IMWRITE_TIFF_XDPI = OpenCV.cv_IMWRITE_TIFF_XDPI
+    const IMWRITE_TIFF_YDPI = OpenCV.cv_IMWRITE_TIFF_YDPI
+    const IMWRITE_WEBP_QUALITY = OpenCV.cv_IMWRITE_WEBP_QUALITY
+    const INTERSECT_FULL = OpenCV.cv_INTERSECT_FULL
+    const INTERSECT_NONE = OpenCV.cv_INTERSECT_NONE
+    const INTERSECT_PARTIAL = OpenCV.cv_INTERSECT_PARTIAL
+    const INTER_AREA = OpenCV.cv_INTER_AREA
+    const INTER_BITS = OpenCV.cv_INTER_BITS
+    const INTER_BITS2 = OpenCV.cv_INTER_BITS2
+    const INTER_CUBIC = OpenCV.cv_INTER_CUBIC
+    const INTER_LANCZOS4 = OpenCV.cv_INTER_LANCZOS4
+    const INTER_LINEAR = OpenCV.cv_INTER_LINEAR
+    const INTER_LINEAR_EXACT = OpenCV.cv_INTER_LINEAR_EXACT
+    const INTER_MAX = OpenCV.cv_INTER_MAX
+    const INTER_NEAREST = OpenCV.cv_INTER_NEAREST
+    const INTER_TAB_SIZE = OpenCV.cv_INTER_TAB_SIZE
+    const INTER_TAB_SIZE2 = OpenCV.cv_INTER_TAB_SIZE2
+    const KMEANS_PP_CENTERS = OpenCV.cv_KMEANS_PP_CENTERS
+    const KMEANS_RANDOM_CENTERS = OpenCV.cv_KMEANS_RANDOM_CENTERS
+    const KMEANS_USE_INITIAL_LABELS = OpenCV.cv_KMEANS_USE_INITIAL_LABELS
+    const LINE_4 = OpenCV.cv_LINE_4
+    const LINE_8 = OpenCV.cv_LINE_8
+    const LINE_AA = OpenCV.cv_LINE_AA
+    const LSD_REFINE_ADV = OpenCV.cv_LSD_REFINE_ADV
+    const LSD_REFINE_NONE = OpenCV.cv_LSD_REFINE_NONE
+    const LSD_REFINE_STD = OpenCV.cv_LSD_REFINE_STD
+    const MARKER_CROSS = OpenCV.cv_MARKER_CROSS
+    const MARKER_DIAMOND = OpenCV.cv_MARKER_DIAMOND
+    const MARKER_SQUARE = OpenCV.cv_MARKER_SQUARE
+    const MARKER_STAR = OpenCV.cv_MARKER_STAR
+    const MARKER_TILTED_CROSS = OpenCV.cv_MARKER_TILTED_CROSS
+    const MARKER_TRIANGLE_DOWN = OpenCV.cv_MARKER_TRIANGLE_DOWN
+    const MARKER_TRIANGLE_UP = OpenCV.cv_MARKER_TRIANGLE_UP
+    const MORPH_BLACKHAT = OpenCV.cv_MORPH_BLACKHAT
+    const MORPH_CLOSE = OpenCV.cv_MORPH_CLOSE
+    const MORPH_CROSS = OpenCV.cv_MORPH_CROSS
+    const MORPH_DILATE = OpenCV.cv_MORPH_DILATE
+    const MORPH_ELLIPSE = OpenCV.cv_MORPH_ELLIPSE
+    const MORPH_ERODE = OpenCV.cv_MORPH_ERODE
+    const MORPH_GRADIENT = OpenCV.cv_MORPH_GRADIENT
+    const MORPH_HITMISS = OpenCV.cv_MORPH_HITMISS
+    const MORPH_OPEN = OpenCV.cv_MORPH_OPEN
+    const MORPH_RECT = OpenCV.cv_MORPH_RECT
+    const MORPH_TOPHAT = OpenCV.cv_MORPH_TOPHAT
+    const NORM_HAMMING = OpenCV.cv_NORM_HAMMING
+    const NORM_HAMMING2 = OpenCV.cv_NORM_HAMMING2
+    const NORM_INF = OpenCV.cv_NORM_INF
+    const NORM_L1 = OpenCV.cv_NORM_L1
+    const NORM_L2 = OpenCV.cv_NORM_L2
+    const NORM_L2SQR = OpenCV.cv_NORM_L2SQR
+    const NORM_MINMAX = OpenCV.cv_NORM_MINMAX
+    const NORM_RELATIVE = OpenCV.cv_NORM_RELATIVE
+    const NORM_TYPE_MASK = OpenCV.cv_NORM_TYPE_MASK
+    const PCA_DATA_AS_COL = OpenCV.cv_PCA_DATA_AS_COL
+    const PCA_DATA_AS_ROW = OpenCV.cv_PCA_DATA_AS_ROW
+    const PCA_USE_AVG = OpenCV.cv_PCA_USE_AVG
+    const Param_ALGORITHM = OpenCV.cv_Param_ALGORITHM
+    const PARAM_ALGORITHM = OpenCV.cv_PARAM_ALGORITHM;
+    const Param_BOOLEAN = OpenCV.cv_Param_BOOLEAN
+    const PARAM_BOOLEAN = OpenCV.cv_PARAM_BOOLEAN;
+    const Param_FLOAT = OpenCV.cv_Param_FLOAT
+    const PARAM_FLOAT = OpenCV.cv_PARAM_FLOAT;
+    const Param_INT = OpenCV.cv_Param_INT
+    const PARAM_INT = OpenCV.cv_PARAM_INT;
+    const Param_MAT = OpenCV.cv_Param_MAT
+    const PARAM_MAT = OpenCV.cv_PARAM_MAT;
+    const Param_MAT_VECTOR = OpenCV.cv_Param_MAT_VECTOR
+    const PARAM_MAT_VECTOR = OpenCV.cv_PARAM_MAT_VECTOR;
+    const Param_REAL = OpenCV.cv_Param_REAL
+    const PARAM_REAL = OpenCV.cv_PARAM_REAL;
+    const Param_SCALAR = OpenCV.cv_Param_SCALAR
+    const PARAM_SCALAR = OpenCV.cv_PARAM_SCALAR;
+    const Param_STRING = OpenCV.cv_Param_STRING
+    const PARAM_STRING = OpenCV.cv_PARAM_STRING;
+    const Param_UCHAR = OpenCV.cv_Param_UCHAR
+    const PARAM_UCHAR = OpenCV.cv_PARAM_UCHAR;
+    const Param_UINT64 = OpenCV.cv_Param_UINT64
+    const PARAM_UINT64 = OpenCV.cv_PARAM_UINT64;
+    const Param_UNSIGNED_INT = OpenCV.cv_Param_UNSIGNED_INT
+    const PARAM_UNSIGNED_INT = OpenCV.cv_PARAM_UNSIGNED_INT;
+    const QT_CHECKBOX = OpenCV.cv_QT_CHECKBOX
+    const QT_FONT_BLACK = OpenCV.cv_QT_FONT_BLACK
+    const QT_FONT_BOLD = OpenCV.cv_QT_FONT_BOLD
+    const QT_FONT_DEMIBOLD = OpenCV.cv_QT_FONT_DEMIBOLD
+    const QT_FONT_LIGHT = OpenCV.cv_QT_FONT_LIGHT
+    const QT_FONT_NORMAL = OpenCV.cv_QT_FONT_NORMAL
+    const QT_NEW_BUTTONBAR = OpenCV.cv_QT_NEW_BUTTONBAR
+    const QT_PUSH_BUTTON = OpenCV.cv_QT_PUSH_BUTTON
+    const QT_RADIOBOX = OpenCV.cv_QT_RADIOBOX
+    const QT_STYLE_ITALIC = OpenCV.cv_QT_STYLE_ITALIC
+    const QT_STYLE_NORMAL = OpenCV.cv_QT_STYLE_NORMAL
+    const QT_STYLE_OBLIQUE = OpenCV.cv_QT_STYLE_OBLIQUE
+    const REDUCE_AVG = OpenCV.cv_REDUCE_AVG
+    const REDUCE_MAX = OpenCV.cv_REDUCE_MAX
+    const REDUCE_MIN = OpenCV.cv_REDUCE_MIN
+    const REDUCE_SUM = OpenCV.cv_REDUCE_SUM
+    const RETR_CCOMP = OpenCV.cv_RETR_CCOMP
+    const RETR_EXTERNAL = OpenCV.cv_RETR_EXTERNAL
+    const RETR_FLOODFILL = OpenCV.cv_RETR_FLOODFILL
+    const RETR_LIST = OpenCV.cv_RETR_LIST
+    const RETR_TREE = OpenCV.cv_RETR_TREE
+    const RNG_NORMAL = OpenCV.cv_RNG_NORMAL
+    const RNG_UNIFORM = OpenCV.cv_RNG_UNIFORM
+    const ROTATE_180 = OpenCV.cv_ROTATE_180
+    const ROTATE_90_CLOCKWISE = OpenCV.cv_ROTATE_90_CLOCKWISE
+    const ROTATE_90_COUNTERCLOCKWISE = OpenCV.cv_ROTATE_90_COUNTERCLOCKWISE
+    const SOLVELP_MULTI = OpenCV.cv_SOLVELP_MULTI
+    const SOLVELP_SINGLE = OpenCV.cv_SOLVELP_SINGLE
+    const SOLVELP_UNBOUNDED = OpenCV.cv_SOLVELP_UNBOUNDED
+    const SOLVELP_UNFEASIBLE = OpenCV.cv_SOLVELP_UNFEASIBLE
+    const SORT_ASCENDING = OpenCV.cv_SORT_ASCENDING
+    const SORT_DESCENDING = OpenCV.cv_SORT_DESCENDING
+    const SORT_EVERY_COLUMN = OpenCV.cv_SORT_EVERY_COLUMN
+    const SORT_EVERY_ROW = OpenCV.cv_SORT_EVERY_ROW
+    const SVD_FULL_UV = OpenCV.cv_SVD_FULL_UV
+    const SVD_MODIFY_A = OpenCV.cv_SVD_MODIFY_A
+    const SVD_NO_UV = OpenCV.cv_SVD_NO_UV
+    const Subdiv2D_NEXT_AROUND_DST = OpenCV.cv_Subdiv2D_NEXT_AROUND_DST
+    const SUBDIV2D_NEXT_AROUND_DST = OpenCV.cv_SUBDIV2D_NEXT_AROUND_DST;
+    const Subdiv2D_NEXT_AROUND_LEFT = OpenCV.cv_Subdiv2D_NEXT_AROUND_LEFT
+    const SUBDIV2D_NEXT_AROUND_LEFT = OpenCV.cv_SUBDIV2D_NEXT_AROUND_LEFT;
+    const Subdiv2D_NEXT_AROUND_ORG = OpenCV.cv_Subdiv2D_NEXT_AROUND_ORG
+    const SUBDIV2D_NEXT_AROUND_ORG = OpenCV.cv_SUBDIV2D_NEXT_AROUND_ORG;
+    const Subdiv2D_NEXT_AROUND_RIGHT = OpenCV.cv_Subdiv2D_NEXT_AROUND_RIGHT
+    const SUBDIV2D_NEXT_AROUND_RIGHT = OpenCV.cv_SUBDIV2D_NEXT_AROUND_RIGHT;
+    const Subdiv2D_PREV_AROUND_DST = OpenCV.cv_Subdiv2D_PREV_AROUND_DST
+    const SUBDIV2D_PREV_AROUND_DST = OpenCV.cv_SUBDIV2D_PREV_AROUND_DST;
+    const Subdiv2D_PREV_AROUND_LEFT = OpenCV.cv_Subdiv2D_PREV_AROUND_LEFT
+    const SUBDIV2D_PREV_AROUND_LEFT = OpenCV.cv_SUBDIV2D_PREV_AROUND_LEFT;
+    const Subdiv2D_PREV_AROUND_ORG = OpenCV.cv_Subdiv2D_PREV_AROUND_ORG
+    const SUBDIV2D_PREV_AROUND_ORG = OpenCV.cv_SUBDIV2D_PREV_AROUND_ORG;
+    const Subdiv2D_PREV_AROUND_RIGHT = OpenCV.cv_Subdiv2D_PREV_AROUND_RIGHT
+    const SUBDIV2D_PREV_AROUND_RIGHT = OpenCV.cv_SUBDIV2D_PREV_AROUND_RIGHT;
+    const Subdiv2D_PTLOC_ERROR = OpenCV.cv_Subdiv2D_PTLOC_ERROR
+    const SUBDIV2D_PTLOC_ERROR = OpenCV.cv_SUBDIV2D_PTLOC_ERROR;
+    const Subdiv2D_PTLOC_INSIDE = OpenCV.cv_Subdiv2D_PTLOC_INSIDE
+    const SUBDIV2D_PTLOC_INSIDE = OpenCV.cv_SUBDIV2D_PTLOC_INSIDE;
+    const Subdiv2D_PTLOC_ON_EDGE = OpenCV.cv_Subdiv2D_PTLOC_ON_EDGE
+    const SUBDIV2D_PTLOC_ON_EDGE = OpenCV.cv_SUBDIV2D_PTLOC_ON_EDGE;
+    const Subdiv2D_PTLOC_OUTSIDE_RECT = OpenCV.cv_Subdiv2D_PTLOC_OUTSIDE_RECT
+    const SUBDIV2D_PTLOC_OUTSIDE_RECT = OpenCV.cv_SUBDIV2D_PTLOC_OUTSIDE_RECT;
+    const Subdiv2D_PTLOC_VERTEX = OpenCV.cv_Subdiv2D_PTLOC_VERTEX
+    const SUBDIV2D_PTLOC_VERTEX = OpenCV.cv_SUBDIV2D_PTLOC_VERTEX;
+    const THRESH_BINARY = OpenCV.cv_THRESH_BINARY
+    const THRESH_BINARY_INV = OpenCV.cv_THRESH_BINARY_INV
+    const THRESH_MASK = OpenCV.cv_THRESH_MASK
+    const THRESH_OTSU = OpenCV.cv_THRESH_OTSU
+    const THRESH_TOZERO = OpenCV.cv_THRESH_TOZERO
+    const THRESH_TOZERO_INV = OpenCV.cv_THRESH_TOZERO_INV
+    const THRESH_TRIANGLE = OpenCV.cv_THRESH_TRIANGLE
+    const THRESH_TRUNC = OpenCV.cv_THRESH_TRUNC
+    const TM_CCOEFF = OpenCV.cv_TM_CCOEFF
+    const TM_CCOEFF_NORMED = OpenCV.cv_TM_CCOEFF_NORMED
+    const TM_CCORR = OpenCV.cv_TM_CCORR
+    const TM_CCORR_NORMED = OpenCV.cv_TM_CCORR_NORMED
+    const TM_SQDIFF = OpenCV.cv_TM_SQDIFF
+    const TM_SQDIFF_NORMED = OpenCV.cv_TM_SQDIFF_NORMED
+    const TermCriteria_COUNT = OpenCV.cv_TermCriteria_COUNT
+    const TERM_CRITERIA_COUNT = OpenCV.cv_TERM_CRITERIA_COUNT;
+    const TermCriteria_EPS = OpenCV.cv_TermCriteria_EPS
+    const TERM_CRITERIA_EPS = OpenCV.cv_TERM_CRITERIA_EPS;
+    const TermCriteria_MAX_ITER = OpenCV.cv_TermCriteria_MAX_ITER
+    const TERM_CRITERIA_MAX_ITER = OpenCV.cv_TERM_CRITERIA_MAX_ITER;
+    const VIDEOWRITER_PROP_FRAMEBYTES = OpenCV.cv_VIDEOWRITER_PROP_FRAMEBYTES
+    const VIDEOWRITER_PROP_IS_COLOR = OpenCV.cv_VIDEOWRITER_PROP_IS_COLOR
+    const VIDEOWRITER_PROP_NSTRIPES = OpenCV.cv_VIDEOWRITER_PROP_NSTRIPES
+    const VIDEOWRITER_PROP_QUALITY = OpenCV.cv_VIDEOWRITER_PROP_QUALITY
+    const WARP_FILL_OUTLIERS = OpenCV.cv_WARP_FILL_OUTLIERS
+    const WARP_INVERSE_MAP = OpenCV.cv_WARP_INVERSE_MAP
+    const WARP_POLAR_LINEAR = OpenCV.cv_WARP_POLAR_LINEAR
+    const WARP_POLAR_LOG = OpenCV.cv_WARP_POLAR_LOG
+    const WINDOW_AUTOSIZE = OpenCV.cv_WINDOW_AUTOSIZE
+    const WINDOW_FREERATIO = OpenCV.cv_WINDOW_FREERATIO
+    const WINDOW_FULLSCREEN = OpenCV.cv_WINDOW_FULLSCREEN
+    const WINDOW_GUI_EXPANDED = OpenCV.cv_WINDOW_GUI_EXPANDED
+    const WINDOW_GUI_NORMAL = OpenCV.cv_WINDOW_GUI_NORMAL
+    const WINDOW_KEEPRATIO = OpenCV.cv_WINDOW_KEEPRATIO
+    const WINDOW_NORMAL = OpenCV.cv_WINDOW_NORMAL
+    const WINDOW_OPENGL = OpenCV.cv_WINDOW_OPENGL
+    const WND_PROP_ASPECT_RATIO = OpenCV.cv_WND_PROP_ASPECT_RATIO
+    const WND_PROP_AUTOSIZE = OpenCV.cv_WND_PROP_AUTOSIZE
+    const WND_PROP_FULLSCREEN = OpenCV.cv_WND_PROP_FULLSCREEN
+    const WND_PROP_OPENGL = OpenCV.cv_WND_PROP_OPENGL
+    const WND_PROP_TOPMOST = OpenCV.cv_WND_PROP_TOPMOST
+    const WND_PROP_VISIBLE = OpenCV.cv_WND_PROP_VISIBLE
+
+
+
+include("cv_cudev_wrap.jl")
+include("cv_ipp_wrap.jl")
+include("cv_ogl_wrap.jl")
+include("cv_Error_wrap.jl")
+include("cv_cuda_wrap.jl")
+include("cv_utils_wrap.jl")
+include("cv_internal_wrap.jl")
+include("cv_traits_wrap.jl")
+include("cv_samples_wrap.jl")
 include("cv_dnn_wrap.jl")

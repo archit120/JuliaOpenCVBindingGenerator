@@ -50,7 +50,7 @@ def split_decl_name(name):
     classes = []
     while namespace and '::'.join(namespace) not in namespaces:
         classes.insert(0, namespace.pop())
-    
+
     ns = '::'.join(namespace)
     if ns not in namespaces and ns:
         assert(0)
@@ -97,7 +97,7 @@ type_paths = {}
 enums = {}
 classes = {}
 functions = {}
-registered_types = ["int", "Size.*", "Rect.*", "Scalar", "RotatedRect", "Point.*", "explicit", "string", "bool", "uchar", 
+registered_types = ["int", "Size.*", "Rect.*", "Scalar", "RotatedRect", "Point.*", "explicit", "string", "bool", "uchar",
                     "Vec.*", "float", "double", "char", "Mat", "size_t", "RNG", "DescriptorExtractor", "FeatureDetector", "TermCriteria"]
 
 class ClassProp(object):
@@ -128,9 +128,9 @@ class ClassInfo(object):
         if decl:
             # print(decl)
             bases = decl[1].split(',')
-            if len(bases[0].split()) > 1:    
+            if len(bases[0].split()) > 1:
                 bases[0] = bases[0].split()[1]
-                
+
                 bases = [x.replace(' ','') for x in bases]
                 # print(bases)
                 if len(bases) > 1:
@@ -193,7 +193,7 @@ class ArgInfo(object):
 
         if self.tp in pass_by_val_types:
             self.outputarg = True
-        
+
 
 
     def __init__(self, name, tp = None):
@@ -201,7 +201,7 @@ class ArgInfo(object):
             self.sec(name)
         else:
             self.name = name
-            self.tp = tp            
+            self.tp = tp
 
 
 class FuncVariant(object):
@@ -245,8 +245,8 @@ class FuncVariant(object):
         for arg in self.args:
             if not registered_tp_search(get_template_arg(arg.tp)):
                 namespaces[namespace].register_types.append(get_template_arg(arg.tp))
-        
-    
+
+
     def get_wrapper_name(self):
         """
         Return wrapping function name
@@ -290,12 +290,12 @@ class FuncVariant(object):
         if self.isconstructor:
             assert outlist == [] or outlist[0].tp ==  "explicit"
             outlist = [ArgInfo("retval", self.classname)]
-        
+
 
         self.outlist = outlist
         self.optlist = optlist
         self.deflist = deflist
-        
+
         self.inlist = inlist
 
         self.prototype = prototype
@@ -337,7 +337,7 @@ def add_func(decl):
         # if m == "/V":
         #     print("skipping ", name)
         #     return
-    
+
     if classname and full_classname not in namespaces[namespace].classes:
         # print("HH1")
         # print(namespace, classname)
@@ -381,12 +381,12 @@ def add_class(stype, name, decl):
     classinfo = ClassInfo(name, decl)
     namespace, classes, barename = split_decl_name(name)
     namespace = '::'.join(namespace)
-   
+
     if classinfo.name in classes:
         namespaces[namespace].classes[name].add_decl(decl)
     else:
         namespaces[namespace].classes[name] = classinfo
-    
+
 
 
 def add_const(name, decl, tp = ''):
@@ -417,7 +417,7 @@ def add_enum(name, decl):
         mapped_name = '_'.join(classes+[name2])
         # print(mapped_name)
         namespaces[namespace].enums[name] = (name.replace(".", "::"),mapped_name)
-    
+
     for decl in const_decls:
         name = decl[0]
         add_const(name.replace("const ", "", ).strip(), decl, "int")
@@ -425,7 +425,15 @@ def add_enum(name, decl):
 
 
 def gen_tree(srcfiles):
-    parser = hdr_parser.CppHeaderParser(generate_umat_decls=True, generate_gpumat_decls=True)
+    parser = hdr_parser.CppHeaderParser(generate_umat_decls=False, generate_gpumat_decls=False)
+
+    allowed_func_list = []
+
+    with open("funclist.csv", "r") as f:
+        allowed_func_list = f.readlines()
+    allowed_func_list = [x[:-1] for x in allowed_func_list]
+
+
     count = 0
     # step 1: scan the headers and build more descriptive maps of classes, consts, functions
     for hdr in srcfiles:
@@ -457,7 +465,8 @@ def gen_tree(srcfiles):
                 add_enum(name.rsplit(" ", 1)[1], decl)
             else:
                 # function
-                add_func(decl)
+                if decl[0] in allowed_func_list:
+                    add_func(decl)
     # step 1.5 check if all base classes exist
     # print(classes)
     for name, classinfo in classes.items():

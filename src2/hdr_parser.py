@@ -6,25 +6,18 @@ import os, sys, re, string, io
 # the list only for debugging. The real list, used in the real OpenCV build, is specified in CMakeLists.txt
 modpath = "/home/archit/Documents/GitHub/opencv/modules"
 opencv_hdr_list = [
-f"{modpath}/core/include/opencv2/core.hpp",
-# f"{modpath}/core/include/opencv2/core/mat.hpp",
-# f"{modpath}/core/include/opencv2/core/types.hpp",
-# f"{modpath}/core/include/opencv2/core/ocl.hpp",
-# # f"{modpath}/flann/include/opencv2/flann/miniflann.hpp",
-# # f"{modpath}/ml/include/opencv2/ml.hpp",
-# f"{modpath}/imgproc/include/opencv2/imgproc.hpp",
-# f"{modpath}/calib3d/include/opencv2/calib3d.hpp",
-# f"{modpath}/features2d/include/opencv2/features2d.hpp",
-# f"{modpath}/video/include/opencv2/video/tracking.hpp",
-# f"{modpath}/video/include/opencv2/video/background_segm.hpp",
-# f"{modpath}/objdetect/include/opencv2/objdetect.hpp",
-# f"{modpath}/imgcodecs/include/opencv2/imgcodecs.hpp",
-# f"{modpath}/videoio/include/opencv2/videoio.hpp",
-# f"{modpath}/highgui/include/opencv2/highgui.hpp",
-f"{modpath}/dnn/include/opencv2/dnn/dnn.hpp",
-f"{modpath}/dnn/include/opencv2/dnn/dnn.hpp",
-f"{modpath}/dnn/include/opencv2/dnn/dnn.hpp",
-
+"/home/archit/GSoC_Work/opencv/modules/core/include/opencv2/core.hpp",
+"/home/archit/GSoC_Work/opencv/modules/core/include/opencv2/core/base.hpp",
+"/home/archit/GSoC_Work/opencv/modules/core/include/opencv2/core/bindings_utils.hpp",
+"/home/archit/GSoC_Work/opencv/modules/core/include/opencv2/core/optim.hpp",
+"/home/archit/GSoC_Work/opencv/modules/core/include/opencv2/core/persistence.hpp",
+"/home/archit/GSoC_Work/opencv/modules/core/include/opencv2/core/types.hpp",
+"/home/archit/GSoC_Work/opencv/modules/core/include/opencv2/core/utility.hpp",
+"/home/archit/GSoC_Work/opencv/modules/imgproc/include/opencv2/imgproc.hpp",
+"/home/archit/GSoC_Work/opencv/modules/dnn/include/opencv2/dnn/dnn.hpp",
+"/home/archit/GSoC_Work/opencv/modules/imgcodecs/include/opencv2/imgcodecs.hpp",
+"/home/archit/GSoC_Work/opencv/modules/videoio/include/opencv2/videoio.hpp",
+"/home/archit/GSoC_Work/opencv/modules/highgui/include/opencv2/highgui.hpp",
 # "autogen_manual_header.h"
 ]
 

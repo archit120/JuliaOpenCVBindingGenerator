@@ -1,4 +1,3 @@
-
 const CV_CN_MAX = 512
 const CV_CN_SHIFT = 3
 const CV_DEPTH_MAX = (1 << CV_CN_SHIFT)
@@ -34,7 +33,7 @@ function cpp_to_julia(mat::CxxMat)
     elseif rets[2]==CV_MAKE_TYPE(CV_64F, rets[3])
         dtype = Float64
     else
-        error("BAD type")
+        error("Bad type returned from OpenCV")
     end
     steps = [rets[6]/sizeof(dtype), rets[7]/sizeof(dtype)]
     # println(steps[1]/rets[3], steps[2]/rets[3]/rets[4])
@@ -45,13 +44,19 @@ function cpp_to_julia(mat::CxxMat)
     return Mat{dtype}(mat, arr)
 end
 
-function julia_to_cpp(img::Image)
-    # TODO: UserTypes do not work with StridedArray. Find something else.
+function julia_to_cpp(img::InputArray)
     if typeof(img) <: CxxMat
         return img
     end
+    steps = 0
+    try
+        steps = strides(img)
+    catch
+        # Copy array since array is not strided
+        img = img[:, :, :]
+        steps = strides(img)
+    end
 
-    steps = strides(img)
     if steps[1] <= steps[2] <= steps[3] && steps[1]==1
         steps_a = Array{size_t, 1}()
         ndims_a = Array{Int32, 1}()
@@ -77,15 +82,13 @@ function julia_to_cpp(img::Image)
         elseif eltype(img) == Float64
             return CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_64F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
         end
-
-        error("Bad Type")
-        
     else
-        error("Bad steps")
+        # Copy array, invalid config
+        return julia_to_cpp(img[:, :, :])
     end
 end
 
-function julia_to_cpp(var::Array{T, 1}) where {T <: Image}
+function julia_to_cpp(var::Array{T, 1}) where {T <: InputArray}
     ret = CxxWrap.StdVector{CxxMat}()
     for x in var
         push!(ret, julia_to_cpp(x))
@@ -95,7 +98,7 @@ end
 
 
 function cpp_to_julia(var::CxxWrap.StdVector{T}) where {T <: CxxMat}
-    ret = Array{Image, 1}()
+    ret = Array{Mat, 1}()
     for x in var
         push!(ret, cpp_to_julia(x))
     end

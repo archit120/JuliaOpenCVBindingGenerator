@@ -10,7 +10,7 @@ struct Mat{T <: dtypes} <: AbstractArray{T,3}
         new{T}(mat, data_raw, data)
     end
 
-    @inline function Mat{T}(data_raw::AbstractArray{T, 3}) where {T <: dtypes}
+    @inline function Mat(data_raw::AbstractArray{T, 3}) where {T <: dtypes}
         data = reinterpret(T, data_raw)
         mat = nothing
         new{T}(mat, data_raw, data)
@@ -31,7 +31,7 @@ Base.axes(A::Mat) = axes(A.data)
 Base.IndexStyle(::Type{Mat{T}}) where {T} = IndexCartesian()
 
 Base.strides(A::Mat{T}) where {T} = strides(A.data)
-Base.copy(A::Mat{T}) where {T} = Mat{T}(copy(A.data_raw))
+Base.copy(A::Mat{T}) where {T} = Mat(copy(A.data_raw))
 Base.pointer(A::Mat) = Base.pointer(A.data)
 
 Base.unsafe_convert(::Type{Ptr{T}}, A::Mat{S}) where {T, S} = Base.unsafe_convert(Ptr{T}, A.data)

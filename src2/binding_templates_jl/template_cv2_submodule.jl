@@ -1,5 +1,5 @@
 module ${modname}
-import ..OpenCVCxx
+import ..OpenCV
 
 ${code}
 

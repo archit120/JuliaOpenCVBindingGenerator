@@ -1,24 +1,15 @@
 
+#include "jlcxx/array.hpp"
 #include "jlcxx/jlcxx.hpp"
 #include "jlcxx/functions.hpp"
 #include "jlcxx/stl.hpp"
-#include "jlcxx/array.hpp"
 #include "jlcxx/tuple.hpp"
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/features2d.hpp>
-#include <opencv2/core/utility.hpp>
-#include <opencv2/objdetect.hpp>
-#include <opencv2/imgproc.hpp>
-#include "opencv2/highgui.hpp"
-#include "opencv2/videoio.hpp"
+#include "jlcv2.hpp"
 
 using namespace cv;
 using namespace std;
 using namespace jlcxx;
-
-#include "jlcv2.hpp"
 
 
 namespace jlcxx
@@ -42,7 +33,7 @@ ${include_code}
 
 } // namespace jlcxx
 JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
-{   
+{
     mod.map_type<RotatedRect>("RotatedRect");
     mod.map_type<TermCriteria>("TermCriteria");
     mod.map_type<Range>("Range");
@@ -62,7 +53,7 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
         return make_tuple(m.data, m.type(), m.channels(), m.size[1], m.size[0], m.step[1], m.step[0]);
     });
 
-    
+
     mod.add_type<Parametric<TypeVar<1>>>("CxxScalar")
         .apply<Scalar_<int>, Scalar_<float>, Scalar_<double>>([](auto wrapped) {
                 typedef typename decltype(wrapped)::type WrappedT;
@@ -72,5 +63,5 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
 
     ${cpp_code}
 
-  
+
 }

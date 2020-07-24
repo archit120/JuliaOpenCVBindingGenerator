@@ -1,4 +1,3 @@
-module OpenCVCxx
 # using StaticArrays
 
 include("typestructs.jl")
@@ -19,7 +18,7 @@ const Scalar = Union{Tuple{}, Tuple{Number}, Tuple{Number, Number}, Tuple{Number
 
 include("Mat.jl")
 
-const Image = Union{Mat{A} where {A}, SubArray{T2, N, Mat{A}, T} where {N, A, T, T2 <: dtypes}, CxxMat}
+const InputArray = Union{AbstractArray{T, 3} where {T <: dtypes}, CxxMat}
 
 include("mat_conversion.jl")
 include("types_conversion.jl")
@@ -31,24 +30,6 @@ function julia_to_cpp(var)
     return var
 end
 
-
-function julia_to_cpp(var::Array{T, 1}) where {T}
-    ret = CxxWrap.StdVector{T}()
-    for x in var
-        push!(ret, julia_to_cpp(x)) # When converting an array keep expected type as final type.
-    end
-    return ret
-end
-
-function cpp_to_julia(var::CxxWrap.StdVector{T}) where {T}
-    ret = CxxWrap.StdVector{T}()
-    for x in var
-        push!(ret, cpp_to_julia(x))
-    end
-    return ret
-end
-
-
 function cpp_to_julia(var::Tuple)
     ret_arr = Array{Any, 1}()
     for it in var
@@ -58,5 +39,3 @@ function cpp_to_julia(var::Tuple)
 end
 
 include("cv_cxx_wrap.jl")
-
-end

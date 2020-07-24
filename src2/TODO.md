@@ -7,8 +7,6 @@
 ## General
  - fix classname for classes inside a namespace other than cv
  - fix duplicate functions
- - rename function names from classname_functionname to functionname (needed for intheritance)
- - UMat wrapper
  - Refactor parsing code
 
 
@@ -32,3 +30,6 @@ setfield - setfield!
 
 
 use ref types in julia for pass by reference
+
+make types mutable
+fix pass by reference on both cxx and jl side
