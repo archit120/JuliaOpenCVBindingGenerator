@@ -1049,11 +1049,11 @@
 
 
 
-include("cv_cudev_wrap.jl")
-include("cv_ipp_wrap.jl")
 include("cv_ogl_wrap.jl")
-include("cv_Error_wrap.jl")
+include("cv_cudev_wrap.jl")
 include("cv_cuda_wrap.jl")
+include("cv_Error_wrap.jl")
+include("cv_ipp_wrap.jl")
 include("cv_utils_wrap.jl")
 include("cv_internal_wrap.jl")
 include("cv_traits_wrap.jl")

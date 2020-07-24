@@ -127,6 +127,36 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
                 wrapped.template constructor<T, T, T, T>();
             });
 
+
+//
+// Manual Wrapping BEGIN
+//
+
+#ifdef HAVE_OPENCV_HIGHGUI
+    mod.method("createButton", [](const string & bar_name, jl_function_t* on_change, int type, bool initial_button_state) {createButton(bar_name, [](int s, void* c) {
+        JuliaFunction f((jl_function_t*)c);
+        f(forward<int>(s));
+    }, (void*)on_change, type, initial_button_state);});
+
+    mod.method("setMouseCallback", [](const string & winname, jl_function_t* onMouse) {
+        setMouseCallback(winname, [](int event, int x, int y, int flags, void* c) {
+        JuliaFunction f((jl_function_t*)c);
+        f(forward<int>(event), forward<int>(x), forward<int>(y), forward<int>(flags));
+    }, (void*)onMouse);});
+
+    mod.method("createTrackbar", [](const String &trackbarname, const String &winname, int& value, int count, jl_function_t* onChange) {
+        createTrackbar(trackbarname, winname, &value, count, [](int s, void* c) {
+        JuliaFunction f((jl_function_t*)c);
+        f(forward<int>(s));
+    }, (void*)onChange);});
+
+#endif
+
+
+//
+// Manual Wrapping END
+//
+
     using namespace cv;
 mod.add_type<cv::Algorithm>("Algorithm");
 mod.add_type<cv::FileStorage>("FileStorage");
@@ -143,11 +173,11 @@ mod.add_type<cv::Subdiv2D>("Subdiv2D");
 mod.add_type<cv::LineSegmentDetector>("LineSegmentDetector", jlcxx::julia_base_type<cv::Algorithm>());
 mod.add_type<cv::VideoCapture>("VideoCapture");
 mod.add_type<cv::VideoWriter>("VideoWriter");
-using namespace cv::ipp;
-using namespace cv::ogl;
 using namespace cv::cuda;
 using namespace cv::Error;
 using namespace cv::cudev;
+using namespace cv::ipp;
+using namespace cv::ogl;
 using namespace cv::utils;
    mod.add_type<AsyncArray>("AsyncArray");
 using namespace cv::internal;
@@ -1636,12 +1666,7 @@ mod.method("jlopencv_Moments_get_nu03", [](const cv::Moments &cobj) {return cobj
     mod.set_const("cv_WND_PROP_OPENGL", (force_enum_int<decltype(cv::WND_PROP_OPENGL)>::Type)cv::WND_PROP_OPENGL);
     mod.set_const("cv_WND_PROP_TOPMOST", (force_enum_int<decltype(cv::WND_PROP_TOPMOST)>::Type)cv::WND_PROP_TOPMOST);
     mod.set_const("cv_WND_PROP_VISIBLE", (force_enum_int<decltype(cv::WND_PROP_VISIBLE)>::Type)cv::WND_PROP_VISIBLE);
-
-    mod.method("jlopencv_cv_ipp_cv_ipp_useIPP",  []() { auto retval = cv::ipp::useIPP(); return retval;});
-    mod.method("jlopencv_cv_ipp_cv_ipp_setUseIPP",  [](bool flag) { cv::ipp::setUseIPP(flag); ;});
-    mod.method("jlopencv_cv_ipp_cv_ipp_getIppVersion",  []() { auto retval = cv::ipp::getIppVersion(); return retval;});
-    mod.method("jlopencv_cv_ipp_cv_ipp_useIPP_NotExact",  []() { auto retval = cv::ipp::useIPP_NotExact(); return retval;});
-    mod.method("jlopencv_cv_ipp_cv_ipp_setUseIPP_NotExact",  [](bool flag) { cv::ipp::setUseIPP_NotExact(flag); ;});    mod.set_const("cv_Error_BadAlign", (force_enum_int<decltype(cv::Error::BadAlign)>::Type)cv::Error::BadAlign);
+    mod.set_const("cv_Error_BadAlign", (force_enum_int<decltype(cv::Error::BadAlign)>::Type)cv::Error::BadAlign);
     mod.set_const("cv_Error_BAD_ALIGN", (force_enum_int<decltype(cv::Error::BadAlign)>::Type)cv::Error::BadAlign);
     mod.set_const("cv_Error_BadAlphaChannel", (force_enum_int<decltype(cv::Error::BadAlphaChannel)>::Type)cv::Error::BadAlphaChannel);
     mod.set_const("cv_Error_BAD_ALPHA_CHANNEL", (force_enum_int<decltype(cv::Error::BadAlphaChannel)>::Type)cv::Error::BadAlphaChannel);
@@ -1752,6 +1777,11 @@ mod.method("jlopencv_Moments_get_nu03", [](const cv::Moments &cobj) {return cobj
     mod.set_const("cv_Error_StsVecLengthErr", (force_enum_int<decltype(cv::Error::StsVecLengthErr)>::Type)cv::Error::StsVecLengthErr);
     mod.set_const("cv_Error_STS_VEC_LENGTH_ERR", (force_enum_int<decltype(cv::Error::StsVecLengthErr)>::Type)cv::Error::StsVecLengthErr);
 
+    mod.method("jlopencv_cv_ipp_cv_ipp_useIPP",  []() { auto retval = cv::ipp::useIPP(); return retval;});
+    mod.method("jlopencv_cv_ipp_cv_ipp_setUseIPP",  [](bool flag) { cv::ipp::setUseIPP(flag); ;});
+    mod.method("jlopencv_cv_ipp_cv_ipp_getIppVersion",  []() { auto retval = cv::ipp::getIppVersion(); return retval;});
+    mod.method("jlopencv_cv_ipp_cv_ipp_useIPP_NotExact",  []() { auto retval = cv::ipp::useIPP_NotExact(); return retval;});
+    mod.method("jlopencv_cv_ipp_cv_ipp_setUseIPP_NotExact",  [](bool flag) { cv::ipp::setUseIPP_NotExact(flag); ;});
     mod.method("jlopencv_cv_utils_cv_utils_dumpInputArray",  [](Mat& argument) { auto retval = cv::utils::dumpInputArray(argument); return retval;});
     mod.method("jlopencv_cv_utils_cv_utils_dumpInputArrayOfArrays",  [](vector<Mat>& argument) { auto retval = cv::utils::dumpInputArrayOfArrays(argument); return retval;});
     mod.method("jlopencv_cv_utils_cv_utils_dumpInputOutputArray",  [](Mat& argument) { auto retval = cv::utils::dumpInputOutputArray(argument); return make_tuple(move(retval),move(argument));});
@@ -1855,22 +1885,22 @@ mod.method("jlopencv_Layer_get_preferableTarget", [](const cv::Ptr<cv::dnn::Laye
     mod.set_const("cv_dnn_DNN_TARGET_OPENCL", (force_enum_int<decltype(cv::dnn::DNN_TARGET_OPENCL)>::Type)cv::dnn::DNN_TARGET_OPENCL);
     mod.set_const("cv_dnn_DNN_TARGET_OPENCL_FP16", (force_enum_int<decltype(cv::dnn::DNN_TARGET_OPENCL_FP16)>::Type)cv::dnn::DNN_TARGET_OPENCL_FP16);
     mod.set_const("cv_dnn_DNN_TARGET_VULKAN", (force_enum_int<decltype(cv::dnn::DNN_TARGET_VULKAN)>::Type)cv::dnn::DNN_TARGET_VULKAN);
-    mod.method("PointOTXSGTXP", [](){return (force_enum_int<decltype(Point(-1, -1))>::Type)Point(-1, -1);});
     mod.method("MatOP", [](){return (force_enum_int<decltype(Mat())>::Type)Mat();});
-    mod.method("stdggvectoriucharkOP", [](){return (force_enum_int<decltype(std::vector<uchar>())>::Type)std::vector<uchar>();});
+    mod.method("stdggvectoriStringkOP", [](){return (force_enum_int<decltype(std::vector<String>())>::Type)std::vector<String>();});
+    mod.method("ScalarOP", [](){return (force_enum_int<decltype(Scalar())>::Type)Scalar();});
     mod.method("PointOTXSTXP", [](){return (force_enum_int<decltype(Point(-1,-1))>::Type)Point(-1,-1);});
     mod.method("morphologyDefaultBorderValueOP", [](){return (force_enum_int<decltype(morphologyDefaultBorderValue())>::Type)morphologyDefaultBorderValue();});
+    mod.method("PointOTXSGTXP", [](){return (force_enum_int<decltype(Point(-1, -1))>::Type)Point(-1, -1);});
     mod.method("SizeOP", [](){return (force_enum_int<decltype(Size())>::Type)Size();});
-    mod.method("TermCriteriaOTermCriteriaggMAXRITERRTermCriteriaggEPSSbSXP", [](){return (force_enum_int<decltype(TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS,5,1))>::Type)TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS,5,1);});
-    mod.method("StringOP", [](){return (force_enum_int<decltype(String())>::Type)String();});
-    mod.method("ScalarggallOWP", [](){return (force_enum_int<decltype(Scalar::all(0))>::Type)Scalar::all(0);});
-    mod.method("ScalarOP", [](){return (force_enum_int<decltype(Scalar())>::Type)Scalar();});
-    mod.method("PtrifloatkOP", [](){return (force_enum_int<decltype(Ptr<float>())>::Type)Ptr<float>();});
-    mod.method("PointOP", [](){return (force_enum_int<decltype(Point())>::Type)Point();});
-    mod.method("stdggvectoriintkOP", [](){return (force_enum_int<decltype(std::vector<int>())>::Type)std::vector<int>();});
-    mod.method("stdggvectoriStringkOP", [](){return (force_enum_int<decltype(std::vector<String>())>::Type)std::vector<String>();});
-    mod.method("SizeOeSGeP", [](){return (force_enum_int<decltype(Size(8, 8))>::Type)Size(8, 8);});
     mod.method("ScalarOXP", [](){return (force_enum_int<decltype(Scalar(1))>::Type)Scalar(1);});
+    mod.method("TermCriteriaOTermCriteriaggMAXRITERRTermCriteriaggEPSSbSXP", [](){return (force_enum_int<decltype(TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS,5,1))>::Type)TermCriteria(TermCriteria::MAX_ITER+TermCriteria::EPS,5,1);});
+    mod.method("PtrifloatkOP", [](){return (force_enum_int<decltype(Ptr<float>())>::Type)Ptr<float>();});
+    mod.method("StringOP", [](){return (force_enum_int<decltype(String())>::Type)String();});
+    mod.method("stdggvectoriintkOP", [](){return (force_enum_int<decltype(std::vector<int>())>::Type)std::vector<int>();});
+    mod.method("ScalarggallOWP", [](){return (force_enum_int<decltype(Scalar::all(0))>::Type)Scalar::all(0);});
+    mod.method("SizeOeSGeP", [](){return (force_enum_int<decltype(Size(8, 8))>::Type)Size(8, 8);});
+    mod.method("stdggvectoriucharkOP", [](){return (force_enum_int<decltype(std::vector<uchar>())>::Type)std::vector<uchar>();});
+    mod.method("PointOP", [](){return (force_enum_int<decltype(Point())>::Type)Point();});
 
 
 

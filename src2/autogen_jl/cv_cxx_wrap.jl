@@ -1919,10 +1919,10 @@ displayOverlay(winname::String, text::String; delayms::Int32 = Int32(0)) = displ
 
 
 
-include("cv_cudev_cxx_wrap.jl")
+include("cv_ipp_cxx_wrap.jl")
 include("cv_ogl_cxx_wrap.jl")
 include("cv_cuda_cxx_wrap.jl")
-include("cv_ipp_cxx_wrap.jl")
+include("cv_cudev_cxx_wrap.jl")
 include("cv_Error_cxx_wrap.jl")
 include("cv_utils_cxx_wrap.jl")
 include("cv_internal_cxx_wrap.jl")

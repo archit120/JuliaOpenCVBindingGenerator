@@ -252,7 +252,7 @@ struct SuperType<%s>
 
         cpp_code.write('    mod.method("%s", [](){return (force_enum_int<decltype(%s)>::Type)%s;});\n'%(get_var(val), val, val))
 
-    with open ('autogen_cpp/cv_wrap.cpp', 'w') as fd:
+    with open ('autogen_cpp/cv_core.cpp', 'w') as fd:
         fd.write(mod_template.substitute(include_code = include_code.getvalue(), cpp_code=cpp_code.getvalue()))
 
     src_files = os.listdir('cpp_files')

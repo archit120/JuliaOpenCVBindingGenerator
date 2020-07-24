@@ -16,7 +16,7 @@ while true
         break
     end
     classIds, confidences, boxes = cv.dnn.detect(net, frame, confThreshold=Float32(0.5))
-    println("init", pointer(frame))
+
     for i in 1:size(boxes,1)
         confidence = confidences[i]
         x0 = Int32(boxes[i].x)
@@ -30,8 +30,7 @@ while true
         cv.putText(frame, label, cv.Point{Int32}(x0, y0 + lsize.height),
         cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0); thickness = Int32(1), lineType = cv.LINE_AA)
     end
-    frame[:, 200:300, 300:400] .= 0
-    println("fin", pointer(frame))
+
 
     cv.imshow("detections", frame)
     if cv.waitKey(Int32(30)) >= 0
