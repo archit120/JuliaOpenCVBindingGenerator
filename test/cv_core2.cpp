@@ -1,9 +1,9 @@
 #include <vector>
+#include "jlcxx/array.hpp"
 
 #include "jlcxx/jlcxx.hpp"
 #include "jlcxx/functions.hpp"
 #include "jlcxx/stl.hpp"
-#include "jlcxx/array.hpp"
 #include "jlcxx/tuple.hpp"
 
 #include <opencv2/core/core.hpp>
@@ -42,7 +42,7 @@ typedef ParameterList<T, std::integral_constant<int, Val>> type;
 
 } // namespace jlcxx
 JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
-{   
+{
     mod.map_type<RotatedRect>("RotatedRect");
     mod.map_type<TermCriteria>("TermCriteria");
     mod.map_type<Range>("Range");
@@ -62,7 +62,7 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
         return make_tuple(m.data, m.type(), m.channels(), m.size[1], m.size[0], m.step[1], m.step[0]);
     });
 
-    
+
     mod.add_type<Parametric<TypeVar<1>>>("CxxScalar")
         .apply<Scalar_<int>, Scalar_<float>, Scalar_<double>>([](auto wrapped) {
                 typedef typename decltype(wrapped)::type WrappedT;
@@ -107,7 +107,7 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
         vector<RotatedRect> r;
         r.push_back(RotatedRect(Point2f(99,-99), Size2f(6,7), 0.8));
         r.push_back(RotatedRect(Point2f(23,-99), Size2f(6,7), 0.2));
-        
+
         return r;
     });
 
@@ -115,7 +115,7 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
         vector<Size2f> r;
         r.push_back( Size2f(6,7));
         r.push_back( Size2f(6,7));
-        
+
         return r;
     });
 
@@ -130,7 +130,7 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
         return make_tuple(r,r2);
     });
       mod.method("get_tup2", [](){
-    
+
         return make_tuple(Size(2,3),Point2f(-9.2,3), Range::all());
     });
     mod.method("pr_point", [](Point2d a){cout << a.x<< " " << a.y << "\n";});
@@ -139,6 +139,9 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
     mod.method("pr_point", [](Rect2d a){cout << a.x<< " " << a.y << "\n";});
     mod.method("pr_point", [](RotatedRect a){cout << a.angle<< " " << a.center.x << "\n";});
     mod.method("pr_term", [](TermCriteria a){cout << a.epsilon << "\n";});
+
+
+    mod.method("test_point", [](Point2i*& p){Point2i a = *p; a.x++; a.y++; cout << a.x<< " " << a.y << "\n";});
 
     mod.method("jlopencv_cv_cv_imread",  [](string& filename, int& flags) { auto retval = cv::imread(filename, flags); return retval;});
     mod.method("jlopencv_cv_cv_imreadmulti",  [](string& filename, vector<Mat>& mats, int& flags) { auto retval = cv::imreadmulti(filename, mats, flags); return make_tuple(move(retval),move(mats));});

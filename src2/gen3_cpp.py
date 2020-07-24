@@ -35,37 +35,12 @@ def split_decl_name(name):
     classes = []
     while namespace and '::'.join(namespace) not in namespaces:
         classes.insert(0, namespace.pop())
-    
+
     ns = '::'.join(namespace)
     if ns not in namespaces and ns:
         assert(0)
 
     return namespace, classes, chunks[-1]
-
-
-def handle_cpp_arg(inp):
-    def handle_vector(match):
-        return handle_cpp_arg("%svector<%s>" % (match.group(1), match.group(2)))
-    def handle_ptr(match):
-        return handle_cpp_arg("%sPtr<%s>" % (match.group(1), match.group(2)))
-    inp = re.sub("(.*)vector_(.*)", handle_vector, inp)
-    inp = re.sub("(.*)Ptr_(.*)", handle_ptr, inp)
-
-
-    return inp.replace("String", "string")
-
-def get_template_arg(inp):
-    inp = inp.replace(' ','').replace('*', '').replace('cv::', '').replace('std::', '')
-    def handle_vector(match):
-        return get_template_arg("%s" % (match.group(1)))
-    def handle_ptr(match):
-        return get_template_arg("%s" % (match.group(1)))
-    inp = re.sub("vector<(.*)>", handle_vector, inp)
-    inp = re.sub("Ptr<(.*)>", handle_ptr, inp)
-    ns, cl, n = split_decl_name(inp)
-    inp = "::".join(cl+[n])
-    # print(inp)
-    return inp.replace("String", "string")
 
 def registered_tp_search(tp):
     found = False
@@ -81,7 +56,7 @@ namespaces = {}
 enums = []
 classes = {}
 functions = {}
-registered_types = ["int", "Size.*", "Rect.*", "Scalar", "RotatedRect", "Point.*", "explicit", "string", "bool", "uchar", 
+registered_types = ["int", "Size.*", "Rect.*", "Scalar", "RotatedRect", "Point.*", "explicit", "string", "bool", "uchar",
                     "Vec.*", "float", "double", "char", "Mat", "size_t", "RNG", "TermCriteria"]
 
 class ClassInfo(ClassInfo):
@@ -119,7 +94,7 @@ class ClassInfo(ClassInfo):
             if not self.isalgorithm:
                 stra = stra + '\nmod.method("%s", [](const %s &cobj) {return %scobj.%s;});' % (self.get_prop_func_cpp("get", prop.name), self.name, '(int)' if prop.tp in enums else '', prop.name)
             else:
-                stra = stra + '\nmod.method("%s", [](const cv::Ptr<%s> &cobj) {return %scobj->%s;});' % (self.get_prop_func_cpp("get", prop.name), self.name,'(int)' if prop.tp in enums else '',  prop.name)    
+                stra = stra + '\nmod.method("%s", [](const cv::Ptr<%s> &cobj) {return %scobj->%s;});' % (self.get_prop_func_cpp("get", prop.name), self.name,'(int)' if prop.tp in enums else '',  prop.name)
         return stra
 
     def get_setters(self):
@@ -128,9 +103,9 @@ class ClassInfo(ClassInfo):
             if prop.readonly:
                 continue
             if not self.isalgorithm:
-                stra = stra + '\nmod.method("%s", [](%s &cobj,const %s &v) {cobj.%s=v;});' % (self.get_prop_func_cpp("set", prop.name), self.name, prop.tp, prop.name)
+                stra = stra + '\nmod.method("%s", [](%s &cobj,const force_enum_int<%s>::Type &v) {cobj.%s=(%s)v;});' % (self.get_prop_func_cpp("set", prop.name), self.name, prop.tp, prop.name, prop.tp)
             else:
-                stra = stra + '\nmod.method("%s", [](%s cv::Ptr<cobj>, const force_enum_int<%s>::Type &v) {cobj->%s=(%s)v;});' % (self.get_prop_func_cpp("set", prop.name), self.name, prop.tp, prop.name, prop.tp)
+                stra = stra + '\nmod.method("%s", [](cv::Ptr<%s> cobj, const force_enum_int<%s>::Type &v) {cobj->%s=(%s)v;});' % (self.get_prop_func_cpp("set", prop.name), self.name, prop.tp, prop.name, prop.tp)
         return stra
 
 class FuncVariant(FuncVariant):
@@ -141,7 +116,7 @@ class FuncVariant(FuncVariant):
         elif len(self.outlist)==1:
             return "return %s;" % ( ('(int)' if self.outlist[0].tp in enums else '') + self.outlist[0].name)
         return "return make_tuple(%s);" %  ",".join(["move(%s)" %  (('(int)' if x.tp in enums else '') +x.name) for x in self.outlist])
-    
+
     def get_argument(self, isalgo):
         args = self.inlist + self.optlist
         if self.classname!="" and not self.isconstructor and not self.isstatic:
@@ -153,11 +128,16 @@ class FuncVariant(FuncVariant):
         argnamelist = []
         for arg in args:
             if arg.tp in pass_by_val_types:
+                print("PATHWAY NOT TESTED")
                 argnamelist.append(arg.tp[:-1] +"& "+arg.name)
             elif arg.tp in enums:
                 argnamelist.append("int& " + arg.name)
             else:
-                argnamelist.append(arg.tp + "& "+arg.name)
+                if arg.tp=='bool':
+                    # Bool pass-by-reference is broken
+                    argnamelist.append(arg.tp+" " +arg.name)
+                else:
+                    argnamelist.append(arg.tp + "& "+arg.name)
         # argnamelist = [(arg.tp if arg.tp not in pass_by_val_types else arg.tp[:-1]) +"& "+arg.name for arg in args]
         argstr = ", ".join(argnamelist)
         return argstr
@@ -217,6 +197,8 @@ def gen(srcfiles, output_path):
 
         if name.split('.')[-1] == '':
             continue
+        nsname = name
+        nsprefix = '_'.join(nsname.split('::')[1:])
         for name, cl in ns.classes.items():
             cl.__class__ = ClassInfo
             cpp_code.write(cl.get_cpp_code_header())
@@ -238,11 +220,11 @@ struct SuperType<%s>
 
         for tp in ns.register_types:
             cpp_code.write('   mod.add_type<%s>("%s");\n' %(tp, normalize_class_name(tp)))
-    
+
 
     for name, ns in namespaces.items():
-        
 
+        nsname = name.replace("::", "_")
         for name, cl in ns.classes.items():
             cl.__class__ = ClassInfo
             cpp_code.write(cl.get_cpp_code_body())
@@ -260,16 +242,17 @@ struct SuperType<%s>
                 cpp_code.write('\n    mod%s;' % f.get_complete_code("", False))
 
         for mapname, name in sorted(ns.consts.items()):
-            cpp_code.write('    mod.set_const("%s", (force_enum_int<decltype(%s)>::Type)%s);\n'%(name, mapname, mapname))
+            cpp_code.write('    mod.set_const("%s_%s", (force_enum_int<decltype(%s)>::Type)%s);\n'%(nsname, name, mapname, mapname))
             compat_name = re.sub(r"([a-z])([A-Z])", r"\1_\2", name).upper()
             if name != compat_name:
-                cpp_code.write('    mod.set_const("%s", (force_enum_int<decltype(%s)>::Type)%s);\n'%(compat_name, mapname, mapname))
+                cpp_code.write('    mod.set_const("%s_%s", (force_enum_int<decltype(%s)>::Type)%s);\n'%(nsname, compat_name, mapname, mapname))
     default_values = list(set(default_values))
     for val in default_values:
         # val = handle_cpp_arg(val)
-        cpp_code.write('    mod.set_const("%s", (force_enum_int<decltype(%s)>::Type)%s);\n'%(get_var(val), val, val))
 
-    with open ('autogen_cpp/cv_wrap.cpp', 'w') as fd:
+        cpp_code.write('    mod.method("%s", [](){return (force_enum_int<decltype(%s)>::Type)%s;});\n'%(get_var(val), val, val))
+
+    with open ('autogen_cpp/cv_core.cpp', 'w') as fd:
         fd.write(mod_template.substitute(include_code = include_code.getvalue(), cpp_code=cpp_code.getvalue()))
 
     src_files = os.listdir('cpp_files')
