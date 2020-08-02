@@ -31,10 +31,23 @@ The work on C++ side of auto-generation is mostly completed. Checks for some spe
  - Generate final namespace C++ code
  - Handle types.hpp
 
+## Trying the bindings
 
-To run, clone this repository into a folder named julia inside the OpenCV's source modules folder. Then modify hdr_parser.py with appropriate header file names and use
+To build:
 
-```python3 gen3_{lang}.py```
+- from within Julia, add the `CxxWrap` package (https://github.com/JuliaInterop/CxxWrap.jl) with `pkg> add CxxWrap` followed by `using CxxWrap`. Obtain the "prefix path" from `julia> CxxWrap.prefix_path()`; note this for future use.
+- clone OpenCV itself from https://github.com/opencv/opencv
+- enter the `modules` directory and clone this repository to a folder named `julia`, e.g., `git clone git@github.com:archit120/JuliaOpenCVBindingGenerator.git julia`
+- enter the `julia/src2` directory and edit `hdr_parser.py`. Replace the hard-coded paths in the `modpath` and `opencv_hdr_list` to those appropriate for your system
+- from the command line, execute `python3 gen3_julia.py`. The script will output files in autogen_* folders. 
+- return to the top-level OpenCV source directory. Launch `cmake-gui`, set up the source path, configure the build path. (Some instructions can be found at https://towardsdatascience.com/how-to-install-opencv-and-extra-modules-from-source-using-cmake-and-then-set-it-up-in-your-pycharm-7e6ae25dbac5.) After clicking "Configure", edit the configuration to implement the following modifications:
+  + Add `julia` to the `OPENCV_EXTRA_MODULES_PATH` (you can browse to set the path)
+  + You will likely need to create a variable called `CMAKE_PREFIX_PATH` (using `Add Entry` in the GUI) and set its value to a `PATH` taken from the `CxxWrap.prefix_path()` command above
+  + I had to create a `FindOpenCV.cmake` file by copy/pasting https://cmake-basis.github.io/apidoc/latest/FindOpenCV_8cmake_source.html. I added this to the opencv source directory and then clicked "Add Entry" and created `CMAKE_MODULE_PATH` and set it to point to the directory with `FindOpenCV.cmake`.
+  + I edited the `OpenCV_DIR` entry to point to the top-level OpenCV source directory
+- Click "Configure" again. Address any errors that you encounter.
+  
+  
 
-The script will output files in autogen_* folders. 
-
+To run a demonstration:
+- ??
