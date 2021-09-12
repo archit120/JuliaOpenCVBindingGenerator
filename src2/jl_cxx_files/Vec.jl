@@ -1,22 +1,26 @@
-#Adapted from IndirectArray
-
-struct Vec{T, N} <: AbstractArray{T,1} 
+struct Vec{T, N, V<:AbstractVector{T}} <: AbstractVector{T}
     cpp_object
-    data::AbstractArray{T, 1}
-    cpp_allocated::Bool
-    @inline function Vec{T, N}(obj) where {T, N}
+    data::V
+    cpp_allocated::Bool   # this seems unused
 
-        new{T, N}(obj, Base.unsafe_wrap(Array{T, 1}, Ptr{T}(obj.cpp_object), N), true)
+    function Vec{T, N, V}(obj) where {T, N, V}
+        # if obj is not cpp_allocated, is setting that to `true` a lie?
+        new{T, N, V}(obj.cpp_object, Base.unsafe_wrap(V, Ptr{T}(obj.cpp_object), N), true)
     end
 
-    @inline function Vec{T, N}(data_raw::AbstractArray{T, 1}) where {T, N}
-        if size(data_raw, 1) != N
-            throw("Array is improper Size for Vec declared")
+    function Vec{T, N, V}(data_raw::V) where {T, N, V}
+        if length(data_raw) != N
+            throw(DimensionMismatch("Array is improper Size for Vec declared"))
         end
-        new{T, N}(nothing, data_raw, false)
+        # Because strides is set at (1,) below, we have to check it here
+        strides(data_raw) == (1,) || error("stride must be 1 (copy input first if needed)")
+        new{T, N, V}(nothing, data_raw, false)
     end
 end
+Vec{T, N}(data::StridedVector) = Vec{T, N, typeof(data)}(data)
+Vec{T, N}(data::AbstractVector) = Vec{T, N}(copy(data)::StridedVector)
 
+# why is this needed?
 function Base.deepcopy_internal(x::Vec{T,N}, y::IdDict) where {T, N}
     if haskey(y, x)
         return y[x]
@@ -26,11 +30,11 @@ function Base.deepcopy_internal(x::Vec{T,N}, y::IdDict) where {T, N}
     return ret
 end
 
-Base.size(A::Vec) = Base.size(A.data)
+Base.size(A::Vec{T,N}) = (N,)
 Base.axes(A::Vec) = Base.axes(A.data)
 Base.IndexStyle(::Type{Vec{T,N}}) where {T, N} = IndexLinear()
 
-Base.strides(A::Vec{T,N}) where {T, N} = (1)
+Base.strides(A::Vec{T,N}) where {T, N} = (1,)
 function Base.copy(A::Vec{T,N}) where {T, N}
     return Vec{T, N}(copy(A.data))
 end
@@ -46,5 +50,4 @@ end
 @inline function Base.setindex!(A::Vec, x, I::Int)
     @boundscheck checkbounds(A.data, I)
     A.data[I] = x
-    return A
 end

@@ -1,8 +1,11 @@
-# using StaticArrays
+using StaticArrays
+using FixedPointNumbers
+using ColorTypes
 
 include("typestructs.jl")
 include("Vec.jl")
-const dtypes = Union{UInt8, Int8, UInt16, Int16, Int32, Float32, Float64}
+const rawtypes = Union{UInt8, N0f8, Int8, UInt16, N0f16, Int16, Int32, Float32, Float64}
+const dtypes = Union{dtypes, SVector{N, <:rawtypes} where N}
 size_t = UInt64
 
 using CxxWrap
@@ -18,25 +21,16 @@ const Scalar = Union{Tuple{}, Tuple{Number}, Tuple{Number, Number}, Tuple{Number
 
 include("Mat.jl")
 
-const InputArray = Union{AbstractArray{T, 3} where {T <: dtypes}, CxxMat}
+const InputArray = Union{AbstractArray{<:dtypes}, CxxMat}
 
 include("mat_conversion.jl")
 include("types_conversion.jl")
 
-function cpp_to_julia(var)
-    return var
-end
-function julia_to_cpp(var)
-    return var
-end
+# Fallbacks
+cpp_to_julia(var) = var
+julia_to_cpp(var) = var
 
-function cpp_to_julia(var::Tuple)
-    ret_arr = Array{Any, 1}()
-    for it in var
-        push!(ret_arr, cpp_to_julia(it))
-    end
-    return tuple(ret_arr...)
-end
+cpp_to_julia(var::Tuple) = map(cpp_to_julia, var)
 
 include("cv_cxx_wrap.jl")
 
