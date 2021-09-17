@@ -35,57 +35,50 @@ function cpp_to_julia(mat::CxxMat)
     else
         error("Bad type returned from OpenCV")
     end
-    steps = [rets[6]/sizeof(dtype), rets[7]/sizeof(dtype)]
+    if rets[3] != 1
+        dtype = SVector{rets[3], dtype}
+    end
+    # steps = [rets[6]/sizeof(dtype), rets[7]/sizeof(dtype)]
     # println(steps[1]/rets[3], steps[2]/rets[3]/rets[4])
     #TODO: Implement views when steps do not result in continous memory
-    arr = Base.unsafe_wrap(Array{dtype, 3}, Ptr{dtype}(rets[1].cpp_object), (rets[3], rets[4], rets[5]))
+    # Does this ever happen? At
+    #    https://docs.opencv.org/4.5.3/d3/d63/classcv_1_1Mat.html#details
+    # Mat is described as "dense". However, the CxxMat constructor obviously takes
+    # strides, so...?
+    arr = Base.unsafe_wrap(Matrix{dtype}, Ptr{dtype}(rets[1].cpp_object), (rets[4], rets[5]))
 
     #Preserve Mat so that array allocated by C++ isn't deallocated
     return Mat{dtype}(mat, arr)
 end
 
-function julia_to_cpp(img::InputArray)
-    if typeof(img) <: CxxMat
-        return img
-    end
-    steps = 0
-    try
-        steps = strides(img)
-    catch
-        # Copy array since array is not strided
+julia_to_cpp(img::CxxMat) = img
+function julia_to_cpp(img::StridedArray)
+    ok, msg = validate(img)
+    if !ok
         img = img[:, :, :]
-        steps = strides(img)
+        ok, msg = validate(img)
+        ok || error(msg)
     end
 
-    if steps[1] <= steps[2] <= steps[3] && steps[1]==1
-        steps_a = Array{size_t, 1}()
-        ndims_a = Array{Int32, 1}()
-        sz = sizeof(eltype(img))
-        push!(steps_a, UInt64(steps[3]*sz))
-        push!(steps_a, UInt64(steps[2]*sz))
-        push!(steps_a, UInt64(steps[1]*sz))
+    etype = eltype(eltype(img))
+    sz = sizeof(etype)
+    steps_a = size_t[step*sz for step in reverse(strides(img))]
+    ndims_a = Cint[sz for sz in reverse(size(img))]
 
-        push!(ndims_a, Int32(size(img)[3]))
-        push!(ndims_a, Int32(size(img)[2]))
-        if eltype(img) == UInt8
-            return CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
-        elseif eltype(img) == UInt16
-            return CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16U, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
-        elseif eltype(img) == Int8
-            return CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_8S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
-        elseif eltype(img) == Int16
-            return CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_16S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
-        elseif eltype(img) == Int32
-            return CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32S, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
-        elseif eltype(img) == Float32
-            return CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_32F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
-        elseif eltype(img) == Float64
-            return CxxMat(2, pointer(ndims_a), CV_MAKE_TYPE(CV_64F, size(img)[1]), Ptr{Nothing}(pointer(img)), pointer(steps_a))
-        end
+    cvtype = etype === UInt8 ? CV_8U :
+             etype === UInt16 ? CV_16U :
+             etype === Int8 ? CV_8S :
+             etype === Int16 ? CV_16S :
+             etype === Int32 ? CV_32S :
+             etype === Float32 ? CV_32F :
+             etype === Float64 ? CV_64F : error("unexpected eltype $(eltype(img))")
+    if eltype(img) <: SVector
+        cvtype = CV_MAKE_TYPE(cvtype, length(eltype(img)))
     else
-        # Copy array, invalid config
-        return julia_to_cpp(img[:, :, :])
+        cvtype = CV_MAKE_TYPE(cvtype, 1)
     end
+
+    return CxxMat(2, pointer(ndims_a), cvtype, Ptr{Nothing}(pointer(img)), pointer(steps_a))
 end
 
 function julia_to_cpp(var::Array{T, 1}) where {T <: InputArray}
