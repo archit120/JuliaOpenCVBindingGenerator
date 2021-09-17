@@ -1,5 +1,9 @@
 # JuliaOpenCVBindingGenerator
 
+This repository has been archived. All work done here has been integrated into https://github.com/opencv/opencv_contrib/tree/master/modules/julia and https://github.com/archit120/OpenCV.jl instead.
+
+---
+
 This WIP repo has the code for an OpenCV module that automatically generates binding information. 
 
 The package folder contains a dummy Julia package. 
